@@ -9,3 +9,7 @@ SIMAS(Sistem Informasi Manajemen Sekolah) - Project Pembuatan SI Manajemen Sekol
 * Evaluasi
 * Pengajuan Proposal
 * Dashboard Manajemen Mutu Sekolah 
+
+>FRAMEWORK :
+* Codeigniter
+* Bootstrap
