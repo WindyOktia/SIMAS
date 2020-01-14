@@ -1,0 +1,53 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+body {
+	background: #001242;
+}
+
+.login-page {
+	width: 400px;
+	background: #fff;
+	padding: 50px;
+	margin-top: 10%;
+	border-radius: 0.25rem;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.register-form {
+	display: none;
+}
+
+.form-control {
+	padding: .75rem .75rem;
+	background: #f2f2f2;
+}
+
+.btn {
+	width: 100%;
+	padding: .75rem .75rem;
+	background: #083D77;
+	border: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(206, 212, 218);
+	border-image: initial;
+	border-radius: 0.25rem;
+}
+
+.btn-primary:hover {
+	background-color: #001242;
+	border-color: rgb(206, 212, 218);
+}
+
+p {
+	margin-bottom: 0rem;
+}
+
+a {
+	color: #001242;
+}
+
+a:hover {
+	color: #001242;
+	text-decoration: none;
+}

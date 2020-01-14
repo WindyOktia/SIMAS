@@ -1,0 +1,60 @@
+.h2, h2 {
+  color: #0F1A20;
+  font-size: 2rem;
+}
+
+.table td, .table th {
+  padding: .7rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table td, .table th {
+  padding: .7rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table td, .table th {
+  padding: .7rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.fa.fa-calendar-o.mr-2.cal {
+  color: blue;
+}
+
+.fa.fa-circle-o.mr-2 {
+  color: blue;
+}
+
+.no1 {
+  width: 5%;
+}
+
+.nipd {
+  width: 10%;
+}
+
+.aksi {
+  width: 15%;
+}
+
+.nmibu {
+  width: 20%;
+}
+
+.rombel {
+  width: 40%;
+}
+
+.daftr {
+  width: 380px;
+}
+
