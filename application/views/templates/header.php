@@ -51,14 +51,14 @@
 	<!-- Main navbar -->
 	<div class="navbar navbar-expand-md navbar-dark">
 		<div class="navbar-brand">
-			<a href="#" class="d-inline-block">
-                <img src="<?= base_url('assets/images/logo_light.png')?>" alt="">
+			<a href="#" class="d-inline-block text-white">
+				<i class="fa fa-leaf mr-3 mr-md-auto"></i> BOSA School Management
 			</a>
 		</div>
 
 		<div class="d-md-none">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
-				<i class="icon-tree5"></i>
+				<i class="fa fa-code-fork"></i>
 			</button>
 			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
 				<i class="	fa fa-navicon"></i>
@@ -128,41 +128,40 @@
 						<!-- Main -->
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item">
-							<a href="<?= base_url('admin')?>" class="nav-link <?php if($page=='addFile'){echo 'active';};?>">
+							<a href="<?= base_url('admin')?>" class="nav-link <?php if($page=='dashboard'){echo 'active';};?>">
 								<i class="fa fa-plus-circle"></i>
 								<span>Dashboard</span>
 							</a>
 						</li>
-						<!-- <li class="nav-item">
-							<a href="<?= base_url('admin')?>/list" class="nav-link <?php if($page=='manage'){echo 'active';};?>">
-								<i class="fa fa-puzzle-piece"></i>
-								<span>Content Management</span>
+						<li class="nav-item">
+							<a href="<?= base_url('admin/kelas')?>" class="nav-link <?php if($page=='kelas'){echo 'active';};?>">
+								<i class="fa fa-plus-circle"></i>
+								<span>Kelas</span>
 							</a>
-						</li> -->
+						</li>
 
-						<li class="nav-item nav-item-submenu <?php if($page=='admin'||$page=='config'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='admin'||$page=='config'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Siswa</span></a>
+						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Siswa</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='admin'){echo 'active';};?>">Tambah Siswa</a></li>
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='config'){echo 'active';};?>">Daftar Siswa</a></li>
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='config'){echo 'active';};?>">User</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/addSiswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Siswa</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu <?php if($page=='admin'||$page=='config'){echo 'nav-item-expanded nav-item-open';};?>">
+						<li class="nav-item nav-item-submenu <?php if($page=='addGuru'||$page=='daftarGuru'||$page=='jadwalGuru'){echo 'nav-item-expanded nav-item-open';};?>">
 							<a href="#" class="nav-link <?php if($page=='admin'||$page=='config'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Guru</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='admin'){echo 'active';};?>">Tambah Guru</a></li>
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='config'){echo 'active';};?>">Daftar Guru</a></li>
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='config'){echo 'active';};?>">Jadwal Mengajar</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/addGuru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/jadwalGuru')?>" class="nav-link <?php if($page=='jadwalGuru'){echo 'active';};?>">Jadwal Mengajar</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu <?php if($page=='admin'||$page=='config'){echo 'nav-item-expanded nav-item-open';};?>">
 							<a href="#" class="nav-link <?php if($page=='admin'||$page=='config'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Presensi</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='admin'){echo 'active';};?>">Umum</a></li>
+								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='admin'){echo 'active';};?>">Guru</a></li>
 							</ul>
 						</li>
 
@@ -181,7 +180,7 @@
 		<div class="content-wrapper mt-2">
 
 			<!-- Page header -->
-			<div class="page-header page-header-light mt-2">
+			<!-- <div class="page-header page-header-light mt-2">
 
 				<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 					<div class="d-flex">
@@ -196,7 +195,7 @@
 
 				
 				</div>
-			</div>
+			</div> -->
 			<!-- /page header -->
 
 

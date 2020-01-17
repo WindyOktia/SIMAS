@@ -29,13 +29,12 @@ var DatatableAdvanced = function () {
 			autoWidth: false,
 			columnDefs: [{
 				orderable: false,
-				width: 100,
-				targets: [4]
+				width: 100
 			}],
 			dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
 			language: {
 				search: '<span>Filter:</span> _INPUT_',
-				searchPlaceholder: 'Type to filter...',
+				searchPlaceholder: 'Pencarian...',
 				lengthMenu: '<span>Show:</span> _MENU_',
 				paginate: {
 					'first': 'First',

@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Admin - Decisoner</title>
+	<title>Welcome To BOSA School Mangement System</title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -22,13 +22,12 @@
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-
-
 	<script src="<?= base_url('assets/js/jquery.min.js')?>"></script>
 	<script src="<?= base_url('assets/js/bootstrap.bundle.min.js')?>"></script>
 	<script src="<?= base_url('assets/js/blockui.min.js')?>"></script>
 	<script src="<?= base_url('assets/js/datatables_advanced.js')?>"></script>
 	<script src="<?= base_url('assets/js/datatables.min.js')?>"></script>
+
 
 	<!-- <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script> -->
 	
@@ -52,42 +51,49 @@
 	<!-- Main navbar -->
 	<div class="navbar navbar-expand-md navbar-dark">
 		<div class="navbar-brand">
-			<a href="#" class="d-inline-block">
-                <img src="<?= base_url('assets/images/logo_light.png')?>" alt="">
+			<a href="#" class="d-inline-block text-white">
+                <i class="fa fa-leaf mr-3 mr-md-auto"></i> BOSA School Management
 			</a>
 		</div>
 
 		<div class="d-md-none">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
-				<i class="icon-tree5"></i>
+				<i class="fa fa-code-fork"></i>
 			</button>
-			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
-				<i class="	fa fa-navicon"></i>
-			</button>
+			
 		</div>
 
 		<div class="collapse navbar-collapse" id="navbar-mobile">
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
-						<i class="fa fa-navicon"></i>
+						<!-- <i class="fa fa-navicon"></i> -->
 					</a>
 				</li>
 			</ul>
 
-			<span class="badge bg-success ml-md-3 mr-md-auto">Admin Panel</span>
+			<span class=" mr-md-auto"></span>
 
 			<ul class="navbar-nav">
-				
-
+			
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<span>System <i class="ml-2 fa fa-angle-down"></i></span>
+						<span>e-survei</span>
+					</a>
+				</li>
+				<li class="nav-item dropdown dropdown-user">
+					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+						<span>Login <i class="ml-2 fa fa-angle-down"></i></span>
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="<?= base_url()?>" target="_blank" class="dropdown-item"><i class="fa fa-grav"></i> Your Page</a>
-						<a href="<?= base_url()?>" class="dropdown-item"><i class="fa fa-external-link"></i> Logout</a>
+						<div class="container">
+							<form action="" method="post">
+								<input type="text" class="form-control mb-1" placeholder="username">
+								<input type="password" class="form-control mb-1" placeholder="password">
+								<button type="submit" class="btn btn-sm btn-primary btn-block">Submit</button>
+							</form>
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -100,83 +106,13 @@
 	<div class="page-content">
 
 		<!-- Main sidebar -->
-		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
-
-			<!-- Sidebar mobile toggler -->
-			<div class="sidebar-mobile-toggler text-center">
-				<a href="#" class="sidebar-mobile-main-toggle">
-					<i class="icon-arrow-left8"></i>
-				</a>
-				Navigation
-				<a href="#" class="sidebar-mobile-expand">
-					<i class="icon-screen-full"></i>
-					<i class="icon-screen-normal"></i>
-				</a>
-			</div>
-			<!-- /sidebar mobile toggler -->
-
-
-			<!-- Sidebar content -->
-			<div class="sidebar-content">
-				<!-- Main navigation -->
-				<div class="card card-sidebar-mobile">
-					<ul class="nav nav-sidebar" data-nav-type="accordion">
-
-						<!-- Main -->
-						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu" title="Main"></i></li>
-						<li class="nav-item">
-							<a href="<?= base_url('responden')?>" class="nav-link <?php if($page=='grupA'){echo 'active';};?>">
-								<i class="fa fa-users"></i>
-								<span>Grup A - Tanpa Referensi</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?= base_url('responden/b')?>" class="nav-link <?php if($page=='grupB'){echo 'active';};?>">
-								<i class="fa fa-users"></i>
-								<span>Grup B - Dengan Referensi</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?= base_url('responden/c')?>" class="nav-link <?php if($page=='grupC'){echo 'active';};?>">
-								<i class="fa fa-users"></i>
-								<span>Grup C - Saham</span>
-							</a>
-						</li>
-
-						
-
-					</ul>
-				</div>
-				<!-- /main navigation -->
-
-			</div>
-			<!-- /sidebar content -->
-			
-		</div>
+	
 		<!-- /main sidebar -->
 
 
 		<!-- Main content -->
 		<div class="content-wrapper mt-2">
 
-			<!-- Page header -->
-			<div class="page-header page-header-light mt-2">
-
-				<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-					<div class="d-flex">
-						<div class="breadcrumb">
-							<a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Admin</a>
-							<a href="#" class="breadcrumb-item">Content Management</a>
-							<span class="breadcrumb-item active">Add File</span>
-						</div>
-
-						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-					</div>
-
-				
-				</div>
-			</div>
-			<!-- /page header -->
 
 
 			<!-- Content area -->

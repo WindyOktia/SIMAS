@@ -4314,7 +4314,7 @@ input[type=submit].btn-block {
 	padding-top: 1.00002rem;
 	padding-bottom: 1.00002rem;
 	margin-right: 1.25rem;
-	font-size: 0;
+	/* font-size: 0; */
 	line-height: inherit;
 	white-space: nowrap
 }
