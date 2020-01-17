@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Admin - Decisoner</title>
+	<title>Admin - SIMAS</title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -144,7 +144,7 @@
 							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Siswa</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/addSiswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Siswa</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Siswa</a></li>
 								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li>
 							</ul>
 						</li>
@@ -152,9 +152,9 @@
 							<a href="#" class="nav-link <?php if($page=='admin'||$page=='config'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Guru</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/addGuru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/guru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
 								<li class="nav-item"><a href="<?= base_url('admin/jadwalGuru')?>" class="nav-link <?php if($page=='jadwalGuru'){echo 'active';};?>">Jadwal Mengajar</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu <?php if($page=='admin'||$page=='config'){echo 'nav-item-expanded nav-item-open';};?>">
@@ -163,6 +163,13 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='admin'){echo 'active';};?>">Guru</a></li>
 							</ul>
+						</li>
+						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Lainnya</div> <i class="icon-menu" title="Main"></i></li>
+						<li class="nav-item">
+							<a href="#" class="nav-link <?php if($page==''){echo 'active';};?>">
+								<i class="fa fa-plus-circle"></i>
+								<span>Informasi</span>
+							</a>
 						</li>
 
 					</ul>

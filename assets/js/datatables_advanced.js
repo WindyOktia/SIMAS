@@ -93,19 +93,7 @@ var DatatableAdvanced = function () {
 	};
 
 	// Select2 for length menu styling
-	var _componentSelect2 = function () {
-		if (!$().select2) {
-			console.warn('Warning - select2.min.js is not loaded.');
-			return;
-		}
 
-		// Initialize
-		$('.dataTables_length select').select2({
-			minimumResultsForSearch: Infinity,
-			dropdownAutoWidth: true,
-			width: 'auto'
-		});
-	};
 
 
 	//
@@ -115,7 +103,6 @@ var DatatableAdvanced = function () {
 	return {
 		init: function () {
 			_componentDatatableAdvanced();
-			_componentSelect2();
 		}
 	}
 }();

@@ -14921,7 +14921,7 @@ a.fc-more:hover {
 }
 
 .dataTable thead .sorting:after {
-	background: url('/Content/images/sort_both.png') no-repeat center right;
+	/* background: url('/Content/images/sort_both.png') no-repeat center right; */
 	content: none;
 	margin-top: -.625rem;
 	opacity: .5

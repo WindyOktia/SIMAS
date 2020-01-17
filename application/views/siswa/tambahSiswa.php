@@ -16,7 +16,7 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">NIPD</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="NIPD" name="judul" required autofocus>
+                                <input type="number" class="form-control" placeholder="NIPD" name="judul" required autofocus>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -61,6 +61,7 @@
             <div class="card">
                 <div class="card-body">
                     <legend>TAMBAH DATA SISWA</legend>
+                    <h3><i>Coming Soon</i></h3>
                 </div>
             </div>
         </div>

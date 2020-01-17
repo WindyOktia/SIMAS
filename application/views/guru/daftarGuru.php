@@ -1,4 +1,4 @@
-<a href="" class="btn btn-primary btn-sm">Tambah Data Guru</a>
+<a href="<?= base_url('admin/guru')?>" class="btn btn-primary btn-sm">Tambah Data Guru</a>
 
 <div class="card mt-3">
     <div class="card-body"> 
@@ -9,8 +9,7 @@
 				<th>No</th>
 				<th>Nama Guru</th>
 				<th>NIP</th>
-				<!-- <th>Status</th> -->
-				<th>Actions</th>
+				<th style="width:30%">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,10 +17,10 @@
 				<td>1</td>
 				<td><b>Joko</b></td>
 				<td>1111</td>
-				<!-- <td><span class="badge badge-danger">Libur</span></td> -->
 				<td>
-					<a href="<?= base_url('admin/detail')?>"class="btn btn-info btn-sm">Edit</a>
-					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm">Hapus</a>
+					<a href="<?= base_url('admin/jadwalMengajar')?>"class="btn btn-success btn-sm mb-1">Jadwal Mengajar</a>
+					<a href="<?= base_url('admin/detail')?>"class="btn btn-info btn-sm mb-1">Edit</a>
+					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm mb-1">Hapus</a>
 				</td>
 			</tr>
 			
@@ -29,10 +28,10 @@
 				<td>2</td>
 				<td><b>Janu</b></td>
 				<td>666</td>
-				<!-- <td>XI IPA 2 </td> -->
 				<td>
-					<a href="<?= base_url('admin/detail')?>"class="btn btn-info btn-sm">Edit</a>
-					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm">Hapus</a>
+					<a href="<?= base_url('admin/jadwalMengajar')?>"class="btn btn-success btn-sm mb-1">Jadwal Mengajar</a>
+					<a href="<?= base_url('admin/detail')?>"class="btn btn-info btn-sm mb-1">Edit</a>
+					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm mb-1">Hapus</a>
 				</td>
 			</tr>
 		</tbody>

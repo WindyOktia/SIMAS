@@ -20,6 +20,7 @@
 				<td>1111</td>
 				<td>XI IPS 1</td>
 				<td>
+					<a href="<?= base_url('admin/detailSiswa')?>"class="btn btn-info btn-sm">Detail</a>
 					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm">Hapus</a>
 				</td>
 			</tr>
@@ -30,6 +31,7 @@
 				<td>666</td>
 				<td>XI IPA 2 </td>
 				<td>
+					<a href="<?= base_url('admin/detailSiswa')?>"class="btn btn-info btn-sm">Detail</a>
 					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm">Hapus</a>
 				</td>
 			</tr>
