@@ -50,7 +50,7 @@
 				<td><b><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></b></td>
 				<td>24</td>
 				<td>
-                    <a href="<?= base_url('admin/daftarPeserta')?>"class="btn btn-primary btn-sm">Daftar Peserta</a>
+                    <a href="<?= base_url('admin/daftarPeserta')?>/<?= $kelas['id_kelas']?>" class="btn btn-primary btn-sm">Daftar Peserta</a>
                 </td>
 				<td>
 					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>

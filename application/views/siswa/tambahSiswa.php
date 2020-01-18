@@ -11,36 +11,40 @@
                     <legend>
                         TAMBAH DATA SISWA
                     </legend>
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url('admin/addSiswa')?>" method="post" enctype="multipart/form-data">
                     <fieldset class="mb-3">
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">NIPD</label>
                             <div class="col-lg-10">
-                                <input type="number" class="form-control" placeholder="NIPD" name="judul" required autofocus>
+                                <input type="number" class="form-control" placeholder="NIPD" name="nipd" required autofocus>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Nama Siswa</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Nama Siswa" name="judul" required >
+                                <input type="text" class="form-control" placeholder="Nama Siswa" name="nama" required >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Kelas</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Kelas" name="judul" required >
+                                <select class="form-control" id="exampleFormControlSelect1" name="id_kelas" >
+                                <?php foreach($kelas as $kelas):?>
+                                    <option value="<?=$kelas['id_kelas']?>"><?=$kelas['kelas']?> <?=$kelas['jurusan']?> <?=$kelas['sub']?></option>
+                                <?php endforeach;?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Nama Ibu</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Nama Ibu" name="judul" required >
+                                <input type="text" class="form-control" placeholder="Nama Ibu" name="ibu" required >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Alamat</label>
                             <div class="col-lg-10">
-                                <textarea type="text" class="form-control" rows="4" placeholder="Alamat Lengkap" name="judul" required ></textarea>
+                                <textarea type="text" class="form-control" rows="4" placeholder="Alamat Lengkap" name="alamat" required ></textarea>
                             </div>
                         </div>
                         

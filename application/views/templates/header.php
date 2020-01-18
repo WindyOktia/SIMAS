@@ -27,6 +27,7 @@
 	<script src="<?= base_url('assets/js/blockui.min.js')?>"></script>
 	<script src="<?= base_url('assets/js/datatables_advanced.js')?>"></script>
 	<script src="<?= base_url('assets/js/datatables.min.js')?>"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 
 
 	<!-- <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script> -->
@@ -153,15 +154,14 @@
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 								<li class="nav-item"><a href="<?= base_url('admin/guru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/jadwalGuru')?>" class="nav-link <?php if($page=='jadwalGuru'){echo 'active';};?>">Jadwal Mengajar</a></li>
 								<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
 							</ul>
 						</li>
-						<li class="nav-item nav-item-submenu <?php if($page=='admin'||$page=='config'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='admin'||$page=='config'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Presensi</span></a>
+						<li class="nav-item nav-item-submenu <?php if($page=='presensi'||$page=='presensi'){echo 'nav-item-expanded nav-item-open';};?>">
+							<a href="#" class="nav-link <?php if($page=='presensi'||$page=='presensi'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Presensi</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="#" class="nav-link <?php if($page=='admin'){echo 'active';};?>">Guru</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarPresensi')?>" class="nav-link <?php if($page=='presensi'){echo 'active';};?>">Guru</a></li>
 							</ul>
 						</li>
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Lainnya</div> <i class="icon-menu" title="Main"></i></li>

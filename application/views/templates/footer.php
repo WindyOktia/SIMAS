@@ -1,13 +1,7 @@
 </div>
-			
-			<!-- /content area -->
-
 		</div>
-		<!-- /main content -->
-
 	</div>
-	<!-- /page content -->
-	
+
 	<script src="<?= base_url('assets/js/script.js')?>"></script>
 	<script src="<?= base_url();?>assets/js/sweetalert2.all.min.js"></script>
 	<script src="<?= base_url();?>assets/js/sweetalertcontrol.js"></script>
@@ -40,6 +34,71 @@
 		<?php }else if($this->session->flashdata('info')){  ?>
 			toastr.info("<?php echo $this->session->flashdata('info'); ?>");
 		<?php } ?>
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var max_fields = 50; //maximum input boxes allowed
+			var wrapper = $(".input_fields_wrap"); //Fields wrapper
+			var add_button = $(".add_field_button"); //Add button ID
+			var tbhJadwal = $(".tbhJadwal"); //Add button ID
+			var selectKelas = document.getElementById('selectKelasA').innerHTML;
+
+			var x = 1; //initlal text box count
+			$(add_button).click(function (e) { //on add input button click
+				e.preventDefault();
+				if (x < max_fields) { //max input box allowed
+					x++; //text box increment
+					$(wrapper).append('<div class="row mt-1"><div class="col-10"><input type="text" name="mytext[]" class="form-control"/></div><a href="#" class="remove_field col-2 mx-auto my-auto float-right"><i class="fa fa-close text-danger" style="font-size:24px"></i></a></div>'); //add input box
+				}
+			});
+			$(tbhJadwal).click(function (e) { //on add input button click
+				e.preventDefault();
+				if (x < max_fields) { //max input box allowed
+					x++; //text box increment
+					$(wrapper).append(`
+					<div class="row">
+							<div class="form-group col-md">
+								<select class="form-control" name="hari[]">
+									<option value="Senin">Senin</option>
+									<option value="Selasa">Selasa</option>
+									<option value="Rabu">Rabu</option>
+									<option value="Kamis">Kamis</option>
+									<option value="Jumat">Jumat</option>
+									<option value="Sabtu">Sabtu</option>
+									<option value="Minggu">Minggu</option>
+								</select>
+							</div> 
+							<div class="form-group col-md">
+								<select id="selectKelasB" class="form-control" name="kelas[]">
+									<?php foreach($kelas as $kelas):?>
+										<option value="<?= $kelas['id_kelas']?>"><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></option>
+									<?php endforeach;?>
+								</select>
+							</div> 
+							<div class="form-group col-md">
+								<input type="time" class="form-control" placeholder="Jam Mulai" name="mulai[]" required>
+							</div> 
+							<div class="form-group col-md">
+								<input type="time" class="form-control" placeholder="Jam Selesai" name="selesai[]" required>
+							</div> 
+							<a href="" class="form-group col-md remove_field"><button class=" btn btn-danger form-control">Remove</button></a>
+						</div>`); //add input box
+				}
+			});
+
+			$(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+				e.preventDefault();
+				$(this).parent('div').remove();
+				x--;
+			})
+
+			var table = $('#example').DataTable({
+				responsive: true
+			});
+
+		});
+
 	</script>
 </body>
 
