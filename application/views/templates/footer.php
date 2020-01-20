@@ -3,6 +3,7 @@
 	</div>
 
 	<script src="<?= base_url('assets/js/script.js')?>"></script>
+	<script src="<?= base_url('assets/js/custom.js')?>"></script>
 	<script src="<?= base_url();?>assets/js/sweetalert2.all.min.js"></script>
 	<script src="<?= base_url();?>assets/js/sweetalertcontrol.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -38,11 +39,11 @@
 
 	<script type="text/javascript">
 		$(document).ready(function () {
+
 			var max_fields = 50; //maximum input boxes allowed
 			var wrapper = $(".input_fields_wrap"); //Fields wrapper
 			var add_button = $(".add_field_button"); //Add button ID
 			var tbhJadwal = $(".tbhJadwal"); //Add button ID
-			var selectKelas = document.getElementById('selectKelasA').innerHTML;
 
 			var x = 1; //initlal text box count
 			$(add_button).click(function (e) { //on add input button click
@@ -97,8 +98,29 @@
 				responsive: true
 			});
 
+			
+
 		});
 
+	</script>
+
+	<script type="text/javascript">
+		// $(function () {
+		// 	$('#presensi').on('submit', function (e) {
+		// 	var id= $('.rfid').val();
+		// 	e.preventDefault();
+		// 	$.ajax({
+		// 		type: 'post',
+		// 		url: '<?= base_url('presensi/harian')?>',
+		// 		data: $('#presensi').serialize(),
+		// 		success: function () {
+		// 			toastr.success("Selamat Datang "+ id);
+		// 			$("#presensi")[0].reset();
+		// 			$('.rfid').focus();
+		// 		}
+		// 	});
+		// 	});
+		// });
 	</script>
 </body>
 

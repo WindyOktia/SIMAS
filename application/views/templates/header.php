@@ -21,6 +21,9 @@
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 	<!-- /global stylesheets -->
 
+
+
+
 	<!-- Core JS files -->
 	<script src="<?= base_url('assets/js/jquery.min.js')?>"></script>
 	<script src="<?= base_url('assets/js/bootstrap.bundle.min.js')?>"></script>
@@ -34,6 +37,7 @@
 	
 
 	<!-- /core JS files -->
+
 
 	<!-- Theme JS files -->
 	<script src="<?= base_url('assets/js/purify.min.js')?>"></script>

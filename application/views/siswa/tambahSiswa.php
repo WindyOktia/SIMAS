@@ -26,9 +26,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Kelas</label>
+                            <label class="col-form-label col-lg-2 ">Kelas</label>
                             <div class="col-lg-10">
-                                <select class="form-control" id="exampleFormControlSelect1" name="id_kelas" >
+                                <select class="form-control" name="id_kelas" >
                                 <?php foreach($kelas as $kelas):?>
                                     <option value="<?=$kelas['id_kelas']?>"><?=$kelas['kelas']?> <?=$kelas['jurusan']?> <?=$kelas['sub']?></option>
                                 <?php endforeach;?>
