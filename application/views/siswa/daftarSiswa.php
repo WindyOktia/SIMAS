@@ -19,7 +19,10 @@
 				<td><?= $i++?></td>
 				<td><b><?= $dft['nama_siswa']?></b></td>
 				<td><?= $dft['nipd']?></td>
-				<td><?= $dft['kelas']?> <?= $dft['jurusan']?> <?= $dft['sub']?></td>
+				<td>
+					<?php if($dft['id_kelas']==''){echo '<div class="badge bg-danger">Tidak ada kelas</div>';}?>
+					<?= $dft['kelas']?> <?= $dft['jurusan']?> <?= $dft['sub']?>
+				</td>
 				<td>
 					<a href="<?= base_url('admin/detailSiswa')?>"class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalSiswa<?= $dft['id_siswa']?>">Detail/Ubah</a>
 					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>

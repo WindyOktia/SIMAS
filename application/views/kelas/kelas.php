@@ -53,7 +53,7 @@
                     <a href="<?= base_url('admin/daftarPeserta')?>/<?= $kelas['id_kelas']?>" class="btn btn-primary btn-sm">Daftar Peserta</a>
                 </td>
 				<td>
-					<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
+					<a href="<?= base_url('admin/deleteKelas')?>/<?= $kelas['id_kelas']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
 				</td>
 			</tr>
 			<?php endforeach;?>

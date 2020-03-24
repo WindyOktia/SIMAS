@@ -9,6 +9,12 @@ class Admin extends CI_Controller
         $this->load->model('kelas_model');
         $this->load->model('siswa_model');
         $this->load->model('guru_model');
+        $this->load->model('login_model');
+        $this->load->model('pengaturan_model');
+        if($this->login_model->is_role() != "1"){
+            $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
+            redirect('');
+        }
     }
 
 
@@ -82,6 +88,13 @@ class Admin extends CI_Controller
         redirect('admin/kelas'); 
     }
 
+    public function deleteKelas($id)
+    {
+        $this->kelas_model->deleteKelas($id);
+        $this->session->set_flashdata('error', 'Kelas dihapus');
+        redirect('admin/kelas');
+    }
+
     public function daftarPeserta($id)
     {
         $data['page']="kelas";
@@ -101,6 +114,13 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function deleteGuru($id)
+    {
+        $this->guru_model->deleteGuru($id);
+        $this->session->set_flashdata('error', 'Data Guru dihapus');
+        redirect('admin/daftarGuru');
+    }
+
     public function addGuru()
     {
         $cek = $this->guru_model->add();
@@ -112,6 +132,19 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('success', 'Guru Berhasil Ditambahkan');
         }
         redirect('admin/guru');
+    }
+
+    public function editGuru()
+    {
+        $cek = $this->guru_model->editGuru();
+        if($cek==false)
+        {
+            $this->session->set_flashdata('error', 'RFID / NIP Sudah Terdaftar');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Data Guru berhasil diubah');
+        }
+        redirect('admin/daftarGuru');
     }
 
     public function daftarGuru()
@@ -173,5 +206,48 @@ class Admin extends CI_Controller
     }
     // end of presensi
 
+    // pengguna
+    public function pengguna()
+    {
+        $data['page']='pengaturan';
+        $data['user']=$this->pengaturan_model->getPengguna();
+        $this->load->view('templates/header',$data);
+        $this->load->view('pengaturan/pengguna',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addPengguna()
+    {
+        $res=$this->pengaturan_model->addPengguna();
+        if($res==false)
+        {
+            $this->session->set_flashdata('error', 'Username telah terdaftar');
+        }else
+        {
+            $this->session->set_flashdata('success', 'User Berhasil Ditambahkan');
+        }
+        redirect('admin/pengguna');
+    }
+
+    public function deletePengguna($id)
+    {
+        $this->pengaturan_model->deletePengguna($id);
+        $this->session->set_flashdata('error', 'User Berhasil dihapus');
+        redirect('admin/pengguna');
+    }
+
+    public function editPengguna()
+    {
+        $res=$this->pengaturan_model->editPengguna();
+        if($res==false)
+        {
+            $this->session->set_flashdata('error', 'Username telah terdaftar');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Data diubah');
+        }
+        redirect('admin/pengguna');
+    }
+    // end of pengguna
 
 }

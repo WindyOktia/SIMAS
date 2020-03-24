@@ -8,28 +8,33 @@
             <div class="form-group row">
                 <label class="col-form-label col-lg-2">RFID Register</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control border-warning" placeholder="Tempelkan RFID" name="rfid" required autofocus>
+                    <input type="number" autocomplete="off" class="form-control border-warning" placeholder="Tempelkan RFID" name="rfid" required autofocus>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-form-label col-lg-2">NIP</label>
+                <label class="col-form-label col-lg-2">NIP <span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="NIP" name="nip" required autofocus>
+                    <input type="number" autocomplete="off" class="form-control" placeholder="NIP" name="nip" required autofocus>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-form-label col-lg-2">Nama Guru</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="Nama Guru" name="nama" required >
+                    <input type="text" autocomplete="off" class="form-control" placeholder="Nama Guru" name="nama" required >
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-form-label col-lg-2">Alamat</label>
                 <div class="col-lg-10">
-                    <textarea type="text" class="form-control" rows="4" placeholder="Alamat Lengkap" name="alamat" required ></textarea>
+                    <textarea type="text" autocomplete="off" class="form-control" rows="4" placeholder="Alamat Lengkap" name="alamat" required ></textarea>
                 </div>
             </div>
-            
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2">Password Baru <span class="text-danger">*</span></label>
+                <div class="col-lg-10">
+                    <input type="password" autocomplete="off" class="form-control" placeholder="Password Baru" name="pass" required >
+                </div>
+            </div>
             
             </fieldset>
 

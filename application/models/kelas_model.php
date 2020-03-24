@@ -1,6 +1,6 @@
 <?php
 
-class kelas_model extends CI_Model
+class Kelas_model extends CI_Model
 {
     public function add()
     {
@@ -23,7 +23,7 @@ class kelas_model extends CI_Model
         return $this->db->get_where('siswa',['id_kelas'=>$id])->result_array();
     }
 
-    public function delete($id)
+    public function deleteKelas($id)
     {
         $this->db->delete('kelas', ['id_kelas' => $id]);
     }

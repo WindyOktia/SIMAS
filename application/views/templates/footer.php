@@ -103,24 +103,27 @@
 		});
 
 	</script>
+	 <script>
+    var baseurl = "<?= base_url(''); ?>"; // Buat variabel baseurl untuk nanti di akses pada file config.js
+    </script>
 
 	<script type="text/javascript">
-		// $(function () {
-		// 	$('#presensi').on('submit', function (e) {
-		// 	var id= $('.rfid').val();
-		// 	e.preventDefault();
-		// 	$.ajax({
-		// 		type: 'post',
-		// 		url: '<?= base_url('presensi/harian')?>',
-		// 		data: $('#presensi').serialize(),
-		// 		success: function () {
-		// 			toastr.success("Selamat Datang "+ id);
-		// 			$("#presensi")[0].reset();
-		// 			$('.rfid').focus();
-		// 		}
-		// 	});
-		// 	});
-		// });
+		$(function () {
+			$('#presensi').on('submit', function (e) {
+			var id= $('.rfid').val();
+			e.preventDefault();
+			$.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/harian')?>',
+				data: $('#presensi').serialize(),
+				success: function () {
+					toastr.success("Selamat Datang "+ id);
+					$("#presensi")[0].reset();
+					$('.rfid').focus();
+				}
+			});
+			});
+		});
 	</script>
 </body>
 

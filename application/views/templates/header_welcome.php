@@ -88,10 +88,10 @@
 
 					<div class="dropdown-menu dropdown-menu-right">
 						<div class="container">
-							<form action="" method="post">
-								<input type="text" class="form-control mb-1" placeholder="username">
-								<input type="password" class="form-control mb-1" placeholder="password">
-								<button type="submit" class="btn btn-sm btn-primary btn-block">Submit</button>
+							<form action="<?= base_url('login/do_login')?>" method="post">
+								<input type="text" name="user" class="form-control mb-1" autocomplete='off' placeholder="username">
+								<input type="password" name="pass" class="form-control mb-1" autocomplete='off' placeholder="password">
+								<button type="submit" class="btn btn-sm btn-primary btn-block">Login</button>
 							</form>
 						</div>
 					</div>

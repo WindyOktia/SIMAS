@@ -21,7 +21,7 @@
 					<td>
 						<a href="<?= base_url('admin/jadwalMengajar')?>/<?=$guru['id_guru']?>"class="btn btn-success btn-sm mb-1">Jadwal Mengajar</a>
 						<a href="<?= base_url('admin/detail')?>" class="btn btn-info btn-sm mb-1" data-toggle="modal" data-target="#modalGuru<?= $guru['id_guru']?>">Edit</a>
-						<a href="<?= base_url('admin/detail')?>"class="btn btn-danger btn-sm mb-1 tombol-hapus">Hapus</a>
+						<a href="<?= base_url('admin/deleteGuru')?>/<?=$guru['nip']?>"class="btn btn-danger btn-sm mb-1 tombol-hapus">Hapus</a>
 					</td>
 				</tr>
 				<?php endforeach;?>
@@ -41,23 +41,32 @@
         </button>
       </div>
       <div class="modal-body">
-	  <p class="text-warning">Note : RFID yang sudah terdaftar tidak dapat diubah atau digunakan ulang, kecuali data Guru dihapus</p>
-        <form action="" method="post">
+	  <p class=""><b class="text-danger">Note</b></p>
+	  <ul>
+	  	<li>Kosongkan kolom apabila tidak ada perubahan	</li>
+	  </ul>
+        <form action="<?= base_url('admin/editGuru')?>" method="post">
+		<input type="hidden" name="id" value="<?= $gr['id_guru']?>">
+		<input type="hidden" name="nip_lama" value="<?= $gr['nip']?>">
 			<div class="form-group">
 				<label for="">RFID</label>
-				<input type="text" class="form-control" value="<?= $gr['rfid']?>" readonly>
+				<input type="text" name="rfid" class="form-control border-warning" value="" placeholder="rfid saat ini : <?= $gr['rfid']?> - Isi hanya apabila ada perubahan" >
 			</div>
 			<div class="form-group">
 				<label for="">NIP</label>
-				<input type="text" class="form-control" value="<?= $gr['nip']?>">
+				<input type="text" name="nip" class="form-control" value="" placeholder="NIP saat ini : <?= $gr['nip']?>">
 			</div>
 			<div class="form-group">
 				<label for="">Nama Guru</label>
-				<input type="text" class="form-control" value="<?= $gr['nama_guru']?>">
+				<input type="text" name="nama" class="form-control" value="<?= $gr['nama_guru']?>">
 			</div>
 			<div class="form-group">
 				<label for="">Alamat</label>
-				<textarea rows="4" type="text" class="form-control"><?= $gr['alamat']?></textarea>
+				<textarea rows="4" name="alamat" type="text" class="form-control"><?= $gr['alamat']?></textarea>
+			</div>
+			<div class="form-group">
+				<label for="">Password</label>
+				<input type="password" name="pass" class="form-control" value="" placeholder="Kosongkan apabila tidak ada perubahan">
 			</div>
       </div>
       <div class="modal-footer">

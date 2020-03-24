@@ -1,6 +1,6 @@
 <?php
 
-class presensi_model extends CI_Model
+class Presensi_model extends CI_Model
 {
     public function add()
     {

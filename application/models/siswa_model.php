@@ -1,6 +1,6 @@
 <?php
 
-class siswa_model extends CI_Model
+class Siswa_model extends CI_Model
 {
     public function add()
     {
@@ -25,7 +25,7 @@ class siswa_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('siswa');
-        $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas');
+        $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas','left');
         return $this->db->get()->result_array();
     }
 

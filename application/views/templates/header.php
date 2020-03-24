@@ -79,7 +79,7 @@
 				</li>
 			</ul>
 
-			<span class="badge bg-success ml-md-3 mr-md-auto">Admin Panel</span>
+			<span class="badge bg-success ml-md-3 mr-md-auto">Admin Panel | <?=$this->session->userdata('nama')?></span>
 
 			<ul class="navbar-nav">
 			
@@ -95,7 +95,7 @@
 
 					<div class="dropdown-menu dropdown-menu-right">
 						<a href="<?= base_url()?>" target="_blank" class="dropdown-item"><i class="fa fa-grav"></i> Your Page</a>
-						<a href="<?= base_url()?>" class="dropdown-item"><i class="fa fa-external-link"></i> Logout</a>
+						<a href="<?= base_url('login/logout')?>/<?=$this->session->userdata('username')?>" class="dropdown-item"><i class="fa fa-external-link"></i> Logout</a>
 					</div>
 				</li>
 			</ul>
@@ -174,6 +174,14 @@
 								<i class="fa fa-plus-circle"></i>
 								<span>Informasi</span>
 							</a>
+						</li>
+						<li class="nav-item nav-item-submenu <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'nav-item-expanded nav-item-open';};?>">
+							<a href="#" class="nav-link <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Pengaturan</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?= base_url('admin/pengguna')?>" class="nav-link <?php if($page=='pengaturan'){echo 'active';};?>">Pengguna</a></li>
+								<!-- <li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li> -->
+							</ul>
 						</li>
 
 					</ul>
