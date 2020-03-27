@@ -17,7 +17,7 @@
 		"positionClass": "toast-bottom-right",
 		"preventDuplicates": false,
 		"onclick": null,
-		"showDuration": "300",
+		"showDuration": "100",
 		"hideDuration": "1000",
 		"timeOut": "5000",
 		"extendedTimeOut": "1000",
@@ -117,13 +117,35 @@
 				url: '<?= base_url('presensi/harian')?>',
 				data: $('#presensi').serialize(),
 				success: function () {
-					toastr.success("Selamat Datang "+ id);
+					// toastr.success("Selamat Datang "+ id);
 					$("#presensi")[0].reset();
 					$('.rfid').focus();
+					getNama(id);
 				}
 			});
 			});
 		});
+
+		function getNama(id){
+			var ids= id;
+			$.ajax({
+            url: '<?= base_url('presensi/nama_pegawai/')?>'+ids
+            }).done(function(res) {
+				var obs = JSON.parse(res);
+				if(obs==''){
+					toastr.error("Kartu tidak terdaftar");
+				};
+				console.log(obs[0].nama_guru);
+				var nama=obs[0].nama_guru;
+				var dt = new Date();
+				var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                toastr.success("<h4>Selamat Datang "+ nama +"</h4>Jam : "+ time);
+            });
+		}
+
+		function setAct(){
+			$('#rfid').focus();
+		}
 	</script>
 </body>
 

@@ -14,7 +14,7 @@
 	<link href="<?= base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?= base_url('assets/css/bootstrap_limitless.min.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?= base_url('assets/css/layout.min.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?= base_url('assets/css/custom.css')?>" rel="stylesheet">
+	<link href="<?= base_url('assets/css/custom.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?= base_url('assets/css/components.min.css')?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('assets/css/colors.min.css')?>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -63,6 +63,6 @@
 
 
 			<!-- Content area -->
-			<div class="content">
+			<div class="content" onclick="setAct()">
 
 				<!-- Bootstrap file input -->

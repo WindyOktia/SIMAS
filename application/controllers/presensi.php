@@ -29,8 +29,9 @@ class Presensi extends CI_Controller
         redirect('presensi/');
     }
 
-    public function data_pegawai($id)
+    public function nama_pegawai($id)
     {
-        $this->presensi_model->get($id);
+        // $data= 
+        echo json_encode($this->presensi_model->getNama($id));
     }
 }
