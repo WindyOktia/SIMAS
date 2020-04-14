@@ -144,6 +144,12 @@
 								<span>Kelas</span>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="<?= base_url('admin/mapel')?>" class="nav-link <?php if($page=='mapel'){echo 'active';};?>">
+								<i class="fa fa-plus-circle"></i>
+								<span>Mata Pelajaran</span>
+							</a>
+						</li>
 
 						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
 							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Siswa</span></a>

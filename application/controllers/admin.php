@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('kelas_model');
+        $this->load->model('mapel_model');
         $this->load->model('siswa_model');
         $this->load->model('guru_model');
         $this->load->model('login_model');
@@ -104,6 +105,42 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
     // end of kelas
+
+    // Mata pelajaran
+    public function mapel()
+    {
+        $data['page']="mapel";
+        $data['mapel']=$this->mapel_model->getMapel();
+        $this->load->view('templates/header',$data);
+        $this->load->view('mapel/index',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tambahMapel()
+    {
+        $this->mapel_model->Add();
+        $this->session->set_flashdata('success', 'Data Ditambahkan');
+        redirect('admin/mapel'); 
+    }
+
+    public function editMapel()
+    {   
+        $id=$this->input->post('id_mapel',true);
+        $nama=$this->input->post('nama_mapel',true);
+        $deskripsi=$this->input->post('deksripsi_mapel',true);
+        $this->mapel_model->Update($id,$nama,$deskripsi);
+        $this->session->set_flashdata('success', 'Data Berhasil Diubah');
+        redirect('admin/mapel'); 
+    }
+
+    public function deleteMapel($id)
+    {
+        $this->mapel_model->Delete($id);
+        $this->session->set_flashdata('error', 'Data Berhasil Dihapus');
+        redirect('admin/mapel'); 
+    }
+
+    // End of mata pelajaran
 
     // guru
     public function guru()
