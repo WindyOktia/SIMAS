@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            grafik kegiatan
+            grafik kegiatan Basket
         </div>
     </div>
 </div>
