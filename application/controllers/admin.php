@@ -23,6 +23,15 @@ class Admin extends CI_Controller
     {
         $data['page']='dashboard';
         $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/index');
+        $this->load->view('templates/footer');
+    }
+
+    public function detailRecordPresensi()
+    {
+        $data['page']='dashboard';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/detail');
         $this->load->view('templates/footer');
     }
 
@@ -83,8 +92,8 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('error', 'Kesalahan Input Kelas / Jurusan');
         }
         else{
-            $this->session->set_flashdata('success', 'Data Ditambahkan');
             $this->kelas_model->Add();
+            $this->session->set_flashdata('success', 'Data Ditambahkan');
         }
         redirect('admin/kelas'); 
     }
