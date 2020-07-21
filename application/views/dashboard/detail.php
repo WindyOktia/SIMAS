@@ -51,7 +51,7 @@
                 <td>3</td>
                 <td>1</td>
                 <td>1</td>
-                <td>30</td>
+                <td><span class="badge badge-danger">30</span></td>
                 <td><a href="" class="btn btn-sm btn-info">Track Record</a></td>
             </tr>
             <tr>
