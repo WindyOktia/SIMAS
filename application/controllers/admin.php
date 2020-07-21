@@ -31,7 +31,7 @@ class Admin extends CI_Controller
     {
         $data['page']='dashboard';
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/anu');
+        $this->load->view('dashboard/detail');
         $this->load->view('templates/footer');
     }
 

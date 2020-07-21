@@ -22,7 +22,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/')?>" class="btn btn-sm btn-info float-right mt-2">lihat detail</a>
+                <a href="<?=base_url('admin/detailRecordPresensi')?>" class="btn btn-sm btn-info float-right mt-2">lihat detail</a>
             </div>
         </div>
         <div class="col-md-6">
