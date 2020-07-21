@@ -2,10 +2,27 @@
     <h3>Detail Dashboard Presensi</h3>
     <div class="form-group">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <select name="" id="" class="form-control">
-                    <option value="">- Pilih Guru -</option>
+                    <option value="">- Kriteria -</option>
+                    <option value="">Hadir</option>
+                    <option value="">Izin</option>
+                    <option value="">Tugas</option>
+                    <option value="">Tidak Hadir</option>
                 </select>
+            </div>
+            <div class="col-md-3">
+                <select name="" id="" class="form-control">
+                    <option value="">- Anu -</option>
+                    <option value="">Lebih Dari</option>
+                    <option value="">Kurang Dari</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" placeholder="">
+            </div>
+            <div class="col-md-3">
+                <button class="btn  btn-info">Cari</button>
             </div>
         </div>
     </div>
