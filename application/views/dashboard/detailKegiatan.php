@@ -78,7 +78,7 @@
                 <td>1</td>
                 <td>1</td>
                 <td>9</td>
-                <td><a href="" class="btn btn-sm btn-info">Track Record</a></td>
+                <td><a href="<?= base_url('admin/trackRecord')?>" class="btn btn-primary btn-sm">Track Record</a></td>
             </tr>
         </tbody>
     </table>

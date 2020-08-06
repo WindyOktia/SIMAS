@@ -96,7 +96,14 @@ class Admin extends CI_Controller
         $this->load->view('dashboard/detail');
         $this->load->view('templates/footer');
     }
-
+    
+    public function detailRecordKegiatan()
+    {
+        $data['page']='dashboard';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/detail');
+        $this->load->view('templates/footer');
+    }
     // siswa
     public function siswa()
     {
@@ -107,13 +114,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function detailRecordKegiatan()
-    {
-        $data['page']='dashboard';
-        $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/detail');
-        $this->load->view('templates/footer');
-    }
 
     public function addSiswa()
     {
@@ -363,6 +363,16 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('success', 'Data diubah');
         }
         redirect('admin/pengguna');
+    }
+
+    //Track Record
+    public function trackRecord()
+    {
+        $data['page']="trackrecord";
+        //$data['peserta']=$this->kelas_model->daftarPeserta($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/trackRecord',$data);
+        $this->load->view('templates/footer');
     }
     // end of pengguna
 
