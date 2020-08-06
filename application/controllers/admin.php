@@ -27,6 +27,68 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function informasi()
+    {
+        $data['page']='dashboard';
+
+        $data['informasi']=$this->pengaturan_model->getInformasi();
+        $this->load->view('templates/header',$data);
+        $this->load->view('informasi/informasi',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tbhInformasi()
+    {
+        $data['page']='dashboard';
+        $this->load->view('templates/header',$data);
+        $this->load->view('informasi/add');
+        $this->load->view('templates/footer');
+    }
+
+    public function addInformasi()
+    {
+        $insert = $this->pengaturan_model->addInformasi();
+        if($insert>0){
+            $this->session->set_flashdata('success', 'Informasi berhasil ditambahkan');
+        }else{
+            $this->session->set_flashdata('error', 'Informasi gagal ditambahkan');
+        }
+        redirect('admin/informasi');
+    }
+
+    public function editInfo()
+    {
+        $insert = $this->pengaturan_model->editInfo();
+        if($insert>0){
+            $this->session->set_flashdata('success', 'Informasi berhasil diubah');
+        }else{
+            $this->session->set_flashdata('error', 'Informasi gagal diubah');
+        }
+        redirect('admin/informasi');
+    }
+
+    public function deleteInformasi($id)
+    {
+        $delete = $this->pengaturan_model->deleteInformasi($id);
+        if($delete>0){
+            $this->session->set_flashdata('success', 'Informasi berhasil dihapus');
+        }else{
+            $this->session->set_flashdata('error', 'Informasi gagal dihapus');
+        }
+        redirect('admin/informasi');
+    }
+
+    public function detailInformasi($id)
+    {
+        $data['page']='dashboard';
+
+        $data['informasi']=$this->pengaturan_model->getInformasiID($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('informasi/detail',$data);
+        $this->load->view('templates/footer');
+    }
+
+
     public function detailRecordPresensi()
     {
         $data['page']='dashboard';

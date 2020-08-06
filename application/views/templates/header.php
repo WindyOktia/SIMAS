@@ -176,7 +176,7 @@
 						</li>
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Lainnya</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item">
-							<a href="#" class="nav-link <?php if($page==''){echo 'active';};?>">
+							<a href="<?=base_url('admin/informasi')?>" class="nav-link <?php if($page==''){echo 'active';};?>">
 								<i class="fa fa-plus-circle"></i>
 								<span>Informasi</span>
 							</a>
