@@ -107,6 +107,14 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function detailRecordKegiatan()
+    {
+        $data['page']='dashboard';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/detail');
+        $this->load->view('templates/footer');
+    }
+
     public function addSiswa()
     {
         $cek = $this->siswa_model->add();
