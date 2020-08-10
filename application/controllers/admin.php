@@ -88,6 +88,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    // Laporan Ricky
 
     public function detailRecordPresensi()
     {
@@ -104,6 +105,17 @@ class Admin extends CI_Controller
         $this->load->view('dashboard/detail');
         $this->load->view('templates/footer');
     }
+
+    public function laporan_waka()
+    {
+        $data['page']='dashboard';
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/kegiatan_laporan');
+        $this->load->view('templates/footer');
+    }
+    // Dasboard Ricky
+
     // siswa
     public function siswa()
     {

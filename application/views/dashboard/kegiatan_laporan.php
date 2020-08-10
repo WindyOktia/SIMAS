@@ -1,0 +1,116 @@
+<div class="card card-body">
+    <h3>Detail Dashboard Laporan Kegiatan</h3>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-3">
+                <select name="" id="" class="form-control">
+                <option value="">- Tahun Ajaran -</option>
+                <option value="">- 2016 -</option>
+                <option value="">- 2017 -</option>
+                <option value="">- 2018 -</option>
+                <option value="">- 2019 -</option>
+                <option value="">- 2020 -</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="" id="" class="form-control">
+                    <option value="">- Terkait -</option>
+                    <option value="">OSIS</option>
+                    <option value="">TIM SEKOLAH</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn  btn-info">Cari</button>
+            </div>
+        </div>
+    </div> <br>
+
+        <div class="col">
+            <div class="card card-body border-info">
+                <h6>Grafik Track Record Kegiatan Siswa 2 Tahun Akhir</h6>
+                <div class="row">
+                    <div class="col-md-12">
+                    <canvas id="dashSiswa" height="80"></canvas>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <h5><b>Tahun Ajaran</b></h5>
+                        2 Tahun Terakhir
+                        <div class="mb-3"></div>
+                        <h5><b>Kriteria</b></h5>
+                        Baik : <br>
+                        Kurang Baik : 
+                    </div> -->
+                </div>
+            </div>
+            <td><a href="" class="btn btn-sm btn-success float-right">Export</a></td>
+        </div>
+    </div>
+</div>
+
+<div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
+    <?php if ($this->session->flashdata('flash')) : ?>
+    <?php endif; ?>
+
+
+<div class="card mt-3">
+    <div class="card-body">
+    <h5><i class="fa fa-navicon mr-2 text-warning"></i> Daftar Laporan</h5>
+        <table class="table datatable-show-all">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>Judul Kegiatan</th>
+				<th>Tahun Ajaran</th>
+				<th>Detail Kegiatan</th>
+				<th>Actions</th>
+                <th>Info Pembina</th>
+				<th>Info Waka</th>
+				<th>Info Kepala Sekolah</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $i=1; foreach ($kelas as $kelas):?>
+			<tr>
+				<td><?=$i++?></td>
+				<td><b><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></b></td>
+				<td>24</td>
+				<td>
+                    <a href="<?= base_url('admin/daftarPeserta')?>/<?= $kelas['id_kelas']?>" class="btn btn-primary btn-sm">Daftar Peserta</a>
+                </td>
+				<td>
+					<a href="<?= base_url('admin/deleteKelas')?>/<?= $kelas['id_kelas']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
+				</td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+    </div>
+</div>
+
+<script>
+var dash1 = document.getElementById('dashSiswa').getContext('2d');
+var dashSiswa = new Chart(dash1, {
+	type: 'line',
+	data: {
+		labels: ['2016', '2017','2018','2019','2020'],
+		datasets: [{
+			label: '# of Votes',
+			data: [12, 19, 10, 17, 2],
+			borderColor: [
+				'#90FCF9'
+			],
+            borderWidth: 2 ,
+            fill: false
+		},{
+			label: '# of Votes',
+			data: [5, 12, 16, 19, 22],
+			borderColor: [
+				'#824C71'
+			],
+            borderWidth: 2 ,
+            fill: false
+            
+		}]
+	}
+});
+</script>
