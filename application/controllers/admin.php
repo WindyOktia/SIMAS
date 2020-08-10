@@ -376,4 +376,84 @@ class Admin extends CI_Controller
     }
     // end of pengguna
 
+    // Kegiatan EL
+    // Laporan & Proposal
+    public function proposal()
+    {
+        $data['page']='daftar_proposal';
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/daftar_proposal',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function laporan()
+    {
+        $data['page']='daftar_laporan';
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/daftar_laporan',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addLaporan()
+    {
+        $data['page']='daftar_laporan';
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/add_laporan',$data);
+        $this->load->view('templates/footer'); 
+    }
+
+    public function addProposal()
+    {
+        $data['page']='daftar_proposal';
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/add_proposal',$data);
+        $this->load->view('templates/footer'); 
+    }
+    // Laporan & Proposal
+
+    // OSIS
+    public function osis()
+    {
+        $data['page']='tambahOsis';
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/tambahOsis',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addOsis()
+    {
+        $cek = $this->siswa_model->add();
+        if($cek==false)
+        {
+            $this->session->set_flashdata('error', 'NIPD Sudah Terdaftar');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Siswa Berhasil Ditambahkan');
+        }
+        redirect('admin/osis');
+    }
+
+    public function daftarOsis()
+    {
+        $data['page']='daftarOsis';
+        $data['daftar']=$this->siswa_model->daftarSiswa();
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/daftarOsis',$data);
+        $this->load->view('templates/footer');
+    }
+
+    // public function hapusSiswa()
+    // {
+        
+    // }
+    // End Of OSIS
+
+    // End Of kegiatan El
+
 }

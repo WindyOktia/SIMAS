@@ -144,6 +144,61 @@
 								<span>Kelas</span>
 							</a>
 						</li>
+
+						<!-- Kegiatan EL -->
+
+						<li class="nav-item">
+							<a href="<?= base_url('admin/proposal')?>" class="nav-link <?php if($page=='daftar_proposal'){echo 'active';};?>">
+								<i class="fa fa-plus-circle"></i>
+								<span>Proposal Kegiatan</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="<?= base_url('admin/laporan')?>" class="nav-link <?php if($page=='daftar_laporan'){echo 'active';};?>">
+								<i class="fa fa-plus-circle"></i>
+								<span>Laporan Kegiatan</span>
+							</a>
+						</li>
+
+						<li class="nav-item nav-item-submenu <?php if($page=='tambahOsis'||$page=='daftarOsis'){echo 'nav-item-expanded nav-item-open';};?>">
+							<a href="#" class="nav-link <?php if($page=='tambahOsis'||$page=='daftarOsis'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>OSIS</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?= base_url('admin/osis')?>" class="nav-link <?php if($page=='tambahOsis'){echo 'active';};?>">Tambah OSIS</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarOsis')?>" class="nav-link <?php if($page=='daftarOsis'){echo 'active';};?>">Daftar OSIS</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Tim Sekolah</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Tim</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Tim Sekolah</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Berkas OSIS</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Daftar Proposal Kegiatan</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Laporan Kegiatan</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Berkas Tim Sekolah</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Daftar Proposal Kegiatan</a></li>
+								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Laporan Kegiatan</a></li>
+							</ul>
+						</li>
+
+						<!-- End Kegiatan El -->
+
 						<li class="nav-item">
 							<a href="<?= base_url('admin/mapel')?>" class="nav-link <?php if($page=='mapel'){echo 'active';};?>">
 								<i class="fa fa-plus-circle"></i>
