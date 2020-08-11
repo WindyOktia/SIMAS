@@ -27,69 +27,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function informasi()
-    {
-        $data['page']='dashboard';
-
-        $data['informasi']=$this->pengaturan_model->getInformasi();
-        $this->load->view('templates/header',$data);
-        $this->load->view('informasi/informasi',$data);
-        $this->load->view('templates/footer');
-    }
-
-    public function tbhInformasi()
-    {
-        $data['page']='dashboard';
-        $this->load->view('templates/header',$data);
-        $this->load->view('informasi/add');
-        $this->load->view('templates/footer');
-    }
-
-    public function addInformasi()
-    {
-        $insert = $this->pengaturan_model->addInformasi();
-        if($insert>0){
-            $this->session->set_flashdata('success', 'Informasi berhasil ditambahkan');
-        }else{
-            $this->session->set_flashdata('error', 'Informasi gagal ditambahkan');
-        }
-        redirect('admin/informasi');
-    }
-
-    public function editInfo()
-    {
-        $insert = $this->pengaturan_model->editInfo();
-        if($insert>0){
-            $this->session->set_flashdata('success', 'Informasi berhasil diubah');
-        }else{
-            $this->session->set_flashdata('error', 'Informasi gagal diubah');
-        }
-        redirect('admin/informasi');
-    }
-
-    public function deleteInformasi($id)
-    {
-        $delete = $this->pengaturan_model->deleteInformasi($id);
-        if($delete>0){
-            $this->session->set_flashdata('success', 'Informasi berhasil dihapus');
-        }else{
-            $this->session->set_flashdata('error', 'Informasi gagal dihapus');
-        }
-        redirect('admin/informasi');
-    }
-
-    public function detailInformasi($id)
-    {
-        $data['page']='dashboard';
-
-        $data['informasi']=$this->pengaturan_model->getInformasiID($id);
-        $this->load->view('templates/header',$data);
-        $this->load->view('informasi/detail',$data);
-        $this->load->view('templates/footer');
-    }
-
-    // Laporan Ricky
-
     public function detailRecordPresensi()
     {
         $data['page']='dashboard';
@@ -97,24 +34,6 @@ class Admin extends CI_Controller
         $this->load->view('dashboard/detail');
         $this->load->view('templates/footer');
     }
-    
-    public function detailRecordKegiatan()
-    {
-        $data['page']='dashboard';
-        $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/detail');
-        $this->load->view('templates/footer');
-    }
-
-    public function laporan_waka()
-    {
-        $data['page']='dashboard';
-        $data['kelas']=$this->kelas_model->get();
-        $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/kegiatan_laporan');
-        $this->load->view('templates/footer');
-    }
-    // Dasboard Ricky
 
     // siswa
     public function siswa()
@@ -126,6 +45,13 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function detailRecordKegiatan()
+    {
+        $data['page']='dashboard';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/detail');
+        $this->load->view('templates/footer');
+    }
 
     public function addSiswa()
     {
@@ -376,39 +302,9 @@ class Admin extends CI_Controller
         }
         redirect('admin/pengguna');
     }
-
-    //Track Record
-    public function trackRecord()
-    {
-        $data['page']="trackrecord";
-        //$data['peserta']=$this->kelas_model->daftarPeserta($id);
-        $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/trackRecord',$data);
-        $this->load->view('templates/footer');
-    }
     // end of pengguna
 
     // Kegiatan EL
-    // Laporan & Proposal
-    public function addLaporan()
-    {
-        $data['page']='daftar_laporan';
-        $data['kelas']=$this->kelas_model->get();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/add_laporan',$data);
-        $this->load->view('templates/footer'); 
-    }
-
-    public function addProposal()
-    {
-        $data['page']='daftar_proposal';
-        $data['kelas']=$this->kelas_model->get();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/add_proposal',$data);
-        $this->load->view('templates/footer'); 
-    }
-    // Laporan & Proposal
-
     // OSIS
     public function osis()
     {

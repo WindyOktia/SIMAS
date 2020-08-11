@@ -1,44 +1,6 @@
 <?php
 class Pengaturan_model extends CI_Model{
 
-    public function addInformasi()
-    {
-        $data=[
-            "judul_informasi"=>$_POST['judul'],
-            "detail_informasi"=>$_POST['deskripsi'],
-            "dibuat_tanggal"=>date("Y-m-d"),
-            "dibuat_oleh"=>'admin'
-        ];
-
-        $this->db->insert('informasi',$data);
-        return $this->db->affected_rows();
-    }
-
-    public function editInfo()
-    {
-        $this->db->set('judul_informasi',$_POST['judul']);
-        $this->db->set('detail_informasi',$_POST['deskripsi']);
-        $this->db->where('id_informasi',$_POST['id']);
-        $this->db->update('informasi');
-        return $this->db->affected_rows();
-    }
-
-    public function getInformasi()
-    {
-        return $this->db->get('informasi')->result_array();
-    }
-
-    public function deleteInformasi($id)
-    {
-        $this->db->delete('informasi',['id_informasi'=>$id]);
-        return $this->db->affected_rows();
-    }
-
-    public function getInformasiID($id)
-    {
-        return $this->db->get_where('informasi',['id_informasi'=>$id])->result_array();
-    }
-
     public function addPengguna()
     {
         $user=$this->input->post('user', true);

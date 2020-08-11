@@ -3,12 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
-	public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('pengaturan_model');
-    }
-
 	/**
 	 * Index Page for this controller.
 	 *
@@ -26,9 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data['informasi']=$this->pengaturan_model->getInformasi();
 		$this->load->view('templates/header_welcome');
-		$this->load->view('welcome',$data);
+		$this->load->view('welcome');
 		$this->load->view('templates/footer');
 	}
 }
