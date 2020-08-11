@@ -67,6 +67,25 @@ class Document extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function detailProposal($id)
+    {
+        $data['page']='daftar_proposal';
+        $data['dokumen']=$this->dokumen_model->getProposalID($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/detail_proposal',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detailLaporan($id)
+    {
+        $data['page']='daftar_laporan';
+        $data['dokumen']=$this->dokumen_model->getLaporanID($id);
+        $data['proposal']=$this->dokumen_model->getProposal();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/detail_laporan',$data);
+        $this->load->view('templates/footer');
+    }
+
     public function laporan()
     {
         $data['page']='daftar_laporan';

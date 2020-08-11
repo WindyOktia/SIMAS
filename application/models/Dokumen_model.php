@@ -52,5 +52,15 @@ class Dokumen_model extends CI_Model
         return $this->db->get('Laporan')->result_array();
     }
 
+    public function getProposalID($id)
+    {
+        return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
+    }
+
+    public function getLaporanID($id)
+    {
+        return $this->db->get_where('laporan',['id_laporan'=> $id])->result_array();
+    }
+
 
 }

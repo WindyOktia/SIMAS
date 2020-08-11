@@ -1,5 +1,3 @@
-<legend>Proposal Kegiatan SMA Bopkri 1 Yogyakarta</legend>
-
 <a href="<?=base_url('document/addLaporan')?>" class="btn btn-primary btn-sm">Tambah Laporan </a>
 
 <div class="card mt-3">
@@ -31,8 +29,8 @@
 				<td>-</td>
 				<td>-</td>
 				<td>
-                    <a href="<?= base_url('admin/daftarPeserta')?>/<?= $prop['id_laporan']?>"class="btn btn-primary btn-sm">Edit</a>
-					<a href="<?= base_url('admin/deleteKelas')?>/<?= $prop['id_laporan']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
+                    <a href="<?= base_url('document/detailLaporan')?>/<?= $prop['id_laporan']?>"class="btn btn-primary btn-sm">Edit</a>
+					<a href="<?= base_url('document/deleteLaporan')?>/<?= $prop['id_laporan']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
                 </td>
 			</tr>
 			<?php endforeach;?>
