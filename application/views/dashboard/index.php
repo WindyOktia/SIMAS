@@ -51,6 +51,18 @@
     </div>
 </div>
 
+        <div class="col-md-12">
+            <div class="card card-body border-info">
+                <h6>Grafik Minat Kegiatan Siswa</h6>
+                <div class="row">
+                    <div class="col-md-12">
+                    <canvas id="dashKetertarikan" height="100"></canvas>
+                    </div>
+                </div>
+                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-2">lihat detail</a>
+            </div>
+        </div>
+
 <script>
 var dash = document.getElementById('dashGuru').getContext('2d');
 var dashGuru = new Chart(dash, {
@@ -72,10 +84,26 @@ var dash1 = document.getElementById('dashSiswa').getContext('2d');
 var dashSiswa = new Chart(dash1, {
 	type: 'pie',
 	data: {
-		labels: ['Baik', 'Kurang Baik'],
+		labels: ['Good Boy', 'Bad Boy'],
 		datasets: [{
 			label: '# of Votes',
 			data: [12, 19],
+			backgroundColor: [
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(54, 162, 235, 0.2)'
+			],
+			borderWidth: 2
+		}]
+	}
+});
+var dash1 = document.getElementById('dashKetertarikan').getContext('2d');
+var dashKetertarikan = new Chart(dash1, {
+	type: 'horizontalBar',
+	data: {
+		labels: ['Basket', 'Futsal','Balap Karung','Sabung Ayam','Main Kelereng'],
+		datasets: [{
+			label: '# of Votes',
+			data: [12, 19, -10, 5, -11],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(54, 162, 235, 0.2)'

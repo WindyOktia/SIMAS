@@ -35,6 +35,26 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function trackRecord()
+    {
+        $data['page']="trackrecord";
+        //$data['peserta']=$this->kelas_model->daftarPeserta($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/trackRecord',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function laporan_waka()
+    {
+        $data['page']='dashboard';
+        $data['kelas']=$this->kelas_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/kegiatan_laporan');
+        $this->load->view('templates/footer');
+    }
+
+    // Ricky
+
     // siswa
     public function siswa()
     {

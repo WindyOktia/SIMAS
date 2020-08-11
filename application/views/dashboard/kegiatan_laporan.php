@@ -32,24 +32,11 @@
                     <div class="col-md-12">
                     <canvas id="dashSiswa" height="80"></canvas>
                     </div>
-                    <!-- <div class="col-md-4">
-                        <h5><b>Tahun Ajaran</b></h5>
-                        2 Tahun Terakhir
-                        <div class="mb-3"></div>
-                        <h5><b>Kriteria</b></h5>
-                        Baik : <br>
-                        Kurang Baik : 
-                    </div> -->
                 </div>
             </div>
             <td><a href="" class="btn btn-sm btn-success float-right">Export</a></td>
         </div>
     </div>
-</div>
-
-<div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
-    <?php if ($this->session->flashdata('flash')) : ?>
-    <?php endif; ?>
 
 
 <div class="card mt-3">
