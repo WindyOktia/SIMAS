@@ -16,7 +16,7 @@
                 <th>Info Pembina</th>
 				<th>Info Waka</th>
 				<th>Info Kepala Sekolah</th>
-				<th style="width:20%">Actions</th>
+				<th style="width:30%">Actions</th>
 			</tr>
 		</thead>
 		<tbody>

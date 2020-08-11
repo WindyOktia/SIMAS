@@ -19,7 +19,13 @@
                             <div class="col-lg-10">
                                 <select class="form-control" name="role" >
                                     <option value="1">Admin</option>
+                                    <option value="2">Waka Kesiswaan</option>
                                     <option value="3">Waka Kurikulum</option>
+                                    <option value="4">Kepala Sekolah</option>
+                                    <option value="5">Osis</option>
+                                    <option value="6">Admin Mutu</option>
+                                    <option value="7">Penanggungjawab Kegiatan</option>
+                                    <option value="8">Tim Sekolah</option>
                                 </select>
                             </div>
                         </div>
@@ -71,8 +77,14 @@
                     <td><?= $us['nama']?></td>
                     <td><?= $us['username']?></td>
                     <td>
-                        <?php if($us['role']==1){echo 'admin';}?>
-                        <?php if($us['role']==3){echo 'waka kurikulum';}?>
+                        <?php if($us['role']==1){echo 'Admin';}?>
+                        <?php if($us['role']==2){echo 'Waka Kesiswaan';}?>
+                        <?php if($us['role']==3){echo 'Waka Kurikulum';}?>
+                        <?php if($us['role']==4){echo 'Kepala Sekolah';}?>
+                        <?php if($us['role']==5){echo 'Osis';}?>
+                        <?php if($us['role']==6){echo 'Admin Mutu';}?>
+                        <?php if($us['role']==7){echo 'Penanggungjawab Kegiatan';}?>
+                        <?php if($us['role']==8){echo 'Tim Sekolah';}?>
                     </td>
                     <td>
                         <a href="#" class="btn btn-sm btn-info" type="button" data-toggle="modal" data-target="#modalEdit<?= $us['id_user']?>">ubah</a>

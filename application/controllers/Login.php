@@ -35,19 +35,9 @@ class Login extends CI_Controller
 				'logged_in' => TRUE
 			);
 			$this->session->set_userdata($sesdata);
-			if($role==2){
 				$stat='1';
-				$this->login_model->update($user,$stat);
-				redirect('guru/');
-			}elseif($role=='3'){
-				$stat='1';
-				$this->login_model->update($user,$stat);
-				redirect('waka/');
-			}else{
-                $stat='1';
 				$this->login_model->update($user,$stat);
 				redirect('admin/');
-			}
 			
 		}else{
 			$this->session->set_flashdata('error', 'Username / Password Salah');

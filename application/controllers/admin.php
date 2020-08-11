@@ -12,7 +12,7 @@ class Admin extends CI_Controller
         $this->load->model('guru_model');
         $this->load->model('login_model');
         $this->load->model('pengaturan_model');
-        if($this->login_model->is_role() != "1"){
+        if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
         }
@@ -286,7 +286,7 @@ class Admin extends CI_Controller
     public function deletePengguna($id)
     {
         $this->pengaturan_model->deletePengguna($id);
-        $this->session->set_flashdata('error', 'User Berhasil dihapus');
+        $this->session->set_flashdata('success', 'User Berhasil dihapus');
         redirect('admin/pengguna');
     }
 

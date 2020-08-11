@@ -132,118 +132,191 @@
 
 						<!-- Main -->
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu" title="Main"></i></li>
-						<li class="nav-item">
-							<a href="<?= base_url('admin')?>" class="nav-link <?php if($page=='dashboard'){echo 'active';};?>">
-								<i class="fa fa-plus-circle"></i>
-								<span>Dashboard</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?= base_url('admin/kelas')?>" class="nav-link <?php if($page=='kelas'){echo 'active';};?>">
-								<i class="fa fa-plus-circle"></i>
-								<span>Kelas</span>
-							</a>
-						</li>
+						<?php 
+							$rl=array('1','4');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item">
+									<a href="<?= base_url('admin')?>" class="nav-link <?php if($page=='dashboard'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Dashboard</span>
+									</a>
+								</li>
+						<?php }?>
+
+						<?php 
+							$rl=array('1');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item">
+									<a href="<?= base_url('admin/kelas')?>" class="nav-link <?php if($page=='kelas'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Kelas</span>
+									</a>
+								</li>
+						<?php }?>
 
 						<!-- Kegiatan EL -->
+						<?php 
+							$rl=array('2','4','5','7','8');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item">
+									<a href="<?= base_url('document/proposal')?>" class="nav-link <?php if($page=='daftar_proposal'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Proposal Kegiatan</span>
+									</a>
+								</li>
+						<?php }?>
 
-						<li class="nav-item">
-							<a href="<?= base_url('document/proposal')?>" class="nav-link <?php if($page=='daftar_proposal'){echo 'active';};?>">
-								<i class="fa fa-plus-circle"></i>
-								<span>Proposal Kegiatan</span>
-							</a>
-						</li>
+						<?php 
+							$rl=array('2','4','5','7','8');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item">
+									<a href="<?= base_url('document/laporan')?>" class="nav-link <?php if($page=='daftar_laporan'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Laporan Kegiatan</span>
+									</a>
+								</li>
+						<?php }?>
+						
+						<?php 
+							$rl=array('2');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='tambahOsis'||$page=='daftarOsis'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='tambahOsis'||$page=='daftarOsis'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>OSIS</span></a>
 
-						<li class="nav-item">
-							<a href="<?= base_url('document/laporan')?>" class="nav-link <?php if($page=='daftar_laporan'){echo 'active';};?>">
-								<i class="fa fa-plus-circle"></i>
-								<span>Laporan Kegiatan</span>
-							</a>
-						</li>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/osis')?>" class="nav-link <?php if($page=='tambahOsis'){echo 'active';};?>">Tambah OSIS</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/daftarOsis')?>" class="nav-link <?php if($page=='daftarOsis'){echo 'active';};?>">Daftar OSIS</a></li>
+									</ul>
+								</li>
+						<?php }?>
 
-						<li class="nav-item nav-item-submenu <?php if($page=='tambahOsis'||$page=='daftarOsis'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='tambahOsis'||$page=='daftarOsis'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>OSIS</span></a>
+						<?php 
+							$rl=array('2');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Tim Sekolah</span></a>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/osis')?>" class="nav-link <?php if($page=='tambahOsis'){echo 'active';};?>">Tambah OSIS</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/daftarOsis')?>" class="nav-link <?php if($page=='daftarOsis'){echo 'active';};?>">Daftar OSIS</a></li>
-							</ul>
-						</li>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Tim</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Tim Sekolah</a></li>
+									</ul>
+								</li>
+						<?php }?>
 
-						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Tim Sekolah</span></a>
+						<?php 
+							$rl=array('2','5');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Berkas OSIS</span></a>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Tim</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Tim Sekolah</a></li>
-							</ul>
-						</li>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Daftar Proposal Kegiatan</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Laporan Kegiatan</a></li>
+									</ul>
+								</li>
+						<?php }?>
+						
+						<?php 
+							$rl=array('2','8');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Berkas Tim Sekolah</span></a>
 
-						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Berkas OSIS</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Daftar Proposal Kegiatan</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Laporan Kegiatan</a></li>
-							</ul>
-						</li>
-
-						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Berkas Tim Sekolah</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Daftar Proposal Kegiatan</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Laporan Kegiatan</a></li>
-							</ul>
-						</li>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Daftar Proposal Kegiatan</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Laporan Kegiatan</a></li>
+									</ul>
+								</li>
+						<?php }?>
 
 						<!-- End Kegiatan El -->
+						<?php 
+							$rl=array('3');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('admin/mapel')?>" class="nav-link <?php if($page=='mapel'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Mata Pelajaran</span>
+									</a>
+								</li>
+						<?php }?>
 
-						<li class="nav-item">
-							<a href="<?= base_url('admin/mapel')?>" class="nav-link <?php if($page=='mapel'){echo 'active';};?>">
-								<i class="fa fa-plus-circle"></i>
-								<span>Mata Pelajaran</span>
-							</a>
-						</li>
+						<?php 
+							$rl=array('2');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Siswa</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Siswa</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li>
+									</ul>
+								</li>
+						<?php }?>
 
-						<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Siswa</span></a>
+						<?php 
+							$rl=array('3');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='addGuru'||$page=='daftarGuru'||$page=='jadwalGuru'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='admin'||$page=='config'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Guru</span></a>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/siswa')?>" class="nav-link <?php if($page=='tambahSiswa'){echo 'active';};?>">Tambah Siswa</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu <?php if($page=='addGuru'||$page=='daftarGuru'||$page=='jadwalGuru'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='admin'||$page=='config'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Guru</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/guru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
+									</ul>
+								</li>
+						<?php }?>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/guru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
-								<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu <?php if($page=='presensi'||$page=='presensi'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='presensi'||$page=='presensi'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Presensi</span></a>
+						<?php 
+							$rl=array('3');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='presensi'||$page=='presensi'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='presensi'||$page=='presensi'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Presensi</span></a>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/daftarPresensi')?>" class="nav-link <?php if($page=='presensi'){echo 'active';};?>">Guru</a></li>
-							</ul>
-						</li>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/daftarPresensi')?>" class="nav-link <?php if($page=='presensi'){echo 'active';};?>">Guru</a></li>
+									</ul>
+								</li>
+						<?php }?>
+
+						
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Lainnya</div> <i class="icon-menu" title="Main"></i></li>
-						<li class="nav-item">
-							<a href="<?=base_url('admin/informasi')?>" class="nav-link <?php if($page==''){echo 'active';};?>">
-								<i class="fa fa-plus-circle"></i>
-								<span>Informasi</span>
-							</a>
-						</li>
-						<li class="nav-item nav-item-submenu <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'nav-item-expanded nav-item-open';};?>">
-							<a href="#" class="nav-link <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Pengaturan</span></a>
+						<?php 
+							$rl=array('1');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item">
+									<a href="<?=base_url('admin/informasi')?>" class="nav-link <?php if($page==''){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Informasi</span>
+									</a>
+								</li>
+						<?php }?>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="<?= base_url('admin/pengguna')?>" class="nav-link <?php if($page=='pengaturan'){echo 'active';};?>">Pengguna</a></li>
-								<!-- <li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li> -->
-							</ul>
-						</li>
+						<?php 
+							$rl=array('1');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Pengaturan</span></a>
+
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('admin/pengguna')?>" class="nav-link <?php if($page=='pengaturan'){echo 'active';};?>">Pengguna</a></li>
+										<!-- <li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li> -->
+									</ul>
+								</li>
+						<?php }?>
 
 					</ul>
 				</div>

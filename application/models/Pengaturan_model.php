@@ -41,13 +41,16 @@ class Pengaturan_model extends CI_Model{
 
     public function getPengguna()
     {
-        $this->db->where_not_in('role', 2);
-        $query = $this->db->get('user');
-        return $query->result_array();
+        return $this->db->get('user')->result_array();
     }
 
     public function deletePengguna($id)
     {
         $this->db->delete('user', ['id_user' => $id]);
+    }
+
+    public function getInformasi()
+    {
+        return $this->db->get('informasi')->result_array();
     }
 }

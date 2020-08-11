@@ -18,6 +18,6 @@ class Login_model extends CI_Model
 
     function is_role()
     {
-        return $this->session->userdata('role');
+        return $this->session->userdata('username');
     }
 }
