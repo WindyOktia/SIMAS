@@ -1,17 +1,6 @@
-<div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
-    <?php if ($this->session->flashdata('flash')) : ?>
-    <?php endif; ?>
-
 <legend>Proposal Kegiatan SMA Bopkri 1 Yogyakarta</legend>
-<!-- <form action="<?= base_url('admin/addProposal')?>" method="post">
-    <div class="row">
-        <div class="col mx-auto my-auto">
-			<button class="btn btn-primary btn-sm">Tambah Proposal</button>
-        </div>
-    </div>
-</form> -->
 
-<a href="<?=base_url('admin/addLaporan')?>" class="btn btn-primary btn-sm">Tambah Laporan </a>
+<a href="<?=base_url('document/addLaporan')?>" class="btn btn-primary btn-sm">Tambah Laporan </a>
 
 <div class="card mt-3">
     <div class="card-body"> 
@@ -22,25 +11,29 @@
 				<th>No</th>
 				<th>Judul Kegiatan</th>
 				<th>Tahun Ajaran</th>
+				<th>Semester</th>
 				<th>Detail Kegiatan</th>
-				<th>Actions</th>
                 <th>Info Pembina</th>
 				<th>Info Waka</th>
 				<th>Info Kepala Sekolah</th>
+				<th style="width:20%">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php $i=1; foreach ($kelas as $kelas):?>
+			<?php $i=1; foreach ($proposal as $prop):?>
 			<tr>
 				<td><?=$i++?></td>
-				<td><b><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></b></td>
-				<td>24</td>
+				<td><b><?= $prop['lb_laporan']?></b></td>
+				<td><?= $prop['tujuan_laporan']?></td>
+				<td><?= $prop['tot_biaya']?></td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
 				<td>
-                    <a href="<?= base_url('admin/daftarPeserta')?>/<?= $kelas['id_kelas']?>" class="btn btn-primary btn-sm">Daftar Peserta</a>
+                    <a href="<?= base_url('admin/daftarPeserta')?>/<?= $prop['id_laporan']?>"class="btn btn-primary btn-sm">Edit</a>
+					<a href="<?= base_url('admin/deleteKelas')?>/<?= $prop['id_laporan']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
                 </td>
-				<td>
-					<a href="<?= base_url('admin/deleteKelas')?>/<?= $kelas['id_kelas']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
-				</td>
 			</tr>
 			<?php endforeach;?>
 		</tbody>

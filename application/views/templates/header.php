@@ -148,14 +148,14 @@
 						<!-- Kegiatan EL -->
 
 						<li class="nav-item">
-							<a href="<?= base_url('admin/proposal')?>" class="nav-link <?php if($page=='daftar_proposal'){echo 'active';};?>">
+							<a href="<?= base_url('document/proposal')?>" class="nav-link <?php if($page=='daftar_proposal'){echo 'active';};?>">
 								<i class="fa fa-plus-circle"></i>
 								<span>Proposal Kegiatan</span>
 							</a>
 						</li>
 
 						<li class="nav-item">
-							<a href="<?= base_url('admin/laporan')?>" class="nav-link <?php if($page=='daftar_laporan'){echo 'active';};?>">
+							<a href="<?= base_url('document/laporan')?>" class="nav-link <?php if($page=='daftar_laporan'){echo 'active';};?>">
 								<i class="fa fa-plus-circle"></i>
 								<span>Laporan Kegiatan</span>
 							</a>

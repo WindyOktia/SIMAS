@@ -390,24 +390,6 @@ class Admin extends CI_Controller
 
     // Kegiatan EL
     // Laporan & Proposal
-    public function proposal()
-    {
-        $data['page']='daftar_proposal';
-        $data['kelas']=$this->kelas_model->get();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/daftar_proposal',$data);
-        $this->load->view('templates/footer');
-    }
-
-    public function laporan()
-    {
-        $data['page']='daftar_laporan';
-        $data['kelas']=$this->kelas_model->get();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/daftar_laporan',$data);
-        $this->load->view('templates/footer');
-    }
-
     public function addLaporan()
     {
         $data['page']='daftar_laporan';
