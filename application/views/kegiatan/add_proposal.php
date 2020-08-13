@@ -59,7 +59,7 @@
             <label for="">Hasil Yang diharapkan</label>
             <textarea name="harapan_kegiatan" class="form-control" id="" cols="30" rows="10" ></textarea>
             <script>
-                CKEDITOR.replace( 'tujuan_kegiatan',{height:250} );
+                CKEDITOR.replace( 'harapan_kegiatan',{height:250} );
             </script>
        </div>
 

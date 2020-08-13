@@ -160,6 +160,49 @@ class Document extends CI_Controller
         redirect('document/'.$backLink.'/'.$backId);
     }
 
+    public function addSingleDocument()
+    {
+        $backLink= $_POST['backlink'];
+        $backId =$_POST['backid'];
+        $code_id = $_POST['code_id'];
+
+        $config['upload_path']          = './document/';
+		$config['allowed_types']        = '*';
+		$config['max_size']             = 5000;
+		$config['encrypt_name'] 		= true;
+		$this->load->library('upload',$config);
+		$judul = $this->input->post('judul');
+        $jumlah_berkas = count($_FILES['arsip']['name']);
+        
+		for($i = 0; $i < $jumlah_berkas;$i++)
+		{
+            if(!empty($_FILES['arsip']['name'][$i])){
+ 
+				$_FILES['file']['name'] = $_FILES['arsip']['name'][$i];
+				$_FILES['file']['type'] = $_FILES['arsip']['type'][$i];
+				$_FILES['file']['tmp_name'] = $_FILES['arsip']['tmp_name'][$i];
+				$_FILES['file']['error'] = $_FILES['arsip']['error'][$i];
+				$_FILES['file']['size'] = $_FILES['arsip']['size'][$i];
+	   
+				if($this->upload->do_upload('file')){
+					
+					$uploadData = $this->upload->data();
+					$data['code_id'] = $code_id;
+					$data['nama_doc'] = $judul[$i];
+					$data['link_file'] = $uploadData['file_name'];
+					$data['type_file'] = $uploadData['file_ext'];
+                    $this->db->insert('trans_doc',$data);
+                    $this->session->set_flashdata('success', 'Dokumen berhasil ditambahkan');
+				}else{
+                    $this->session->set_flashdata('error', 'Dokumen gagal ditambah');
+                }
+			}
+        }
+        
+        redirect('document/'.$backLink.'/'.$backId);
+    }
+
+
 
     // Laporan & Proposal
     
