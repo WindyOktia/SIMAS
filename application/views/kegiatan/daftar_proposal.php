@@ -16,7 +16,7 @@
                 <th>Info Pembina</th>
 				<th>Info Waka</th>
 				<th>Info Kepala Sekolah</th>
-				<th style="width:20%">Actions</th>
+				<th style="width:15%">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,8 +31,8 @@
 				<td>-</td>
 				<td>-</td>
 				<td>
-                    <a href="<?= base_url('document/detailProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
-                    <a href="<?= base_url('document/detailProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                    <a href="<?= base_url('document/detailProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                    <!-- <a href="<?= base_url('document/detailProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></a> -->
 					<a href="<?= base_url('document/deleteProposal')?>/<?= $doc['id_proposal']?>"class="btn btn-danger btn-sm tombol-hapus"><i class="fa fa-remove"></i></a>
                 </td>
 			</tr>

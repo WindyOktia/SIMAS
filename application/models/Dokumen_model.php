@@ -57,6 +57,12 @@ class Dokumen_model extends CI_Model
         return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
     }
 
+    public function deleteProposal($id)
+    {
+        $this->db->delete('proposal',['id_proposal'=>$id]);
+        return $this->db->affected_rows();
+    }
+
     public function getLaporanID($id)
     {
         return $this->db->get_where('laporan',['id_laporan'=> $id])->result_array();

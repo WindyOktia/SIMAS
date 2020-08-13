@@ -76,6 +76,18 @@ class Document extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function deleteProposal($id)
+    {
+        $delete=$this->dokumen_model->deleteProposal($id);
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Data Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Data Gagal Dihapus'); 
+        }
+
+        redirect('document/proposal');
+    }
+
     public function detailLaporan($id)
     {
         $data['page']='daftar_laporan';
