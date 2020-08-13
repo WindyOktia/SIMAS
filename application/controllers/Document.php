@@ -70,7 +70,9 @@ class Document extends CI_Controller
     public function detailProposal($id)
     {
         $data['page']='daftar_proposal';
+        $data['id']= $id;
         $data['dokumen']=$this->dokumen_model->getProposalID($id);
+        $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_proposal',$data);
         $this->load->view('templates/footer');
@@ -139,6 +141,23 @@ class Document extends CI_Controller
         $code='laporan';
         $backid='laporan';
         $this->generalUpload($id,$code,$backid);
+    }
+
+    public function downloadDocument($file)
+    {
+        $this->load->helper('download');
+        force_download(FCPATH.'/document/'.$file, null);
+    }
+
+    public function deleteSingleDoc($id, $backLink, $backId)
+    {
+        $delete= $this->dokumen_model->deleteSingleDoc($id);
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Data Dihapus');
+        }else{
+            $this->session->set_flashdata('error', 'Data Gagal Dihapus');
+        }
+        redirect('document/'.$backLink.'/'.$backId);
     }
 
 

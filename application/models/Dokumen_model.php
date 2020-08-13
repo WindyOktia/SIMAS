@@ -57,6 +57,17 @@ class Dokumen_model extends CI_Model
         return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
     }
 
+    public function getArsipLaporanID($id)
+    {
+        return $this->db->get_where('trans_doc',['code_id'=> 'proposal_'.$id])->result_array();
+    }
+
+    public function deleteSingleDoc($id)
+    {
+        $this->db->delete('trans_doc',['id_trans_doc'=>$id]);
+        return $this->db->affected_rows();
+    }
+
     public function deleteProposal($id)
     {
         $this->db->delete('proposal',['id_proposal'=>$id]);
