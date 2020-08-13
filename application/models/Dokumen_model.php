@@ -6,6 +6,7 @@ class Dokumen_model extends CI_Model
     public function addProposal()
     {
         $data=[
+            'role'=>$this->session->userdata('role'),
             'nama_kegiatan'=>$_POST['nama_kegiatan'],
             'tahun_akademik'=>$_POST['tahun_akademik_1'].'/'.$_POST['tahun_akademik_2'],
             'semester'=>$_POST['semester'],

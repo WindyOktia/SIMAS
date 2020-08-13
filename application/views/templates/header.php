@@ -158,7 +158,7 @@
 
 						<!-- Kegiatan EL -->
 						<?php 
-							$rl=array('2','4','5','7','8');
+							$rl=array('5','8');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
@@ -170,7 +170,7 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('2','4','5','7','8');
+							$rl=array('5','8');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
