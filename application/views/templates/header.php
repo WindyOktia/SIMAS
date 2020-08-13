@@ -18,6 +18,7 @@
 	<link href="<?= base_url('assets/css/components.min.css')?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('assets/css/colors.min.css')?>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 	<!-- /global stylesheets -->
 

@@ -1,5 +1,5 @@
 
-<legend>Tambah Proposal Kegiatan SMA Bopkri 1 Yogyakarta</legend>
+<!-- <legend>Tambah Proposal Kegiatan SMA Bopkri 1 Yogyakarta</legend> -->
 
 <a href="<?=base_url('document/proposal')?>" class="btn btn-primary btn-sm mb-3">Kembali</a>
 
@@ -41,17 +41,26 @@
 
         <div class="form-group">
             <label for="">Latar Belakang</label>
-            <input name="lb_kegiatan" type="text" class="form-control" required>
+            <textarea name="lb_kegiatan" class="form-control" id="" cols="30" rows="10" ></textarea>
+            <script>
+                CKEDITOR.replace( 'lb_kegiatan',{height:250} );
+            </script>
        </div>
 
        <div class="form-group">
             <label for="">Tujuan</label>
-            <input name="tujuan_kegiatan" type="text" class="form-control" required>
+            <textarea name="tujuan_kegiatan" class="form-control" id="" cols="30" rows="10" ></textarea>
+            <script>
+                CKEDITOR.replace( 'tujuan_kegiatan',{height:250} );
+            </script>
        </div>
 
        <div class="form-group">
             <label for="">Hasil Yang diharapkan</label>
-            <input name="harapan_kegiatan" type="text" class="form-control" required>
+            <textarea name="harapan_kegiatan" class="form-control" id="" cols="30" rows="10" ></textarea>
+            <script>
+                CKEDITOR.replace( 'tujuan_kegiatan',{height:250} );
+            </script>
        </div>
 
        <div class="form-group">
