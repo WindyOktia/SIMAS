@@ -1,5 +1,8 @@
 
 <a href="<?=base_url('document/proposal')?>" class="btn btn-primary btn-sm mb-3">Kembali</a>
+<button type="button" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#modalTambah">
+  Tambah Dokumen
+</button>
 <?php foreach ($dokumen as $dok):?>
 
 <div class="card card-body border-success">
@@ -61,3 +64,37 @@
     <?php endforeach?>
 </div>
 <?php endforeach ?>
+
+<?php foreach($arsip as $add):?>
+<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url('document/addSingleDocument')?>" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <label for="">Judul Dokumen</label>
+                <input type="hidden" name="backlink" value="detailProposal">
+                <input type="hidden" name="backid" value="<?= $id?>">
+                <input type="hidden" name="code_id" value="<?= $add['code_id']?>">
+                <input type="text" name="judul[]" placeholder=""class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="">File Dokumen</label>
+                <input type="file" name="arsip[]" class="form-control-file">
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endforeach?>
