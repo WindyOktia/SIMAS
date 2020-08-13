@@ -211,7 +211,7 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('2','5');
+							$rl=array('2');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">
@@ -225,7 +225,7 @@
 						<?php }?>
 						
 						<?php 
-							$rl=array('2','8');
+							$rl=array('2');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item nav-item-submenu <?php if($page=='tambahSiswa'||$page=='daftarSiswa'){echo 'nav-item-expanded nav-item-open';};?>">

@@ -25,7 +25,7 @@ class Dokumen_model extends CI_Model
 
     public function getProposal()
     {
-        return $this->db->get('proposal')->result_array();
+        return $this->db->get_where('proposal', ['role' => $this->session->userdata('role')])->result_array();
     }
 
     public function addLaporan()
