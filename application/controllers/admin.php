@@ -26,6 +26,13 @@ class Admin extends CI_Controller
         $this->load->view('dashboard/index');
         $this->load->view('templates/footer');
     }
+    public function info()
+    {
+        $data['page']='dashboard';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/infoMutu');
+        $this->load->view('templates/footer');
+    }
 
     public function detailRecordPresensi()
     {
