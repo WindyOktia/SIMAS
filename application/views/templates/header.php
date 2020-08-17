@@ -240,6 +240,18 @@
 
 						<!-- End Kegiatan El -->
 						<?php 
+							$rl=array('6');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('admin/mutu')?>" class="nav-link <?php if($page=='mutu'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Data Mutu</span>
+									</a>
+								</li>
+						<?php }?>
+
+						<?php 
 							$rl=array('3');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>		

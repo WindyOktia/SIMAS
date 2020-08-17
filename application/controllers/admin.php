@@ -53,6 +53,30 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function mutu()
+    {
+        $data['page']='mutu';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/indexMutu');
+        $this->load->view('templates/footer');
+    }
+
+    public function detailMutu()
+    {
+        $data['page']='mutu';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/detailMutu');
+        $this->load->view('templates/footer');
+    }
+
+    public function tambahMutu()
+    {
+        $data['page']='mutu';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/tambahMutu');
+        $this->load->view('templates/footer');
+    }
+
     // Ricky
 
     // siswa
