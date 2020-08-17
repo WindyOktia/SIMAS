@@ -102,8 +102,21 @@
 </div>
 <?php endforeach?>
 <!-- Modal Edit -->
-<?php foreach($dokumen as $edit):?>
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<?php foreach($dokumen as $edit):
+    $id = $edit['id_proposal'];
+    $nama_kegiatan = $edit['nama_kegiatan'];
+    $tahun_akademik = $edit['tahun_akademik'];
+    $semester = $edit['semester'];
+    $lb_kegiatan = $edit['lb_kegiatan'];
+    $tj_kegiatan = $edit['tujuan_kegiatan'];
+    $hp_kegiatan = $edit['harapan_kegiatan'];
+    $tgl_pelaksana = $edit['tgl_pelaksanaan'];
+    $tmpt = $edit['tempat'];
+    $anggaran = $edit['tot_anggaran'];
+    $tgl_pengajuan = $edit['tgl_pengajuan'];
+    ?>
+    
+    <div class="modal fade bd-example-modal-lg <?php echo $id ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
@@ -113,7 +126,7 @@
             </button>
         </div>
         <div class="modal-body">
-        <form action="<?= base_url('document/addSingleDocument')?>" enctype="multipart/form-data" method="post">
+        <form action="<?= base_url('document/updateProposalKegiatan')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <label for="">Nama Kegiatan</label>
             <input name="nama_kegiatan" type="text" class="form-control" required>
