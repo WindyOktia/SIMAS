@@ -113,7 +113,7 @@
             </button>
         </div>
         <div class="modal-body">
-        <form action="<?= base_url('document/addSingleDocument')?>" enctype="multipart/form-data" method="post">
+        <form action="<?= base_url('document/updateProposal')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <label for="">Nama Kegiatan</label>
             <input name="nama_kegiatan" type="text" class="form-control" required>

@@ -127,6 +127,17 @@ class Document extends CI_Controller
         $this->load->view('templates/footer'); 
     }
 
+    public function updateProposal($id, $backLink, $backId)
+    {
+        $insert=$this->dokumen_model->editProposal($id);
+        if($insert){
+            $this->session->set_flashdata('success', 'Data diupdate');
+        }else{
+            $this->session->set_flashdata('error', 'Data gagal diupdate');
+        }
+        redirect('document/'.$backLink.'/'.$backId);
+    }
+
     public function do_addProposal()
     {
         $id= $this->dokumen_model->addProposal();
