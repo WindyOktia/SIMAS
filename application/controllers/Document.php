@@ -127,16 +127,11 @@ class Document extends CI_Controller
         $this->load->view('templates/footer'); 
     }
 
-    public function updateProposal($id, $backLink, $backId)
-    {
-        $insert=$this->dokumen_model->editProposal($id);
-        if($insert){
-            $this->session->set_flashdata('success', 'Data diupdate');
-        }else{
-            $this->session->set_flashdata('error', 'Data gagal diupdate');
-        }
-        redirect('document/'.$backLink.'/'.$backId);
-    }
+    function edit($id){
+		$where = array('id' => $id);
+		$data['user'] = $this->m_data->edit_data($where,'user')->result();
+		$this->load->view('v_edit',$data);
+	}
 
     public function do_addProposal()
     {
@@ -213,7 +208,46 @@ class Document extends CI_Controller
         redirect('document/'.$backLink.'/'.$backId);
     }
 
+    public function update1($where, $data, $table)
+    {
+        return $res = $this->db->update($table, $data, $where);
+    }
 
+    public function updateProposalKegiatan()
+    {
+        $this->db->trans_star();
+
+        $id = $this->input->post('id_propoasal');
+        $nama_kegiatan = $this->input->post('nama_kegiatan');
+        $tahun_akademik = $this->input->post('tahun_akademik');
+        $semester = $this->input->post('semester');
+        $lb_kegiatan = $this->input->post('lb_kegiatan');
+        $tj_kegiatan = $this->input->post('tujuan_kegiatan');
+        $hp_kegiatan = $this->input->post('harapan_kegiatan');
+        $tgl_pelaksana = $this->input->post('tgl_pelaksana');
+        $tmpt = $this->input->post('tempat');
+        $anggaran = $this->input->post('tot_anggaran');
+        $tgl_pengajuan = $this->input->post('tgl_pengajuan');
+
+        $data = array (
+            'nama_kegiatan' => $nama_kegiatan,
+            'tahun_akaddemik' => $tahun_akademik,
+            'semester' => $semester,
+            'lb_kegiatan' => $lb_kegiatan,
+            'tujuan_kegiatan' => $tj_kegiatan,
+            'harapan_kegiatan' => $hp_kegiatan,
+            'tgl_pelaksanaan' => $tgl_pelaksana,
+            'tempat' => $tmpt,
+            'tot_anggaran' => $anggaran,
+            'tgl_pengajuan' => $tgl_pengajuan
+        );
+
+        $this->db->where('id_proposal', $id);
+        $this->db->update('proposal', $data);
+        $this->db->trans_complete();
+
+        redirect('document/'.$backLink.'/'.$backId);
+    }
 
     // Laporan & Proposal
     
