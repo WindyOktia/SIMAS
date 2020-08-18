@@ -48,6 +48,7 @@ var dashBobot = new Chart(dash1, {
 		}]
 	}
 });
+
 var dash1 = document.getElementById('dashKetertarikan').getContext('2d');
 var dashKetertarikan = new Chart(dash1, {
 	type: 'horizontalBar',
