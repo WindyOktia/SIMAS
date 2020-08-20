@@ -128,10 +128,46 @@ class Document extends CI_Controller
     }
 
     function edit($id){
-		$where = array('id' => $id);
-		$data['user'] = $this->m_data->edit_data($where,'user')->result();
-		$this->load->view('v_edit',$data);
-	}
+		$where = array('id_proposal' => $id);
+		$data['proposal'] = $this->m_data->edit_data($where,'proposal')->result();
+		$this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/detail_proposal',$data);
+        $this->load->view('templates/footer'); 
+    }
+    
+    function update(){
+        $id = $this->input->post('id_proposal');
+        $nama_kegiatan = $this->input->post('nama_kegiatan');
+        $tahun_akademik = $this->input->post('tahun_akademik');
+        $semester = $this->input->post('semester');
+        $lb_kegiatan = $this->input->post('lb_kegiatan');
+        $tj_kegiatan = $this->input->post('tujuan_kegiatan');
+        $hp_kegiatan = $this->input->post('harapan_kegiatan');
+        $tgl_pelaksana = $this->input->post('tgl_pelaksanaan');
+        $tmpt = $this->input->post('tempat');
+        $anggaran = $this->input->post('tot_anggaran');
+        $tgl_pengajuan =$this->input->post('tgl_pengajuan');
+     
+        $data = array(
+            'nama_kegiatan' => $nama_kegiatan,
+            'tahun_akademik' => $tahun_akademik,
+            'semester' => $semester,
+            'lb_kegiatan' => $lb_kegiatan,
+            'tujuan_kegiatan' => $tj_kegiatan,
+            'harapan_kegiatan' => $hp_kegiatan,
+            'tgl_pelaksanaan' => $tgl_pelaksana,
+            'tempat' => $tmpt,
+            'tot_anggaran' => $anggaran,
+            'tgl_pengajuan' => $tgl_pengajuan
+        );
+     
+        $where = array(
+            'id_proposal' => $id
+        );
+     
+        $this->m_data->update_data($where,$data,'proposal');
+        redirect('kegiatan/detail_proposal');
+    }
 
     public function do_addProposal()
     {

@@ -80,31 +80,8 @@ class Dokumen_model extends CI_Model
         return $this->db->get_where('laporan',['id_laporan'=> $id])->result_array();
     }
 
-    public function editProposal($id)
-    {
-        $nm_kegiatan = $this->input->post('nama_kegiatan', true);
-        $tahun_aka = $this->input->post('tahun_akademik_1'.'/'.'tahun_akademik_2', true);
-        $semester = $this->input->post('semester', true);
-        $lb = $this->input->post('lb_kegiatan', true);
-        $tujuan = $this->input->post('tujuan_kegiatan', true);
-        $harapan = $this->input->post('harapan_kegiatan', true);
-        $tgl_plk = $this->input->post('tgl_pelaksanaan', true);
-        $tempat = $this->input->post('tempat', true);
-        $tot_ang = $this->input->post('tot_anggaran', true);
-        $tgl_peng = $this->input->post('tgl_pengajuan', true);
-        $this->db->set('nama_kegiatan',$nm_kegiatan);
-        $this->db->set('tahun_akademik',$tahun_aka);
-        $this->db->set('semester',$semester);
-        $this->db->set('lb_kegiatan',$lb);
-        $this->db->set('tujuan_kegiatan',$tujuan);
-        $this->db->set('harapan_kegiatan',$harapan);
-        $this->db->set('tgl_pelaksanaan',$tgl_plk);
-        $this->db->set('tempat',$tempat);
-        $this->db->set('tot_anggaran',$tot_ang);
-        $this->db->set('tgl_pengajuan',$tgl_peng);
-        $this->db->where('id_proposal',$id);
-        $this->db->update('proposal');
-        return true;
+    function edit_data($where,$table){		
+        return $this->db->get_where($table,$where);
     }
 
 
