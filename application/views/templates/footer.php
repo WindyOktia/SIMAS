@@ -60,7 +60,8 @@
 					$(wrapper).append(`
 					<div class="row">
 							<div class="form-group col-md">
-								<select class="form-control" name="hari[]">
+								<select class="form-control" name="hari[]" required>
+									<option selected disabled value="">- pilih -</option>
 									<option value="Senin">Senin</option>
 									<option value="Selasa">Selasa</option>
 									<option value="Rabu">Rabu</option>
@@ -71,9 +72,18 @@
 								</select>
 							</div> 
 							<div class="form-group col-md">
-								<select id="selectKelasB" class="form-control" name="kelas[]">
+								<select id="selectKelasB" class="form-control" name="kelas[]" required>
+								<option selected disabled value="">- pilih -</option>
 									<?php foreach($kelas as $kelas):?>
 										<option value="<?= $kelas['id_kelas']?>"><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></option>
+									<?php endforeach;?>
+								</select>
+							</div>
+							<div class="form-group col-md">
+								<select id="selectKelasA" class="form-control" name="mapel[]" required>
+								<option selected disabled value="">- pilih -</option>
+									<?php foreach($mapel as $mapel):?>
+										<option value="<?= $mapel['id_mapel']?>"><?= $mapel['nama_mapel']?></option>
 									<?php endforeach;?>
 								</select>
 							</div> 
