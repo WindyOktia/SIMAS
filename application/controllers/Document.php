@@ -57,134 +57,6 @@ class Document extends CI_Controller
         redirect('document/'.$backid);
     }
 
-    // Laporan & Proposal
-    public function proposal()
-    {
-        $data['page']='daftar_proposal';
-        $data['dokumen']=$this->dokumen_model->getProposal();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/daftar_proposal',$data);
-        $this->load->view('templates/footer');
-    }
-
-    public function detailProposal($id)
-    {
-        $data['page']='daftar_proposal';
-        $data['id']= $id;
-        $data['dokumen']=$this->dokumen_model->getProposalID($id);
-        $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/detail_proposal',$data);
-        $this->load->view('templates/footer');
-    }
-
-    public function deleteProposal($id)
-    {
-        $delete=$this->dokumen_model->deleteProposal($id);
-        if($delete > 0){
-            $this->session->set_flashdata('success', 'Data Dihapus'); 
-        }else{
-            $this->session->set_flashdata('error', 'Data Gagal Dihapus'); 
-        }
-
-        redirect('document/proposal');
-    }
-
-    public function detailLaporan($id)
-    {
-        $data['page']='daftar_laporan';
-        $data['dokumen']=$this->dokumen_model->getLaporanID($id);
-        $data['proposal']=$this->dokumen_model->getProposal();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/detail_laporan',$data);
-        $this->load->view('templates/footer');
-    }
-
-    public function laporan()
-    {
-        $data['page']='daftar_laporan';
-        $data['proposal']=$this->dokumen_model->getLaporan();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/daftar_laporan',$data);
-        $this->load->view('templates/footer');
-    }
-
-    public function addLaporan()
-    {
-        $data['page']='daftar_laporan';
-        $data['proposal']=$this->dokumen_model->getProposal();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/add_laporan',$data);
-        $this->load->view('templates/footer'); 
-    }
-
-    public function addProposal()
-    {
-        $data['page']='daftar_proposal';
-        $data['dokumen']=$this->dokumen_model->getProposal();
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/add_proposal',$data);
-        $this->load->view('templates/footer'); 
-    }
-
-    function edit($id){
-		$where = array('id_proposal' => $id);
-		$data['proposal'] = $this->m_data->edit_data($where,'proposal')->result();
-		$this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/detail_proposal',$data);
-        $this->load->view('templates/footer'); 
-    }
-    
-    function update(){
-        $id = $this->input->post('id_proposal');
-        $nama_kegiatan = $this->input->post('nama_kegiatan');
-        $tahun_akademik = $this->input->post('tahun_akademik');
-        $semester = $this->input->post('semester');
-        $lb_kegiatan = $this->input->post('lb_kegiatan');
-        $tj_kegiatan = $this->input->post('tujuan_kegiatan');
-        $hp_kegiatan = $this->input->post('harapan_kegiatan');
-        $tgl_pelaksana = $this->input->post('tgl_pelaksanaan');
-        $tmpt = $this->input->post('tempat');
-        $anggaran = $this->input->post('tot_anggaran');
-        $tgl_pengajuan =$this->input->post('tgl_pengajuan');
-     
-        $data = array(
-            'nama_kegiatan' => $nama_kegiatan,
-            'tahun_akademik' => $tahun_akademik,
-            'semester' => $semester,
-            'lb_kegiatan' => $lb_kegiatan,
-            'tujuan_kegiatan' => $tj_kegiatan,
-            'harapan_kegiatan' => $hp_kegiatan,
-            'tgl_pelaksanaan' => $tgl_pelaksana,
-            'tempat' => $tmpt,
-            'tot_anggaran' => $anggaran,
-            'tgl_pengajuan' => $tgl_pengajuan
-        );
-     
-        $where = array(
-            'id_proposal' => $id
-        );
-     
-        $this->m_data->update_data($where,$data,'proposal');
-        redirect('kegiatan/detail_proposal');
-    }
-
-    public function do_addProposal()
-    {
-        $id= $this->dokumen_model->addProposal();
-        $code='proposal';
-        $backid='proposal';
-        $this->generalUpload($id,$code,$backid);
-    }
-
-    public function do_addLaporan()
-    {
-        $id= $this->dokumen_model->addLaporan();
-        $code='laporan';
-        $backid='laporan';
-        $this->generalUpload($id,$code,$backid);
-    }
-
     public function downloadDocument($file)
     {
         $this->load->helper('download');
@@ -244,48 +116,156 @@ class Document extends CI_Controller
         redirect('document/'.$backLink.'/'.$backId);
     }
 
-    public function update1($where, $data, $table)
+    // Proposal
+    public function proposal()
     {
-        return $res = $this->db->update($table, $data, $where);
+        $data['page']='daftar_proposal';
+        $data['dokumenproposal']=$this->dokumen_model->getProposal();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/daftar_proposal',$data);
+        $this->load->view('templates/footer');
     }
 
-    public function updateProposalKegiatan()
+    public function detailProposal($id)
     {
-        $this->db->trans_star();
-
-        $id = $this->input->post('id_propoasal');
-        $nama_kegiatan = $this->input->post('nama_kegiatan');
-        $tahun_akademik = $this->input->post('tahun_akademik');
-        $semester = $this->input->post('semester');
-        $lb_kegiatan = $this->input->post('lb_kegiatan');
-        $tj_kegiatan = $this->input->post('tujuan_kegiatan');
-        $hp_kegiatan = $this->input->post('harapan_kegiatan');
-        $tgl_pelaksana = $this->input->post('tgl_pelaksana');
-        $tmpt = $this->input->post('tempat');
-        $anggaran = $this->input->post('tot_anggaran');
-        $tgl_pengajuan = $this->input->post('tgl_pengajuan');
-
-        $data = array (
-            'nama_kegiatan' => $nama_kegiatan,
-            'tahun_akaddemik' => $tahun_akademik,
-            'semester' => $semester,
-            'lb_kegiatan' => $lb_kegiatan,
-            'tujuan_kegiatan' => $tj_kegiatan,
-            'harapan_kegiatan' => $hp_kegiatan,
-            'tgl_pelaksanaan' => $tgl_pelaksana,
-            'tempat' => $tmpt,
-            'tot_anggaran' => $anggaran,
-            'tgl_pengajuan' => $tgl_pengajuan
-        );
-
-        $this->db->where('id_proposal', $id);
-        $this->db->update('proposal', $data);
-        $this->db->trans_complete();
-
-        redirect('document/'.$backLink.'/'.$backId);
+        $data['page']='daftar_proposal';
+        $data['id']= $id;
+        $data['dokumenproposal']=$this->dokumen_model->getProposalID($id);
+        $data['arsip']=$this->dokumen_model->getArsipProposalID($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/detail_proposal',$data);
+        $this->load->view('templates/footer');
     }
 
-    // Laporan & Proposal
+    public function deleteProposal($id)
+    {
+        $delete=$this->dokumen_model->deleteProposal($id);
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Data Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Data Gagal Dihapus'); 
+        }
+
+        redirect('document/proposal');
+    }
+
+    public function addProposal()
+    {
+        $data['page']='daftar_proposal';
+        $data['dokumenproposal']=$this->dokumen_model->getProposal();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/add_proposal',$data);
+        $this->load->view('templates/footer'); 
+    }
+    
+    public function updateProposal()
+    {
+        // $nama_kegiatan = $_POST['nama_kegiatan'];
+        $tahun_akademik = $_POST['tahun_akademik_1'].' / '. $_POST['tahun_akademik_2'];
+        // $semester = $_POST['semester'];
+        // $lb_kegiatan = $_POST['lb_kegiatan'];
+        // $tj_kegiatan = $_POST['tujuan_kegiatan'];
+        // $hp_kegiatan = $_POST['harapan_kegiatan'];
+        // $tgl_pelaksana = $_POST['tgl_pelaksanaan'];
+        // $tmpt = $_POST['tempat'];
+        // $anggaran = $_POST['tot_anggaran'];
+        // $tgl_pengajuan =$_POST['tgl_pengajuan'];
+     
+        $update=$this->dokumen_model->edit_data($tahun_akademik);
+        if($update > 0)
+        {
+            $this->session->set_flashdata('success', 'Proposal berhasil diubah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Proposal gagal diubah');
+        }
+        redirect('document/detailProposal/'.$_POST['back_id']);
+    }
+
+    public function do_addProposal()
+    {
+        $id= $this->dokumen_model->addProposal();
+        $code='proposal';
+        $backid='proposal';
+        $this->generalUpload($id,$code,$backid);
+    }
+    // End Proposal
+
+    // Laporan
+    public function laporan()
+    {
+        $data['page']='daftar_laporan';
+        $data['dokumenlaporan']=$this->dokumen_model->getLaporan();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/daftar_laporan',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detailLaporan($id)
+    {
+        $data['page']='daftar_laporan';
+        $data['id']= $id;
+        $data['dokumenlaporan']=$this->dokumen_model->getLaporanID($id);
+        $data['proposal']=$this->dokumen_model->getProposal($id);
+        $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/detail_laporan',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function deleteLaporan($id)
+    {
+        $delete=$this->dokumen_model->deleteLaporan($id);
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Data Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Data Gagal Dihapus'); 
+        }
+
+        redirect('document/laporan');
+    }
+
+    public function addLaporan()
+    {
+        $data['page']='daftar_laporan';
+        $data['idproposal']=$this->dokumen_model->getProposal();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/add_laporan',$data);
+        $this->load->view('templates/footer'); 
+    }
+
+    public function updateLaporan()
+    {
+        $nama_kegiatan = $_POST['nama_kegiatan'];
+        // $tahun_akademik = $_POST['tahun_akademik_1'].' / '. $_POST['tahun_akademik_2'];
+        // $semester = $_POST['semester'];
+        // $lb_kegiatan = $_POST['lb_kegiatan'];
+        // $tj_kegiatan = $_POST['tujuan_kegiatan'];
+        // $hp_kegiatan = $_POST['harapan_kegiatan'];
+        // $tgl_pelaksana = $_POST['tgl_pelaksanaan'];
+        // $tmpt = $_POST['tempat'];
+        // $anggaran = $_POST['tot_anggaran'];
+        // $tgl_pengajuan =$_POST['tgl_pengajuan'];
+     
+        $update=$this->dokumen_model->edit_LPJ($nama_kegiatan);
+        if($update > 0)
+        {
+            $this->session->set_flashdata('success', 'Laporan berhasil diubah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Laporan gagal diubah');
+        }
+        redirect('document/detailLaporan/'.$_POST['back_id']);
+    }
+
+    public function do_addLaporan()
+    {
+        $id= $this->dokumen_model->addLaporan();
+        $code='laporan';
+        $backid='laporan';
+        $this->generalUpload($id,$code,$backid);
+    }
+    // End Laporan
     
 
 

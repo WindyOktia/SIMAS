@@ -6,7 +6,7 @@
 <button type="button" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#modalTambah">
   Tambah Dokumen
 </button>
-<?php foreach ($dokumen as $dok):?>
+<?php foreach ($dokumenproposal as $dok):?>
 
 <div class="card card-body border-success">
 <h4><b>Detail Dokumen Proposal Kegiatan</b></h4>
@@ -65,7 +65,7 @@
         </div>
     </div>
     <?php endforeach?>
-</div>
+    </div>
 <?php endforeach ?>
 
 <?php foreach($arsip as $add):?>
@@ -102,10 +102,18 @@
 </div>
 <?php endforeach?>
 <!-- Modal Edit -->
-<?php foreach($proposal as $prop):?>
-    
-    <div class="modal fade bd-example-modal-lg <?php echo $id ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+
+
+<?php foreach($dokumenproposal as $docprop):?>
+
+<?php $split = explode(' / ', $docprop['tahun_akademik']);
+
+$tahun = $split[0];
+$tahun2 = $split[1];
+
+?>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Modal Edit</h5>
@@ -114,10 +122,12 @@
             </button>
         </div>
         <div class="modal-body">
-        <form action="<?= base_url('document/edit')?>" enctype="multipart/form-data" method="post">
+        <form action="<?= base_url('document/updateProposal')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <label for="">Nama Kegiatan</label>
-            <input name="nama_kegiatan" type="text" class="form-control" required>
+            <input name="nama_kegiatan" value="<?=$docprop['nama_kegiatan']?>" type="text" class="form-control" required>
+            <input name="id_proposal" value="<?=$docprop['id_proposal']?>" type="hidden" class="form-control" required>
+            <input name="back_id" value="<?=$id?>" type="hidden" class="form-control" required>
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -125,11 +135,11 @@
                     <label for="">Tahun Akademik</label>
                     <div class="row">
                         <div class="col">
-                            <input type="number" name="tahun_akademik_1" class="form-control" required>
+                            <input type="number" value="<?=$tahun?>" name="tahun_akademik_1" class="form-control" required>
                         </div>
                         <span class="mx-auto my-auto">/</span>
                         <div class="col">
-                            <input type="number" name="tahun_akademik_2" class="form-control" required>
+                            <input type="number" value="<?=$tahun2?>" name="tahun_akademik_2" class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -147,7 +157,7 @@
 
         <div class="form-group">
             <label for="">Latar Belakang</label>
-            <textarea name="lb_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$edit['lb_kegiatan']?></textarea>
+            <textarea name="lb_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$docprop['lb_kegiatan']?></textarea>
             <script>
                 CKEDITOR.replace( 'lb_kegiatan',{height:250} );
             </script>
@@ -155,7 +165,7 @@
 
        <div class="form-group">
             <label for="">Tujuan</label>
-            <textarea name="tujuan_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$edit['tujuan_kegiatan']?></textarea>
+            <textarea name="tujuan_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$docprop['tujuan_kegiatan']?></textarea>
             <script>
                 CKEDITOR.replace( 'tujuan_kegiatan',{height:250} );
             </script>
@@ -163,7 +173,7 @@
 
        <div class="form-group">
             <label for="">Hasil Yang diharapkan</label>
-            <textarea name="harapan_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$edit['harapan_kegiatan']?></textarea>
+            <textarea name="harapan_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$docprop['harapan_kegiatan']?></textarea>
             <script>
                 CKEDITOR.replace( 'harapan_kegiatan',{height:250} );
             </script>
@@ -171,22 +181,22 @@
 
        <div class="form-group">
             <label for="">Tanggal Pelaksanaan</label>
-            <input name="tgl_pelaksanaan" type="date" class="form-control" required>
+            <input name="tgl_pelaksanaan"  value="<?=$docprop['tgl_pelaksanaan']?>" type="date" class="form-control" required>
        </div>
 
        <div class="form-group">
             <label for="">Tempat</label>
-            <input name="tempat" type="text" class="form-control" required>
+            <input name="tempat" type="text"  value="<?=$docprop['tempat']?>" class="form-control" required>
        </div>
 
         <div class="form-group">
             <label for="">Total Rancangan Anggaran ( Rp. )</label>
-            <input name="tot_anggaran" type="number" class="form-control" required>
+            <input name="tot_anggaran"  value="<?=$docprop['tot_anggaran']?>" type="number" class="form-control" required>
        </div>
 
         <div class="form-group">
             <label for="">Tanggal Pengajuan Proposal</label>
-            <input name="tgl_pengajuan" type="date" class="form-control" required>
+            <input name="tgl_pengajuan"  value="<?=$docprop['tgl_pengajuan']?>" type="date" class="form-control" required>
        </div>
 
 

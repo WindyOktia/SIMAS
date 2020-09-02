@@ -21,7 +21,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php $i=1; foreach ($dokumen as $doc):?>
+			<?php $i=1; foreach ($dokumenproposal as $doc):?>
 			<tr>
 				<td><?=$i++?></td>
 				<td><b><?= $doc['nama_kegiatan']?></b></td>
