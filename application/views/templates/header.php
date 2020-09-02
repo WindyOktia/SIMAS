@@ -295,8 +295,7 @@
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item nav-item-submenu <?php if($page=='presensi'||$page=='presensi'){echo 'nav-item-expanded nav-item-open';};?>">
-									<a href="#" class="nav-link <?php if($page=='presensi'||$page=='presensi'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Presensi</span></a>
-
+									<a href="#" class="nav-link <?php if($page=='presensi'||$page=='presensi'){echo 'active';};?>"><i class="fa fa-plus-circle"></i> <span>Kinerja Guru</span></a>
 									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 										<li class="nav-item"><a href="<?= base_url('admin/daftarPresensi')?>" class="nav-link <?php if($page=='presensi'){echo 'active';};?>">Guru</a></li>
 									</ul>

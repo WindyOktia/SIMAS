@@ -45,7 +45,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-2">lihat detail</a>
+                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-2">Lihat Detail</a>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
                     <canvas id="dashKetertarikan" height="100"></canvas>
                     </div>
                 </div>
-                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-2">lihat detail</a>
+                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-2">Lihat Detail</a>
             </div>
         </div>
 
