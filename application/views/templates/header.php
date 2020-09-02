@@ -291,7 +291,7 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('3');
+							$rl=array('3','4');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item nav-item-submenu <?php if($page=='presensi'||$page=='presensi'){echo 'nav-item-expanded nav-item-open';};?>">
