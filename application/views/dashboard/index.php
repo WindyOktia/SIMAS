@@ -7,13 +7,41 @@
                     <canvas id="dashBobot" height="100"></canvas>
                     </div>
                     <div class="col-md-4">
-                        <h5><b>Summary</b></h5>
-                        Tahun Akademik : <br>
-                        Semester : <br>
-                        Total Item Penilaian <br>
-                        Total Nilai <br>
+                    <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Detail Informasi</h6>
+            <ol>
+            
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Tahun Akademik </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Semester </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Total Item Penilaian </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Total Nilai</div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Total Jam Mengajar</div>
+                        <div class="col-md-6">: 200 jam</div>
+                    </div>
+                </li>
                 </div>
-                <a href="<?=base_url('admin/info')?>" class="btn btn-sm btn-info float-right mt-2">lihat detail</a>
+                <a href="<?=base_url('admin/info')?>" class="btn btn-sm btn-info float-right mt-2">Lihat Detail</a>
             </div>
         </div>
     </div>
@@ -33,10 +61,10 @@ var dash1 = document.getElementById('dashBobot').getContext('2d');
 var dashBobot = new Chart(dash1, {
 	type: 'pie',
 	data: {
-		labels: ['Tahun Akademik', 'Semester','Total Item Penilaian','Total Nilai'],
+		labels: ['Tahun Akademik', 'Semester','Total Item Penilaian','Total Nilai','Total Jam'],
 		datasets: [{
-			label: '# of Votes',
-			data: [12, 19, -10, 5, -11],
+			label: 'Tahun Akademik',
+			data: [12, 12, 12, 12, 12],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(54, 162, 235, 0.2)',

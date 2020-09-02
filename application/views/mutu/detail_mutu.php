@@ -1,9 +1,5 @@
 <a href="<?=base_url('admin/mutu')?>" class="btn btn-sm btn-secondary mb-3">Kembali</a>
 
-<button type="button" class="btn btn-primary btn-sm mb-3 ml-2" data-toggle="modal" data-target="#exampleModal">
-  Tambah item
-</button>
-
 <div class="card card-body">
     <h4>Detail Mutu Sekolah</h4>
     <ul>
