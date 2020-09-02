@@ -1,161 +1,257 @@
-<div class="card">
-    <div class="card-body">
-        <legend>INFORMASI</legend>
-        <div class="row">
-            <div class="col-3">
-                <p>Nama Guru</p>
-            </div>
-            <div class="col">
-                <p>: Handi</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3">
-                <p>NIP</p>
-            </div>
-            <div class="col">
-                <p>: 111</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3">
-                <p>Total Kelas Ampuan</p>
-            </div>
-            <div class="col">
-                <p>: 3 Kelas</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3">
-                <p>Total Sesi Mengajar</p>
-            </div>
-            <div class="col">
-                <p>: 9 Sesi</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3">
-                <p>Total Absensi</p>
-            </div>
-            <div class="col">
-                <p>: 24 Hari </p>
-            </div>
-        </div>
-        <br>
-        <form action="" id="filter" method="get">
-        <div class="row">
-            <div class="col-3"><b>Tahun</b></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="2019">
-            <label class="form-check-label" for="2019">2019</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="2017">
-            <label class="form-check-label" for="2017">2017</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="2016">
-            <label class="form-check-label" for="2016">2016</label>
-        </div>
-    
-        <div class="row mt-2">
-            <div class="col-3"><b>Bulan</b></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['1']) && $_GET['1'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="1" value="true" onclick="" id="Januari">
-            <label class="form-check-label" for="Januari">Januari</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['2']) && $_GET['2'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="2" value="true" id="Februari">
-            <label class="form-check-label" for="Februari">Februari</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['3']) && $_GET['3'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="3" value="true" id="Maret">
-            <label class="form-check-label" for="Maret">Maret</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['4']) && $_GET['4'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="4" value="true" id="April">
-            <label class="form-check-label" for="April">April</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['5']) && $_GET['5'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="5" value="true" id="Mei">
-            <label class="form-check-label" for="Mei">Mei</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['6']) && $_GET['6'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="6" value="true" id="Juni">
-            <label class="form-check-label" for="Juni">Juni</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['7']) && $_GET['7'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="7" value="true" id="Juli">
-            <label class="form-check-label" for="Juli">Juli</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['8']) && $_GET['8'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="8" value="true" id="Agustus">
-            <label class="form-check-label" for="Agustus">Agustus</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['9']) && $_GET['9'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="9" value="true" id="September">
-            <label class="form-check-label" for="September">September</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['10']) && $_GET['10'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="10" value="true" id="Oktober">
-            <label class="form-check-label" for="Oktober">Oktober</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" <?= isset($_GET['11']) && $_GET['11'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="11" value="true" id="November">
-            <label class="form-check-label" for="November">November</label>
-        </div>
-        <div class="form-check form-check-inline mb-3">
-            <input type="checkbox" <?= isset($_GET['12']) && $_GET['12'] == 'true' ? 'checked=""' : '' ?> class="form-check-input cek" name="12" value="true" id="Desember">
-            <label class="form-check-label" for="Desember">Desember</label>
-        </div>
-        </form>
+<a href="<?=base_url('admin/daftarPresensi')?>" class="btn btn-sm btn-secondary"><i class="mr-2 fa fa-arrow-circle-left"></i> Kembali</a>
+<a href="<?=base_url('admin/rekapKehadiran')?>/<?=$id?>" class="btn btn-primary float-right btn-sm">Lihat Data Kehadiran <i class="ml-2 fa fa-arrow-circle-right"></i> </a>
+<!-- <h5><b>Filter Data Presensi</b></h5> -->
 
-        <table class="table datatable-show-all mt-3">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tahun</th>
-                    <th>Bulan</th>
-                    <th>Harian</th>
-                    <th>Mengajar</th>
-                    <th>Detail</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2019</td>
-                    <td>Maret</td>
-                    <td>OK</td>
-                    <td>OK</td>
-                    <td>
-                        <a href="" class="btn btn-sm btn-info">Detail</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="mt-3">
+<h6> <i class="	fa fa-user mr-2"></i> Rekapitulasi Presensi <b>Handoko</b> ( 777 ) </h6>
 </div>
+
+<div class="card card-body border-warning mt-2">
+    <form action="" method="get">
+        <div class="form-group my-auto">
+            <!-- <label for="">Filter Tahun Akademik</label> -->
+            <div class="row">
+                <div class="col-md-2">
+                    <select name="dari" id="" class="form-control">
+                        <option value="all">semua tahun</option>
+                        <option value="2018/2019">2018/2019</option>
+                        <option value="2019/2020">2019/2020</option>
+                    </select>
+                </div>
+                <span class=" my-auto"> sampai </span>
+                <div class="col-md-2">
+                    <select name="sampai" id="" class="form-control">
+                        <option value="semua">semua tahun</option>
+                        <option value="2018/2019">2018/2019</option>
+                        <option value="2019/2020">2019/2020</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="semester" id="" class="form-control">
+                        <option value="semua" >semua semester</option>
+                        <option value="Genap" >Genap</option>
+                        <option value="Ganjil" >Ganjil</option>
+                    </select>
+                </div>
+                <div class="col-md-2 ml-5">
+                    <button type="submit" class="btn btn-success btn-block ">Filter Data</button>
+                </div>
+                <div class="col-md-2 ml-5">
+                   <a href="<?=base_url('admin/detailPresensi')?>/<?=$id?>" class="btn btn-danger btn-block">Hapus Filter</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<?php if(isset($_GET['dari'])||isset($_GET['sampai'])||isset($_GET['semester'])){?>
+    <h6> <i class="	fa fa-clock-o mr-2"></i>Rekam jejak nilai dari tahun akademik <b><?=$_GET['dari']?></b> sampai <b><?=$_GET['sampai']?></b> | semester <?=$_GET['semester']?> </h6>
+<?php } else { ?>
+    <h6> <i class="	fa fa-clock-o mr-2"></i>Rekam jejak nilai dalam 2 tahun terakhir </h6>
+<?php } ;?>
 
 <div class="row">
-    <div class="col-md">
-        <div class="card">
-            <div class="card-body">
-                <legend>Presensi Harian</legend>
-                <canvas id="myChart" width="400" height="400"></canvas>
-                <!-- <a href="" class="btn btn-primary float-right mt-3">Lihat Distribusi</a> -->
-            </div>
+    <div class="col-md-4">
+        <div class="card card-body border-primary">
+            <h6>Nilai Kehadiran Harian  
+                <span class="float-right">
+                    <a type="button"data-toggle="modal" data-target="#modalHarian">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </span>
+            </h6>
+            <h2 class="text-center"><b>70</b></h2>
         </div>
     </div>
-    <div class="col-md">
-        <div class="card">
-            <div class="card-body">
-                <legend>Kehadiran Mengajar</legend>
-                <canvas id="myChart2" width="400" height="400"></canvas>
-                <!-- <a href="" class="btn btn-primary float-right mt-3">Lihat Distribusi</a> -->
-            </div>
+    <div class="col-md-4">
+        <div class="card card-body border-primary">
+            <h6>Nilai Kehadiran Mengajar
+                <span class="float-right">
+                    <a type="button"data-toggle="modal" data-target="#modalMengajar">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </span>
+            </h6>
+            <h2 class="text-center"><b>70</b></h2>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-body border-success">
+            <h6>Nilai Survei Guru
+                <span class="float-right">
+                    <a type="button"data-toggle="modal" data-target="#modalSurvei">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </span>
+            </h6>
+            <h2 class="text-center"><b>70</b></h2>
         </div>
     </div>
 </div>
+
+<div class="card card-body">
+    <div class="row">
+        <div class="col-md-4">
+           
+
+            <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Detail Informasi</h6>
+            <ol>
+            
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Kehadiran Harian </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Ijin </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Tugas </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Kehadiran Mengajar</div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Total Jam Mengajar</div>
+                        <div class="col-md-6">: 200 jam</div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-8">
+           <h5><b> </b></h5>
+           <canvas id="chartTrack"  height="120"></canvas>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+<!-- modal -->
+
+<div class="modal fade" id="modalHarian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Kehadiran Harian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5><b>Umum</b></h5>
+        <p>Nilai kehadiran harian diambil berdasarkan total hari terpenuhi dari target jumlah hari dalam satu semester</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalMengajar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Kehadiran Mengajar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5><b>Umum</b></h5>
+        <p>Nilai kehadiran harian mengajar diambil berdasarkan total jadwal mengajar terpenuhi dari target jumlah mengajar dalam satu semester</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalSurvei" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Survei</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h5><b>Umum</b></h5>
+        <p>Nilai Survei diambil diambil dari proses pelaksanaan survei guru yang diisi oleh siswa. </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var chartTrack = document.getElementById('chartTrack').getContext('2d');
+var chartTrack_graph = new Chart(chartTrack, {
+    type: 'line',
+    data: {
+        labels: ['2019 - Ganjil', '2019- Genap', '2020- Ganjil', '2020- Genap'],
+        datasets: [{
+            label: 'Kehadiran Harian',
+            data: [90, 90, 85, 95],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Kehadiran Mengajar',
+            data: [80, 90, 90, 85],
+            borderColor: [
+                '#20A39E'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Nilai Survei',
+            data: [90, 95, 95, 90],
+            borderColor: [
+                '#CC4BC2'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
+});
+</script>

@@ -310,7 +310,7 @@
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
-									<a href="<?=base_url('admin/informasi')?>" class="nav-link <?php if($page==''){echo 'active';};?>">
+									<a href="<?=base_url('admin/informasi')?>" class="nav-link <?php if($page=='informasi'){echo 'active';};?>">
 										<i class="fa fa-plus-circle"></i>
 										<span>Informasi</span>
 									</a>
@@ -321,12 +321,13 @@
 							$rl=array('1');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
-								<li class="nav-item nav-item-submenu <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'nav-item-expanded nav-item-open';};?>">
-									<a href="#" class="nav-link <?php if($page=='pengaturan'||$page=='pengaturan'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Pengaturan</span></a>
+								<li class="nav-item nav-item-submenu <?php if($page=='pengguna'||$page=='libur'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='pengguna'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Pengaturan</span></a>
 
 									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-										<li class="nav-item"><a href="<?= base_url('admin/pengguna')?>" class="nav-link <?php if($page=='pengaturan'){echo 'active';};?>">Pengguna</a></li>
-										<!-- <li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Siswa</a></li> -->
+										<li class="nav-item"><a href="<?= base_url('admin/pengguna')?>" class="nav-link <?php if($page=='pengguna'){echo 'active';};?>">Pengguna</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/libur')?>" class="nav-link <?php if($page=='libur'){echo 'active';};?>">Tanggal Libur</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/akademik')?>" class="nav-link <?php if($page=='libur'){echo 'active';};?>">Tahun Akademik</a></li>
 									</ul>
 								</li>
 						<?php }?>

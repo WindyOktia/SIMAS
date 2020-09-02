@@ -4,18 +4,18 @@
         <ol>
             <?php foreach($informasi as $info):?>
                <a type="button" data-toggle="modal" data-target="#exampleModalLong<?=$info['id_informasi']?>">
-            <li class="border-bottom">
-               <?= $info['judul_informasi']?>
-               <p class="">
-                <?php
-                    $str= $info['detail_informasi'];
-                    if (strlen($str) > 400)
-                    $str = substr($str, 0, 400) . '...';
-                    echo $str;
-                ?>
-               </p>
-            </li>
-               </a> 
+                  <li class="border-bottom">
+                    <?= $info['judul_informasi']?>
+                    <p class="">
+                      <?php
+                          $str= $info['detail_informasi'];
+                          if (strlen($str) > 400)
+                          $str = substr($str, 0, 400) . '...';
+                          echo $str;
+                      ?>
+                    </p>
+                  </li>
+               </a> <br>
             <?php endforeach ?>
         </ol>
     </div>

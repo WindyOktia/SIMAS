@@ -97,18 +97,22 @@ class Guru_model extends CI_Model
         $this->db->select('*');
         $this->db->from('jadwal_guru');
         $this->db->join('kelas', 'jadwal_guru.id_kelas = kelas.id_kelas');
+        $this->db->join('mapel', 'jadwal_guru.id_mapel = mapel.id_mapel');
         $this->db->where('id_guru',$id);
         return $this->db->get()->result_array();
     }
 
-    public function addJadwal($guru, $hari, $kelas, $mulai, $selesai)
+    public function addJadwal($tahun_akademik, $semester,$guru, $hari, $kelas, $mulai, $selesai)
     {
         $this->db->trans_start();
 			$result = array();
 			    foreach($hari AS $key => $val){
 				     $result[] = array(
+				      'tahun_akademik'  	=> $_POST['tahun_akademik'],
+				      'semester'  	=> $_POST['semester'],
 				      'hari'  	=> $_POST['hari'][$key],
 				      'id_kelas'  	=> $_POST['kelas'][$key],
+				      'id_mapel'  	=> $_POST['mapel'][$key],
 				      'jam_mulai'  	=> $_POST['mulai'][$key],
 				      'jam_selesai'  	=> $_POST['selesai'][$key],
 				      'id_guru'  	=> $_POST['guru']
@@ -118,6 +122,12 @@ class Guru_model extends CI_Model
 			$this->db->insert_batch('jadwal_guru', $result);
         $this->db->trans_complete();
         return true;
+    }
+
+    public function deleteJadwal($id)
+    {
+        $this->db->delete('jadwal_guru',['id_jadwal_guru'=>$id]);
+        return $this->db->affected_rows();
     }
 
     public function daftarPresensi()
