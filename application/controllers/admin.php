@@ -18,12 +18,65 @@ class Admin extends CI_Controller
         }
     }
 
+    public function informasi()
+    {
+        $data['page']='informasi';
+        $data['informasi']=$this->pengaturan_model->getInformasi();
+        $this->load->view('templates/header',$data);
+        $this->load->view('informasi/informasi',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detailInformasi($id)
+    {
+        $data['page']='informasi';
+        $data['informasi']=$this->pengaturan_model->getInformasiID($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('informasi/detail',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function tbhInformasi()
+    {
+        $data['page']='informasi';
+        $this->load->view('templates/header',$data);
+        $this->load->view('informasi/add');
+        $this->load->view('templates/footer');
+    }
+
+    public function addInformasi()
+    {
+        $insert = $this->pengaturan_model->addInformasi();
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Informasi ditambahkan');
+        }else{
+            $this->session->set_flashdata('error', 'Informasi gagal ditambahkan');
+        }
+
+        redirect('admin/informasi');
+    }
+
+    public function deleteInformasi($id)
+    {
+        $delete = $this->pengaturan_model->deleteInformasi($id);
+        if($delete > 0)
+        {
+            $this->session->set_flashdata('success', 'Informasi dihapus');
+        }else{
+            $this->session->set_flashdata('error', 'Informasi gagal dihapus');
+        }
+
+        redirect('admin/informasi');
+    }
+
+
 
     public function index()
     {
         $data['page']='dashboard';
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/index');
+        $this->load->view('dashboard/index',$data);
         $this->load->view('templates/footer');
     }
     public function info()
@@ -268,6 +321,8 @@ class Admin extends CI_Controller
         $data['guru']=$this->guru_model->getId($id);
         $data['jadwal']=$this->guru_model->getJadwal($id);
         $data['kelas']=$this->kelas_model->get();
+        $data['mapel']=$this->mapel_model->getMapel();
+        $data['tahun_akademik']=$this->pengaturan_model->getAkademik();
         $this->load->view('templates/header',$data);
         $this->load->view('guru/jadwalMengajar',$data);
         $this->load->view('templates/footer');
@@ -275,20 +330,39 @@ class Admin extends CI_Controller
 
     public function addJadwal()
     {
+        $tahun_akademik = $this->input->post('tahun_akademik',TRUE);
+        $semester = $this->input->post('semester',TRUE);
+
+        // echo $tahun_akademik;
+        // echo $semester;
         $guru = $this->input->post('guru',TRUE);
         $hari = $this->input->post('hari',TRUE);
 		$kelas = $this->input->post('kelas',TRUE);
+		$mapel = $this->input->post('mapel',TRUE);
 		$mulai = $this->input->post('mulai',TRUE);
         $selesai = $this->input->post('selesai',TRUE);
-        if($guru=='0'||$hari=='0'||$kelas=='0'||$mulai=='0'||$selesai=='0')
+        if($guru=='0'||$hari=='0'||$kelas=='0'||$mulai=='0'||$selesai=='0'||$mapel=='0')
         {
             $this->session->set_flashdata('error', '<b>Kesalahan Input</b><br>Pastikan Seluruh Data Terisi');
         }
         else{
-            $cek = $this->guru_model->addJadwal($guru, $hari, $kelas, $mulai, $selesai);
+            $cek = $this->guru_model->addJadwal($tahun_akademik, $semester, $guru, $hari, $kelas, $mulai, $selesai);
             $this->session->set_flashdata('success', 'Jadwal Guru Berhasil Disimpan');
         }
         redirect('admin/jadwalMengajar/'.$guru.'');
+    }
+
+    public function deleteJadwal($id,$backid)
+    {
+        $delete = $this->guru_model->deleteJadwal($id);
+        if($delete > 0)
+        {
+            $this->session->set_flashdata('success', 'Jadwal dihapus');
+        }else{
+            $this->session->set_flashdata('error', 'Jadwal gagal dihapus');
+        }
+
+        redirect('admin/jadwalMengajar/'.$backid);
     }
     // end of guru
 
@@ -302,11 +376,21 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function detailPresensi()
+    public function detailPresensi($id)
     {
         $data['page']='presensi';
+        $data['id'] = $id;
         $this->load->view('templates/header',$data);
         $this->load->view('guru/detailPresensi',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function rekapKehadiran($id)
+    {
+        $data['page']='presensi';
+        $data['id'] = $id;
+        $this->load->view('templates/header',$data);
+        $this->load->view('guru/rekapKehadiran',$data);
         $this->load->view('templates/footer');
     }
     // end of presensi
@@ -314,7 +398,7 @@ class Admin extends CI_Controller
     // pengguna
     public function pengguna()
     {
-        $data['page']='pengaturan';
+        $data['page']='pengguna';
         $data['user']=$this->pengaturan_model->getPengguna();
         $this->load->view('templates/header',$data);
         $this->load->view('pengaturan/pengguna',$data);
@@ -354,6 +438,83 @@ class Admin extends CI_Controller
         redirect('admin/pengguna');
     }
     // end of pengguna
+
+
+    // tanggal libur
+    public function libur()
+    {
+        $data['page']='libur';
+        $data['libur']=$this->pengaturan_model->getTanggalLibur();
+        $this->load->view('templates/header',$data);
+        $this->load->view('pengaturan/libur',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addLibur()
+    {
+        $insert=$this->pengaturan_model->addLibur();
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Tanggal Libur berhasil disimpan');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Tanggal Libur gagal disimpan');
+        }
+        redirect('admin/libur');
+    }
+
+    public function deleteLibur($id)
+    {
+        $delete=$this->pengaturan_model->deleteLibur($id);
+        if($delete > 0)
+        {
+            $this->session->set_flashdata('success', 'Tanggal Libur berhasil dihapus');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Tanggal Libur gagal dihapus');
+        }
+        redirect('admin/libur');
+    }
+
+    public function updateLibur()
+    {
+        $update=$this->pengaturan_model->updateLibur();
+        if($update > 0)
+        {
+            $this->session->set_flashdata('success', 'Tanggal Libur berhasil diubah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Tanggal Libur gagal diubah');
+        }
+        redirect('admin/libur');
+    }
+    // end of tanggal libur
+
+    //tahun akademik
+    public function akademik()
+    {
+        $data['page']='akademik';
+        $data['akademik']=$this->pengaturan_model->getAkademik();
+        $this->load->view('templates/header',$data);
+        $this->load->view('pengaturan/akademik',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function updateAkademik()
+    {
+        $tahun_akademik = $_POST['tahun'].' / '. $_POST['tahun2'];
+
+        $update=$this->pengaturan_model->updateAkademik($tahun_akademik);
+        if($update > 0)
+        {
+            $this->session->set_flashdata('success', 'Tahun Akademik berhasil diubah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Tahun Akademik gagal diubah');
+        }
+        redirect('admin/akademik');
+    }
+    // end of tahun akademik
 
     // Kegiatan EL
     // OSIS

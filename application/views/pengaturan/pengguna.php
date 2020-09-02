@@ -1,60 +1,53 @@
-<div>
-    <div class="tab-content">
-        <div class="tab-pane fade show active" id="bottom-divided-tab1">
-            <div class="card">
-                <div class="card-body">
-                    <legend>
-                        TAMBAH DATA PENGGUNA
-                    </legend>
-                    <form action="<?= base_url('admin/addPengguna')?>" method="post" enctype="multipart/form-data">
-                    <fieldset class="mb-3">
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Nama Pengguna</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Nama Pengguna" name="nama" autocomplete="off" required >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2 ">Role</label>
-                            <div class="col-lg-10">
-                                <select class="form-control" name="role" >
-                                    <option value="1">Admin</option>
-                                    <option value="2">Waka Kesiswaan</option>
-                                    <option value="3">Waka Kurikulum</option>
-                                    <option value="4">Kepala Sekolah</option>
-                                    <option value="5">Osis</option>
-                                    <option value="6">Admin Mutu</option>
-                                    <option value="7">Penanggungjawab Kegiatan</option>
-                                    <option value="8">Tim Sekolah</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Username</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="username" name="user" autocomplete="off" required >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Password</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" placeholder="pass" name="pass" autocomplete="off" required >
-                            </div>
-                        </div>
-                        
-                        
-                        </fieldset>
-
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Submit </button>
-                        </div>
-                        
-                        
-                    </form>
+<div class="card">
+    <div class="card-body">
+        <legend>
+            TAMBAH DATA PENGGUNA
+        </legend>
+        <form action="<?= base_url('admin/addPengguna')?>" method="post" enctype="multipart/form-data">
+        <fieldset class="mb-3">
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2">Nama Pengguna</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" placeholder="Nama Pengguna" name="nama" autocomplete="off" required >
                 </div>
             </div>
-        </div>
-        
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2 ">Role</label>
+                <div class="col-lg-10">
+                    <select class="form-control" name="role" >
+                        <option value="1">Admin</option>
+                        <option value="2">Waka Kesiswaan</option>
+                        <option value="3">Waka Kurikulum</option>
+                        <option value="4">Kepala Sekolah</option>
+                        <option value="5">Osis</option>
+                        <option value="6">Admin Mutu</option>
+                        <option value="7">Penanggungjawab Kegiatan</option>
+                        <option value="8">Tim Sekolah</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2">Username</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" placeholder="username" name="user" autocomplete="off" required >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2">Password</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" placeholder="pass" name="pass" autocomplete="off" required >
+                </div>
+            </div>
+            
+            
+            </fieldset>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Submit </button>
+            </div>
+            
+            
+        </form>
     </div>
 </div>
 
