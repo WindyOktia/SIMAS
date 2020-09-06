@@ -206,7 +206,6 @@ class Document extends CI_Controller
         $data['page']='daftar_laporan';
         $data['id']= $id;
         $data['dokumenlaporan']=$this->dokumen_model->getLaporanID($id);
-        $data['idproposal']=$this->dokumen_model->getProposal();
         $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
         $data['joinlaporan']=$this->dokumen_model->joinLaporanID($id);
         $this->load->view('templates/header',$data);
@@ -237,18 +236,9 @@ class Document extends CI_Controller
 
     public function updateLaporan()
     {
-        $nama_kegiatan = $_POST['nama_kegiatan'];
-        // $tahun_akademik = $_POST['tahun_akademik_1'].' / '. $_POST['tahun_akademik_2'];
-        // $semester = $_POST['semester'];
-        // $lb_kegiatan = $_POST['lb_kegiatan'];
-        // $tj_kegiatan = $_POST['tujuan_kegiatan'];
-        // $hp_kegiatan = $_POST['harapan_kegiatan'];
-        // $tgl_pelaksana = $_POST['tgl_pelaksanaan'];
-        // $tmpt = $_POST['tempat'];
-        // $anggaran = $_POST['tot_anggaran'];
-        // $tgl_pengajuan =$_POST['tgl_pengajuan'];
+        $lbLaporan = $_POST['lb_laporan'];
      
-        $update=$this->dokumen_model->edit_LPJ($nama_kegiatan);
+        $update=$this->dokumen_model->edit_LPJ($lbLaporan);
         if($update > 0)
         {
             $this->session->set_flashdata('success', 'Laporan berhasil diubah');

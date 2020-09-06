@@ -116,17 +116,17 @@ class Dokumen_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    function edit_LPJ($tahun_akademik){		
-        $this->db->set('nama_kegiatan',$_POST['nama_kegiatan']);
-        $this->db->set('tahun_akademik',$tahun_akademik);
-        $this->db->set('semester',$_POST['semester']);
-        $this->db->set('lb_kegiatan',$_POST['lb_kegiatan']);
-        $this->db->set('tujuan_kegiatan',$_POST['tujuan_kegiatan']);
-        $this->db->set('harapan_kegiatan',$_POST['harapan_kegiatan']);
-        $this->db->set('tgl_pelaksanaan',$_POST['tgl_pelaksanaan']);
-        $this->db->set('tempat',$_POST['tempat']);
-        $this->db->set('tot_anggaran',$_POST['tot_anggaran']);
-        $this->db->set('tgl_pengajuan',$_POST['tgl_pengajuan']);
+    function edit_LPJ($lbLaporan){		
+        $this->db->set('lb_laporan',$lbLaporan);
+        $this->db->set('tujuan_laporan',$_POST['tujuan_laporan']);
+        $this->db->set('lp_jln_kegiatan',$_POST['lp_jln_kegiatan']);
+        $this->db->set('hasil_kegiatan',$_POST['hasil_kegiatan']);
+        $this->db->set('kendala_kegiatan',$_POST['kendala_kegiatan']);
+        $this->db->set('solusi_kegiatan',$_POST['solusi_kegiatan']);
+        $this->db->set('kesimpulan',$_POST['kesimpulan']);
+        $this->db->set('saran',$_POST['saran']);
+        $this->db->set('tot_biaya',$_POST['tot_biaya']);
+        $this->db->set('tgl_pengajuan_lp',$_POST['tgl_pengajuan_lp']);
         $this->db->where('id_laporan',$_POST['id_laporan']);
         $this->db->update('laporan');
 
