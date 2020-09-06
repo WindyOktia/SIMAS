@@ -82,6 +82,9 @@
                     <a type="button"data-toggle="modal" data-target="#modalSurvei">
                         <i class="fa fa-info-circle"></i>
                     </a>
+                    <a type="button"data-toggle="modal" data-target="#modalRekap">
+                        <i class="fa fa-plus-circle"></i>
+                    </a>
                 </span>
             </h6>
             <h2 class="text-center"><b>70</b></h2>
@@ -197,8 +200,88 @@
       <div class="modal-body">
       <h5><b>Umum</b></h5>
         <p>Nilai Survei diambil diambil dari proses pelaksanaan survei guru yang diisi oleh siswa. </p>
+        <p><span class="badge badge-danger">Data Belum Lengkap</span></p>
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">No</th>
+            <th scope="col">Tahun Akademik</th>
+            <th scope="col">Semester</th>
+            <th scope="col">Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>2019</td>
+                <td>Ganjil</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalRekap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Survei</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h5><b>Rekap Nilai Survei</b></h5>
+        <p>Cek nilai survei yang masih belum terisi. </p>
+        <div class="form-group my-auto">
+            <!-- <label for="">Filter Tahun Akademik</label> -->
+            <div class="row">
+                <div class="col-md-4">
+                <label for="">Tahun Akademik</label>
+                    <select name="dari" id="" class="form-control">
+                        <option value="2016/2017">2016/2017</option>
+                        <option value="2017/2018">2017/2018</option>
+                        <option value="2018/2019">2018/2019</option>
+                        <option value="2019/2020">2019/2020</option>
+                        <option value="2020/2021">2020/2021</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group my-auto">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Semester</label>
+                    <select name="semester" id="" class="form-control" required>
+                        <option value="Ganjil">Ganjil</option>
+                        <option value="Genap">Genap</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group my-auto">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Nilai</label>
+                        <input name="lb_laporan" type="text" class="form-control" required>
+                </div>
+            </div><br>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Tambah</button>
+        </div>
+         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>

@@ -17,13 +17,13 @@
         </li>
         <li>
             <div class="row">
-                <div class="col-md-2">Total item penilaian</div>
+                <div class="col-md-2">Nilai</div>
                 <div class="col">:</div>
             </div>
         </li>
         <li>
             <div class="row">
-                <div class="col-md-2">Total Nilai</div>
+                <div class="col-md-2">Keterangan</div>
                 <div class="col">:</div>
             </div>
         </li>
@@ -50,14 +50,14 @@
                 <td><a href="<?= base_url('admin/detailMutu')?>" class="btn btn-danger tombol-hapus btn-sm">Hapus</a></td>
             </tr>
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">2</th>
                 <td>Nilai kegiatan siswa</td>
                 <td>3</td>
                 <td>1</td>  
                 <td><a href="<?= base_url('admin/detailMutu')?>" class="btn btn-danger tombol-hapus btn-sm">Hapus</a></td>
             </tr>
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">3</th>
                 <td>[..data lain..]</td>
                 <td>3</td>
                 <td>1</td>  
