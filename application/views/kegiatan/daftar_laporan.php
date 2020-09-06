@@ -10,7 +10,8 @@
 				<th>Judul Kegiatan</th>
 				<th>Tahun Ajaran</th>
 				<th>Semester</th>
-				<th>Detail Kegiatan</th>
+				<th>Anggaran</th>
+				<th>Biaya</th>
                 <th>Info Pembina</th>
 				<th>Info Waka</th>
 				<th>Info Kepala Sekolah</th>
@@ -18,19 +19,21 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php $i=1; foreach ($proposal as $prop):?>
+			<?php $i=1; foreach ($dokumenlaporan as $lap):?>
 			<tr>
 				<td><?=$i++?></td>
-				<td><b><?= $prop['lb_laporan']?></b></td>
-				<td><?= $prop['tujuan_laporan']?></td>
-				<td><?= $prop['tot_biaya']?></td>
-				<td>-</td>
+				<td><b><?= $lap['nama_kegiatan']?></b></td>
+				<td><?= $lap['tahun_akademik']?></td>
+				<td><?= $lap['semester']?></td>
+				<td><?= $lap['anggaran']?></td>
+				<td><?= $lap['biaya']?></td>
 				<td>-</td>
 				<td>-</td>
 				<td>-</td>
 				<td>
-                    <a href="<?= base_url('document/detailLaporan')?>/<?= $prop['id_laporan']?>"class="btn btn-primary btn-sm">Edit</a>
-					<a href="<?= base_url('document/deleteLaporan')?>/<?= $prop['id_laporan']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
+                    <a href="<?= base_url('document/detailLaporan')?>/<?= $lap['id_laporan']?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                    <!-- <a href="<?= base_url('document/detailProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></a> -->
+					<a href="<?= base_url('document/deleteLaporan')?>/<?= $lap['id_laporan']?>"class="btn btn-danger btn-sm tombol-hapus"><i class="fa fa-remove"></i></a>
                 </td>
 			</tr>
 			<?php endforeach;?>

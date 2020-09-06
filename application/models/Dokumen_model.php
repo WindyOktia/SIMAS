@@ -2,12 +2,13 @@
 
 class Dokumen_model extends CI_Model
 {
-
+    // Proposal
     public function addProposal()
     {
         $data=[
+            'role'=>$this->session->userdata('role'),
             'nama_kegiatan'=>$_POST['nama_kegiatan'],
-            'tahun_akademik'=>$_POST['tahun_akademik_1'].'/'.$_POST['tahun_akademik_2'],
+            'tahun_akademik'=>$_POST['tahun_akademik_1'].' / '.$_POST['tahun_akademik_2'],
             'semester'=>$_POST['semester'],
             'lb_kegiatan'=>$_POST['lb_kegiatan'],
             'tujuan_kegiatan'=>$_POST['tujuan_kegiatan'],
@@ -24,12 +25,49 @@ class Dokumen_model extends CI_Model
 
     public function getProposal()
     {
-        return $this->db->get('proposal')->result_array();
+        return $this->db->get_where('proposal', ['role' => $this->session->userdata('role')])->result_array();
     }
 
+    public function getProposalID($id)
+    {
+        return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
+    }
+
+    public function getArsipProposalID($id)
+    {
+        return $this->db->get_where('trans_doc',['code_id'=> 'proposal_'.$id])->result_array();
+    }
+
+    public function deleteProposal($id)
+    {
+        $this->db->delete('proposal',['id_proposal'=>$id]);
+        return $this->db->affected_rows();
+    }
+
+    function edit_data($tahun_akademik){		
+        $this->db->set('nama_kegiatan',$_POST['nama_kegiatan']);
+        $this->db->set('tahun_akademik',$tahun_akademik);
+        $this->db->set('semester',$_POST['semester']);
+        $this->db->set('lb_kegiatan',$_POST['lb_kegiatan']);
+        $this->db->set('tujuan_kegiatan',$_POST['tujuan_kegiatan']);
+        $this->db->set('harapan_kegiatan',$_POST['harapan_kegiatan']);
+        $this->db->set('tgl_pelaksanaan',$_POST['tgl_pelaksanaan']);
+        $this->db->set('tempat',$_POST['tempat']);
+        $this->db->set('tot_anggaran',$_POST['tot_anggaran']);
+        $this->db->set('tgl_pengajuan',$_POST['tgl_pengajuan']);
+        $this->db->where('id_proposal',$_POST['id_proposal']);
+        $this->db->update('proposal');
+
+        return $this->db->affected_rows();
+    }
+
+    // End Proposal
+
+    // Laporan
     public function addLaporan()
     {
         $data=[
+            'role'=>$this->session->userdata('role'),
             'id_proposal'=>$_POST['id_proposal'],
             'lb_laporan'=>$_POST['lb_laporan'],
             'tujuan_laporan'=>$_POST['tujuan_laporan'],
@@ -49,18 +87,52 @@ class Dokumen_model extends CI_Model
 
     public function getLaporan()
     {
-        return $this->db->get('Laporan')->result_array();
+        return $this->db->get_where('laporan', ['role' => $this->session->userdata('role')])->result_array();
     }
 
-    public function getProposalID($id)
+    public function joinLaporan()
     {
-        return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
+        return $this->db->get_where('laporan_view')->result_array();
+    }
+
+    public function joinLaporanID($id)
+    {
+        return $this->db->get_where('laporan_view',['id_laporan'=> $id])->result_array();
+    }
+
+    public function getLaporanID($id)
+    {
+        return $this->db->get_where('laporan',['id_laporan'=> $id])->result_array();
     }
 
     public function getArsipLaporanID($id)
     {
-        return $this->db->get_where('trans_doc',['code_id'=> 'proposal_'.$id])->result_array();
+        return $this->db->get_where('trans_doc',['code_id'=> 'laporan_'.$id])->result_array();
     }
+
+    public function deleteLaporan($id)
+    {
+        $this->db->delete('laporan',['id_laporan'=>$id]);
+        return $this->db->affected_rows();
+    }
+
+    function edit_LPJ($tahun_akademik){		
+        $this->db->set('nama_kegiatan',$_POST['nama_kegiatan']);
+        $this->db->set('tahun_akademik',$tahun_akademik);
+        $this->db->set('semester',$_POST['semester']);
+        $this->db->set('lb_kegiatan',$_POST['lb_kegiatan']);
+        $this->db->set('tujuan_kegiatan',$_POST['tujuan_kegiatan']);
+        $this->db->set('harapan_kegiatan',$_POST['harapan_kegiatan']);
+        $this->db->set('tgl_pelaksanaan',$_POST['tgl_pelaksanaan']);
+        $this->db->set('tempat',$_POST['tempat']);
+        $this->db->set('tot_anggaran',$_POST['tot_anggaran']);
+        $this->db->set('tgl_pengajuan',$_POST['tgl_pengajuan']);
+        $this->db->where('id_laporan',$_POST['id_laporan']);
+        $this->db->update('laporan');
+
+        return $this->db->affected_rows();
+    }
+    // End Laporan
 
     public function deleteSingleDoc($id)
     {
@@ -68,16 +140,13 @@ class Dokumen_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function deleteProposal($id)
-    {
-        $this->db->delete('proposal',['id_proposal'=>$id]);
-        return $this->db->affected_rows();
-    }
 
-    public function getLaporanID($id)
-    {
-        return $this->db->get_where('laporan',['id_laporan'=> $id])->result_array();
-    }
+
+    
+    // function update_data($where,$data,$table){
+	// 	$this->db->where($where);
+	// 	$this->db->update($table,$data);
+	// }
 
 
 }

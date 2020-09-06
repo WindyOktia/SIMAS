@@ -117,7 +117,7 @@ class Admin extends CI_Controller
     {
         $data['page']='mutu';
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/indexMutu');
+        $this->load->view('mutu/rekap_laporan');
         $this->load->view('templates/footer');
     }
 
@@ -125,7 +125,7 @@ class Admin extends CI_Controller
     {
         $data['page']='mutu';
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/detailMutu');
+        $this->load->view('mutu/detail_mutu');
         $this->load->view('templates/footer');
     }
 
@@ -133,7 +133,7 @@ class Admin extends CI_Controller
     {
         $data['page']='mutu';
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/tambahMutu');
+        $this->load->view('mutu/tambah_mutu');
         $this->load->view('templates/footer');
     }
 

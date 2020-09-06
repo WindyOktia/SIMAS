@@ -1,88 +1,109 @@
 <a href="<?=base_url('document/laporan')?>" class="btn btn-primary btn-sm mb-3">Kembali</a>
+<button type="button" class="btn btn-info mb-3 btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+  Edit
+</button>
+<button type="button" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#modalTambah">
+  Tambah Dokumen
+</button>
+<?php foreach ($joinlaporan as $dok):?>
 
 <div class="card card-body border-success">
-<h5><b>Detail Dokumen Laporan Kegiatan</b></h5><br>
-    <form action="<?=base_url('document/do_addLaporan')?>" enctype="multipart/form-data" method="post">
-        <div class="form-group">
-            <label for="">Nama Kegiatan</label>
-            <select name="id_proposal" id="" class="form-control">
-                <?php foreach($proposal as $prop):?>
-                <option value="<?=$prop['id_proposal']?>"><?=$prop['nama_kegiatan']?></option>
-                <?php endforeach?>
-            </select>
+<h5><b>Detail Dokumen Laporan Kegiatan</b></h5>
+        <ul>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Nama Kegiatan</div>
+                <div class="col-md-9">: <?= $dok['nama_kegiatan']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tahun Akademik</div>
+                <div class="col-md-9">: <?= $dok['tahun_akademik']?> - <?= $dok['semester']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tempat</div>
+                <div class="col-md-9">: <?= $dok['tempat']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Total Rancangan Anggaran</div>
+                <div class="col-md-9">: <?= $dok['anggaran']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tanggal Pengajuan Proposal</div>
+                <div class="col-md-9">: <?= $dok['biaya']?></div>
+            </div>
+            </li>
+        </ul> <br>
+        <h6><b>Latar Belakang LPJ </b></h6>
+        <?= $dok['lb_laporan']?> <br>
+        <h6><b>Tujuan LPJ </b></h6>
+        <?= $dok['tujuan_laporan']?> <br>
+        <h6><b>laporan jalannya kegiatan </b></h6>
+        <?= $dok['lp_jln_kegiatan']?> <br>
+        <h6><b>Hasil Kegiatan</b></h6>
+        <?= $dok['hasil_kegiatan']?> <br>
+        <h6><b>Kendala Kegiatan </b></h6>
+        <?= $dok['kendala_kegiatan']?> <br>
+        <h6><b>Solusi Kegiatan</b></h6>
+        <?= $dok['solusi_kegiatan']?> <br>
+        <h6><b>Kesimpulan </b></h6>
+        <?= $dok['kesimpulan']?> <br>
+        <h6><b>Saran</b></h6>
+        <?= $dok['saran']?> <br> <br>
+        <h6><b>Arsip Dokumen</b></h6>
+        <?php $i=1; foreach($arsip as $ars):?>
+        <div class="row ml-2 mt-2">
+        <div class="col-1"><?=$i++?></div>
+            <div class="col-3"><?=$ars['nama_doc']?></div>
+                <div class="col-2">
+                    <a href="<?=base_url('document/downloadDocument')?>/<?=$ars['link_file']?>"  class="btn btn-info btn-sm">download</a>
+                    <a href="<?=base_url('document/deleteSingleDoc')?>/<?=$ars['id_trans_doc']?>/detailLaporan/<?=$id?>" class="btn btn-danger btn-sm tombol-hapus"><i class="fa fa-remove"></i></a>
+                </div>
+            </div>
+            <?php endforeach?>
         </div>
+    <?php endforeach ?>
 
-       <div class="form-group">
-            <label for="">Latar Belakang</label>
-            <input name="lb_laporan" type="text" class="form-control" required>
-       </div>
+    <!-- Modal Tambah Dokumen -->
 
-       <div class="form-group">
-            <label for="">Tujuan</label>
-            <input name="tujuan_laporan" type="text" class="form-control" required>
-       </div>
-
-       <div class="form-group">
-            <label for="">Laporan Jalannya Kegiatan</label>
-            <input name="lp_jln_kegiatan" type="text" class="form-control" required>
-       </div>
-
-       <div class="form-group">
-            <label for="">Hasil Kegiatan</label>
-            <input name="hasil_kegiatan" type="text" class="form-control" required>
-       </div>
-
-       <div class="form-group">
-            <label for="">Permasalahan dan Kendala</label>
-            <input name="kendala_kegiatan" type="text" class="form-control" required>
-       </div>
-
-       <div class="form-group">
-            <label for="">Upaya Pencegahan Permasalahan</label>
-            <input name="solusi_kegiatan" type="text" class="form-control" required>
-       </div>
-
-       <div class="form-group">
-            <label for="">Kesimpulan</label>
-            <input name="kesimpulan" type="text" class="form-control" required>
-       </div>
-
-       <div class="form-group">
-            <label for="">saran</label>
-            <input name="saran" type="text" class="form-control" required>
-       </div>
-
-        <div class="form-group">
-            <label for="">Peserta</label>
-            <input type="hidden" name="judul[]" placeholder="" value="Peserta" class="form-control-file" >
-            <input type="file" name="arsip[]" class="form-control-file" required>
+    <?php foreach($arsip as $add):?>
+    <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <form action="<?= base_url('document/addSingleDocument')?>" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <label for="">Judul Dokumen</label>
+                        <input type="hidden" name="backlink" value="detailLaporan">
+                        <input type="hidden" name="backid" value="<?= $id?>">
+                        <input type="hidden" name="code_id" value="<?= $add['code_id']?>">
+                        <input type="text" name="judul[]" placeholder=""class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">File Dokumen</label>
+                        <input type="file" name="arsip[]" class="form-control-file">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="">Pembiayaan</label>
-            <input type="hidden" name="judul[]" placeholder="" value="Rincian Biaya" class="form-control-file">
-            <input type="file" name="arsip[]" class="form-control-file">
-        </div>
-        <div class="form-group">
-            <label for="">Sumber Dana</label>
-            <input type="hidden" name="judul[]" placeholder="" value="Sumber Dana Laporan" class="form-control-file">
-            <input type="file" name="arsip[]" class="form-control-file">
-        </div>
-        <div class="form-group">
-            <label for="">Lampiran</label>
-            <input type="hidden" name="judul[]" placeholder="" value="Lampiran" class="form-control-file" >
-            <input type="file" name="arsip[]" class="form-control-file">
-        </div>
-
-        <div class="form-group">
-            <label for="">Total Biaya ( Rp. )</label>
-            <input name="tot_biaya" type="number" class="form-control" required>
-       </div>
-
-        <div class="form-group">
-            <label for="">Tanggal Pengajuan Laporan</label>
-            <input name="tgl_pengajuan_lp" type="date" class="form-control" required>
-       </div>
-
-        <button type="submit" class="btn btn-success float-right">Simpan Laporan</button>
-    </form>
+    </div>
+<?php endforeach?>
 </div>
