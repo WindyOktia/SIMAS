@@ -90,6 +90,16 @@ class Dokumen_model extends CI_Model
         return $this->db->get_where('laporan', ['role' => $this->session->userdata('role')])->result_array();
     }
 
+    public function joinLaporan()
+    {
+        return $this->db->get_where('laporan_view')->result_array();
+    }
+
+    public function joinLaporanID($id)
+    {
+        return $this->db->get_where('laporan_view',['id_laporan'=> $id])->result_array();
+    }
+
     public function getLaporanID($id)
     {
         return $this->db->get_where('laporan',['id_laporan'=> $id])->result_array();

@@ -195,7 +195,7 @@ class Document extends CI_Controller
     public function laporan()
     {
         $data['page']='daftar_laporan';
-        $data['dokumenlaporan']=$this->dokumen_model->getLaporan();
+        $data['dokumenlaporan']=$this->dokumen_model->joinLaporan();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/daftar_laporan',$data);
         $this->load->view('templates/footer');
@@ -206,8 +206,9 @@ class Document extends CI_Controller
         $data['page']='daftar_laporan';
         $data['id']= $id;
         $data['dokumenlaporan']=$this->dokumen_model->getLaporanID($id);
-        $data['proposal']=$this->dokumen_model->getProposal($id);
+        $data['idproposal']=$this->dokumen_model->getProposal();
         $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
+        $data['joinlaporan']=$this->dokumen_model->joinLaporanID($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_laporan',$data);
         $this->load->view('templates/footer');

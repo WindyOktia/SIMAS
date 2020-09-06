@@ -16,6 +16,18 @@ class Presensi extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function getRFID()
+    {
+        $cek = count($this->presensi_model->getRFID());
+        echo $cek;
+    }
+
+    public function getLibur()
+    {
+        $cek = $this->presensi_model->getLibur();
+        echo json_encode($cek);
+    }
+
     public function harian()
     {
         $cek = $this->presensi_model->add();
@@ -31,7 +43,6 @@ class Presensi extends CI_Controller
 
     public function nama_pegawai($id)
     {
-        // $data= 
         echo json_encode($this->presensi_model->getNama($id));
     }
 }
