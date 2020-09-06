@@ -118,40 +118,87 @@
     </script>
 
 	<script type="text/javascript">
+
+		// presensi harian
+		// 1. cek register rfid di tabel guru
+		// 2. cek libur di tabel libur
+		// 3. cek ada data presensi / belum di tabel presensi
+		// 4. jika belum ada, data dismpan sebagai jam masuk, data pertama yang akan disimpan
+		// 5. jika sudah ada, user menunggu min 15 menit untuk dapat presensi lagi
+		// 6. setelah 15 menit data disimpan sebagai keluar, data terakhir yang disimpan
+		
 		$(function () {
 			$('#presensi').on('submit', function (e) {
 			var id= $('.rfid').val();
 			e.preventDefault();
 			$.ajax({
 				type: 'post',
-				url: '<?= base_url('presensi/harian')?>',
+				url: '<?= base_url('presensi/getRFID')?>',
 				data: $('#presensi').serialize(),
-				success: function () {
-					// toastr.success("Selamat Datang "+ id);
-					$("#presensi")[0].reset();
-					$('.rfid').focus();
-					getNama(id);
+				success: function (result) {
+					var obs = JSON.parse(result);
+					if(obs==0)
+					{
+						toastr.error('Kartu Tidak Terdaftar');
+					}else{
+						getLibur(id);
+					}
 				}
 			});
 			});
 		});
 
-		function getNama(id){
-			var ids= id;
+		function getLibur(id){
 			$.ajax({
-            url: '<?= base_url('presensi/nama_pegawai/')?>'+ids
+            url: '<?= base_url('presensi/getLibur')?>'
             }).done(function(res) {
 				var obs = JSON.parse(res);
-				if(obs==''){
-					toastr.error("Kartu tidak terdaftar");
-				};
-				console.log(obs[0].nama_guru);
-				var nama=obs[0].nama_guru;
-				var dt = new Date();
-				var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-                toastr.success("<h4>Selamat Datang "+ nama +"</h4>Jam : "+ time);
+				if(obs !=''){
+					toastr.success(obs[0].keterangan);
+				}else{
+					// toastr.success('gak libur');
+					cekPresensi(id);
+				}
             });
 		}
+
+		function cekPresensi(id){
+			toastr.success(id);
+		}
+
+		// $(function () {
+		// 	$('#presensi').on('submit', function (e) {
+		// 	var id= $('.rfid').val();
+		// 	e.preventDefault();
+		// 	$.ajax({
+		// 		type: 'post',
+		// 		url: '<?= base_url('presensi/harian')?>',
+		// 		data: $('#presensi').serialize(),
+		// 		success: function () {
+		// 			$("#presensi")[0].reset();
+		// 			$('.rfid').focus();
+		// 			getNama(id);
+		// 		}
+		// 	});
+		// 	});
+		// });
+
+		// function getNama(id){
+		// 	var ids= id;
+		// 	$.ajax({
+        //     url: '<?= base_url('presensi/nama_pegawai/')?>'+ids
+        //     }).done(function(res) {
+		// 		var obs = JSON.parse(res);
+		// 		if(obs==''){
+		// 			toastr.error("Kartu tidak terdaftar");
+		// 		};
+		// 		console.log(obs[0].nama_guru);
+		// 		var nama=obs[0].nama_guru;
+		// 		var dt = new Date();
+		// 		var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+        //         toastr.success("<h4>Selamat Datang "+ nama +"</h4>Jam : "+ time);
+        //     });
+		// }
 
 		function setAct(){
 			$('#rfid').focus();
