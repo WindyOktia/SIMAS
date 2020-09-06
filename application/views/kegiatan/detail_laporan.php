@@ -5,24 +5,54 @@
 <button type="button" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#modalTambah">
   Tambah Dokumen
 </button>
-<?php foreach ($dokumenlaporan as $dok):?>
+<?php foreach ($joinlaporan as $dok):?>
 
 <div class="card card-body border-success">
-<h5><b>Detail Dokumen Laporan Kegiatan</b></h5><br>
-        <h6><b>Nama Kegiatan </b></h6>
-        <?= $dok['id_proposal']?> <br>
+<h5><b>Detail Dokumen Laporan Kegiatan</b></h5>
+        <ul>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Nama Kegiatan</div>
+                <div class="col-md-9">: <?= $dok['nama_kegiatan']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tahun Akademik</div>
+                <div class="col-md-9">: <?= $dok['tahun_akademik']?> - <?= $dok['semester']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tempat</div>
+                <div class="col-md-9">: <?= $dok['tempat']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Total Rancangan Anggaran</div>
+                <div class="col-md-9">: <?= $dok['anggaran']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tanggal Pengajuan Proposal</div>
+                <div class="col-md-9">: <?= $dok['biaya']?></div>
+            </div>
+            </li>
+        </ul> <br>
         <h6><b>Latar Belakang LPJ </b></h6>
         <?= $dok['lb_laporan']?> <br>
         <h6><b>Tujuan LPJ </b></h6>
         <?= $dok['tujuan_laporan']?> <br>
         <h6><b>laporan jalannya kegiatan </b></h6>
-        <?= $dok['lp_jln_kegiatan']?> <br> <br>
+        <?= $dok['lp_jln_kegiatan']?> <br>
         <h6><b>Hasil Kegiatan</b></h6>
         <?= $dok['hasil_kegiatan']?> <br>
         <h6><b>Kendala Kegiatan </b></h6>
         <?= $dok['kendala_kegiatan']?> <br>
         <h6><b>Solusi Kegiatan</b></h6>
-        <?= $dok['solusi_kegiatan']?> <br> <br>
+        <?= $dok['solusi_kegiatan']?> <br>
         <h6><b>Kesimpulan </b></h6>
         <?= $dok['kesimpulan']?> <br>
         <h6><b>Saran</b></h6>
