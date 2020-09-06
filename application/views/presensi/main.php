@@ -11,20 +11,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <legend>INFORMASI</legend>
-                <ul>
-                    <li class="border-bottom"><h4>Jika kartu presensi hilang / rusak silahkan akses<br> <b><i>http://localhost/SIMAS/presensi</i></b> <br>untuk melakukan presensi secara manual</h4></li>
-                    <li class="border-bottom"><h4>Presensi manual hanya boleh dilakukan max 5x</h4></li>
-                    <li class="border-bottom"><h4>Segera hubungi waka kurikulum apabila kartu presensi hilang / rusak</h4></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div> -->
-<style>
+<!-- <style>
     input{
         caret-color:transparent;
         border:0;
@@ -32,11 +20,11 @@
         outline:none;
         background-color:transparent;
     }
-</style>
+</style> -->
 
 <div class="container">
-        <form action="<?= base_url('presensi/harian')?>" method="post" id="presensi">
-            <input type="text" name="id" class="rfid" id="rfid" autocomplete="off" autofocus required>
+        <form action="#" method="post" id="presensi">
+            <input type="text" name="rfid" class="rfid" id="rfid" autocomplete="off" autofocus required>
             <!-- <button type="submit">tes</button> -->
         </form> 
     <h1 class="text-white text-center" style="font-size:34px"><b>Selamat Datang di SMA Bopkri 1 Yogyakarta</b></h1>

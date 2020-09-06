@@ -19,6 +19,16 @@ class Presensi_model extends CI_Model
         }
     }
 
+    public function getRFID()
+    {
+        return $this->db->get_where('guru',['rfid'=>$_POST['rfid']])->result_array();
+    }
+
+    public function getLibur()
+    {
+        return $this->db->get_where('libur',['tanggal_libur'=>date('Y-m-d')])->result_array();
+    }
+
     public function getNama($id)
     {
         return $this->db->get_where('guru', ['rfid'=>$id])->result_array();
