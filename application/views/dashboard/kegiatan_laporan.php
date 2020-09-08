@@ -216,23 +216,34 @@ var chartBiaya = new Chart(chart, {
 	data: {
         labels: ['2016', '2017','2018','2019','2020'],
 		datasets: [{
-            label: '# of Votes',
+            label: 'Terpenuhi',
 			data: [12, 19, 10, 17, 2],
-			borderColor: [
+			backgroundColor: [
+				'#90FCF9',
+				'#90FCF9',
+				'#90FCF9',
+				'#90FCF9',
+				'#90FCF9',
 				'#90FCF9'
 			],
             borderWidth: 2 ,
-            fill: false
-		},{
-			label: 'Sampun',
+            fill: true
+		},
+        {
+			label: 'Tidak Terpenuhi',
 			data: [5, 12, 16, 19, 22],
-			borderColor: [
+			backgroundColor: [
+				'#824C71',
+				'#824C71',
+				'#824C71',
+				'#824C71',
 				'#824C71'
 			],
             borderWidth: 2 ,
-            fill: false
+            fill: true
             
-		}]
+		},
+        ]
 	}
 });
 </script>
