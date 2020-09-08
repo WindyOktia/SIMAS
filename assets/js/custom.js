@@ -4,3 +4,7 @@ $('.cek').click(function () {
 	$('#filter').submit();
 
 });
+
+$('#useRentang').change(function () {
+	$('#filterRentang').submit();
+})
