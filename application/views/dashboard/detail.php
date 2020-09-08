@@ -28,15 +28,38 @@
     </div>
     <div class="card card-body border-info">
         <div class="row">
-            <div class="col-md-8">
-                <canvas id="dashDetailGuru" height="100"></canvas>
-            </div>
             <div class="col-md-4">
-                <h5><b>Detail</b></h5>
-                Hadir : <br>
-                Izin : <br>
-                Tugas : <br>
-                Tidak Hadir :
+                <h5><i class="fa fa-info-circle mr-2 "></i>Detail Informasi</h5>
+                <ol>
+            
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Kehadiran Harian </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Izin Harian </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Tugas </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Tidak Hadir</div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+            </ol>
+            </div>
+            <div class="col-md-8">
+                <canvas id="dashGuru" height="100"></canvas>
             </div>
         </div>
     </div>
@@ -60,7 +83,7 @@
                 <td>1</td>
                 <td>1</td>
                 <td>5</td>
-                <td><a href="<?= base_url('admin/trackRecord')?>" class="btn btn-primary btn-sm">Track Record</a></td>
+                <td><a href="<?= base_url('admin/detailPresensi/38')?>" class="btn btn-primary btn-sm">Track Record</a></td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -85,20 +108,61 @@
 </div>
 
 <script>
-var dash = document.getElementById('dashDetailGuru').getContext('2d');
+var dash = document.getElementById('dashGuru').getContext('2d');
 var dashGuru = new Chart(dash, {
-	type: 'pie',
-	data: {
-		labels: ['Baik', 'Kurang Baik'],
-		datasets: [{
-			label: '# of Votes',
-			data: [12, 19],
-			backgroundColor: [
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(54, 162, 235, 0.2)'
-			],
-			borderWidth: 2
-		}]
-	}
+    type: 'line',
+    data: {
+        labels: ['2019 - Ganjil', '2019- Genap', '2020- Ganjil', '2020- Genap'],
+        datasets: [{
+            label: 'Kehadiran Harian',
+            data: [90, 90, 85, 95],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Izin Harian',
+            data: [80, 90, 90, 85],
+            borderColor: [
+                '#20A39E'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Tugas',
+            data: [90, 95, 95, 90],
+            borderColor: [
+                '#CC4BC2'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Tidak Hadir',
+            data: [90, 95, 95, 90],
+            borderColor: [
+                '#CC4BC2'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
 });
 </script>

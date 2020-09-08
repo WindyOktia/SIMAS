@@ -47,7 +47,7 @@
     </div>
 </div>
             <div class="card card-body border-info">
-                <h6>Grafik Minat Kegiatan Siswa</h6>
+                <h6>Grafik Perbandingan Nilai Survei Kegiatan Siswa</h6>
                 <div class="row">
                     <div class="col-md-12">
                     <canvas id="dashKetertarikan" height="100"></canvas>
@@ -81,10 +81,10 @@ var dash1 = document.getElementById('dashKetertarikan').getContext('2d');
 var dashKetertarikan = new Chart(dash1, {
 	type: 'horizontalBar',
 	data: {
-		labels: ['Basket', 'Futsal','Balap Karung','Sabung Ayam','Main Kelereng'],
+		labels: ['Basket', 'Futsal','Renang','Bulu Tangkis','Catur'],
 		datasets: [{
 			label: '# of Votes',
-			data: [12, 19, -10, 5, -11],
+			data: [12, 19, 10, 5, 15],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(54, 162, 235, 0.2)',
