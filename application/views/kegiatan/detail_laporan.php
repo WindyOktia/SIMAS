@@ -107,3 +107,109 @@
     </div>
 <?php endforeach?>
 </div>
+<!-- End Modal Tambah -->
+<!-- Modal Edit -->
+
+<?php foreach($dokumenlaporan as $doclap):?>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal Edit</h5>
+            <button tton type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <form action="<?= base_url('document/updateLaporan')?>" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+        <input name="id_laporan" value="<?=$id?>" type="hidden" class="form-control" required>
+        <input name="back_id" value="<?=$id?>" type="hidden" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="">Latar Belakang</label>
+            <textarea name="lb_laporan" class="form-control" id="" cols="30" rows="10" ><?=$doclap['lb_laporan']?></textarea>
+            <script>
+                CKEDITOR.replace( 'lb_laporan',{height:250} );
+            </script>
+       </div>
+
+       <div class="form-group">
+            <label for="">Tujuan</label>
+            <textarea name="tujuan_laporan" class="form-control" id="" cols="30" rows="10" ><?=$doclap['tujuan_laporan']?></textarea>
+            <script>
+                CKEDITOR.replace( 'tujuan_laporan',{height:250} );
+            </script>
+       </div>
+
+       <div class="form-group">
+            <label for="">Laporan Jalannya Kegiatan</label>
+            <textarea name="lp_jln_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$doclap['lp_jln_kegiatan']?></textarea>
+            <script>
+                CKEDITOR.replace( 'lp_jln_kegiatan',{height:250} );
+            </script>
+       </div>
+
+       <div class="form-group">
+            <label for="">Hasil Kegiatan</label>
+            <textarea name="hasil_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$doclap['hasil_kegiatan']?></textarea>
+            <script>
+                CKEDITOR.replace( 'hasil_kegiatan',{height:250} );
+            </script>
+       </div>
+
+       <div class="form-group">
+            <label for="">Kendala</label>
+            <textarea name="kendala_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$doclap['kendala_kegiatan']?></textarea>
+            <script>
+                CKEDITOR.replace( 'kendala_kegiatan',{height:250} );
+            </script>
+       </div>
+
+       <div class="form-group">
+            <label for="">Solusi</label>
+            <textarea name="solusi_kegiatan" class="form-control" id="" cols="30" rows="10" ><?=$doclap['solusi_kegiatan']?></textarea>
+            <script>
+                CKEDITOR.replace( 'solusi_kegiatan',{height:250} );
+            </script>
+       </div>
+
+       <div class="form-group">
+            <label for="">Kesimpulan</label>
+            <textarea name="kesimpulan" class="form-control" id="" cols="30" rows="10" ><?=$doclap['kesimpulan']?></textarea>
+            <script>
+                CKEDITOR.replace( 'kesimpulan',{height:250} );
+            </script>
+       </div>
+
+       <div class="form-group">
+            <label for="">Saran</label>
+            <textarea name="saran" class="form-control" id="" cols="30" rows="10" ><?=$doclap['saran']?></textarea>
+            <script>
+                CKEDITOR.replace( 'saran',{height:250} );
+            </script>
+       </div>
+
+        <div class="form-group">
+            <label for="">Total Biaya ( Rp. )</label>
+            <input name="tot_biaya"  value="<?=$doclap['tot_biaya']?>" type="number" class="form-control" required>
+       </div>
+
+        <div class="form-group">
+            <label for="">Tanggal Pengajuan Laporan</label>
+            <input name="tgl_pengajuan_lp"  value="<?=$doclap['tgl_pengajuan_lp']?>" type="date" class="form-control" required>
+       </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endforeach?>
