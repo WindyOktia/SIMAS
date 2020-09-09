@@ -23,7 +23,18 @@
 	<!-- /global stylesheets -->
 
 
+	<!-- Theme JS files -->
+	<script src="<?=base_url('assets/js/uniform.min.js')?>"></script>
+	<script src="<?=base_url('assets/js/switchery.min.js')?>"></script>
+	<script src="<?=base_url('assets/js/switch.min.js')?>"></script>
+	<script src="<?=base_url('assets/js/form_checkboxes_radios.js')?>"></script>
 
+
+	<!-- <script src="../../../../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/forms/styling/switch.min.js"></script>
+
+	<script src="../../../../global_assets/js/demo_pages/form_checkboxes_radios.js"></script> -->
+	<!-- /theme JS files -->
 
 	<!-- Core JS files -->
 	<script src="<?= base_url('assets/js/jquery.min.js')?>"></script>
@@ -159,7 +170,7 @@
 
 						<!-- Kegiatan EL -->
 						<?php 
-							$rl=array('5','8');
+							$rl=array('5','8','4');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
@@ -171,7 +182,7 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('5','8');
+							$rl=array('5','8','4');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">

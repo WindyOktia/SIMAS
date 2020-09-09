@@ -136,6 +136,13 @@ class Admin extends CI_Controller
         $this->load->view('mutu/tambah_mutu');
         $this->load->view('templates/footer');
     }
+    public function rekapLaporanMutu()
+    {
+        $data['page']='mutu';
+        $this->load->view('templates/header',$data);
+        $this->load->view('mutu/tambah_mutu');
+        $this->load->view('templates/footer');
+    }
 
     // Ricky
 

@@ -127,6 +127,7 @@
 		// 5. jika sudah ada, user menunggu min 15 menit untuk dapat presensi lagi
 		// 6. setelah 15 menit data disimpan sebagai keluar, data terakhir yang disimpan
 		
+		// cek registrasi kartu
 		$(function () {
 			$('#presensi').on('submit', function (e) {
 			var id= $('.rfid').val();
@@ -147,7 +148,9 @@
 			});
 			});
 		});
+		// end of cek registrasi kartu
 
+		// cek hari libur
 		function getLibur(id){
 			$.ajax({
             url: '<?= base_url('presensi/getLibur')?>'
@@ -161,10 +164,13 @@
 				}
             });
 		}
+		// end of cek hari libur
 
+		// cek presensi
 		function cekPresensi(id){
 			toastr.success(id);
 		}
+		// end of cek presensi
 
 		// $(function () {
 		// 	$('#presensi').on('submit', function (e) {

@@ -1,14 +1,35 @@
 <div class="card card-body">
     <h3>Dashboard</h3>
-    <div class="form-group">
-    <select name="" id="" class="form-control col-3">
-        <option value="">- Tahun Ajaran -</option>
-        <option value="">2016/2017</option>
-        <option value="">2017/2018</option>
-        <option value="">2018/2019</option>
-        <option value="">2019/2020</option>
-    </select>
+    <div class="row form-group">
+    <div class="col-md-2">
+                    <select name="dari" id="" class="form-control">
+                        <option value="semua">Tahun Akademik</option>
+                        <option value="2018/2019">2018/2019</option>
+                        <option value="2019/2020">2019/2020</option>
+                    </select>
+                </div>
+
+                <span class=" my-auto"> sampai </span>
+                <div class="col-md-2">
+                    <select name="sampai" id="" class="form-control">
+                        <option value="semua">Tahun Akademik</option>
+                        <option value="2018/2019">2018/2019</option>
+                        <option value="2019/2020">2019/2020</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <select name="semester" id="" class="form-control">
+                        <option value="semua" >semua semester</option>
+                        <option value="Genap" >Genap</option>
+                        <option value="Ganjil" >Ganjil</option>
+                    </select>
+                </div>
+                <div class="col-md-2 ml-5">
+                    <button type="submit" class="btn btn-success btn-block ">Filter Data</button>
+                </div>
     </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="card card-body border-info">
