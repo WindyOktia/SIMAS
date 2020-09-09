@@ -6,7 +6,7 @@ class Dokumen_model extends CI_Model
     public function addProposal()
     {
         $data=[
-            'role'=>$this->session->userdata('role'),
+            'id_user'=>$this->session->userdata('id_user'),
             'nama_kegiatan'=>$_POST['nama_kegiatan'],
             'tahun_akademik'=>$_POST['tahun_akademik_1'].' / '.$_POST['tahun_akademik_2'],
             'semester'=>$_POST['semester'],
@@ -25,7 +25,7 @@ class Dokumen_model extends CI_Model
 
     public function getProposal()
     {
-        return $this->db->get_where('proposal', ['role' => $this->session->userdata('role')])->result_array();
+        return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
     }
 
     public function getProposalID($id)
@@ -45,6 +45,7 @@ class Dokumen_model extends CI_Model
     }
 
     function edit_data($tahun_akademik){		
+        $this->db->set('id_user',$this->session->userdata('id_user'));
         $this->db->set('nama_kegiatan',$_POST['nama_kegiatan']);
         $this->db->set('tahun_akademik',$tahun_akademik);
         $this->db->set('semester',$_POST['semester']);
@@ -67,7 +68,7 @@ class Dokumen_model extends CI_Model
     public function addLaporan()
     {
         $data=[
-            'role'=>$this->session->userdata('role'),
+            'id_user'=>$this->session->userdata('id_user'),
             'id_proposal'=>$_POST['id_proposal'],
             'lb_laporan'=>$_POST['lb_laporan'],
             'tujuan_laporan'=>$_POST['tujuan_laporan'],
@@ -87,12 +88,7 @@ class Dokumen_model extends CI_Model
 
     public function getLaporan()
     {
-        return $this->db->get_where('laporan', ['role' => $this->session->userdata('role')])->result_array();
-    }
-
-    public function joinLaporan()
-    {
-        return $this->db->get_where('laporan_view')->result_array();
+        return $this->db->get_where('laporan_view',['role'=>$this->session->userdata('role')])->result_array();
     }
 
     public function joinLaporanID($id)
@@ -116,7 +112,8 @@ class Dokumen_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    function edit_LPJ($lbLaporan){		
+    function edit_LPJ($lbLaporan){
+        $this->db->set('id_user',$this->session->userdata('id_user'));		
         $this->db->set('lb_laporan',$lbLaporan);
         $this->db->set('tujuan_laporan',$_POST['tujuan_laporan']);
         $this->db->set('lp_jln_kegiatan',$_POST['lp_jln_kegiatan']);

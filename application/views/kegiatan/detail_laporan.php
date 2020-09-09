@@ -124,6 +124,7 @@
         <div class="modal-body">
         <form action="<?= base_url('document/updateLaporan')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
+        <input name="id_user" type="hidden" class="form-control" required>
         <input name="id_laporan" value="<?=$id?>" type="hidden" class="form-control" required>
         <input name="back_id" value="<?=$id?>" type="hidden" class="form-control" required>
         </div>

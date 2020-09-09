@@ -6,7 +6,7 @@
 <h5><b>Tambah dokumen Laporan Kegiatan</b></h5><br>
     <form action="<?=base_url('document/do_addLaporan')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
-            <input name="role" type="hidden" class="form-control" required>
+            <input name="id_user" type="hidden" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="">Nama Kegiatan</label>

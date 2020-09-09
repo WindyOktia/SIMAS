@@ -189,13 +189,35 @@ class Document extends CI_Controller
         $backid='proposal';
         $this->generalUpload($id,$code,$backid);
     }
+
+    public function detailVerifikasiProposal($id)
+    {
+        $data['page']='verifikasi_proposal';
+        $data['id']= $id;
+        $data['dokumenproposal']=$this->dokumen_model->getProposalID($id);
+        $data['arsip']=$this->dokumen_model->getArsipProposalID($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/add_verifikasi_proposal',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function verifikasiProposal()
+    {
+        $data['page']='verifikasi_proposal';
+        $data['dokumenproposal']=$this->dokumen_model->getProposal();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/verifikasi_proposal',$data);
+        $this->load->view('templates/footer');
+    }
+
+
     // End Proposal
 
     // Laporan
     public function laporan()
     {
         $data['page']='daftar_laporan';
-        $data['dokumenlaporan']=$this->dokumen_model->joinLaporan();
+        $data['dokumenlaporan']=$this->dokumen_model->getLaporan();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/daftar_laporan',$data);
         $this->load->view('templates/footer');
