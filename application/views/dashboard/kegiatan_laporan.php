@@ -70,60 +70,67 @@
            <canvas id="dashSiswa"  height=""></canvas>
         </div>
     </div>
-    
-</div>
-
     </div>
-
-<div class="card card-body">
-<h3>Detail Laporan Keuangan</h3>
-    <div class="col">
-            <div class="card card-body border-info">
-                <h6>Grafik Efektifitas Penggunaan Biaya Untuk Kegiatan</h6>
-                <div class="row">
-                    <div class="col-md-12">
-                    <canvas id="chartBiaya" height="80"></canvas>
-                    </div>
-                </div>
-            </div>
-            <td><a href="" class="btn btn-sm btn-success float-right">Export</a></td>
+    <div class="row">
+        <div class="col md-12">
+        <a href="<?=base_url('')?>" class="btn btn-sm btn-success float-right mt-2">Unduh</a>
         </div>
     </div>
 </div>
 
+<div class="card card-body">
+<h3>Detail Laporan Keuangan</h3>
+    <div class="card card-body">
+    <div class="row">
+        <div class="col-md-4">
+           
 
-<div class="card mt-3">
-    <div class="card-body">
-    <h5><i class="fa fa-navicon mr-2 text-warning"></i> Daftar Laporan</h5>
-        <table class="table datatable-show-all">
-		<thead>
-			<tr>
-				<th>No</th>
-				<th>Judul Kegiatan</th>
-				<th>Tahun Ajaran</th>
-				<th>Detail Kegiatan</th>
-				<th>Actions</th>
-                <th>Info Pembina</th>
-				<th>Info Waka</th>
-				<th>Info Kepala Sekolah</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $i=1; foreach ($kelas as $kelas):?>
-			<tr>
-				<td><?=$i++?></td>
-				<td><b><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></b></td>
-				<td>24</td>
-				<td>
-                    <a href="<?= base_url('admin/daftarPeserta')?>/<?= $kelas['id_kelas']?>" class="btn btn-primary btn-sm">Daftar Peserta</a>
-                </td>
-				<td>
-					<a href="<?= base_url('admin/deleteKelas')?>/<?= $kelas['id_kelas']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
-				</td>
-			</tr>
-			<?php endforeach;?>
-		</tbody>
-	</table>
+            <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Grafik Efektifitas Penggunaan Biaya Kegiatan</h6>
+            <ol>
+            
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Basket </div>
+                        <div class="col-md-6">: Rp. 12.000.000</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Futsal </div>
+                        <div class="col-md-6">: Rp. 5.000.000</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Renang </div>
+                        <div class="col-md-6">: Rp. 6.000.000</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Bulu Tangkis</div>
+                        <div class="col-md-6">: Rp. 10.000.000</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Catur</div>
+                        <div class="col-md-6">: Rp. 1.000.000</div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-8">
+           <h5><b> </b></h5>
+           <canvas id="chartBiaya"  height=""></canvas>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col md-12">
+        <a href="<?=base_url('')?>" class="btn btn-sm btn-success float-right mt-2">Unduh</a>
+        </div>
+    </div>
     </div>
 </div>
 
@@ -212,38 +219,84 @@ var dashSiswa = new Chart(dash1, {
 });
 var chart = document.getElementById('chartBiaya').getContext('2d');
 var chartBiaya = new Chart(chart, {
-    type: 'bar',
+	type: 'bar',
 	data: {
-        labels: ['2016', '2017','2018','2019','2020'],
+		labels: ['2016', '2017','2018','2019','2020'],
 		datasets: [{
-            label: 'Terpenuhi',
+			label: 'Basket',
 			data: [12, 19, 10, 17, 2],
 			backgroundColor: [
-				'#90FCF9',
-				'#90FCF9',
-				'#90FCF9',
-				'#90FCF9',
-				'#90FCF9',
-				'#90FCF9'
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(255, 99, 132, 0.2)',
 			],
             borderWidth: 2 ,
             fill: true
-		},
+        },
         {
-			label: 'Tidak Terpenuhi',
+            label: 'Futsal',
 			data: [5, 12, 16, 19, 22],
 			backgroundColor: [
-				'#824C71',
-				'#824C71',
-				'#824C71',
-				'#824C71',
-				'#824C71'
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
 			],
             borderWidth: 2 ,
             fill: true
             
-		},
-        ]
-	}
+        },
+        {
+            label: 'Renang',
+			data: [6, 10, 15, 20, 25],
+			backgroundColor: [
+                '#EE4B6A',
+                '#EE4B6A',
+                '#EE4B6A',
+                '#EE4B6A',
+                '#EE4B6A',
+                
+                
+			],
+            borderWidth: 2 ,
+            fill: true
+            
+        },
+        {
+            label: 'Bulu Tangkis',
+			data: [10, 17, 21, 3, 30],
+			backgroundColor: [
+                '#73EEDC',
+                '#73EEDC',
+                '#73EEDC',
+                '#73EEDC',
+                '#73EEDC',
+                
+			],
+            borderWidth: 2 ,
+            fill: true
+            
+        },
+        {
+            label: 'Catur',
+			data: [1, 18, 26, 29, 32],
+			backgroundColor: [
+                '#F9564F',
+                '#F9564F',
+                '#F9564F',
+                '#F9564F',
+                '#F9564F'
+                
+			],
+            borderWidth: 2 ,
+            fill: true
+            
+		}
+    ]
+}
 });
 </script>
