@@ -26,7 +26,7 @@
 				<td><?= $lap['tahun_akademik']?></td>
 				<td><?= $lap['semester']?></td>
 				<td><?= $lap['tot_anggaran']?></td>
-				<td><?= $lap['tot_biaya']?></td>
+				<td><?= $lap['biaya_pendapatan']?></td>
 				<td>-</td>
 				<td>-</td>
 				<td>-</td>

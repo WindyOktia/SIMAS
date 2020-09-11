@@ -78,7 +78,8 @@ class Dokumen_model extends CI_Model
             'solusi_kegiatan'=>$_POST['solusi_kegiatan'],
             'kesimpulan'=>$_POST['kesimpulan'],
             'saran'=>$_POST['saran'],
-            'tot_biaya'=>$_POST['tot_biaya'],
+            'biaya_pendapatan'=>$_POST['biaya_pendapatan'],
+            'biaya_pengeluaran'=>$_POST['biaya_pengeluaran'],
             'tgl_pengajuan_lp'=>$_POST['tgl_pengajuan_lp']
         ];
         $this->db->insert('laporan',$data);
@@ -122,7 +123,8 @@ class Dokumen_model extends CI_Model
         $this->db->set('solusi_kegiatan',$_POST['solusi_kegiatan']);
         $this->db->set('kesimpulan',$_POST['kesimpulan']);
         $this->db->set('saran',$_POST['saran']);
-        $this->db->set('tot_biaya',$_POST['tot_biaya']);
+        $this->db->set('biaya_pendapatan',$_POST['biaya_pengeluaran']);
+        $this->db->set('biaya_pengeluaran',$_POST['biaya_pengeluaran']);
         $this->db->set('tgl_pengajuan_lp',$_POST['tgl_pengajuan_lp']);
         $this->db->where('id_laporan',$_POST['id_laporan']);
         $this->db->update('laporan');

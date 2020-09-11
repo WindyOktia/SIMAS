@@ -160,16 +160,8 @@ class Document extends CI_Controller
     
     public function updateProposal()
     {
-        // $nama_kegiatan = $_POST['nama_kegiatan'];
+
         $tahun_akademik = $_POST['tahun_akademik_1'].' / '. $_POST['tahun_akademik_2'];
-        // $semester = $_POST['semester'];
-        // $lb_kegiatan = $_POST['lb_kegiatan'];
-        // $tj_kegiatan = $_POST['tujuan_kegiatan'];
-        // $hp_kegiatan = $_POST['harapan_kegiatan'];
-        // $tgl_pelaksana = $_POST['tgl_pelaksanaan'];
-        // $tmpt = $_POST['tempat'];
-        // $anggaran = $_POST['tot_anggaran'];
-        // $tgl_pengajuan =$_POST['tgl_pengajuan'];
      
         $update=$this->dokumen_model->edit_data($tahun_akademik);
         if($update > 0)
@@ -190,7 +182,7 @@ class Document extends CI_Controller
         $this->generalUpload($id,$code,$backid);
     }
 
-    public function detailVerifikasiProposal($id)
+    public function detailVerifikasiProposal()
     {
         $data['page']='verifikasi_proposal';
         $data['id']= $id;
@@ -208,6 +200,14 @@ class Document extends CI_Controller
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/verifikasi_proposal',$data);
         $this->load->view('templates/footer');
+    }
+
+    public function do_addVerifikasiProposal()
+    {
+        $id= $this->dokumen_model->addVerifikasiProposal();
+        $code='proposal';
+        $backid='proposal';
+        $this->detailVerifikasiProposal($id,$code,$backid);
     }
 
 
