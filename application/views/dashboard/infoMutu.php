@@ -47,7 +47,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/detailRecordPresensi')?>" class="btn btn-sm btn-info float-right mt-2">lihat detail</a>
+                <a href="<?=base_url('admin/detailRecordPresensi')?>" class="btn btn-sm btn-info float-right mt-3">lihat detail</a>
             </div>
         </div>
         <div class="col-md-6">
@@ -66,7 +66,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-2">Lihat Detail</a>
+                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
             </div>
         </div>
     </div>
@@ -80,7 +80,6 @@
                     <canvas id="dashKetertarikan" height="100"></canvas>
                     </div>
                 </div>
-                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-2">Lihat Detail</a>
             </div>
         </div>
 
@@ -121,10 +120,10 @@ var dash1 = document.getElementById('dashKetertarikan').getContext('2d');
 var dashKetertarikan = new Chart(dash1, {
 	type: 'horizontalBar',
 	data: {
-		labels: ['Basket', 'Futsal','Balap Karung','Sabung Ayam','Main Kelereng'],
+		labels: ['Basket', 'Futsal','Renang','Bulu Tangkis','Catur'],
 		datasets: [{
-			label: '# of Votes',
-			data: [12, 19, -10, 5, -11],
+			label: 'Kegiatan',
+			data: [12, 19, 10, 5, 11],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(54, 162, 235, 0.2)'
