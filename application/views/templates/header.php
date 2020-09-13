@@ -275,6 +275,54 @@
 						<?php }?>
 
 						<?php 
+							$rl=array('15');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('guru/presensi_harian')?>" class="nav-link <?php if($page=='presensi_harian'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Input Presensi Harian</span>
+									</a>
+								</li>
+						<?php }?>
+
+						<?php 
+							$rl=array('15');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('guru/presensi_mengajar')?>" class="nav-link <?php if($page=='presensi_mengajar'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Input Presensi Mengajar</span>
+									</a>
+								</li>
+						<?php }?>
+
+						<?php 
+							$rl=array('15');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('guru/ijin')?>" class="nav-link <?php if($page=='ijin'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Pengajuan Ijin</span>
+									</a>
+								</li>
+						<?php }?>
+
+						<?php 
+							$rl=array('15');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('guru/cek_presensi')?>" class="nav-link <?php if($page=='cek_presensi'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Rekap Presensi</span>
+									</a>
+								</li>
+						<?php }?>
+
+						<?php 
 							$rl=array('2');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>

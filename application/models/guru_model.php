@@ -4,31 +4,29 @@ class Guru_model extends CI_Model
 {
     public function add()
     {
-        $rfid=$this->input->post('rfid', true);
-        $nip=$this->input->post('nip', true);
-        $query = $this->db->get_where('guru', ['rfid' => $rfid]);
-        if ($query->num_rows() == 0) {
-            $query2 = $this->db->get_where('guru', ['nip' => $nip]);
-            if ($query2->num_rows() == 0) {
-                $data = [
-                    "rfid" => $this->input->post('rfid', true),
-                    "nip" => $this->input->post('nip', true),
-                    "nama_guru" => $this->input->post('nama', true),
-                    "alamat" => $this->input->post('alamat', true)
-                ];
-                $this->db->insert('guru', $data);
-                $data = [
-                    "username" => $this->input->post('nip', true),
-                    "password" => md5($this->input->post('pass', true)),
-                    "nama" => $this->input->post('nama', true),
-                    "role" => 2
-                ];
-                $this->db->insert('user', $data);
-                return true;
-            }
-            return false;
-        }
-        return false;
+        $this->db->trans_start();
+            $data = [
+                'rfid' => $_POST['rfid'],
+                'nip' => $_POST['nip'],
+                'nama_guru' => $_POST['nama'],
+                'alamat' => $_POST['alamat']
+            ];
+
+            $this->db->insert('guru', $data);
+        $this->db->trans_complete();
+
+        $this->db->trans_start();
+            $data = [
+                'username' => $_POST['nip'],
+                'password' => md5($_POST['pass']),
+                'nama' => $_POST['nama'],
+                'role' => '15',
+                'status' => '0'
+            ];
+
+            $this->db->insert('user', $data);
+        $this->db->trans_complete();
+        return true;
     }
 
     public function editGuru()

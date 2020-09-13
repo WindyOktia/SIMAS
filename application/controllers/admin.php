@@ -289,7 +289,7 @@ class Admin extends CI_Controller
     public function addGuru()
     {
         $cek = $this->guru_model->add();
-        if($cek==false)
+        if($cek!=true)
         {
             $this->session->set_flashdata('error', 'RFID / NIP Sudah Terdaftar');
         }else
