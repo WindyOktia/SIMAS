@@ -3,7 +3,7 @@
 <button type="button" class="btn btn-danger mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Ditolak">
   Ditolak
 </button>
-<button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#modalTambah">
+<button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Revisi">
   Revisi
 </button>
 <button type="button" class="btn btn-success mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Setuju">
@@ -71,8 +71,8 @@
     </div>
 <?php endforeach ?>
 
-<?php foreach($arsip as $add):?>
-<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php foreach($dokumenproposal as $add):?>
+<div class="modal fade" id="Revisi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -82,12 +82,95 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('document/addSingleDocument')?>" enctype="multipart/form-data" method="post">
+        <form action="<?= base_url('document/do_addVerifikasiProposal')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
-            <textarea name="tujuan_kegiatan" class="form-control" id="" cols="30" rows="10" ></textarea>
+            <input name="id_proposal" value="<?= $add['id_proposal']?>" type="hidden" class="form-control" required>
+            <input name="id_user" type="hidden" class="form-control" required>
+            <input name="status" value="Revisi" type="hidden" class="form-control" required>
+            <textarea name="catatan" class="form-control" id="" cols="30" rows="10" ></textarea>
             <script>
-                CKEDITOR.replace( 'tujuan_kegiatan',{height:250} );
+                CKEDITOR.replace( 'catatan',{height:250} );
             </script>
+       </div>
+       <div class="form-group">
+            <label for="">Tanggal Verifikasi</label>
+            <input name="tgl_verifikasi" type="date" class="form-control" required>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<?php endforeach?>
+
+<?php foreach($dokumenproposal as $add):?>
+<div class="modal fade" id="Ditolak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Catatan Revisi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url('document/do_addVerifikasiProposal')?>" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <input name="id_proposal" value="<?= $add['id_proposal']?>" type="hidden" class="form-control" required>
+            <input name="id_user" type="hidden" class="form-control" required>
+            <input name="status" value="Ditolak" type="hidden" class="form-control" required>
+            <textarea name="catatan" class="form-control" id="" cols="30" rows="10" ></textarea>
+            <script>
+                CKEDITOR.replace( 'catatan',{height:250} );
+            </script>
+       </div>
+       <div class="form-group">
+            <label for="">Tanggal Verifikasi</label>
+            <input name="tgl_verifikasi" type="date" class="form-control" required>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<?php endforeach?>
+
+<?php foreach($dokumenproposal as $add):?>
+<div class="modal fade" id="Setuju" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Catatan Revisi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url('document/do_addVerifikasiProposal')?>" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <input name="id_proposal" value="<?= $add['id_proposal']?>" type="hidden" class="form-control" required>
+            <input name="id_user" type="hidden" class="form-control" required>
+            <input name="status" value="Disetujui" type="hidden" class="form-control" required>
+            <textarea name="catatan" class="form-control" id="" cols="30" rows="10" ></textarea>
+            <script>
+                CKEDITOR.replace( 'catatan',{height:250} );
+            </script>
+       </div>
+       <div class="form-group">
+            <label for="">Tanggal Verifikasi</label>
+            <input name="tgl_verifikasi" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">

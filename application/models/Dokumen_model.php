@@ -62,6 +62,25 @@ class Dokumen_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function addVerifikasiProposal()
+    {
+        $data=[
+            'id_user'=>$this->session->userdata('id_user'),
+            'id_proposal'=>$_POST['id_proposal'],
+            'status'=>$_POST['status'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi'=>$_POST['tgl_verifikasi']
+        ];
+        $this->db->insert('verifikasi_proposal',$data);
+        $package_id = $this->db->insert_id();
+        return $package_id;
+    }
+
+    public function getVerifikasiProposalID($id)
+    {
+        return $this->db->get_where('verifikasi_proposal',['id_proposal'=> $id])->result_array();
+    }
+
     // End Proposal
 
     // Laporan
@@ -130,6 +149,25 @@ class Dokumen_model extends CI_Model
         $this->db->update('laporan');
 
         return $this->db->affected_rows();
+    }
+
+    public function addVerifikasiLaporan()
+    {
+        $data=[
+            'id_user'=>$this->session->userdata('id_user'),
+            'id_laporan'=>$_POST['id_laporan'],
+            'status'=>$_POST['status'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_lp'=>$_POST['tgl_verifikasi_lp']
+        ];
+        $this->db->insert('verifikasi_laporan',$data);
+        $package_id = $this->db->insert_id();
+        return $package_id;
+    }
+
+    public function getVerifikasiLaporanID($id)
+    {
+        return $this->db->get_where('verifikasi_laporan',['id_laporan'=> $id])->result_array();
     }
     // End Laporan
 

@@ -31,7 +31,7 @@
             <li>
             <div class="row">
                 <div class="col-md-3">Total Rancangan Anggaran</div>
-                <div class="col-md-9">: <?= $dok['anggaran']?></div>
+                <div class="col-md-9">: <?= $dok['tot_anggaran']?></div>
             </div>
             </li>
             <li>
@@ -49,7 +49,7 @@
             <li>
             <div class="row">
                 <div class="col-md-3">Tanggal Pengajuan Laporan</div>
-                <div class="col-md-9">: <?= $dok['tgl_pengajuan']?></div>
+                <div class="col-md-9">: <?= $dok['tgl_pengajuan_lp']?></div>
             </div>
             </li>
         </ul> <br>

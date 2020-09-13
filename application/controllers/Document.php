@@ -182,7 +182,7 @@ class Document extends CI_Controller
         $this->generalUpload($id,$code,$backid);
     }
 
-    public function detailVerifikasiProposal()
+    public function detailVerifikasiProposal($id)
     {
         $data['page']='verifikasi_proposal';
         $data['id']= $id;
@@ -205,10 +205,8 @@ class Document extends CI_Controller
     public function do_addVerifikasiProposal()
     {
         $id= $this->dokumen_model->addVerifikasiProposal();
-        $code='proposal';
-        $backid='proposal';
-        $this->detailVerifikasiProposal($id,$code,$backid);
     }
+
 
 
     // End Proposal
@@ -277,6 +275,31 @@ class Document extends CI_Controller
         $code='laporan';
         $backid='laporan';
         $this->generalUpload($id,$code,$backid);
+    }
+
+    public function detailVerifikasiLaporan($id)
+    {
+        $data['page']='verifikasi_laporan';
+        $data['id']= $id;
+        $data['dokumenlaporan']=$this->dokumen_model->getLaporanID($id);
+        $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/add_verifikasi_laporan',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function verifikasiLaporan()
+    {
+        $data['page']='verifikasi_laporan';
+        $data['dokumenlaporan']=$this->dokumen_model->getLaporan();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/verifikasi_lapran',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function do_addVerifikasiLaporan()
+    {
+        $id= $this->dokumen_model->addVerifikasiLaporan();
     }
     // End Laporan
     

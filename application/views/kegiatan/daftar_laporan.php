@@ -10,8 +10,8 @@
 				<th>Judul Kegiatan</th>
 				<th>Tahun Ajaran</th>
 				<th>Semester</th>
-				<th>Anggaran</th>
-				<th>Biaya</th>
+				<th>Tanggal Pengajuan</th>
+				<th>Pengunggah Laporan</th>
                 <th>Info Pembina</th>
 				<th>Info Waka</th>
 				<th>Info Kepala Sekolah</th>
@@ -25,8 +25,8 @@
 				<td><b><?= $lap['nama_kegiatan']?></b></td>
 				<td><?= $lap['tahun_akademik']?></td>
 				<td><?= $lap['semester']?></td>
-				<td><?= $lap['tot_anggaran']?></td>
-				<td><?= $lap['biaya_pendapatan']?></td>
+				<td><?= $lap['tgl_pengajuan_lp']?></td>
+				<td><?= $lap['username']?></td>
 				<td>-</td>
 				<td>-</td>
 				<td>-</td>
