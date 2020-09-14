@@ -187,7 +187,7 @@
     </div>
 
     <div class="card card-body">
-<h3>Detail Laporan Keuangan</h3>
+<h3>Detail Laporan Pendanaan</h3>
     <div class="card card-body">
     <div class="row">
         <div class="col-md-4">
@@ -242,6 +242,7 @@
     </div>
 
 </div>
+
 
 <script>
 var dash1 = document.getElementById('dashSiswa').getContext('2d');
@@ -414,8 +415,8 @@ var chartKeterlibatan = new Chart(chart, {
     data: {
         labels: ['2019 - Ganjil', '2019- Genap', '2020- Ganjil', '2020- Genap'],
         datasets: [{
-            label: 'Kehadiran Harian',
-            data: [90, 90, 85, 95],
+            label: 'Basket',
+            data: [12, 5, 6, 10, 22, 50],
             borderColor: [
                 'rgba(255, 99, 132, 1)'
                
@@ -424,8 +425,8 @@ var chartKeterlibatan = new Chart(chart, {
             borderWidth: 2
         },
         {
-            label: 'Kehadiran Mengajar',
-            data: [80, 90, 90, 85],
+            label: 'Futsal',
+            data: [15, 10, 15, 30, 40],
             borderColor: [
                 '#20A39E'
                
@@ -434,8 +435,8 @@ var chartKeterlibatan = new Chart(chart, {
             borderWidth: 2
         },
         {
-            label: 'Nilai Survei',
-            data: [90, 95, 95, 90],
+            label: 'Renang',
+            data: [20, 15, 20, 30, 50],
             borderColor: [
                 '#CC4BC2'
                
@@ -445,7 +446,7 @@ var chartKeterlibatan = new Chart(chart, {
         },
         {
             label: 'Bulu Tangkis',
-            data: [80, 90, 90, 85],
+            data: [20, 15, 20, 30, 50],
             borderColor: [
                 '#F9564F'
                
@@ -455,7 +456,7 @@ var chartKeterlibatan = new Chart(chart, {
         },
         {
             label: 'Catur',
-            data: [80, 90, 90, 85],
+            data: [20, 15, 20, 30, 50],
             borderColor: [
                 '#73EEDC'
                
@@ -473,14 +474,28 @@ var dashPendanaan = new Chart(dashP, {
 	data: {
 		labels: ['2016 - 2017', '2017 - 2018','2018 - 2019','2019 - 2020'],
 		datasets: [{
-			label: 'Terpenuhi',
+			label: 'Sesuai Target',
 			data: [12, 12, 12, 12, 12],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(54, 162, 235, 0.2)',
-                '#EE4B6A',
-                '#73EEDC',
-                '#F9564F'
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',  
+                'rgba(255, 99, 132, 0.2)'  
+                
+			],
+			borderWidth: 2
+        },
+        {
+			label: 'Tidak Sesuai Target',
+			data: [10, 8, 5, 15, 20],
+			backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)'
+                
 			],
 			borderWidth: 2
 		}],
