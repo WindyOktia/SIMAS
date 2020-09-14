@@ -31,4 +31,5 @@ class Welcome extends CI_Controller {
 		$this->load->view('welcome',$data);
 		$this->load->view('templates/footer');
 	}
+	
 }

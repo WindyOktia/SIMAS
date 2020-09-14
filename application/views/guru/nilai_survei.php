@@ -1,0 +1,145 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#exampleModal">
+<i class="fa fa-bars mr-2"></i>Kelola Pertanyaan Survei Guru
+</button>
+
+
+
+<div class="card card-body">
+    <h6><i class="fa fa-info-circle mr-2"></i><b>Informasi e-survei guru</b></h6>
+    <h6>
+        <ul>
+            <li>Hanya guru yang memiliki jadwal mengajar yang akan ditampilkan</li>
+            <li>Responden dalam survei guru adalah siswa</li>
+            <li>Hanya siswa yang diampu oleh tiap-tiap guru yang dapat memberi nilai</li>
+        </ul>
+    </h6>
+    <h4><i class="fa fa-plus-circle mr-2" style="color:green"></i>
+        Buat Survei Guru | Tahun Akademik
+        <?php foreach($akademik as $ak):?>
+            <b><?= $ak['tahun_akademik']?></b> semester  <b><?= $ak['semester']?></b>
+        <?php endforeach?>
+    </h4>
+    <form action="<?=base_url('survei/addSurveiGuru')?>" method="post">
+        <div class="form-group">
+            <?php foreach($akademik as $akad):?>
+                <input type="hidden" name="tahun_akademik" value="<?=$akad['tahun_akademik']?>">
+                <input type="hidden" name="semester" value="<?=$akad['semester']?>">
+            <?php endforeach?>
+
+            <label for="">1. Pilih Guru</label>
+            <select class="js-example-basic-multiple form-control" name="id_guru[]" multiple="multiple">
+                <?php foreach($guru as $gr):?>
+                <option value="<?=$gr['id_guru']?>" selected><?=$gr['nama_guru']?></option>
+                <?php endforeach?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">2. Pilih Pertanyaan</label>
+            <select class="js-example-basic-multiple form-control" name="pertanyaan[]" multiple="multiple">
+                <?php foreach($pertanyaan as $tanyas):?>
+                    <option value="<?=$tanyas['id_soal_survei_guru']?>" selected><?=$tanyas['pertanyaan']?></option>\
+                <?php endforeach?>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-success btn-success float-right"><i class="fa fa-paper-plane-o mr-2"></i> Generate e-survei</button>
+    </form>
+</div>
+
+<div class="card card-body">
+    <div class="row">
+        <div class="col">
+            <h6><b>Daftar Guru Disurvei</b></h6>
+        </div>
+        <?php foreach($surveiID as $delsur):?>
+            <?php if($delsur['tahun_akademik']==$akad['tahun_akademik']){?>
+                <?php if($delsur['semester']==$akad['semester']){?>
+                    <div class="col">
+                        <a href="<?=base_url('survei/deleteSurveiGuru')?>/<?=$delsur['id_survei_guru']?>" class="btn btn-sm btn-danger float-right mb-2 tombol-hapus">Batalkan Survei</a>
+                    </div>
+                <?php } ;?>
+            <?php } ;?>
+        <?php endforeach?>
+    </div>
+    <table class="table datatable-show-all">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Guru</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $i=1; foreach($survei as $surv):?>
+                <?php if($surv['tahun_akademik']==$akad['tahun_akademik']){?>
+                    <?php if($surv['semester']==$akad['semester']){?>
+                        <tr>
+                            <td><?=$i++?></td>
+                            <td><?=$surv['nama_guru']?></td>
+                        </tr>
+                    <?php } ;?>
+                <?php } ;?>
+            <?php endforeach?>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-12">
+      
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Kelola Pertanyaan Survei Guru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form action="<?=base_url('survei/addPertanyaan')?>" method="post">
+                <div class="form-group">
+                    <label for="">Input Pertanyaan</label>
+                    <input type="text" name="pertanyaan" class="form-control border-info" autocomplete="off">
+                </div>
+                Note: Setiap pertanyaan akan memiliki 4 opsi jawaban ( <b>Sangat Baik, Baik, Cukup, Kurang</b> )
+                <h6 class="mt-3"><i class="fa fa-history mr-2"></i>Daftar Pertanyaan</h6>
+                <table class="table datatable-show-all">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Pertanyaan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i=1; foreach($pertanyaan as $tanya):?>
+                        <tr>
+                            <td><?=$i++?></td>
+                            <td><?=$tanya['pertanyaan']?></td>
+                            <td>
+                                <a href="<?=base_url('survei/hapusPertanyaan')?>/<?=$tanya['id_soal_survei_guru']?>" class="btn btn-danger btn-sm"><i class="	fa fa-close"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach?>
+                    </tbody>
+                </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Simpan Pertanyaan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
