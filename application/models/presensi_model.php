@@ -11,7 +11,8 @@ class Presensi_model extends CI_Model
             'tanggal'=>date('Y-m-d'),
             'hari'=>date('D'),
             'id_guru'=> $_POST['id'],
-            'jam_masuk'=>date('H:i:s')
+            'jam_masuk'=>date('H:i:s'),
+            'metode'=>'rfid'
         ];
 
         $this->db->insert('presensi_harian',$data);

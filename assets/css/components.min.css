@@ -1411,7 +1411,7 @@ input[type=text].noui-height-helper:not(.noUi-target)[data-fouc] {
 	display: none
 }
 
-.select2-selection--multiple {
+/* .select2-selection--multiple {
 	display: block;
 	border: 1px solid transparent;
 	cursor: text;
@@ -1462,9 +1462,9 @@ input[type=text].noui-height-helper:not(.noUi-target)[data-fouc] {
 .select2-container--disabled .select2-selection--multiple .select2-search__field,
 .select2-container--disabled .select2-selection--multiple .select2-selection__choice {
 	cursor: default
-}
+} */
 
-.select2-selection--multiple .select2-selection__choice {
+/* .select2-selection--multiple .select2-selection__choice {
 	background-color: #455a64;
 	color: #fff;
 	cursor: default;
@@ -1476,21 +1476,21 @@ input[type=text].noui-height-helper:not(.noUi-target)[data-fouc] {
 	word-break: break-all;
 	border-radius: .1875rem;
 	transition: color ease-in-out .15s, background-color ease-in-out .15s
-}
+} */
 
 @media (prefers-reduced-motion:reduce) {
-	.select2-selection--multiple .select2-selection__choice {
+	/* .select2-selection--multiple .select2-selection__choice {
 		transition: none
-	}
+	} */
 }
 
-.select2-selection--multiple .select2-selection__choice:focus,
+/* .select2-selection--multiple .select2-selection__choice:focus,
 .select2-selection--multiple .select2-selection__choice:hover {
 	background-color: #455a64;
 	color: #fff
-}
+} */
 
-.select2-selection--multiple .select2-selection__choice>i {
+/* .select2-selection--multiple .select2-selection__choice>i {
 	margin-right: .625rem
 }
 
@@ -1503,15 +1503,15 @@ input[type=text].noui-height-helper:not(.noUi-target)[data-fouc] {
 	margin-left: .625rem;
 	opacity: .75;
 	transition: opacity ease-in-out .15s
-}
+} */
 
 @media (prefers-reduced-motion:reduce) {
-	.select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
+	/* .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
 		transition: none
-	}
+	} */
 }
 
-.select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove:hover {
+/* .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove:hover {
 	opacity: 1
 }
 
@@ -1572,7 +1572,7 @@ input[type=text].noui-height-helper:not(.noUi-target)[data-fouc] {
 .select2-selection--multiple .select2-search--inline:first-child .select2-search__field {
 	margin-left: 0;
 	padding-left: .75rem
-}
+} */
 
 .select2-dropdown {
 	background-color: #fff;
