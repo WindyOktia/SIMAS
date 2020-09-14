@@ -11,7 +11,7 @@
 				<th>Tahun Ajaran</th>
 				<th>Semester</th>
 				<th>Anggaran</th>
-				<th>Biaya</th>
+				<th>Pengeluaran</th>
                 <th>Info Pembina</th>
 				<th>Info Waka</th>
 				<th>Info Kepala Sekolah</th>
@@ -26,12 +26,12 @@
 				<td><?= $lap['tahun_akademik']?></td>
 				<td><?= $lap['semester']?></td>
 				<td><?= $lap['tot_anggaran']?></td>
-				<td><?= $lap['tot_biaya']?></td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
+				<td><?= $lap['biaya_pengeluaran']?></td>
+				<td><?= $lap['status_pj']?></td>
+				<td><?= $lap['status_waka']?></td>
+				<td><?= $lap['status_kepsek']?></td>
 				<td>
-                    <a href="<?= base_url('document/detailLaporan')?>/<?= $lap['id_laporan']?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="<?= base_url('document/detailVerifikasiLaporan')?>/<?= $lap['id_laporan']?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
                 </td>
 			</tr>
 			<?php endforeach;?>

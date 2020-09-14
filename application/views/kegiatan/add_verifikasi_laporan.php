@@ -9,7 +9,7 @@
 <button type="button" class="btn btn-success mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Setuju">
   Setuju
 </button>
-<?php foreach ($joinlaporan as $dok):?>
+<?php foreach ($dokumenlaporan as $dok):?>
 
 <div class="card card-body border-success">
 <h5><b>Detail Dokumen Laporan Kegiatan</b></h5>
@@ -102,6 +102,7 @@
             <input name="id_laporan" value="<?= $add['id_laporan']?>" type="hidden" class="form-control" required>
             <input name="id_user" type="hidden" class="form-control" required>
             <input name="status" value="Revisi" type="hidden" class="form-control" required>
+            <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
             <textarea name="catatan" class="form-control" id="" cols="30" rows="10" ></textarea>
             <script>
                 CKEDITOR.replace( 'catatan',{height:250} );
@@ -109,7 +110,7 @@
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi" type="date" class="form-control" required>
+            <input name="tgl_verifikasi_lp" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
@@ -139,15 +140,13 @@
         <div class="form-group">
             <input name="id_laporan" value="<?= $add['id_laporan']?>" type="hidden" class="form-control" required>
             <input name="id_user" type="hidden" class="form-control" required>
+            <input name="catatan" value="-" type="hidden" class="form-control" required>
             <input name="status" value="Ditolak" type="hidden" class="form-control" required>
-            <textarea name="catatan" class="form-control" id="" cols="30" rows="10" ></textarea>
-            <script>
-                CKEDITOR.replace( 'catatan',{height:250} );
-            </script>
+            <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi" type="date" class="form-control" required>
+            <input name="tgl_verifikasi_lp" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
@@ -177,15 +176,13 @@
         <div class="form-group">
             <input name="id_laporan" value="<?= $add['id_laporan']?>" type="hidden" class="form-control" required>
             <input name="id_user" type="hidden" class="form-control" required>
+            <input name="catatan" value="-" type="hidden" class="form-control" required>
             <input name="status" value="Disetujui" type="hidden" class="form-control" required>
-            <textarea name="catatan" class="form-control" id="" cols="30" rows="10" ></textarea>
-            <script>
-                CKEDITOR.replace( 'catatan',{height:250} );
-            </script>
+            <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi" type="date" class="form-control" required>
+            <input name="tgl_verifikasi_lp" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">

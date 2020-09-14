@@ -27,9 +27,9 @@
 				<td><?= $lap['semester']?></td>
 				<td><?= $lap['tgl_pengajuan_lp']?></td>
 				<td><?= $lap['username']?></td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
+				<td><?= $lap['status_pj']?></td>
+				<td><?= $lap['status_waka']?></td>
+				<td><?= $lap['status_kepsek']?></td>
 				<td>
                     <a href="<?= base_url('document/detailLaporan')?>/<?= $lap['id_laporan']?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
                     <!-- <a href="<?= base_url('document/detailProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></a> -->
