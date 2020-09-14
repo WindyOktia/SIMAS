@@ -199,6 +199,18 @@ $tahun2 = $split[1];
             <input name="tgl_pengajuan"  value="<?=$docprop['tgl_pengajuan']?>" type="date" class="form-control" required>
        </div>
 
+       <div class="form-group">
+            <input name="status_pj"  value="" type="hidden" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <input name="status_waka"  value="" type="hidden" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <input name="status_kepsek"  value="" type="hidden" class="form-control" required>
+        </div>
+
 
       </div>
       <div class="modal-footer">

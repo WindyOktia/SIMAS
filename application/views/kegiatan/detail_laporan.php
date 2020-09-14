@@ -31,13 +31,25 @@
             <li>
             <div class="row">
                 <div class="col-md-3">Total Rancangan Anggaran</div>
-                <div class="col-md-9">: <?= $dok['anggaran']?></div>
+                <div class="col-md-9">: <?= $dok['tot_anggaran']?></div>
             </div>
             </li>
             <li>
             <div class="row">
-                <div class="col-md-3">Tanggal Pengajuan Proposal</div>
-                <div class="col-md-9">: <?= $dok['biaya']?></div>
+                <div class="col-md-3">Total Pendapatan</div>
+                <div class="col-md-9">: <?= $dok['biaya_pendapatan']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Total pengeluaran</div>
+                <div class="col-md-9">: <?= $dok['biaya_pengeluaran']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tanggal Pengajuan Laporan</div>
+                <div class="col-md-9">: <?= $dok['tgl_pengajuan_lp']?></div>
             </div>
             </li>
         </ul> <br>
@@ -193,15 +205,33 @@
             </script>
        </div>
 
-        <div class="form-group">
-            <label for="">Total Biaya ( Rp. )</label>
-            <input name="tot_biaya"  value="<?=$doclap['tot_biaya']?>" type="number" class="form-control" required>
+       <div class="form-group">
+            <label for="">Biaya Yang Didapat ( Rp. )</label>
+            <input name="biaya_pendapatan"  value="<?=$doclap['biaya_pendapatan']?>" type="number" class="form-control" required>
        </div>
+
+        <div class="form-group">
+            <label for="">Biaya Yang Dikeluarkan ( Rp. )</label>
+            <input name="biaya_pengeluaran"  value="<?=$doclap['biaya_pengeluaran']?>" type="number" class="form-control" required>
+        </div>
 
         <div class="form-group">
             <label for="">Tanggal Pengajuan Laporan</label>
             <input name="tgl_pengajuan_lp"  value="<?=$doclap['tgl_pengajuan_lp']?>" type="date" class="form-control" required>
        </div>
+
+        <div class="form-group">
+            <input name="status_pj"  value="" type="hidden" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <input name="status_waka"  value="" type="hidden" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <input name="status_kepsek"  value="" type="hidden" class="form-control" required>
+        </div>
+        
 
 
       </div>

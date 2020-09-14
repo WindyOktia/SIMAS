@@ -28,9 +28,9 @@
 				<td><?= $doc['tahun_akademik']?></td>
 				<td><?= $doc['semester']?></td>
 				<td><?= $doc['nama']?></td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
+				<td><?= $doc['status_pj']?></td>
+				<td><?= $doc['status_waka']?></td>
+				<td><?= $doc['status_kepsek']?></td>
 				<td>
                     <a href="<?= base_url('document/detailVerifikasiProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
                 </td>
