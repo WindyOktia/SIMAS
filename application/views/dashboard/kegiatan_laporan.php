@@ -132,6 +132,115 @@
         </div>
     </div>
     </div>
+
+<div class="card card-body">
+    <h3>Detail Laporan Kegiatan Siswa</h3>
+    <div class="card card-body">
+    <div class="row">
+        <div class="col-md-4">
+            <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Grafik Keterlibatan Siswa Dalam Kegiatan</h6>
+            <ol>
+            
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Basket </div>
+                        <div class="col-md-6">: 12</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Futsal </div>
+                        <div class="col-md-6">: 5</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Renang </div>
+                        <div class="col-md-6">: 6</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Bulu Tangkis</div>
+                        <div class="col-md-6">: 10</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Catur</div>
+                        <div class="col-md-6">: 22</div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-8">
+           <h5><b> </b></h5>
+           <canvas id="chartKeterlibatan"  height=""></canvas>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col md-12">
+        <a href="<?=base_url('')?>" class="btn btn-sm btn-success float-right mt-2">Unduh</a>
+        </div>
+    </div>
+    </div>
+
+    <div class="card card-body">
+<h3>Detail Laporan Keuangan</h3>
+    <div class="card card-body">
+    <div class="row">
+        <div class="col-md-4">
+           
+
+            <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Grafik Persetujuan Pendanaan Kegiatan</h6>
+            <ol>
+            
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Basket </div>
+                        <div class="col-md-6">: Terpenuhi</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Futsal </div>
+                        <div class="col-md-6">: Terpenuhi</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Renang </div>
+                        <div class="col-md-6">: Tidak Terpenuhi</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Bulu Tangkis</div>
+                        <div class="col-md-6">: Tidak Terpenuhi</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row h6">
+                        <div class="col-md-6">Catur</div>
+                        <div class="col-md-6">: Tidak Terpenuhi</div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-8">
+           <h5><b> </b></h5>
+           <canvas id="dashPendanaan"  height=""></canvas>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col md-12">
+        <a href="<?=base_url('')?>" class="btn btn-sm btn-success float-right mt-2">Unduh</a>
+        </div>
+    </div>
+    </div>
+
 </div>
 
 <script>
@@ -298,5 +407,83 @@ var chartBiaya = new Chart(chart, {
 		}
     ]
 }
+});
+var chart = document.getElementById('chartKeterlibatan').getContext('2d');
+var chartKeterlibatan = new Chart(chart, {
+    type: 'line',
+    data: {
+        labels: ['2019 - Ganjil', '2019- Genap', '2020- Ganjil', '2020- Genap'],
+        datasets: [{
+            label: 'Kehadiran Harian',
+            data: [90, 90, 85, 95],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Kehadiran Mengajar',
+            data: [80, 90, 90, 85],
+            borderColor: [
+                '#20A39E'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Nilai Survei',
+            data: [90, 95, 95, 90],
+            borderColor: [
+                '#CC4BC2'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Bulu Tangkis',
+            data: [80, 90, 90, 85],
+            borderColor: [
+                '#F9564F'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
+            label: 'Catur',
+            data: [80, 90, 90, 85],
+            borderColor: [
+                '#73EEDC'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        }
+        ]
+    }
+});
+
+var dashP = document.getElementById('dashPendanaan').getContext('2d');
+var dashPendanaan = new Chart(dashP, {
+	type: 'bar',
+	data: {
+		labels: ['2016 - 2017', '2017 - 2018','2018 - 2019','2019 - 2020'],
+		datasets: [{
+			label: 'Terpenuhi',
+			data: [12, 12, 12, 12, 12],
+			backgroundColor: [
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(54, 162, 235, 0.2)',
+                '#EE4B6A',
+                '#73EEDC',
+                '#F9564F'
+			],
+			borderWidth: 2
+		}],
+	}
 });
 </script>

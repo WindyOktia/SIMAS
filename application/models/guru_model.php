@@ -132,4 +132,20 @@ class Guru_model extends CI_Model
     {
         
     }
+
+    public function getNIP()
+    {
+        return $this->db->get_where('guru',['nip'=>$_POST['nip']]);
+    }
+
+    public function getRFID()
+    {
+        return $this->db->get_where('guru',['rfid'=>$_POST['rfid']]);
+    }
+
+    public function getGuruBerjadwal()
+    {
+        return $this->db->query('select * FROM guru where id_guru in (SELECT id_guru FROM jadwal_guru)')->result_array();
+    }
+
 }

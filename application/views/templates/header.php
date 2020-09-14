@@ -43,6 +43,8 @@
 	<script src="<?= base_url('assets/js/datatables_advanced.js')?>"></script>
 	<script src="<?= base_url('assets/js/datatables.min.js')?>"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 
 	<!-- <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script> -->
@@ -322,6 +324,7 @@
 								</li>
 						<?php }?>
 
+						
 						<?php 
 							$rl=array('2');
 							$role=$this->session->userdata('role');
@@ -350,16 +353,30 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('3','4');
+							$rl=array('3');
 							$role=$this->session->userdata('role');
-							if(in_array($role,$rl)){ ?>
-								<li class="nav-item nav-item-submenu <?php if($page=='presensi'||$page=='presensi'){echo 'nav-item-expanded nav-item-open';};?>">
-									<a href="#" class="nav-link <?php if($page=='presensi'||$page=='presensi'){echo 'active';};?>"><i class="fa fa-plus-circle"></i> <span>Kinerja Guru</span></a>
-									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-										<li class="nav-item"><a href="<?= base_url('admin/daftarPresensi')?>" class="nav-link <?php if($page=='presensi'){echo 'active';};?>">Guru</a></li>
-									</ul>
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('guru/nilai_survei')?>" class="nav-link <?php if($page=='nilai_survei'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Survei Guru</span>
+									</a>
 								</li>
 						<?php }?>
+
+						<?php 
+							$rl=array('3','4');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('admin/daftarPresensi')?>" class="nav-link <?php if($page=='presensi'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Kinerja Guru</span>
+									</a>
+								</li>
+						<?php }?>
+
+
 
 						
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Lainnya</div> <i class="icon-menu" title="Main"></i></li>
