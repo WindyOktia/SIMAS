@@ -40,7 +40,7 @@ class Presensi extends CI_Controller
             $interval = abs($current_time-$jamMasuk);
             $diff_time = round($interval / 60);
 
-            if($diff_time >=15 ) // selisih waktu
+            if($diff_time >=1 ) // selisih waktu
             {
                 $this->updateJamKeluar();
             }else
