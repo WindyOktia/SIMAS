@@ -172,7 +172,7 @@
 
 						<!-- Kegiatan EL -->
 						<?php 
-							$rl=array('5','8','4');
+							$rl=array('5','8');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
@@ -184,7 +184,7 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('5','8','4');
+							$rl=array('5','8');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
@@ -194,8 +194,32 @@
 									</a>
 								</li>
 						<?php }?>
-						
+
 						<?php 
+							$rl=array('2','4','7');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item">
+									<a href="<?= base_url('document/verifikasiLaporan')?>" class="nav-link <?php if($page=='verifikasiLaporan'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Laporan Kegiatan</span>
+									</a>
+								</li>
+						<?php }?>
+
+						<?php 
+							$rl=array('2','4','7');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item">
+									<a href="<?= base_url('document/verifikasiProposal')?>" class="nav-link <?php if($page=='verifikasiProposal'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Laporan Proposal</span>
+									</a>
+								</li>
+						<?php }?>
+						
+						<!-- <?php 
 							$rl=array('2');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
@@ -249,7 +273,7 @@
 										<li class="nav-item"><a href="<?= base_url('admin/daftarSiswa')?>" class="nav-link <?php if($page=='daftarSiswa'){echo 'active';};?>">Daftar Laporan Kegiatan</a></li>
 									</ul>
 								</li>
-						<?php }?>
+						<?php }?> -->
 
 						<!-- End Kegiatan El -->
 						<?php 

@@ -12,7 +12,7 @@
             <label for="">Nama Kegiatan</label>
             <select name="id_proposal" id="" class="form-control">
                 <?php foreach($idproposal as $idprop):?>
-                <option value="<?=$idprop['id_proposal']?>"><?=$idprop['nama_kegiatan']?></option>
+                <option value="<?=$idprop['id_proposal']?>"><?=$idprop['nama_kegiatan']?> - <?=$idprop['tahun_akademik']?> - <?=$idprop['semester']?></option>
                 <?php endforeach?>
             </select>
         </div>
@@ -103,8 +103,13 @@
         </div>
 
         <div class="form-group">
-            <label for="">Total Biaya ( Rp. )</label>
-            <input name="tot_biaya" type="number" class="form-control" required>
+            <label for="">Biaya Yang Didapat ( Rp. )</label>
+            <input name="biaya_pendapatan" type="number" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="">Biaya Yang Dikeluarkan ( Rp. )</label>
+            <input name="biaya_pengeluaran" type="number" class="form-control" required>
         </div>
 
         <div class="form-group">
