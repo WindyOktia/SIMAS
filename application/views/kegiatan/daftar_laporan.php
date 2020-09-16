@@ -10,7 +10,6 @@
 				<th>Judul Kegiatan</th>
 				<th>Tahun Ajaran</th>
 				<th>Semester</th>
-				<th>Tanggal Pengajuan</th>
 				<th>Pengunggah Laporan</th>
                 <th>Info Pembina</th>
 				<th>Info Waka</th>
@@ -25,11 +24,16 @@
 				<td><b><?= $lap['nama_kegiatan']?></b></td>
 				<td><?= $lap['tahun_akademik']?></td>
 				<td><?= $lap['semester']?></td>
-				<td><?= $lap['tgl_pengajuan_lp']?></td>
-				<td><?= $lap['username']?></td>
-				<td><?= $lap['status_pj']?></td>
-				<td><?= $lap['status_waka']?></td>
-				<td><?= $lap['status_kepsek']?></td>
+				<td><?= $lap['nama']?></td>
+				<?php $i=1; foreach ($verifikasiPJ as $PJ):?>
+				<td><?= $PJ['status']?></td>
+				<?php endforeach;?>
+				<?php foreach ($verifikasiWaka as $Waka):?>
+				<td><?= $Waka['status']?></td>
+				<?php endforeach;?>
+				<?php foreach ($verifikasiKepsek as $Kepsek):?>
+				<td><?= $Kepsek['status']?></td>
+				<?php endforeach;?>
 				<td>
                     <a href="<?= base_url('document/detailLaporan')?>/<?= $lap['id_laporan']?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
                     <!-- <a href="<?= base_url('document/detailProposal')?>/<?= $doc['id_proposal']?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i></a> -->

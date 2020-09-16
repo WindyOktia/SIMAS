@@ -1,5 +1,5 @@
 
-<a href="<?=base_url('document/laporan')?>" class="btn btn-secondary btn-sm mb-3">Kembali</a>
+<a href="<?=base_url('document/verifikasilaporan')?>" class="btn btn-secondary btn-sm mb-3">Kembali</a>
 <button type="button" class="btn btn-danger mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Ditolak">
   Ditolak
 </button>
@@ -110,7 +110,7 @@
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi_lp" type="date" class="form-control" required>
+            <input name="tgl_verifikasi_lp" value="<?=date('Y-m-d')?>" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
@@ -146,7 +146,7 @@
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi_lp" type="date" class="form-control" required>
+            <input name="tgl_verifikasi_lp" value="<?=date('Y-m-d')?>" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
@@ -182,7 +182,7 @@
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi_lp" type="date" class="form-control" required>
+            <input name="tgl_verifikasi_lp" value="<?=date('Y-m-d')?>" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
