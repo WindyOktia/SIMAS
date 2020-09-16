@@ -69,19 +69,32 @@
 <div class="row">
     <div class="col-md-4">
         <div class="card card-body border-primary">
-            <h6>Nilai Kehadiran Harian  
+            <h6>Catatan Kehadiran Harian  
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalHarian">
                         <i class="fa fa-info-circle"></i>
                     </a>
                 </span>
             </h6>
-            <h2 class="text-center"><b>70</b></h2>
+            <div class="row">
+                <div class="col">
+                    <label for="">Jumlah Hari</label>
+                    <h2 class=""><b>70</b></h2>
+                </div>
+                <div class="col">
+                    <label for="">Jam Masuk</label>
+                    <h2 class=""><b>70</b></h2>
+                </div>
+                <div class="col">
+                    <label for="">Jam Keluar</label>
+                    <h2 class=""><b>70</b></h2>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card card-body border-primary">
-            <h6>Nilai Kehadiran Mengajar
+            <h6>Catatan Kehadiran Mengajar
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalMengajar">
                         <i class="fa fa-info-circle"></i>

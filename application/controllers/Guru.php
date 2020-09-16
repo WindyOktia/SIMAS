@@ -42,9 +42,32 @@ class Guru extends CI_Controller{
     public function ijin()
     {
         $data['page']='ijin';
+        $data['ijin']=$this->guru_model->getIjin();
         $this->load->view('templates/header',$data);
-        $this->load->view('guru/ijin');
+        $this->load->view('guru/ijin',$data);
         $this->load->view('templates/footer');
+    }
+
+    public function addIjin()
+    {
+        $insert=$this->guru_model->addIjin();
+        if($insert == 0){
+            $this->session->set_flashdata('error', 'Ijin gagal ditambahkan');
+        }else{
+            $this->session->set_flashdata('success', 'Ijin berhasil ditambahkan');
+        }
+        redirect('guru/ijin');
+    }
+
+    public function hapusIjin($id)
+    {
+        $delete=$this->guru_model->hapusIjin($id);
+        if($delete == 0){
+            $this->session->set_flashdata('error', 'Ijin gagal dihapus');
+        }else{
+            $this->session->set_flashdata('success', 'Ijin berhasil dihapus');
+        }
+        redirect('guru/ijin');
     }
 
     public function cek_presensi()

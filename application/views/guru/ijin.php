@@ -10,36 +10,37 @@
     </h6>
     
     <h6 class="mt-3"><i class="	fa fa-pencil-square mr-2"></i>Detail Pengajuan Ijin</h6>
-    <form action="" method="post">
+    <form action="<?=base_url('guru/addIjin')?>" method="post">
         <div class="form-group col-md-3">
             <label for="">Jenis Ijin</label>
-            <select name="" id="" class="form-control">
+            <select name="jenis" id="" class="form-control" required>
                 <option value="" selected disabled>- pilih -</option>
-                <option value="">Sakit</option>
-                <option value="">Ijin</option>
-                <option value="">Tugas</option>
-                <option value="">Lain-lain</option>
+                <option value="Sakit">Sakit</option>
+                <option value="Ijin">Ijin</option>
+                <option value="Tugas">Tugas</option>
+                <option value="Lainnya">Lain-lain</option>
             </select>
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-12" >
             <label for="">Perihal Ijin</label>
-            <input type="text" class="form-control">
+            <input type="hidden" name="id_guru" value="<?= $this->session->userdata('id_user')?>" class="form-control" required>
+            <input type="text" name="perihal" class="form-control" required>
         </div>
         <div class="form-group col-md-12">
             <label for="">Tanggal ijin</label>
             <div class="row">
                 <div class="col-md-3">
-                    <input type="date" class="form-control">
+                    <input type="date" name="tgl_mulai" class="form-control" required>
                 </div>
                 <span class="my-auto">sampai</span>
                 <div class="col-md-3">
-                    <input type="date" class="form-control">
+                    <input type="date" name="tgl_selesai" class="form-control" required>
                 </div>
             </div>
         </div>
         <div class="form-group col-md-12">
             <label for="">Deskripsi Ijin</label>
-            <textarea name="deskripsi" id="" cols="30" rows="10" class="form-control"></textarea>
+            <textarea name="deskripsi" id="" cols="30" rows="10" class="form-control" required></textarea>
             <script>
                 CKEDITOR.replace( 'deskripsi',{height:250} );
             </script>
@@ -59,21 +60,100 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Judul Pengajuan</th>
-                <th>Tanggal Pengajuan</th>
+                <th>Perihal</th>
+                <th>Tanggal Mulai</th>
                 <th>Status</th>
                 <th style="width:30%">Detail</th>
             </tr>
         </thead>
         <tbody>
+        <?php $i=1; foreach($ijin as $dafIjin):?>
             <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
+                <td><?=$i++?></td>
+                <td><?=$dafIjin['perihal_ijin']?></td>
+                <td><?=$dafIjin['tanggal_pengajuan']?></td>
+                
+                <td>
+                    <?php
+                        if($dafIjin['status']=='0'){
+                            echo '<div class="badge badge-warning">Belum terverifikasi</div>';
+                        }
+                        if($dafIjin['status']=='1'){
+                            echo '<div class="badge badge-danger">Ditolak</div>';
+                        }
+                        if($dafIjin['status']=='2'){
+                            echo '<div class="badge badge-success">Disetujui</div>';
+                        }
+                    ?>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalDetail">
+                    <i class="fa fa-eye"></i>
+                    </button>
+                    <a href="" class="ml-2 btn btn-sm btn-success"><i class="fa fa-download"></i></a>
+                    <a href="<?=base_url('guru/hapusIjin')?>/<?=$dafIjin['id_ijin']?>" class="btn btn-danger btn-sm ml-2 tombol-hapus"><i class="fa fa-window-close"></i></a>
+                </td>
             </tr>
+        <?php endforeach?>
         </tbody>
     </table>
 </div>
 
+<div class="modal fade bd-example-modal-lg" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Pengajuan Ijin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post">
+            <div class="form-group col-md-3">
+                <label for="">Jenis Ijin</label>
+                <select name="jenis" id="" class="form-control" required>
+                    <option value="" selected disabled>- pilih -</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Ijin">Ijin</option>
+                    <option value="Tugas">Tugas</option>
+                    <option value="Lainnya">Lain-lain</option>  
+                </select>
+            </div>
+            <div class="form-group col-md-12" >
+                <label for="">Perihal Ijin</label>
+                <input type="hidden" name="id_guru" value="<?= $this->session->userdata('id_user')?>" class="form-control" required>
+                <input type="text" name="perihal" class="form-control" required>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="">Tanggal ijin</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="date" name="tgl_mulai" class="form-control" required>
+                    </div>
+                    <span class="my-auto">sampai</span>
+                    <div class="col-md-3">
+                        <input type="date" name="tgl_selesai" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="">Deskripsi Ijin</label>
+                <textarea name="editdeskripsi" id="" cols="30" rows="10" class="form-control" required></textarea>
+                <script>
+                    CKEDITOR.replace( 'editdeskripsi',{height:250} );
+                </script>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="">Lampiran Dokumen</label>
+                <input type="file" class="form-control-file">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -148,4 +148,31 @@ class Guru_model extends CI_Model
         return $this->db->query('select * FROM guru where id_guru in (SELECT id_guru FROM jadwal_guru)')->result_array();
     }
 
+    public function addIjin()
+    {
+        $data=[
+            'id_guru'=>$_POST['id_guru'],
+            'jenis_ijin'=>$_POST['jenis'],
+            'perihal_ijin'=>$_POST['perihal'],
+            'tanggal_pengajuan'=>date('Y-m_d'),
+            'tanggal_mulai'=>$_POST['tgl_mulai'],
+            'tanggal_selesai'=>$_POST['tgl_selesai'],
+            'deskripsi'=>$_POST['deskripsi']
+        ];
+
+        $this->db->insert('ijin',$data);
+        return $this->db->affected_rows();
+    }
+
+    public function getIjin()
+    {
+        return $this->db->get('ijin')->result_array();
+    }
+
+    public function hapusIjin($id)
+    {
+        $this->db->delete('ijin',['id_ijin'=>$id]);
+        return $this->db->affected_rows();
+    }
+
 }

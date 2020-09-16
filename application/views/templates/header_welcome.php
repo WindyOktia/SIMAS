@@ -77,8 +77,8 @@
 			<ul class="navbar-nav">
 			
 				<li class="nav-item dropdown dropdown-user">
-					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<span>e-survei</span>
+					<a href="<?=base_url('presensi')?>" target="_blank" class="navbar-nav-link d-flex align-items-center">
+						<span>Presensi Harian</span>
 					</a>
 				</li>
 				<li class="nav-item dropdown dropdown-user">
