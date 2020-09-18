@@ -101,7 +101,21 @@
                     </a>
                 </span>
             </h6>
-            <h2 class="text-center"><b>70</b></h2>
+            <div class="row">
+                <div class="col">
+                    <label for="">Total Mengajar</label>
+                    <h2 class=""><b>70</b></h2>
+                </div>
+                <div class="col">
+                    <label for="">Jam Mulai</label>
+                    <h2 class=""><b>70</b></h2>
+                </div>
+                <div class="col">
+                    <label for="">Jam Selesai</label>
+                    <h2 class=""><b>70</b></h2>
+                </div>
+            </div>
+            <!-- <h2 class="text-center"><b>70</b></h2> -->
         </div>
     </div>
     <div class="col-md-4">

@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-4">
                         <h5><b>Tahun Ajaran</b></h5>
-                        5 Tahun Terakhir
+                        2 Tahun Terakhir
                         <div class="mb-3"></div>
                         <h5><b>Kriteria</b></h5>
                         Baik : <br>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-md-4">
                         <h5><b>Tahun Ajaran</b></h5>
-                        5 Tahun Terakhir
+                        2 Tahun Terakhir
                         <div class="mb-3"></div>
                         <h5><b>Kriteria</b></h5>
                         Baik : <br>
