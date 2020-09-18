@@ -23,7 +23,7 @@ class Document extends CI_Controller
     {
         $config['upload_path']          = './document/';
 		$config['allowed_types']        = '*';
-		$config['max_size']             = 5000;
+		$config['max_size']             = 15000;
 		$config['encrypt_name'] 		= true;
 		$this->load->library('upload',$config);
 		$judul = $this->input->post('judul');
@@ -121,6 +121,9 @@ class Document extends CI_Controller
     {
         $data['page']='daftar_proposal';
         $data['dokumenproposal']=$this->dokumen_model->getProposal();
+        $data['verifikasiWaka']=$this->dokumen_model->getVerifikasiProposalWaka();
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiProposalPJ();
+        $data['verifikasiKepsek']=$this->dokumen_model->getVerifikasiProposalKepsek();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/daftar_proposal',$data);
         $this->load->view('templates/footer');
@@ -177,6 +180,7 @@ class Document extends CI_Controller
     public function do_addProposal()
     {
         $id= $this->dokumen_model->addProposal();
+        echo $id;
         $code='proposal';
         $backid='proposal';
         $this->generalUpload($id,$code,$backid);
@@ -197,6 +201,9 @@ class Document extends CI_Controller
     {
         $data['page']='verifikasi_proposal';
         $data['dokumenproposal']=$this->dokumen_model->getProposalVerifikasi();
+        $data['verifikasiWaka']=$this->dokumen_model->getVerifikasiProposalWaka();
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiProposalPJ();
+        $data['verifikasiKepsek']=$this->dokumen_model->getVerifikasiProposalKepsek();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/verifikasi_proposal',$data);
         $this->load->view('templates/footer');
@@ -204,6 +211,7 @@ class Document extends CI_Controller
 
     public function do_addVerifikasiProposal()
     {
+        // echo $_POST['id_user'];
         $id= $this->dokumen_model->addVerifikasiProposal();
         redirect('document/verifikasiProposal/'.$_POST['back_id']);
     }
@@ -217,6 +225,9 @@ class Document extends CI_Controller
     {
         $data['page']='daftar_laporan';
         $data['dokumenlaporan']=$this->dokumen_model->getLaporan();
+        $data['verifikasiWaka']=$this->dokumen_model->getVerifikasiLaporanWaka();
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiLaporanPJ();
+        $data['verifikasiKepsek']=$this->dokumen_model->getVerifikasiLaporanKepsek();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/daftar_laporan',$data);
         $this->load->view('templates/footer');
@@ -293,6 +304,9 @@ class Document extends CI_Controller
     {
         $data['page']='verifikasi_laporan';
         $data['dokumenlaporan']=$this->dokumen_model->getLaporanVerifikasi();
+        $data['verifikasiWaka']=$this->dokumen_model->getVerifikasiLaporanWaka();
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiLaporanPJ();
+        $data['verifikasiKepsek']=$this->dokumen_model->getVerifikasiLaporanKepsek();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/verifikasi_laporan',$data);
         $this->load->view('templates/footer');
