@@ -1,4 +1,4 @@
-<a href="<?=base_url('admin/addMutunilai')?>" class="btn btn-sm btn-success mb-3">Tambah Mutu</a>
+<a href="<?=base_url('admin/tambahMutu')?>" class="btn btn-sm btn-success mb-3">Tambah Mutu</a>
 <div class="card card-body">
     <h4>Laporan Mutu Sekolah</h4>
     <table class="table">

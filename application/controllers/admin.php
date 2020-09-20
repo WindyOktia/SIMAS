@@ -148,7 +148,6 @@ class Admin extends CI_Controller
     public function addMutunilai()
     {
         $insert=$this->mutu_model->addMutu();
-        $tahun_akademik = $this->input->post('tahun_akademik',TRUE);
         //$data['mutunilai']=$this->mutu_model->getMutu();
         if($insert > 0)
         {
