@@ -12,6 +12,7 @@ class Admin extends CI_Controller
         $this->load->model('guru_model');
         $this->load->model('login_model');
         $this->load->model('pengaturan_model');
+        $this->load->model('mutu_model');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -142,6 +143,21 @@ class Admin extends CI_Controller
         $this->load->view('templates/header',$data);
         $this->load->view('mutu/tambah_mutu');
         $this->load->view('templates/footer');
+    }
+
+    public function addMutunilai()
+    {
+        $insert=$this->mutu_model->addMutu();
+        $tahun_akademik = $this->input->post('tahun_akademik',TRUE);
+        //$data['mutunilai']=$this->mutu_model->getMutu();
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Mutu berhasil disimpan');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Mutu gagal disimpan');
+        }
+        redirect('admin/mutu');
     }
 
     // Ricky
