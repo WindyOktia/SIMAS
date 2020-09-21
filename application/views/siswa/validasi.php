@@ -23,41 +23,73 @@
                 <div class="card card-body border-secondary">    
                 <h2>Verifikasi data diri siswa</h2>
                 <br>
-                    <form action="" method="post">
+                    <form action="" method="get">
                         <div class="form-group col-6">
                             <label for="">NIPD</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="nipd" class="form-control" required>
                         </div>
                         <div class="form-group col-6">
                             <label for="">Pilih Nama Ibu</label> <br>
-                            <select name="" id="" class="pilih" required>
+                            <select name="ibu" id="" class="pilih" required>
                                 <option value="" selected disabled>- Pilih Data -</option>
                                 <?php foreach($siswa as $sis):?>
-                                <option value=""><?=$sis['nama_ibu']?></option>
+                                <option value="<?=$sis['id_siswa']?>"><?=$sis['nama_ibu']?></option>
                                 <?php endforeach?>
                             </select>
                         </div>
-                        
-                        <button class="btn btn-warning float-right mt-3">Verifikasi Data</button>
+                        <button type="submit" class="btn btn-warning float-right mt-3">Verifikasi Data</button>
+                        <a href="<?=base_url('siswa/validasi')?>" class="btn btn-light float-right mt-3 mr-2">Reset</a>
                     </form>
                 </div>
             </div>
+            <?php if(isset($_GET['nipd'])&& isset($_GET['ibu'])){?>
+            <?php if(count($dataSiswa)>0){?>
+            <?php foreach($dataSiswa as $valid):?>
             <div class="col-md-7">
                 <div class="card card-body border-info">
                     <h3>Hasil Verifikasi</h3>
                     <ul>
-                        <li>NIPD</li>
-                        <li>Nama Siswa</li>
-                        <li>Kelas</li>
-                        <li>Nama Ibu</li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-3">NIPD</div>
+                                <div class="col">: <?=$valid['nipd']?></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-3">Nama Siswa</div>
+                                <div class="col">: <?=$valid['nama_siswa']?></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-3">Kelas</div>
+                                <div class="col">: <?=$valid['kelas']?> <?=$valid['jurusan']?> <?=$valid['sub']?> </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-3">Nama Ibu</div>
+                                <div class="col">: <?=$valid['nama_ibu']?></div>
+                            </div>
+                        </li>
                     </ul>
                    <div class="row">
                         <div class="col">
-                            <a href="<?=base_url('siswa/survei')?>" class="btn btn-success float-right">Lanjutkan E - survei</a>
+                            <a href="<?=base_url('siswa/survei')?>/<?=$valid['id_siswa']?>" class="btn btn-success float-right">Lanjutkan E - survei</a>
                         </div>
                    </div>
                 </div>
             </div>
+            <?php endforeach?>
+            <?php }else{?>
+                <div class="col-md-7">
+                    <div class="card card-body border-warning">
+                        <h4>Data siswa tidak ditemukan</h4>
+                    </div>
+                </div>
+            <?php };?>
+            <?php };?>
         </div>
    </div>
 
