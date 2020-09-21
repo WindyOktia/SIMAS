@@ -18,11 +18,26 @@
     <div class="container mt-5">
         <div class="card card-body border-info">
         <h4>Informasi Survei Guru</h4>
+        <?php foreach($akademik as $akd):?>
         <ul>
-            <li>Tahun Akademik</li>
-            <li>Semester</li>
+            <li>
+                <div class="row">
+                    <div class="col-md-3">Tahun Akademik</div>
+                    <div class="col">: <?= $akd['tahun_akademik']?></div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-md-3">Semester</div>
+                    <div class="col">: <?= $akd['semester']?></div>
+                </div>
+            </li>
         </ul>
+        <?php endforeach?>
             <h5>Pilih Guru</h5>
+            <?php foreach($namaKelas as $nm):?>
+                <p>daftar guru mengajar di kelas <?=$nm['kelas']?> <?=$nm['jurusan']?> <?=$nm['sub']?></p>
+            <?php endforeach?>
         
         <div class="table-responsive mt-3">
             <table class="table">
@@ -34,27 +49,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php foreach($daftarGuru as $daf):?>
                     <tr>
                         <th scope="row">1</th>
-                        <td>Daniel</td>
+                        <td><?= $daf['nama_guru']?></td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                             Isi Survei
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Ricky</td>
-                        <td><a href="" class="btn btn-primary btn-sm">Isi Survei</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Windy</td>
-                        <td><a href="" class="btn btn-primary btn-sm">Isi Survei</a></td>
-                    </tr>
+                <?php endforeach?>
                 </tbody>
             </table>
+            <?php if(count($daftarGuru)==0){?>
+            <div class="text-center">
+            tidak ada data guru
+            </div>
+            <?php }?>
         </div>
         </div>
     </div>

@@ -34,5 +34,17 @@ class Siswa_model extends CI_Model
         return $this->db->get_where('siswa',['nipd'=>$_POST['nipd']]);
     }
 
+    public function getSiswaID($nipd, $ibu)
+    {
+        // return $this->db->get_where('siswa',['nipd'=>$nipd,'id_siswa'=>$ibu])->result_array();
+        $this->db->select('*');
+        $this->db->from('siswa');
+        $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas','left');
+        $this->db->where('nipd',$nipd);
+        $this->db->where('id_siswa',$ibu);
+        return $this->db->get()->result_array();
+    }
+
+    
     
 }

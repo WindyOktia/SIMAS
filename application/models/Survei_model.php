@@ -76,4 +76,19 @@ class Survei_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function getKelasID($id)
+    {
+        return $this->db->get_where('siswa',['id_siswa'=>$id])->result_array();
+    }
+
+    public function getKelasName($id)
+    {
+        return $this->db->get_where('kelas',['id_kelas'=>$id])->result_array();
+    }
+
+    public function getDaftarGuru($tahunAkademik, $semester, $id)
+    {
+        return $this->db->query('SELECT DISTINCT(guru.nama_guru), guru.id_guru FROM jadwal_guru, guru WHERE  jadwal_guru.id_guru=guru.id_guru AND jadwal_guru.id_kelas='.$id.'')->result_array();
+    }
+
 }
