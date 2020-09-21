@@ -16,7 +16,8 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">NIPD</label>
                             <div class="col-lg-10">
-                                <input type="number" class="form-control" placeholder="NIPD" name="nipd" required autofocus>
+                                <input type="number" class="form-control" id="nipd" placeholder="NIPD" name="nipd" autocomplete="off" required autofocus>
+                                <div id="userav"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -52,7 +53,7 @@
                         </fieldset>
 
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Submit </button>
+                            <button type="submit" class="btn btn-primary" id="tbSubmit" disabled>Submit </button>
                         </div>
                         
                         
@@ -72,3 +73,32 @@
     </div>
 </div>
 
+<script type="text/javascript">
+$("#nipd").keyup(function(){
+    $("#nipdav").html("<span class='text-warning'><i><small>Memeriksa..</small></i></span>");
+    var nipd=$("#nipd").val();
+    if(nipd.length<4){
+        $("#userav").html("<span class='text-warning'><i><small>Min 4 karakter</small></i></span>");
+        $('#pass').prop('disabled',true);
+        $('#tbSubmit').prop('disabled',true);
+    }else{
+        $.ajax({
+        type:"post",
+        url:"<?= base_url('siswa/getNIPD')?>",
+        data:"nipd="+nipd,
+            success:function(data){
+            if(data==0){
+                $("#userav").html("<span class='text-success'><i><small>NIP Tersedia</small></i></span>");
+                $('#pass').prop('disabled',false);
+                $('#tbSubmit').prop('disabled',false);
+            }
+            else{
+                $("#userav").html("<span class='text-danger'><i><small>NIP Tidak Tersedia</small></i></span>");
+                $('#pass').prop('disabled',true);
+                $('#tbSubmit').prop('disabled',true);
+            }
+        }
+        });
+    }
+});
+</script>

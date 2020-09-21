@@ -75,4 +75,5 @@ class Survei_model extends CI_Model
         $this->db->delete('survei_guru',['id_survei_guru'=>$id]);
         return $this->db->affected_rows();
     }
+
 }
