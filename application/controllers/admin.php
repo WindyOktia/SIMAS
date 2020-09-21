@@ -12,6 +12,7 @@ class Admin extends CI_Controller
         $this->load->model('guru_model');
         $this->load->model('login_model');
         $this->load->model('pengaturan_model');
+        $this->load->model('mutu_model');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -131,6 +132,12 @@ class Admin extends CI_Controller
 
     public function tambahMutu()
     {
+        // $tahun_akademik = $this->input->post('tahun_akademik',TRUE);
+        // $semester = $this->input->post('semester',TRUE);
+        // $nilai = $this->input->post('nilai',TRUE);
+        // $keterangan = $this->input->post('keterangan',TRUE);
+        // $insert = $this->mutu_model->addMutu();
+        $this->mutu_model->addMutu();
         $data['page']='mutu';
         $this->load->view('templates/header',$data);
         $this->load->view('mutu/tambah_mutu');
