@@ -58,4 +58,5 @@ class Survei extends CI_Controller
         }
         redirect('guru/nilai_survei');
     }
+    
 }

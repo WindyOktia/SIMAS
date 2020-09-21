@@ -34,7 +34,7 @@
         <h2><b>Informasi</b></h2>
         <ul>
             <li><h4>Jika kartu presensi hilang / rusak silahkan akses halaman guru untuk melakukan presensi secara manual</h4></li>
-            <li><h4>Presensi manual hanya boleh dilakukan maksimum 5x</h4></li>
+            <li><h4>Presensi manual hanya boleh dilakukan maksimum 5x dalam satu semester</h4></li>
             <li><h4>Segera hubungi waka kurikulum apabila kartu presensi hilang / rusak</h4></li>
             <li><h4>Cek kembali status kehadiran anda melalui halaman guru, info login silahkan menghubungi waka kurikulum</h4></li>
         </ul>
