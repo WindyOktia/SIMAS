@@ -151,6 +151,20 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function addMutunilai()
+    {
+        $insert=$this->mutu_model->addMutu();
+        //$data['mutunilai']=$this->mutu_model->getMutu();
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Mutu berhasil disimpan');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Mutu gagal disimpan');
+        }
+        redirect('admin/mutu');
+    }
+
     // Ricky
 
     // siswa
