@@ -34,12 +34,12 @@
                         <div class="col-md-6">: 12</div>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="row h6">
                         <div class="col-md-6">Total Jam Mengajar</div>
                         <div class="col-md-6">: 200 jam</div>
                     </div>
-                </li>
+                </li> -->
                 </div>
             </div>
                 <div class="row">
@@ -51,7 +51,7 @@
     </div>
 </div>
             <div class="card card-body border-info">
-                <h6>Grafik Perbandingan Nilai Survei Kegiatan Siswa</h6>
+                <h6>Grafik Perbandingan Kegiatan Siswa</h6>
                 <div class="row">
                     <div class="col-md-8">
                     <canvas id="dashKetertarikan" height="100"></canvas>

@@ -1,5 +1,5 @@
 
-<a href="<?=base_url('document/proposal')?>" class="btn btn-secondary btn-sm mb-3">Kembali</a>
+<a href="<?=base_url('document/verifikasiproposal')?>" class="btn btn-secondary btn-sm mb-3">Kembali</a>
 <button type="button" class="btn btn-danger mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Ditolak">
   Ditolak
 </button>
@@ -95,7 +95,7 @@
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi" type="date" class="form-control" required>
+            <input name="tgl_verifikasi" value="<?=date('Y-m-d')?>" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
@@ -124,14 +124,14 @@
         <form action="<?= base_url('document/do_addVerifikasiProposal')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <input name="id_proposal" value="<?= $add['id_proposal']?>" type="hidden" class="form-control" required>
-            <input name="id_user" type="hidden" class="form-control" required>
+            <input name="id_user" type="hidden" value="<?=$this->session->userdata('id_user')?>" class="form-control" required>
             <input name="status" value="Ditolak" type="hidden" class="form-control" required>
             <input name="catatan" value="-" type="hidden" class="form-control" required>
             <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi" type="date" class="form-control" required>
+            <input name="tgl_verifikasi" type="date" value="<?=date('Y-m-d')?>" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
@@ -167,7 +167,7 @@
        </div>
        <div class="form-group">
             <label for="">Tanggal Verifikasi</label>
-            <input name="tgl_verifikasi" type="date" class="form-control" required>
+            <input name="tgl_verifikasi" value="<?=date('Y-m-d')?>" type="date" class="form-control" required>
        </div>
       </div>
       <div class="modal-footer">
