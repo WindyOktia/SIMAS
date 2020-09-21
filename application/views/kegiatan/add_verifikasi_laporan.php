@@ -1,8 +1,13 @@
 
 <a href="<?=base_url('document/verifikasilaporan')?>" class="btn btn-secondary btn-sm mb-3">Kembali</a>
-<button type="button" class="btn btn-danger mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Ditolak">
-  Ditolak
-</button>
+<?php 
+							$rl=array('7');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+							<button type="button" class="btn btn-danger mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Ditolak">
+                Ditolak
+              </button>
+<?php }?>
 <button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Revisi">
   Revisi
 </button>

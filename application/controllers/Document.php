@@ -216,8 +216,6 @@ class Document extends CI_Controller
         redirect('document/verifikasiProposal/'.$_POST['back_id']);
     }
 
-
-
     // End Proposal
 
     // Laporan

@@ -114,7 +114,7 @@
 
         <div class="form-group">
             <label for="">Tanggal Pengajuan Laporan</label>
-            <input name="tgl_pengajuan_lp" type="date" class="form-control" required>
+            <input name="tgl_pengajuan_lp" value="<?=date('Y-m-d')?>" type="date" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-success float-right">Simpan Laporan</button>
