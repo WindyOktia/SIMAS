@@ -101,7 +101,7 @@
 
         <div class="form-group">
             <label for="">Tanggal Pengajuan Proposal</label>
-            <input name="tgl_pengajuan" type="date" class="form-control" required>
+            <input name="tgl_pengajuan" value="<?=date('Y-m-d')?>" type="date" class="form-control" required>
        </div>
 
 

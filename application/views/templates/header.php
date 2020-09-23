@@ -200,9 +200,9 @@
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
-									<a href="<?= base_url('document/verifikasiLaporan')?>" class="nav-link <?php if($page=='verifikasiLaporan'){echo 'active';};?>">
+									<a href="<?= base_url('document/verifikasiProposal')?>" class="nav-link <?php if($page=='verifikasiProposal'){echo 'active';};?>">
 										<i class="fa fa-plus-circle"></i>
-										<span>Laporan Kegiatan</span>
+										<span>Laporan Proposal</span>
 									</a>
 								</li>
 						<?php }?>
@@ -212,9 +212,9 @@
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
 								<li class="nav-item">
-									<a href="<?= base_url('document/verifikasiProposal')?>" class="nav-link <?php if($page=='verifikasiProposal'){echo 'active';};?>">
+									<a href="<?= base_url('document/verifikasiLaporan')?>" class="nav-link <?php if($page=='verifikasiLaporan'){echo 'active';};?>">
 										<i class="fa fa-plus-circle"></i>
-										<span>Laporan Proposal</span>
+										<span>Laporan Kegiatan</span>
 									</a>
 								</li>
 						<?php }?>
