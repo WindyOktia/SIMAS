@@ -13,6 +13,7 @@ class Document extends CI_Controller
         $this->load->model('guru_model');
         $this->load->model('login_model');
         $this->load->model('pengaturan_model');
+        $this->load->model('mutu_model');
         if($this->login_model->is_role() == ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -319,7 +320,7 @@ class Document extends CI_Controller
     }
     // End Laporan
     
-
+    
 
 
 

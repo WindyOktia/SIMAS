@@ -2,16 +2,16 @@
 
 <div class="card card-body border-success">
 <h5><b>Tambah Mutu Sekolah</b></h5><br>
-    <form action="<?=base_url('admin/addMutunilai')?>" enctype="multipart/form-data" method="post">
+    <form action="<?=base_url('admin/do_addMutu')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
                     <label for="">Tahun Akademik</label>
                     <div class="row">
                         <div class="col-3">
-                            <input type="text" name='th_akademik1' class="form-control">
+                            <input type="number" name='th_akademik1' class="form-control">
                         </div>
                         <span class="my-auto">/</span>
                         <div class="col-3">
-                            <input type="text" name='th_akademik2' class="form-control">
+                            <input type="number" name='th_akademik2' class="form-control">
                         </div>
                     </div>
         </div>
@@ -31,11 +31,7 @@
                     <label for="">Nilai</label>
                     <div class="row">
                         <div class="col-3">
-<<<<<<< HEAD
-                        <input name="nilai" value="nilai" type="text" class="form-control" required>
-=======
                         <input name="nilai"  type="text" class="form-control" required>
->>>>>>> 32ded3f823a64b379deda92858c57dfb17d56457
                         </div>
         </div><br>
 
@@ -43,11 +39,7 @@
                     <label for="">Keterangan</label>
                     <div class="row">
                         <div class="col-6">
-<<<<<<< HEAD
-                        <textarea  rows="4" cols="60" name="keterangan" value="keterangan" class="form-control" required> </textarea>
-=======
                         <textarea  rows="4" cols="60" name="keterangan"  class="form-control" required> </textarea>
->>>>>>> 32ded3f823a64b379deda92858c57dfb17d56457
                         </div>
         </div><br>
 
