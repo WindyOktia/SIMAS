@@ -114,9 +114,84 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    // Star Ricky
+    // Nyimpan Dokumen
+    public function addDocMutu($id,$code)
+    {
+        $backLink= $backid;
+        $code_id = $code.'_'.$id;
+
+        $config['upload_path']          = './document/';
+		$config['allowed_types']        = '*';
+		$config['max_size']             = 5000;
+		$config['encrypt_name'] 		= true;
+		$this->load->library('upload',$config);
+		$judul = $this->input->post('judul');
+        $jumlah_berkas = count($_FILES['arsip']['name']);
+        
+		for($i = 0; $i < $jumlah_berkas;$i++)
+		{
+            if(!empty($_FILES['arsip']['name'][$i])){
+ 
+				$_FILES['file']['name'] = $_FILES['arsip']['name'][$i];
+				$_FILES['file']['type'] = $_FILES['arsip']['type'][$i];
+				$_FILES['file']['tmp_name'] = $_FILES['arsip']['tmp_name'][$i];
+				$_FILES['file']['error'] = $_FILES['arsip']['error'][$i];
+				$_FILES['file']['size'] = $_FILES['arsip']['size'][$i];
+	   
+				if($this->upload->do_upload('file')){
+					
+					$uploadData = $this->upload->data();
+					$data['code_id'] = $code_id;
+					$data['nama_doc'] = $judul[$i];
+					$data['link_file'] = $uploadData['file_name'];
+					$data['type_file'] = $uploadData['file_ext'];
+                    $this->db->insert('trans_doc',$data);
+                    $this->session->set_flashdata('success', 'Dokumen berhasil ditambahkan');
+				}else{
+                    $this->session->set_flashdata('error', 'Dokumen gagal ditambah');
+                }
+			}
+        }
+        
+        redirect('admin/mutu');
+    }
+
+    // Lampiran Mutu
+    
+
+    public function do_addMutu()
+    {
+        $id= $this->mutu_model->addMutu();
+        //echo $id;
+        $code='mutu';
+        $this->addDocMutu($id,$code);
+    }
+
+    public function downloadMutu($id)
+    {
+        //ngambil link
+        $code_id='mutu_'.$id;
+        $link= $this->mutu_model->getLink($code_id);
+
+        foreach($link as $lk)
+        {
+            $this->do_download($lk['link_file']);
+        }
+        //ngirim link download
+    }
+
+    public function do_download($file)
+    {
+        $this->load->helper('download');
+        force_download(FCPATH.'/document/'.$file, null);
+    }
+
     public function mutu()
     {
         $data['page']='mutu';
+        // $data['id']= $id;
+        $data['laporanmutu']=$this->mutu_model->getMutu();
         $this->load->view('templates/header',$data);
         $this->load->view('mutu/rekap_laporan');
         $this->load->view('templates/footer');
@@ -137,9 +212,25 @@ class Admin extends CI_Controller
         $this->load->view('mutu/tambah_mutu');
         $this->load->view('templates/footer');
     }
+
+    public function deleteMutu($id)
+    {
+        // echo $id;
+        $delete=$this->mutu_model->deleteMutuID($id);
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Mutu Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Mutu Gagal Dihapus'); 
+        }
+
+        redirect('admin/mutu');
+    }
+
     public function rekapLaporanMutu()
     {
         $data['page']='mutu';
+        // $data['id']= $id;
+        // $data['laporanmutu']=$this->mutu_model->getLaporanMutuID($id);
         $this->load->view('templates/header',$data);
         $this->load->view('mutu/tambah_mutu');
         $this->load->view('templates/footer');
@@ -148,6 +239,7 @@ class Admin extends CI_Controller
     public function addMutunilai()
     {
         $insert=$this->mutu_model->addMutu();
+        $tahun_akademik = $this->input->post('tahun_akademik',TRUE);
         //$data['mutunilai']=$this->mutu_model->getMutu();
         if($insert > 0)
         {
@@ -155,6 +247,22 @@ class Admin extends CI_Controller
         }else
         {
             $this->session->set_flashdata('success', 'Mutu gagal disimpan');
+        }
+        redirect('admin/mutu');
+    }
+
+    public function updateMutu()
+    {
+        
+        $tahun_akademik = $_POST['th_akademik1'].'/'. $_POST['th_akademik2'];
+        // $data['laporanmutu']=$this->mutu_model->getMutu();
+        $update=$this->mutu_model->editMutu($tahun_akademik);
+        if($update > 0)
+        {
+            $this->session->set_flashdata('success', 'Mutu berhasil diubah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Mutu gagal diubah');
         }
         redirect('admin/mutu');
     }
@@ -316,15 +424,17 @@ class Admin extends CI_Controller
 
     public function editGuru()
     {
-        $cek = $this->guru_model->editGuru();
-        if($cek==false)
+        $tahun_akademik = $_POST['th_akademik1'].' / '. $_POST['th_akademik2'];
+     
+        $update=$this->mutu_model->editMutu($tahun_akademik);
+        if($update > 0)
         {
-            $this->session->set_flashdata('error', 'RFID / NIP Sudah Terdaftar');
+            $this->session->set_flashdata('success', 'Proposal berhasil diubah');
         }else
         {
-            $this->session->set_flashdata('success', 'Data Guru berhasil diubah');
+            $this->session->set_flashdata('success', 'Proposal gagal diubah');
         }
-        redirect('admin/daftarGuru');
+        redirect('document/detailProposal/'.$_POST['back_id']);
     }
 
     public function daftarGuru()
@@ -579,5 +689,9 @@ class Admin extends CI_Controller
     // End Of OSIS
 
     // End Of kegiatan El
+
+    // Lampiran Mutu
+
+    
 
 }

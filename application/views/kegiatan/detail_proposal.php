@@ -67,6 +67,10 @@
     <?php endforeach?>
     </div>
 <?php endforeach ?>
+<<<<<<< HEAD
+<!-- <?=json_encode($arsip);?> -->
+=======
+>>>>>>> fa35f38f54254b33ec920b6a433e8d45204c9bc8
 <?php foreach($arsip as $add):?>
 <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

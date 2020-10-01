@@ -1,5 +1,4 @@
 <?php
-
 class Mutu_model extends CI_Model
 {
     public function addMutu()
@@ -21,5 +20,28 @@ class Mutu_model extends CI_Model
     {
         return $this->db->get('mutu')->result_array();
     }
+    public function getLaporanMutuID($id)
+    {
+        return $this->db->get_where('mutu',['id_mutu'=> $id])->result_array();
+    }
+    public function getLink($code_id)
+    {
+        return $this->db->get_where('trans_doc',['code_id'=> $code_id])->result_array();
+    }
 
+    public function editMutu($tahun_akademik)
+    {
+        $this->db->set('tahun_akademik',$tahun_akademik);
+        $this->db->set('semester',$_POST['semester']);
+        $this->db->set('nilai',$_POST['nilai']);
+        $this->db->set('keterangan',$_POST['keterangan']);
+        $this->db->where('id_mutu',$_POST['id_mutu']);
+        $this->db->update('mutu');
+        return $this->db->affected_rows();
+    }
+    public function deleteMutuID($id)
+    {
+        $this->db->delete('mutu',['id_mutu'=>$id]);
+        return $this->db->affected_rows();
+    }
 }

@@ -2,16 +2,16 @@
 
 <div class="card card-body border-success">
 <h5><b>Tambah Mutu Sekolah</b></h5><br>
-    <form action="<?=base_url('admin/addMutunilai')?>" enctype="multipart/form-data" method="post">
+    <form action="<?=base_url('admin/do_addMutu')?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
                     <label for="">Tahun Akademik</label>
                     <div class="row">
                         <div class="col-3">
-                            <input type="text" name="th_akademik1"  class="form-control">
+                            <input type="number" name='th_akademik1' class="form-control">
                         </div>
                         <span class="my-auto">/</span>
                         <div class="col-3">
-                            <input type="text" name="th_akademik2"  class="form-control">
+                            <input type="number" name='th_akademik2' class="form-control">
                         </div>
                     </div>
         </div>
