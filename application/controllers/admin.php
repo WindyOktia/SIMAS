@@ -76,10 +76,12 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['page']='dashboard';
+        $data['laporanmutu']=$this->mutu_model->getMutu();
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/index',$data);
         $this->load->view('templates/footer');
     }
+
     public function info()
     {
         $data['page']='dashboard';
@@ -197,11 +199,15 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function detailMutu()
+    public function detailMutu($id)
     {
-        $data['page']='mutu';
+        $data['page']='detail';
+        $data['id']= $id;
+        $data['laporanmutu']=$this->mutu_model->getMutu();
+        $data['detailmutu']=$this->mutu_model->getLaporanMutuID($id);
+        //$data['arsipmutu']=$this->mutu_model->getLink($code_id);
         $this->load->view('templates/header',$data);
-        $this->load->view('mutu/detail_mutu');
+        $this->load->view('dashboard/detail_mutu',$data);
         $this->load->view('templates/footer');
     }
 

@@ -67,9 +67,9 @@
 <?php } ;?>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col md-12">
         <div class="card card-body border-primary">
-            <h6>Catatan Kehadiran Harian  
+            <h6>Kehadiran Harian  
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalHarian">
                         <i class="fa fa-info-circle"></i>
@@ -78,23 +78,19 @@
             </h6>
             <div class="row">
                 <div class="col">
-                    <label for="">Jumlah Hari</label>
+                    <label for="">Jam Hadir Guru</label>
                     <h2 class=""><b>70</b></h2>
                 </div>
                 <div class="col">
-                    <label for="">Jam Masuk</label>
-                    <h2 class=""><b>70</b></h2>
-                </div>
-                <div class="col">
-                    <label for="">Jam Keluar</label>
+                    <label for="">~Jam Kerja</label>
                     <h2 class=""><b>70</b></h2>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-12">
         <div class="card card-body border-primary">
-            <h6>Catatan Kehadiran Mengajar
+            <h6>Resume Mengajar
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalMengajar">
                         <i class="fa fa-info-circle"></i>
@@ -103,11 +99,11 @@
             </h6>
             <div class="row">
                 <div class="col">
-                    <label for="">Total Mengajar</label>
+                    <label for="">Jam Hadir Mengajar</label>
                     <h2 class=""><b>70</b></h2>
                 </div>
                 <div class="col">
-                    <label for="">Jam Mulai</label>
+                    <label for="">Jam Mengajar</label>
                     <h2 class=""><b>70</b></h2>
                 </div>
                 <div class="col">
@@ -118,7 +114,7 @@
             <!-- <h2 class="text-center"><b>70</b></h2> -->
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-12">
         <div class="card card-body border-success">
             <h6>Nilai Survei Guru
                 <span class="float-right">
@@ -137,7 +133,7 @@
 
 <div class="card card-body">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
            
 
             <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Detail Informasi</h6>
