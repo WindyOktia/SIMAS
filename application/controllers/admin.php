@@ -13,6 +13,7 @@ class Admin extends CI_Controller
         $this->load->model('login_model');
         $this->load->model('pengaturan_model');
         $this->load->model('mutu_model');
+        $this->load->model('presensi_model');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -273,6 +274,8 @@ class Admin extends CI_Controller
         redirect('admin/mutu');
     }
 
+
+
     // Ricky
 
     // siswa
@@ -528,6 +531,15 @@ class Admin extends CI_Controller
     {
         $data['page']='presensi';
         $data['id'] = $id;
+        //$data['jamhadir']=$this->presensi_model->getJamhadirGuru($id);
+        if(isset($_GET['dari']))
+        {
+            $data['jamhadir']=$this->presensi_model->getJamhadirGuru($id);
+        }else
+        {
+            $data['jamhadir']=$this->presensi_model->getDefaultJamHadir($id);
+        }
+        
         $this->load->view('templates/header',$data);
         $this->load->view('guru/detailPresensi',$data);
         $this->load->view('templates/footer');

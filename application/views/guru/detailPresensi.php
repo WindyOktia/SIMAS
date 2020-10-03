@@ -65,10 +65,64 @@
 <?php } else { ?>
     <h6> <i class="	fa fa-clock-o mr-2"></i>Rekam jejak nilai dalam 2 tahun terakhir </h6>
 <?php } ;?>
-
 <div class="row">
     <div class="col md-12">
         <div class="card card-body border-primary">
+
+<?php
+    $arrTime = array();
+    
+    foreach($jamhadir as $rt)
+    {
+        $inputTime = $rt['rata_rata_jam_hadir_guru'];
+        $dates = strtotime($inputTime);
+        $arrTime[] = date('h:i:s',$dates);
+    };
+    $sum = strtotime('00:00:00'); 
+  
+    $totaltime = 0; 
+      
+    foreach( $arrTime as $element ) { 
+          
+        // Converting the time into seconds 
+        $timeinsec = strtotime($element) - $sum; 
+          
+        // Sum the time with previous value 
+        $totaltime = $totaltime + $timeinsec; 
+    } 
+      
+    // Totaltime is the summation of all 
+    // time in seconds 
+      
+    // Hours is obtained by dividing 
+    // totaltime with 3600 
+    $h = intval($totaltime / 3600); 
+      
+    $totaltime = $totaltime - ($h * 3600); 
+      
+    // Minutes is obtained by dividing 
+    // remaining total time with 60 
+    $m = intval($totaltime / 60); 
+      
+    // Remaining value is seconds 
+    $s = $totaltime - ($m * 60); 
+      
+    // Printing the result 
+    echo ("$h:$m:$s"); 
+    // echo json_encode($arrTime);
+
+?>
+
+
+
+<?php foreach ($jamhadir as $ratajam):?>
+<?php 
+
+$input = $ratajam['rata_rata_jam_hadir_guru'];
+$date = strtotime($input);
+
+echo date('h:i:s',$date);
+?>
             <h6>Kehadiran Harian  
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalHarian">
@@ -79,15 +133,17 @@
             <div class="row">
                 <div class="col">
                     <label for="">Jam Hadir Guru</label>
-                    <h2 class=""><b>70</b></h2>
+                    <!-- <h2 class=""><?= $ratajam['rata_rata_jam_hadir_guru']?></h2> -->
                 </div>
                 <div class="col">
                     <label for="">~Jam Kerja</label>
                     <h2 class=""><b>70</b></h2>
                 </div>
             </div>
+    <?php endforeach ?>
         </div>
     </div>
+
     <div class="col-md-12">
         <div class="card card-body border-primary">
             <h6>Resume Mengajar
