@@ -356,10 +356,20 @@ class Admin extends CI_Controller
     public function daftarPeserta($id)
     {
         $data['page']="kelas";
-        $data['peserta']=$this->kelas_model->daftarPeserta($id);
+        $data['id']= $id;
+        // $data['peserta']=$this->kelas_model->daftarPeserta($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kelas/daftarPeserta',$data);
         $this->load->view('templates/footer');
+    }
+
+    public function addPeserta()
+    {
+        $id = $_POST['id_siswa'];
+        echo json_encode($id);
+
+        $this->db->select('*');
+        $this->db->from('');
     }
     // end of kelas
 

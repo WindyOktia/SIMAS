@@ -25,7 +25,7 @@ class Siswa_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('siswa');
-        $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas','left');
+        // $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas','left');
         return $this->db->get()->result_array();
     }
 
@@ -39,10 +39,17 @@ class Siswa_model extends CI_Model
         // return $this->db->get_where('siswa',['nipd'=>$nipd,'id_siswa'=>$ibu])->result_array();
         $this->db->select('*');
         $this->db->from('siswa');
-        $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas','left');
+        // $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas','left');
         $this->db->where('nipd',$nipd);
-        $this->db->where('id_siswa',$ibu);
+        // $this->db->where('id_siswa',$ibu);
         return $this->db->get()->result_array();
+    }
+
+    public function getNama()
+    {
+        $query =$this->db->get_where('siswa', ['nipd'=>$_POST['nipd']]);
+        $ret = $query->row();
+        return $ret->nama_siswa.'/'.$ret->id_siswa;
     }
 
     

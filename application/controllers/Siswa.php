@@ -57,4 +57,9 @@ class Siswa extends CI_Controller{
 
         $this->load->view('siswa/survei',$data);
     }
+
+    public function nama_siswa()
+    {
+        echo json_encode($this->siswa_model->getNama());
+    }
 }
