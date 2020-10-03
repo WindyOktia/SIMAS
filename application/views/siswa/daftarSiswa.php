@@ -9,7 +9,6 @@
 				<th>No</th>
 				<th>Nama Siswa</th>
 				<th>NIPD</th>
-				<th>Kelas</th>
 				<th>Nama Ibu</th>
 				<th>Actions</th>
 			</tr>
@@ -20,10 +19,6 @@
 				<td><?= $i++?></td>
 				<td><b><?= $dft['nama_siswa']?></b></td>
 				<td><?= $dft['nipd']?></td>
-				<td>
-					<?php if($dft['id_kelas']==''){echo '<div class="badge bg-danger">Tidak ada kelas</div>';}?>
-					<?= $dft['kelas']?> <?= $dft['jurusan']?> <?= $dft['sub']?>
-				</td>
 				<td><?= $dft['nama_ibu']?></td>
 				<td>
 					<a href="<?= base_url('admin/detailSiswa')?>"class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalSiswa<?= $dft['id_siswa']?>">Detail/Ubah</a>
@@ -57,22 +52,6 @@
 			<div class="form-group">
 				<label for="">Nama Siswa</label>
 				<input type="text" class="form-control" value="<?= $mdl['nama_siswa']?>">
-			</div>
-			<div class="form-group">
-				<label for="">Kelas</label>
-				<div class="row">
-					<div class="col-md-4">
-						<input type="text" class="form-control" value="<?= $mdl['kelas']?> <?= $mdl['jurusan']?> <?= $mdl['sub']?>" readonly>
-					</div>
-					<div class="col-md">
-						<select name="" id="" class="form-control">
-							<option value="">Ubah Kelas</option>
-							<?php foreach($kelas as $kls):?>
-							<option value="<?= $kls['id_kelas']?>"><?= $kls['kelas']?> <?= $kls['jurusan']?> <?= $kls['sub']?></option>
-							<?php endforeach;?>
-						</select>
-					</div>
-				</div>
 			</div>
 			<div class="form-group">
 				<label for="">Nama Ibu</label>

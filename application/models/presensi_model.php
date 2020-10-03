@@ -78,13 +78,17 @@ class Presensi_model extends CI_Model
     }
     public function getDefaultJamHadir($id)
     {
-        // $query =$this->db->get_where('v_rata_jam_hadir', ['id_guru'=>$id]);
-        // $ret = $query->row();
-        //return $this->db->get_where('v_rata_jam_hadir',['id_guru'=> $id])->result_array();
-        //return $ret->rata_rata_jam_hadir_guru;
         return $this->db->query('SELECT id_guru,tahun_akademik,semester,tanggal, sec_to_time((SUM(jam_masuk)/COUNT(jam_masuk))-43200) AS rata_rata_jam_hadir_guru 
         FROM presensi_harian WHERE id_guru='.$id.' GROUP BY id_guru,tahun_akademik DESC ,semester DESC LIMIT 4')->result_array();
     }
     
+    public function getJamkerjaGuru($id)
+    {
+        return $this->db->query('SELECT * FROM `v_jam_kerja` WHERE id_guru= '.$id.' LIMIT 4')->result_array();
+    }
+    public function getDefaultJamKerja($id)
+    {
+        return $this->db->query('SELECT * FROM `v_jam_kerja` WHERE id_guru= '.$id.' LIMIT 4')->result_array();
+    }
 
 }

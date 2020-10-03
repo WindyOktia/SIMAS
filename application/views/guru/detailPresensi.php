@@ -70,58 +70,54 @@
         <div class="card card-body border-primary">
 
 <?php
-    $arrTime = array();
+    $times = array();
     
     foreach($jamhadir as $rt)
     {
         $inputTime = $rt['rata_rata_jam_hadir_guru'];
         $dates = strtotime($inputTime);
-        $arrTime[] = date('h:i:s',$dates);
+        $times[] = date('h:i',$dates);
     };
-    $sum = strtotime('00:00:00'); 
-  
-    $totaltime = 0; 
-      
-    foreach( $arrTime as $element ) { 
-          
-        // Converting the time into seconds 
-        $timeinsec = strtotime($element) - $sum; 
-          
-        // Sum the time with previous value 
-        $totaltime = $totaltime + $timeinsec; 
-    } 
-      
-    // Totaltime is the summation of all 
-    // time in seconds 
-      
-    // Hours is obtained by dividing 
-    // totaltime with 3600 
-    $h = intval($totaltime / 3600); 
-      
-    $totaltime = $totaltime - ($h * 3600); 
-      
-    // Minutes is obtained by dividing 
-    // remaining total time with 60 
-    $m = intval($totaltime / 60); 
-      
-    // Remaining value is seconds 
-    $s = $totaltime - ($m * 60); 
-      
-    // Printing the result 
-    echo ("$h:$m:$s"); 
-    // echo json_encode($arrTime);
 
+    $total_minutes = 0;
+    foreach ($times as $time) {
+        list($hours, $minutes) = explode(':', $time);
+        $total_minutes += $hours * 60 + $minutes;
+    }
+
+    $average_minutes = $total_minutes / count($times);
+    $average_hours = floor($average_minutes / 60);
+    $average_minutes = $average_minutes % 60;
+
+    $jamHadirs = str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . " AM \n";
+    
+    //echo "Average time is " . str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . "\n";
+   
 ?>
+<?php
+    $kerja = array();
+    
+    foreach($jamkerja as $kr)
+    {
+        $inputTimes = $kr['average_time'];
+        $conKerja = strtotime($inputTimes);
+        $kerja[] = date('h:i',$conKerja);
+    };
 
+    $tot_minutes = 0;
+    foreach ($kerja as $wktu) {
+        list($hourz, $minutez) = explode(':', $wktu);
+        $tot_minutes += $hourz * 60 + $minutez;
+    }
 
+    $av_mins = $tot_minutes / count($kerja);
+    $jamKerja = round($av_mins / 60, 2) . " jam\n"
+    //$av_hours = floor($av_mins / 60);
+    //$av_mins = $av_mins % 60;
 
-<?php foreach ($jamhadir as $ratajam):?>
-<?php 
-
-$input = $ratajam['rata_rata_jam_hadir_guru'];
-$date = strtotime($input);
-
-echo date('h:i:s',$date);
+    
+    //echo "Average time is " . str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . "\n";
+   
 ?>
             <h6>Kehadiran Harian  
                 <span class="float-right">
@@ -132,15 +128,15 @@ echo date('h:i:s',$date);
             </h6>
             <div class="row">
                 <div class="col">
-                    <label for="">Jam Hadir Guru</label>
-                    <!-- <h2 class=""><?= $ratajam['rata_rata_jam_hadir_guru']?></h2> -->
+                    <label for=""> Rata-rata jam masuk guru</label>
+                    <h2 class=""><b> <?= $jamHadirs?></b></h2>
+                   
                 </div>
                 <div class="col">
-                    <label for="">~Jam Kerja</label>
-                    <h2 class=""><b>70</b></h2>
+                    <label for="">Rata-rata jam kerja</label>
+                    <h2 class=""><b><?= $jamKerja?></b></h2>
                 </div>
             </div>
-    <?php endforeach ?>
         </div>
     </div>
 
@@ -155,16 +151,12 @@ echo date('h:i:s',$date);
             </h6>
             <div class="row">
                 <div class="col">
-                    <label for="">Jam Hadir Mengajar</label>
-                    <h2 class=""><b>70</b></h2>
+                    <label for="">Beban mengajar</label>
+                    <h2 class=""><b>3 Mata pelajaran</b></h2>
                 </div>
                 <div class="col">
-                    <label for="">Jam Mengajar</label>
-                    <h2 class=""><b>70</b></h2>
-                </div>
-                <div class="col">
-                    <label for="">Jam Selesai</label>
-                    <h2 class=""><b>70</b></h2>
+                    <label for="">Rata-rata durasi mengajar</label>
+                    <h2 class=""><b>2 jam</b></h2>
                 </div>
             </div>
             <!-- <h2 class="text-center"><b>70</b></h2> -->
@@ -172,7 +164,7 @@ echo date('h:i:s',$date);
     </div>
     <div class="col-md-12">
         <div class="card card-body border-success">
-            <h6>Nilai Survei Guru
+            <h6>Rata-Rata Nilai Survei Guru
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalSurvei">
                         <i class="fa fa-info-circle"></i>
@@ -189,12 +181,9 @@ echo date('h:i:s',$date);
 
 <div class="card card-body">
     <div class="row">
-        <div class="col-md-12">
-           
-
+        <div class="col-md-4">
             <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Detail Informasi</h6>
             <ol>
-            
                 <li>
                     <div class="row h6">
                         <div class="col-md-6">Kehadiran Harian </div>
@@ -232,7 +221,6 @@ echo date('h:i:s',$date);
            <canvas id="chartTrack"  height="120"></canvas>
         </div>
     </div>
-    
 </div>
 
 

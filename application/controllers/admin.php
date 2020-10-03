@@ -539,7 +539,13 @@ class Admin extends CI_Controller
         {
             $data['jamhadir']=$this->presensi_model->getDefaultJamHadir($id);
         }
-        
+        if(isset($_GET['dari']))
+        {
+            $data['jamkerja']=$this->presensi_model->getJamkerjaGuru($id);
+        }else
+        {
+            $data['jamkerja']=$this->presensi_model->getDefaultJamKerja($id);
+        }
         $this->load->view('templates/header',$data);
         $this->load->view('guru/detailPresensi',$data);
         $this->load->view('templates/footer');
