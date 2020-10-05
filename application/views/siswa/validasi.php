@@ -61,12 +61,7 @@
                                 <div class="col">: <?=$valid['nama_siswa']?></div>
                             </div>
                         </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-md-3">Kelas</div>
-                                <div class="col">: <?=$valid['kelas']?> <?=$valid['jurusan']?> <?=$valid['sub']?> </div>
-                            </div>
-                        </li>
+                        
                         <li>
                             <div class="row">
                                 <div class="col-md-3">Nama Ibu</div>

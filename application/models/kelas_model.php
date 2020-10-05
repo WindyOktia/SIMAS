@@ -18,10 +18,10 @@ class Kelas_model extends CI_Model
         return $this->db->get('kelas')->result_array();
     }
 
-    public function daftarPeserta($id)
-    {
-        return $this->db->get_where('siswa',['id_kelas'=>$id])->result_array();
-    }
+    // public function daftarPeserta($id)
+    // {
+    //     return $this->db->get_where('siswa',['id_kelas'=>$id])->result_array();
+    // }
 
     public function deleteKelas($id)
     {

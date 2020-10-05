@@ -13,6 +13,7 @@ class Admin extends CI_Controller
         $this->load->model('login_model');
         $this->load->model('pengaturan_model');
         $this->load->model('mutu_model');
+        $this->load->model('presensi_model');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -76,10 +77,12 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['page']='dashboard';
+        $data['laporanmutu']=$this->mutu_model->getMutu();
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/index',$data);
         $this->load->view('templates/footer');
     }
+
     public function info()
     {
         $data['page']='dashboard';
@@ -197,11 +200,15 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function detailMutu()
+    public function detailMutu($id)
     {
-        $data['page']='mutu';
+        $data['page']='detail';
+        $data['id']= $id;
+        $data['laporanmutu']=$this->mutu_model->getMutu();
+        $data['detailmutu']=$this->mutu_model->getLaporanMutuID($id);
+        //$data['arsipmutu']=$this->mutu_model->getLink($code_id);
         $this->load->view('templates/header',$data);
-        $this->load->view('mutu/detail_mutu');
+        $this->load->view('dashboard/detail_mutu',$data);
         $this->load->view('templates/footer');
     }
 
@@ -266,6 +273,8 @@ class Admin extends CI_Controller
         }
         redirect('admin/mutu');
     }
+
+
 
     // Ricky
 
@@ -350,10 +359,20 @@ class Admin extends CI_Controller
     public function daftarPeserta($id)
     {
         $data['page']="kelas";
-        $data['peserta']=$this->kelas_model->daftarPeserta($id);
+        $data['id']= $id;
+        // $data['peserta']=$this->kelas_model->daftarPeserta($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kelas/daftarPeserta',$data);
         $this->load->view('templates/footer');
+    }
+
+    public function addPeserta()
+    {
+        $id = $_POST['id_siswa'];
+        echo json_encode($id);
+
+        $this->db->select('*');
+        $this->db->from('');
     }
     // end of kelas
 
@@ -512,6 +531,21 @@ class Admin extends CI_Controller
     {
         $data['page']='presensi';
         $data['id'] = $id;
+        //$data['jamhadir']=$this->presensi_model->getJamhadirGuru($id);
+        if(isset($_GET['dari']))
+        {
+            $data['jamhadir']=$this->presensi_model->getJamhadirGuru($id);
+        }else
+        {
+            $data['jamhadir']=$this->presensi_model->getDefaultJamHadir($id);
+        }
+        if(isset($_GET['dari']))
+        {
+            $data['jamkerja']=$this->presensi_model->getJamkerjaGuru($id);
+        }else
+        {
+            $data['jamkerja']=$this->presensi_model->getDefaultJamKerja($id);
+        }
         $this->load->view('templates/header',$data);
         $this->load->view('guru/detailPresensi',$data);
         $this->load->view('templates/footer');

@@ -85,7 +85,7 @@
         <div class="col-md-4">
            
 
-            <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Grafik Efektifitas Penggunaan Biaya Kegiatan</h6>
+            <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Grafik Rincian Penggunaan Biaya Kegiatan</h6>
             <ol>
             
                 <li>
@@ -474,7 +474,7 @@ var dashPendanaan = new Chart(dashP, {
 	data: {
 		labels: ['2016 - 2017', '2017 - 2018','2018 - 2019','2019 - 2020'],
 		datasets: [{
-			label: 'Sesuai Target',
+			label: 'Terpenuhi',
 			data: [12, 12, 12, 12, 12],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
@@ -487,7 +487,7 @@ var dashPendanaan = new Chart(dashP, {
 			borderWidth: 2
         },
         {
-			label: 'Tidak Sesuai Target',
+			label: 'Tidak Terpenuhi',
 			data: [10, 8, 5, 15, 20],
 			backgroundColor: [
                 'rgba(54, 162, 235, 0.2)',
