@@ -317,6 +317,198 @@ class Document extends CI_Controller
         redirect('document/verifikasiLaporan/'.$_POST['back_id']);
     }
     // End Laporan
+
+    // Kuesioner
+
+    public function pengaturan()
+    {
+        $data['page']='pengaturan_kuesioner';
+        $data['kategori']=$this->dokumen_model->getKategori();
+        $data['pertanyaan']=$this->dokumen_model->getPertanyaan();
+        $data['jawaban']=$this->dokumen_model->getJawaban();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/pengaturan_kuesioner',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detailKuesioner($id)
+    {
+        $data['page']='detail_kuesioner';
+        $data['kuesioner']=$this->dokumen_model->getKuesioner();
+        $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
+        $data['pertanyaan']=$this->dokumen_model->getPertanyaan();
+        $data['kategori']=$this->dokumen_model->getKategori();
+        $data['jawaban']=$this->dokumen_model->getJawaban();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/detail_kuesioner',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function daftarKuesioner()
+    {
+        $data['page']='daftar_kuesioner';
+        $data['kuesioner']=$this->dokumen_model->getKuesioner();
+        // $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
+        // $data['pertanyaan']=$this->dokumen_model->getPertanyaan();
+        // $data['kategori']=$this->dokumen_model->getKategori();
+        // $data['jawaban']=$this->dokumen_model->getJawaban();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/daftar_kuesioner',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addKuesioner()
+    {
+        $data['page']='add_kuesioner';
+        $data['kuesioner']=$this->dokumen_model->getKuesioner();
+        $data['proposal']=$this->dokumen_model->getProposal();
+        $data['kategori']=$this->dokumen_model->getKategori();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/add_kuesioner',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addFormkuesioner($id)
+    {
+        $data['page']='form_kuesioner';
+        $data['kuesioner']=$this->dokumen_model->getKuesioner();
+        $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
+        $data['pertanyaan']=$this->dokumen_model->getPertanyaan();
+        $data['kategori']=$this->dokumen_model->getKategori();
+        $data['jawaban']=$this->dokumen_model->getJawaban();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/form_kuesioner',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function do_addKuesioner()
+    {
+        $insert= $this->dokumen_model->addKuesioner();
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Kuesioner berhasil ditambah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Kuesioner gagal ditambah');
+        }
+        redirect('document/addKuesioner');
+    }
+
+    public function do_addFormkuesioner()
+    {
+        // $nipd = $this->session->userdata('nipd');
+        $kuesioner = $_POST['id_kuesioner'];
+        $pertanyaan = $_POST['pertanyaan'];
+        $opsi = $_POST['opsi'];
+        $saran = $_POST['saran'];
+        $insert= $this->dokumen_model->addFormkuesioner($kuesioner,$pertanyaan,$opsi,$saran);
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Kuesioner berhasil diisi');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Kuesioner gagal diisi');
+        }
+        redirect('document/daftarKuesioner');
+    }
+
+    public function do_addKategori()
+    {
+        $insert= $this->dokumen_model->addKategori();
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Kategori berhasil ditambah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Kategori gagal ditambah');
+        }
+        redirect('document/Pengaturan');
+    }
+
+    public function do_addPertanyaan()
+    {
+        
+        $pertanyaan = $_POST['pertanyaan'];
+        // echo json_encode ($pertanyaan);
+        $insert= $this->dokumen_model->addPertanyaan($pertanyaan);
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Pertanyaan berhasil ditambah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Pertanyaan gagal ditambah');
+        }
+        redirect('document/Pengaturan');
+    }
+
+    public function do_addJawaban()
+    {
+        $jawaban = $_POST['jawaban'];
+        // echo json_encode ($pertanyaan);
+        $insert= $this->dokumen_model->addJawaban($jawaban);
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Jawaban berhasil ditambah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Jawaban gagal ditambah');
+        }
+        redirect('document/Pengaturan');
+    }
+
+    public function deleteKuesioner($id)
+    {
+        $delete=$this->dokumen_model->deleteKuesioner($id);
+
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Kategori Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Kategori Gagal Dihapus'); 
+        }
+
+        redirect('document/Pengaturan');
+    }
+
+    public function deleteKategori($id)
+    {
+        $delete=$this->dokumen_model->deleteKategori($id);
+
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Kategori Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Kategori Gagal Dihapus'); 
+        }
+
+        redirect('document/Pengaturan');
+    }
+
+    public function deletePertanyaan($id)
+    {
+        $delete=$this->dokumen_model->deletePertanyaan($id);
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Pertanyaan Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Pertanyaan Gagal Dihapus'); 
+        }
+
+        redirect('document/Pengaturan');
+    }
+
+    public function deleteJawaban($id)
+    {
+        $delete=$this->dokumen_model->deleteJawaban($id);
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Jawaban Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Jawaban Gagal Dihapus'); 
+        }
+
+        redirect('document/Pengaturan');
+    }
+
+
+
+    // 
     
     
 
