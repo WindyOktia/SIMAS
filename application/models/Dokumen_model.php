@@ -336,6 +336,177 @@ class Dokumen_model extends CI_Model
     }
     // End Laporan
 
+    // Kuesioner
+
+    public function getKuesioner()
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('kuesioner_kegiatan.id_kuesioner, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, kategori_kuesioner.nama_kategori, kuesioner_kegiatan.deskripsi, kuesioner_kegiatan.tgl_mulai, kuesioner_kegiatan.tgl_selesai');
+        $this->db->from('kategori_kuesioner');
+        $this->db->from('proposal');
+        $this->db->where('kuesioner_kegiatan.id_kategori = kategori_kuesioner.id_kategori');
+        $this->db->where('kuesioner_kegiatan.id_proposal = proposal.id_proposal');
+        return $this->db->get('kuesioner_kegiatan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getKuesionerID($id)
+    {
+        $this->db->trans_start();
+        $this->db->select('kuesioner_kegiatan.id_kuesioner, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, kategori_kuesioner.nama_kategori, kuesioner_kegiatan.deskripsi, kuesioner_kegiatan.tgl_mulai, kuesioner_kegiatan.tgl_selesai');
+        $this->db->from('kategori_kuesioner');
+        $this->db->from('proposal');
+        $this->db->where('kuesioner_kegiatan.id_kategori = kategori_kuesioner.id_kategori');
+        $this->db->where('kuesioner_kegiatan.id_proposal = proposal.id_proposal');
+        $this->db->where(['kuesioner_kegiatan.id_kuesioner'=>$id]);
+        return $this->db->get('kuesioner_kegiatan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getKategori()
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('kategori_kuesioner.id_kategori, kategori_kuesioner.nama_kategori');
+        // $this->db->from('kategori_kuesioner');
+        // $this->db->where('proposal.id_user = user.id_user');
+        // $this->db->where(['user.role'=>$this->session->userdata('role')]);
+        return $this->db->get('kategori_kuesioner')->result_array();
+        $this->db->trans_complete();
+    }
+    
+    public function getPertanyaan()
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('pertanyaan_kuesioner.id_pertanyaan, pertanyaan_kuesioner.pertanyaan, kategori_kuesioner.nama_kategori');
+        $this->db->from('kategori_kuesioner');
+        $this->db->where('pertanyaan_kuesioner.id_kategori = kategori_kuesioner.id_kategori');
+        return $this->db->get('pertanyaan_kuesioner')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getJawaban()
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('jawaban_kuesioner.id_jawaban, jawaban_kuesioner.jawaban, jawaban_kuesioner.skor_jawaban, kategori_kuesioner.nama_kategori');
+        $this->db->from('kategori_kuesioner');
+        $this->db->where('kategori_kuesioner.id_kategori = jawaban_kuesioner.id_kategori');
+        // $this->db->where(['user.role'=>$this->session->userdata('role')]);
+        return $this->db->get('jawaban_kuesioner')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function addKuesioner()
+    {
+        $data=[
+            'id_proposal'=>$_POST['id_proposal'],
+            'deskripsi'=>$_POST['deskripsi'],
+            'tgl_mulai'=>$_POST['tgl_mulai'],
+            'tgl_selesai'=>$_POST['tgl_selesai'],
+            'id_kategori'=>$_POST['id_kategori']
+        ];
+        $this->db->insert('kuesioner_kegiatan',$data);
+        return $this->db->affected_rows();
+    }
+
+    public function addFormkuesioner($kuesioner,$pertanyaan,$opsi,$saran)
+    {
+        $this->db->trans_start();
+			//INSERT TO PACKAGE
+			$data = [
+                // "nipd" => $nipd,
+                "saran" => $saran,
+                "id_kuesioner" => $kuesioner
+            ];
+    
+            $this->db->insert('trans_kuesioner', $data);
+			//GET ID PACKAGE
+			$package_id = $this->db->insert_id();
+			$result = array();
+			    foreach($opsi AS $key => $val){
+				     $result[] = array(
+				      'id_tkuesioner'  	=> $package_id,
+				      'id_pertanyaan'  	=> $key,
+				      'id_jawaban'  	=> $opsi[$key]
+				     );
+			    }      
+			//MULTIPLE INSERT TO DETAIL TABLE
+            $this->db->insert_batch('trans_kuesioner_opsi', $result);
+
+		$this->db->trans_complete();
+    }
+
+    public function addKategori()
+    {
+        $data=[
+            'nama_kategori'=>$_POST['nama_kategori']
+        ];
+        $this->db->insert('kategori_kuesioner',$data);
+        return $this->db->affected_rows();
+    }
+
+    public function addPertanyaan($pertanyaan)
+    {
+        $this->db->trans_start();
+        $result = array();
+            foreach($pertanyaan AS $key => $val){
+                 $result[] = array(
+                  'id_kategori'  	=> $_POST['id_kategori'],
+                  'pertanyaan'  	=> $_POST['pertanyaan'][$key]
+                 );
+            }      
+        //MULTIPLE INSERT TO DETAIL TABLE
+        $this->db->insert_batch('pertanyaan_kuesioner', $result);
+        $this->db->trans_complete();
+        return $this->db->affected_rows();
+    }
+
+    public function addJawaban($jawaban)
+    {
+        $this->db->trans_start();
+        $result = array();
+            foreach($jawaban AS $key => $val){
+                 $result[] = array(
+                  'id_kategori'  	=> $_POST['id_kategori'],
+                  'skor_jawaban'  	=> $_POST['skor_jawaban'][$key],
+                  'jawaban'  	=> $_POST['jawaban'][$key]
+                 );
+            }      
+        //MULTIPLE INSERT TO DETAIL TABLE
+        $this->db->insert_batch('jawaban_kuesioner', $result);
+        $this->db->trans_complete();
+        return $this->db->affected_rows();
+    }
+
+    public function deleteKuesioner($id)
+    {
+        $this->db->delete('kuesioner_kegiatan',['id_kuesioner'=>$id]);
+        return $this->db->affected_rows();
+    }
+
+    public function deleteKategori($id)
+    {
+        $this->db->delete('kategori_kuesioner',['id_kategori'=>$id]);
+        return $this->db->affected_rows();
+    }
+
+    public function deletePertanyaan($id)
+    {
+        $this->db->delete('pertanyaan_kuesioner',['id_pertanyaan'=>$id]);
+        return $this->db->affected_rows();
+    }
+
+    public function deleteJawaban($id)
+    {
+        $this->db->delete('jawaban_kuesioner',['id_pertanyaan'=>$id]);
+        return $this->db->affected_rows();
+    }
+
+    // End Kuesioner
+
     public function deleteSingleDoc($id)
     {
         $this->db->delete('trans_doc',['id_trans_doc'=>$id]);
