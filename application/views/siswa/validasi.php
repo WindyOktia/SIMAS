@@ -19,23 +19,18 @@
 
    <div class="container-fluid mt-5">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="card card-body border-secondary">    
                 <h2>Verifikasi data diri siswa</h2>
                 <br>
                     <form action="" method="get">
-                        <div class="form-group col-6">
+                        <div class="form-group ">
                             <label for="">NIPD</label>
-                            <input type="text" name="nipd" class="form-control" required>
+                            <input type="number" name="nipd" class="form-control col-12" required>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="">Pilih Nama Ibu</label> <br>
-                            <select name="ibu" id="" class="pilih" required>
-                                <option value="" selected disabled>- Pilih Data -</option>
-                                <?php foreach($siswa as $sis):?>
-                                <option value="<?=$sis['id_siswa']?>"><?=$sis['nama_ibu']?></option>
-                                <?php endforeach?>
-                            </select>
+                        <div class="form-group ">
+                            <label for="">Nama Panggilan Ibu</label> <br>
+                            <input type="text" name="nama_ibu" class="form-control col-12" required>
                         </div>
                         <button type="submit" class="btn btn-warning float-right mt-3">Verifikasi Data</button>
                         <a href="<?=base_url('siswa/validasi')?>" class="btn btn-light float-right mt-3 mr-2">Reset</a>
@@ -97,7 +92,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.pilih').select2();
+
         });
+           
+        
     </script>
   </body>
 </html>
