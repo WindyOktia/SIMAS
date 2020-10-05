@@ -83,7 +83,7 @@
                 <td>1</td>
                 <td>1</td>
                 <td>5</td>
-                <td><a href="<?= base_url('admin/detailPresensi/38')?>" class="btn btn-primary btn-sm">Track Record</a></td>
+                <td><a href="<?= base_url('admin/detailPresensi/48')?>" class="btn btn-primary btn-sm">Track Record</a></td>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -92,7 +92,8 @@
                 <td>1</td>
                 <td>1</td>
                 <td><span class="badge badge-danger">30</span></td>
-                <td><a href="" class="btn btn-sm btn-info">Track Record</a></td>
+                <td><a href="<?= base_url('admin/detailPresensi/49')?>" class="btn btn-primary btn-sm">Track Record</a></td>
+            </tr>
             </tr>
             <tr>
                 <th scope="row">1</th>
@@ -101,7 +102,8 @@
                 <td>1</td>
                 <td>1</td>
                 <td>9</td>
-                <td><a href="" class="btn btn-sm btn-info">Track Record</a></td>
+                <td><a href="<?= base_url('admin/detailPresensi/50')?>" class="btn btn-primary btn-sm">Track Record</a></td>
+            </tr>
             </tr>
         </tbody>
     </table>
