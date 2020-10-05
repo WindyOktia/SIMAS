@@ -10,8 +10,8 @@ class Siswa_model extends CI_Model
             $data = [
                 "nipd" => $this->input->post('nipd', true),
                 "nama_siswa" => $this->input->post('nama', true),
-                "id_kelas" => $this->input->post('id_kelas', true),
                 "nama_ibu" => $this->input->post('ibu', true),
+                "nama_panggilan_ibu" => $this->input->post('panggilan_ibu', true),
                 "alamat" => $this->input->post('alamat', true),
             ];
 

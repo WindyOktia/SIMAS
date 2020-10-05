@@ -58,5 +58,11 @@ class Survei extends CI_Controller
         }
         redirect('guru/nilai_survei');
     }
+
+    function downloadDefault($file)
+    {
+        $this->load->helper('download');
+        force_download(FCPATH.'/document/default/'.$file, null);
+    }
     
 }

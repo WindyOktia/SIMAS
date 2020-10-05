@@ -26,20 +26,17 @@
                                 <input type="text" class="form-control" placeholder="Nama Siswa" name="nama" required >
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2 ">Kelas</label>
-                            <div class="col-lg-10">
-                                <select class="form-control" name="id_kelas" >
-                                <?php foreach($kelas as $kelas):?>
-                                    <option value="<?=$kelas['id_kelas']?>"><?=$kelas['kelas']?> <?=$kelas['jurusan']?> <?=$kelas['sub']?></option>
-                                <?php endforeach;?>
-                                </select>
-                            </div>
-                        </div>
+                       
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Nama Ibu</label>
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" placeholder="Nama Ibu" name="ibu" required >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Nama Panggilan Ibu</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" placeholder="Nama Panggilan Ibu" name="panggilan_ibu" required >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -66,7 +63,23 @@
             <div class="card">
                 <div class="card-body">
                     <legend>TAMBAH DATA SISWA</legend>
-                    <h3><i>Coming Soon</i></h3>
+                    <ul>
+                        <li>
+                            Format File <br>
+                            <a href="<?=base_url('survei/downloadDefault')?>/format-dokumen.xlsx" class="btn btn-sm btn-info mb-3 mt-2">Download Format Dokumen</a>
+                        </li>
+                    </ul>
+                    <form action="" method="post">
+                        <ul>
+                            <li>
+                                <div class="form-group">
+                                    <label for="">Upload Data Siswa | <i>xls, xlsx</i></label>
+                                    <input type="file" name="exc_upload" class="form-control-file">
+                                </div>
+                            </li>
+                        </ul>
+                        <button type="submit" class="btn btn-success float-right">Simpan Data  </button>
+                    </form>
                 </div>
             </div>
         </div>
