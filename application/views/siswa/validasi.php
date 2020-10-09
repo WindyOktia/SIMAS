@@ -26,11 +26,11 @@
                     <form action="" method="get">
                         <div class="form-group ">
                             <label for="">NIPD</label>
-                            <input type="number" name="nipd" class="form-control col-12" required>
+                            <input type="number" name="nipd" value="<?php if(isset($_GET['nipd'])){echo $_GET['nipd'];};?>" class="form-control col-12" required>
                         </div>
                         <div class="form-group ">
                             <label for="">Nama Panggilan Ibu</label> <br>
-                            <input type="text" name="nama_ibu" class="form-control col-12" required>
+                            <input type="text" name="ibu" value="<?php if(isset($_GET['ibu'])){echo $_GET['ibu'];};?>" class="form-control col-12" required>
                         </div>
                         <button type="submit" class="btn btn-warning float-right mt-3">Verifikasi Data</button>
                         <a href="<?=base_url('siswa/validasi')?>" class="btn btn-light float-right mt-3 mr-2">Reset</a>
