@@ -91,4 +91,44 @@ class Survei_model extends CI_Model
         return $this->db->query('SELECT DISTINCT(guru.nama_guru), guru.id_guru FROM jadwal_guru, guru WHERE  jadwal_guru.id_guru=guru.id_guru AND jadwal_guru.id_kelas='.$id.'')->result_array();
     }
 
+    public function getSurveikegiatan()
+    {
+        $this->db->trans_start();
+        $this->db->select('kuesioner_kegiatan.id_kuesioner, proposal.nama_kegiatan, kuesioner_kegiatan.deskripsi, kuesioner_kegiatan.tgl_mulai, kuesioner_kegiatan.tgl_selesai');
+        $this->db->from('kode_kuesioner');
+        $this->db->from('proposal');
+        $this->db->where('kuesioner_kegiatan.id_proposal = proposal.id_proposal');
+        $this->db->where('kuesioner_kegiatan.id_kuesioner = kode_kuesioner.id_kuesioner');
+        $this->db->where(['kode_kuesioner.link_kuesioner'=>$_GET['kode']]);
+        return $this->db->get('kuesioner_kegiatan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function addFormkuesioner($kuesioner,$pertanyaan,$opsi,$saran)
+    {
+        $this->db->trans_start();
+			//INSERT TO PACKAGE
+			$data = [
+                "id_siswa" => $this->session->userdata('id_siswa'),
+                "saran" => $saran,
+                "id_kuesioner" => $kuesioner
+            ];
+    
+            $this->db->insert('trans_kuesioner', $data);
+			//GET ID PACKAGE
+			$package_id = $this->db->insert_id();
+			$result = array();
+			    foreach($opsi AS $key => $val){
+				     $result[] = array(
+				      'id_tkuesioner'  	=> $package_id,
+				      'id_pertanyaan'  	=> $key,
+				      'id_jawaban'  	=> $opsi[$key]
+				     );
+			    }      
+			//MULTIPLE INSERT TO DETAIL TABLE
+            $this->db->insert_batch('trans_kuesioner_opsi', $result);
+
+		$this->db->trans_complete();
+    }
+
 }

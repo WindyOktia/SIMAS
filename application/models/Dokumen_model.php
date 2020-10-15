@@ -412,33 +412,6 @@ class Dokumen_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function addFormkuesioner($kuesioner,$pertanyaan,$opsi,$saran)
-    {
-        $this->db->trans_start();
-			//INSERT TO PACKAGE
-			$data = [
-                // "nipd" => $nipd,
-                "saran" => $saran,
-                "id_kuesioner" => $kuesioner
-            ];
-    
-            $this->db->insert('trans_kuesioner', $data);
-			//GET ID PACKAGE
-			$package_id = $this->db->insert_id();
-			$result = array();
-			    foreach($opsi AS $key => $val){
-				     $result[] = array(
-				      'id_tkuesioner'  	=> $package_id,
-				      'id_pertanyaan'  	=> $key,
-				      'id_jawaban'  	=> $opsi[$key]
-				     );
-			    }      
-			//MULTIPLE INSERT TO DETAIL TABLE
-            $this->db->insert_batch('trans_kuesioner_opsi', $result);
-
-		$this->db->trans_complete();
-    }
-
     public function addKategori()
     {
         $data=[

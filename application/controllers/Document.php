@@ -369,19 +369,6 @@ class Document extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function addFormkuesioner($id)
-    {
-        $data['page']='form_kuesioner';
-        $data['kuesioner']=$this->dokumen_model->getKuesioner();
-        $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
-        $data['pertanyaan']=$this->dokumen_model->getPertanyaan($id);
-        $data['kategori']=$this->dokumen_model->getKategori();
-        $data['jawaban']=$this->dokumen_model->getJawaban($id);
-        $this->load->view('templates/header',$data);
-        $this->load->view('kegiatan/form_kuesioner',$data);
-        $this->load->view('templates/footer');
-    }
-
     public function do_addKuesioner()
     {
         $insert= $this->dokumen_model->addKuesioner();
@@ -393,24 +380,6 @@ class Document extends CI_Controller
             $this->session->set_flashdata('success', 'Kuesioner gagal ditambah');
         }
         redirect('document/addKuesioner');
-    }
-
-    public function do_addFormkuesioner()
-    {
-        // $nipd = $this->session->userdata('nipd');
-        $kuesioner = $_POST['id_kuesioner'];
-        $pertanyaan = $_POST['pertanyaan'];
-        $opsi = $_POST['opsi'];
-        $saran = $_POST['saran'];
-        $insert= $this->dokumen_model->addFormkuesioner($kuesioner,$pertanyaan,$opsi,$saran);
-        if($insert > 0)
-        {
-            $this->session->set_flashdata('success', 'Kuesioner berhasil diisi');
-        }else
-        {
-            $this->session->set_flashdata('success', 'Kuesioner gagal diisi');
-        }
-        redirect('document/daftarKuesioner');
     }
 
     public function do_addKategori()
