@@ -1,3 +1,9 @@
+<?php foreach($kelas as $show):?>
+	<?php if($show['id_kelas']==$id){?>
+		<h4>Kelas <?=$show['kelas']?> <?=$show['jurusan']?> <?=$show['sub']?></h4>
+	<?php } ?>
+<?php endforeach?>
+
 <div class="row">
     <div class="col-md-6">
         <a href="" class="btn btn-primary"data-toggle="modal" data-target="#modalAdd"><i class="fa fa-plus-circle mr-1"></i>Tambah Peserta</a>
@@ -6,10 +12,12 @@
 		</button>
 		
     </div>
-    <div class="col-md-6">
-        <a href="" class="btn btn-secondary float-right">Pindah Peserta Kelas <i class="ml-1	fa fa-long-arrow-right"></i></a>
-    </div>
+    <!-- <div class="col-md-6">
+        <a href="" class="btn btn-secondary float-right">Pindah Peserta Kelas <i class="ml-1 fa fa-long-arrow-right"></i></a>
+    </div> -->
 </div>
+
+
 
 <div class="card mt-3">
     <div class="card-body"> 
@@ -35,7 +43,10 @@
 					<td><?= $psr['nama_panggilan_ibu']?></td>
 					<td>
 						<a href="<?= base_url('admin/hapusPeserta')?>/<?=$psr['id_peserta_kelas']?>/<?=$id?>" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
-						<a href="" class="btn btn-sm btn-secondary">Pindah Kelas <i class="ml-1	fa fa-long-arrow-right"></i></a>
+						<button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalPindah<?=$psr['id_siswa']?>">
+							Pindah Kelas <i class="ml-1	fa fa-long-arrow-right"></i>
+						</button>
+						
 					</td>
 				</tr>
 			<?php endforeach?>
@@ -115,6 +126,46 @@
   </div>
 </div>
 <!-- end modal unduh -->
+
+<!-- modal pindah -->
+<?php foreach($peserta as $siswa):?>
+<div class="modal fade" id="modalPindah<?=$siswa['id_siswa']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pindah Siswa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+			<form action="<?= base_url('admin/pindahPeserta')?>" method="post">
+				<div class="form-group">
+					<label for="">Nama Siswa</label>
+					<input type="hidden" name="backid" value="<?= $id ?>">
+					<input type="hidden" name="id_siswa" value="<?=$siswa['id_siswa']?>">
+					<input type="text" class="form-control" value="<?=$siswa['nama_siswa']?>" style="background-color:#EDEDF4" readonly>
+				</div>
+				<div class="form-group">
+					<label for="">Pindah ke kelas</label>
+					<select name="id_kelas" id="" class="form-control" required>
+						<option value="" selected disabled>- pilih kelas -</option>
+					<?php foreach($kelas as $kls):?>
+						<option value="<?= $kls['id_kelas']?>"><?= $kls['kelas']?> <?= $kls['jurusan']?> <?= $kls['sub']?></option>
+					<?php endforeach?>
+					</select>
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+			</form>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endforeach?>
+<!-- end modal pindah -->
 
 
 
