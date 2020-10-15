@@ -10,8 +10,8 @@ class Siswa_model extends CI_Model
             $data = [
                 "nipd" => $this->input->post('nipd', true),
                 "nama_siswa" => $this->input->post('nama', true),
-                "id_kelas" => $this->input->post('id_kelas', true),
                 "nama_ibu" => $this->input->post('ibu', true),
+                "nama_panggilan_ibu" => $this->input->post('panggilan_ibu', true),
                 "alamat" => $this->input->post('alamat', true),
             ];
 
@@ -36,12 +36,10 @@ class Siswa_model extends CI_Model
 
     public function getSiswaID($nipd, $ibu)
     {
-        // return $this->db->get_where('siswa',['nipd'=>$nipd,'id_siswa'=>$ibu])->result_array();
         $this->db->select('*');
         $this->db->from('siswa');
-        // $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas','left');
         $this->db->where('nipd',$nipd);
-        // $this->db->where('id_siswa',$ibu);
+        $this->db->where('nama_panggilan_ibu',$ibu);
         return $this->db->get()->result_array();
     }
 
@@ -50,6 +48,13 @@ class Siswa_model extends CI_Model
         $query =$this->db->get_where('siswa', ['nipd'=>$_POST['nipd']]);
         $ret = $query->row();
         return $ret->nama_siswa.'/'.$ret->id_siswa;
+    }
+
+    public function getID()
+    {
+        $query =$this->db->get_where('siswa', ['nipd'=>$_POST['nipd']]);
+        $ret = $query->row();
+        return $ret->id_siswa.'/null';
     }
 
     

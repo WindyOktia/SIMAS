@@ -1,8 +1,9 @@
 <div>
-    <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0">
+    <!-- <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0">
         <li class="nav-item"><a href="#bottom-divided-tab1" class="nav-link active" data-toggle="tab">Single</a></li>
         <li class="nav-item"><a href="#bottom-divided-tab2" class="nav-link" data-toggle="tab">Multiple</a></li>    
-    </ul>
+    </ul> -->
+    <a href="http://localhost/UpSIMAS/" target="_blank" class="btn btn-sm btn-info mb-3">Import Data Siswa</a>
 
     <div class="tab-content">
         <div class="tab-pane fade show active" id="bottom-divided-tab1">
@@ -26,16 +27,7 @@
                                 <input type="text" class="form-control" placeholder="Nama Siswa" name="nama" required >
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2 ">Kelas</label>
-                            <div class="col-lg-10">
-                                <select class="form-control" name="id_kelas" >
-                                <?php foreach($kelas as $kelas):?>
-                                    <option value="<?=$kelas['id_kelas']?>"><?=$kelas['kelas']?> <?=$kelas['jurusan']?> <?=$kelas['sub']?></option>
-                                <?php endforeach;?>
-                                </select>
-                            </div>
-                        </div>
+                       
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Nama Ibu</label>
                             <div class="col-lg-10">
@@ -43,17 +35,23 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Nama Panggilan Ibu</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" placeholder="Nama Panggilan Ibu" name="panggilan_ibu" required >
+                            </div>
+                        </div>
+                        <!-- <div class="form-group row">
                             <label class="col-form-label col-lg-2">Alamat</label>
                             <div class="col-lg-10">
                                 <textarea type="text" class="form-control" rows="4" placeholder="Alamat Lengkap" name="alamat" required ></textarea>
                             </div>
-                        </div>
+                        </div> -->
                         
                         
                         </fieldset>
 
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary" id="tbSubmit" disabled>Submit </button>
+                            <button type="submit" class="btn btn-success" id="tbSubmit" disabled>Simpan Data </button>
                         </div>
                         
                         
@@ -66,7 +64,54 @@
             <div class="card">
                 <div class="card-body">
                     <legend>TAMBAH DATA SISWA</legend>
-                    <h3><i>Coming Soon</i></h3>
+                    <ul>
+                        <li>
+                            Format File <br>
+                            <a href="<?=base_url('survei/downloadDefault')?>/format-dokumen.xlsx" class="btn btn-sm btn-info mb-3 mt-2">Download Format Dokumen</a>
+                        </li>
+                    </ul>
+                    <form method="post" action="<?php echo base_url("Import/form"); ?>" enctype="multipart/form-data">
+                        <ul>
+                            <li>
+                                <div class="form-group">
+                                    <label for="">Upload Data Siswa | <i>xls, xlsx</i></label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="file" name="file" class="form-control-file">
+                                        </div>
+                                        <div class="col">
+                                            <input type="submit" name="preview" value="Preview">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    
+                        <!-- <div class="card card-body border-info">
+                            <h5>Preview Data</h5>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">NIPD</th>
+                                    <th scope="col">Nama Siswa</th>
+                                    <th scope="col">Nama Ibu</th>
+                                    <th scope="col">Nama Panggilan Ibu</th>
+                                    <th scope="col">Alamat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                        <button type="submit" class="btn btn-success float-right">Simpan Data  </button>
                 </div>
             </div>
         </div>

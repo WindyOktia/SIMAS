@@ -329,7 +329,7 @@ class Admin extends CI_Controller
     public function kelas()
     {
         $data['page']='kelas';
-        $data['kelas']=$this->kelas_model->get();
+        $data['jumlah_peserta']=$this->kelas_model->getJumlahPeserta();
         $this->load->view('templates/header',$data);
         $this->load->view('kelas/kelas',$data);
         $this->load->view('templates/footer');
@@ -360,7 +360,7 @@ class Admin extends CI_Controller
     {
         $data['page']="kelas";
         $data['id']= $id;
-        // $data['peserta']=$this->kelas_model->daftarPeserta($id);
+        $data['peserta']=$this->kelas_model->daftarPeserta($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kelas/daftarPeserta',$data);
         $this->load->view('templates/footer');
@@ -368,11 +368,22 @@ class Admin extends CI_Controller
 
     public function addPeserta()
     {
-        $id = $_POST['id_siswa'];
-        echo json_encode($id);
+        $id_siswa = $_POST['id_siswa'];
+        $id_kelas = $_POST['id_kelas']; 
+        $insert= $this->kelas_model->addPeserta($id_siswa, $id_kelas);
+        $this->session->set_flashdata('success', 'Data Peserta Kelas Ditambahkan');
+        redirect('admin/daftarPeserta/'.$id_kelas);
+    }
 
-        $this->db->select('*');
-        $this->db->from('');
+    public function hapusPeserta($id, $backid)
+    {
+        $hapus = $this->kelas_model->hapusPeserta($id);
+        if($hapus >0){
+            $this->session->set_flashdata('success', 'Data Peserta Kelas Dihapus');
+        }else{
+            $this->session->set_flashdata('error', 'Data Peserta Kelas Gagal Dihapus');
+        }
+        redirect('admin/daftarPeserta/'.$backid);
     }
     // end of kelas
 
