@@ -50,6 +50,13 @@ class Siswa_model extends CI_Model
         return $ret->nama_siswa.'/'.$ret->id_siswa;
     }
 
+    public function getID()
+    {
+        $query =$this->db->get_where('siswa', ['nipd'=>$_POST['nipd']]);
+        $ret = $query->row();
+        return $ret->id_siswa.'/null';
+    }
+
     
     
 }
