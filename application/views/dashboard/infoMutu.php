@@ -72,7 +72,7 @@
     </div>
 </div>
 
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <div class="card card-body border-info">
                 <h6>Grafik Minat Kegiatan Siswa</h6>
                 <div class="row">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 <script>
 var dash = document.getElementById('dashGuru').getContext('2d');
@@ -116,20 +116,21 @@ var dashSiswa = new Chart(dash1, {
 		}]
 	}
 });
-var dash1 = document.getElementById('dashKetertarikan').getContext('2d');
-var dashKetertarikan = new Chart(dash1, {
-	type: 'horizontalBar',
-	data: {
-		labels: ['Basket', 'Futsal','Renang','Bulu Tangkis','Catur'],
-		datasets: [{
-			label: 'Kegiatan',
-			data: [12, 19, 10, 5, 11],
-			backgroundColor: [
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(54, 162, 235, 0.2)'
-			],
-			borderWidth: 2
-		}]
-	}
-});
+// var dash1 = document.getElementById('dashKetertarikan').getContext('2d');
+// var dashKetertarikan = new Chart(dash1, {
+// 	type: 'horizontalBar',
+// 	data: {
+// 		labels: ['Basket', 'Futsal','Renang','Bulu Tangkis','Catur'],
+// 		datasets: [{
+// 			label: 'Basket',
+// 			data: [12, 19, 10, 5, 11],
+// 			backgroundColor: [
+// 				'rgba(255, 99, 132, 0.2)',
+// 				'rgba(54, 162, 235, 0.2)'
+// 			],
+// 			borderWidth: 2
+// 		}],
+// 	},
+    
+// });
 </script>
