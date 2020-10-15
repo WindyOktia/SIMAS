@@ -44,18 +44,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php $i=1; foreach ($kelas as $kelas):?>
-			<tr>
-				<td><?=$i++?></td>
-				<td><b><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></b></td>
-				<td>24</td>
-				<td>
-                    <a href="<?= base_url('admin/daftarPeserta')?>/<?= $kelas['id_kelas']?>" class="btn btn-primary btn-sm">Daftar Peserta</a>
-                </td>
-				<td>
-					<a href="<?= base_url('admin/deleteKelas')?>/<?= $kelas['id_kelas']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
-				</td>
-			</tr>
+			<?php $i=1; foreach ($jumlah_peserta as $kelas):?>
+				<tr>
+					<td><?=$i++?></td>
+					<td><b><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></b></td>
+					<td><?=$kelas['peserta']?></td>
+					<td>
+						<a href="<?= base_url('admin/daftarPeserta')?>/<?= $kelas['id_kelas']?>" class="btn btn-primary btn-sm">Daftar Peserta</a>
+					</td>
+					<td>
+						<a href="<?= base_url('admin/deleteKelas')?>/<?= $kelas['id_kelas']?>"class="btn btn-danger btn-sm tombol-hapus">Hapus</a>
+					</td>
+				</tr>
 			<?php endforeach;?>
 		</tbody>
 	</table>
