@@ -76,9 +76,9 @@ class Survei_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function getKelasID($id)
+    public function getKelasID()
     {
-        return $this->db->get_where('siswa',['id_siswa'=>$id])->result_array();
+        return $this->db->get_where('peserta_kelas',['id_siswa'=>$this->session->userdata('id_siswa')])->result_array();
     }
 
     public function getKelasName($id)

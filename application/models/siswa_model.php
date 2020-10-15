@@ -36,8 +36,10 @@ class Siswa_model extends CI_Model
 
     public function getSiswaID($nipd, $ibu)
     {
-        $this->db->select('*');
+        $this->db->select('siswa.*, kelas.kelas, kelas.jurusan, kelas.sub');
         $this->db->from('siswa');
+        $this->db->join('peserta_kelas', 'peserta_kelas.id_siswa = siswa.id_siswa');
+        $this->db->join('kelas', 'peserta_kelas.id_kelas = kelas.id_kelas');
         $this->db->where('nipd',$nipd);
         $this->db->where('nama_panggilan_ibu',$ibu);
         return $this->db->get()->result_array();

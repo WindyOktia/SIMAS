@@ -6,18 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <title>E - survei Bosa</title>
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">E- survei Bosa</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">E-survei Bosa</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link"><?= $this->session->userdata('nama_siswa');?></a>
+            </li>
+            <li class="nav-item active">
+                <a href="<?= base_url('siswa/logoutSurvei')?>" class="nav-link btn btn-sm btn-danger ml-3">Logout <i class="fa fa-chevron-circle-right ml-2"></i></a>
+            </li>
+        </ul>
     </nav>
 
     <div class="container mt-5">
-        <div class="card card-body border-info">
-        <h4>Informasi Survei Guru</h4>
+        <div class="">
+        <h3>Informasi Survei</h3>
         <?php foreach($akademik as $akd):?>
         <ul>
             <li>
@@ -34,40 +42,76 @@
             </li>
         </ul>
         <?php endforeach?>
-            <h5>Pilih Guru</h5>
-            <?php foreach($namaKelas as $nm):?>
-                <p>daftar guru mengajar di kelas <?=$nm['kelas']?> <?=$nm['jurusan']?> <?=$nm['sub']?></p>
-            <?php endforeach?>
-        
-        <div class="table-responsive mt-3">
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Nama Guru</th>
-                    <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach($daftarGuru as $daf):?>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td><?= $daf['nama_guru']?></td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                            Isi Survei
-                            </button>
-                        </td>
-                    </tr>
+            <div class="card card-body mt-3">
+                <h5>Survei Guru</h5>
+                <?php foreach($namaKelas as $nm):?>
+                    <p>Daftar guru mengajar di kelas <?=$nm['kelas']?> <?=$nm['jurusan']?> <?=$nm['sub']?></p>
                 <?php endforeach?>
-                </tbody>
-            </table>
-            <?php if(count($daftarGuru)==0){?>
-            <div class="text-center">
-            tidak ada data guru
+        
+                <div class="table-responsive mt-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama Guru</th>
+                            <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($daftarGuru as $daf):?>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td><?= $daf['nama_guru']?></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                    Isi Survei
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach?>
+                        </tbody>
+                    </table>
+                    <?php if(count($daftarGuru)==0){?>
+                    <div class="text-center">
+                    tidak ada data guru
+                    </div>
+                    <?php }?>
+                </div>
             </div>
-            <?php }?>
-        </div>
+            <div class="card card-body mt-3 mb-5">
+                <h5>Survei Kegiatan</h5>
+                <form action="" method="get">
+                    <div class="form-group">
+                        <label for="">Kode kegiatan</label>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input name="kode" type="text" class="form-control" value="<?php if(isset($_GET['kode'])){echo $_GET['kode'];};?>" required>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-info">Cari</button>
+                                <a href="<?= base_url('siswa/survei')?>" class="btn btn-light">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <?php if(isset($_GET['kode'])){?>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Nama Kegiatan</td>
+                                <td>bb</td>
+                            </tr>
+                            <tr>
+                                <td>info lain</td>
+                                <td>bb</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <button class="btn btn-primary btn-sm float-right">Isi Survei Kegiatan</button>
+                </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
 

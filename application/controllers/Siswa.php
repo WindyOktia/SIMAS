@@ -33,15 +33,34 @@ class Siswa extends CI_Controller{
             $nipd= $_GET['nipd'];
             $ibu= $_GET['ibu'];
             $data['dataSiswa']= $this->siswa_model->getSiswaID($nipd,$ibu);
+            $dataSiswa= $this->siswa_model->getSiswaID($nipd,$ibu);
+
+            // save session
+            if(count($dataSiswa)>0){
+                foreach($dataSiswa as $idSiswa)
+                {
+                    $newdata = array(
+                        'id_siswa'  => $idSiswa['id_siswa'],
+                        'nama_siswa'  => $idSiswa['nama_siswa'],
+                        'logged_in' => TRUE
+                    );
+     
+                    $this->session->set_userdata($newdata);
+                }
+            }
         }
         $data['siswa']=$this->siswa_model->daftarSiswa();
         $this->load->view('siswa/validasi',$data);
     }
 
-    public function survei($id)
+    public function survei()
     {
+        if($this->session->userdata('id_siswa')==''){
+            redirect('siswa/validasi');
+        }
+        
         $data['pertanyaan']= $this->survei_model->getPertanyaan();
-        $kelasID = $this->survei_model->getKelasID($id);
+        $kelasID = $this->survei_model->getKelasID();
 
         foreach($kelasID as $kls){
             $data['kelasId']=$kls['id_kelas'];
@@ -58,6 +77,12 @@ class Siswa extends CI_Controller{
         $data['akademik']=$this->pengaturan_model->getAkademik();
 
         $this->load->view('siswa/survei',$data);
+    }
+
+    public function logoutSurvei()
+    {
+        $this->session->sess_destroy();
+        redirect('siswa/validasi');
     }
 
     public function nama_siswa()

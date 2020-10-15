@@ -33,7 +33,7 @@
                             <input type="text" name="ibu" value="<?php if(isset($_GET['ibu'])){echo $_GET['ibu'];};?>" class="form-control col-12" required>
                         </div>
                         <button type="submit" class="btn btn-warning float-right mt-3">Verifikasi Data</button>
-                        <a href="<?=base_url('siswa/validasi')?>" class="btn btn-light float-right mt-3 mr-2">Reset</a>
+                        <a href="<?=base_url('siswa/logoutSurvei')?>" class="btn btn-light float-right mt-3 mr-2">Reset</a>
                     </form>
                 </div>
             </div>
@@ -59,14 +59,14 @@
                         
                         <li>
                             <div class="row">
-                                <div class="col-md-3">Nama Ibu</div>
-                                <div class="col">: <?=$valid['nama_ibu']?></div>
+                                <div class="col-md-3">Kelas</div>
+                                <div class="col">: <?=$valid['kelas']?> <?=$valid['jurusan']?> <?=$valid['sub']?></div>
                             </div>
                         </li>
                     </ul>
                    <div class="row">
                         <div class="col">
-                            <a href="<?=base_url('siswa/survei')?>/<?=$valid['id_siswa']?>" class="btn btn-success float-right">Lanjutkan E - survei</a>
+                            <a href="<?=base_url('siswa/survei')?>" class="btn btn-success float-right">Lanjutkan E - survei</a>
                         </div>
                    </div>
                 </div>
