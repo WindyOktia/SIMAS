@@ -157,6 +157,7 @@ class Dokumen_model extends CI_Model
     // End Proposal
 
     // Laporan
+
     public function addLaporan()
     {
         $data=[
@@ -503,6 +504,21 @@ class Dokumen_model extends CI_Model
     {
         $this->db->delete('trans_doc',['id_trans_doc'=>$id]);
         return $this->db->affected_rows();
+    }
+
+    public function genKuesioner($id)
+    {
+        $seed = str_split('12345'
+        .'ABCDEFGHIJKLMNOPQRSTUVWXYZ'); // and any other characters
+        shuffle($seed); // probably optional since array_is randomized; this may be redundant
+        $rand = '';
+        foreach (array_rand($seed, 5) as $k) $rand .= $seed[$k];
+        $data = [
+        "id_kuesioner" => $id,
+        "link_kuesioner" => $rand
+        ];
+        $this->db->insert('kode_kuesioner', $data);
+        return true;
     }
 
 

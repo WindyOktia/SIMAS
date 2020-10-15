@@ -80,7 +80,7 @@
                     <td class="align-middle"><?= $kuesioner['nama_kegiatan']; ?></td>
                     <td class="align-middle"><?= $kuesioner['tgl_mulai']; ?></td>
                     <td class="align-middle"><?= $kuesioner['tgl_selesai']; ?></td>
-                    <td class="align-middle"><a class="btn btn-info btn-sm mr-2" role="button" href="<?= base_url('document/detailKuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Lihat Kuesioner</a><a class="btn btn-danger btn-sm tombol-hapus" role="button" href="<?= base_url('document/deleteKuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Hapus</a></td>
+                    <td class="align-middle"><a class="btn btn-info btn-sm mr-2" role="button" href="<?= base_url('document/detailKuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Lihat Kuesioner</a><a class="btn btn-danger btn-sm tombol-hapus mr-2 " role="button" href="<?= base_url('document/deleteKuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Hapus</a><a class="btn btn-success btn-sm mr-2" role="button" href="<?= base_url('document/generateKuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Generate Link</a></td>
                 </tr>
                 <?php endforeach; ?>
             </table>

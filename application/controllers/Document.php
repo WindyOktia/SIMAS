@@ -260,6 +260,7 @@ class Document extends CI_Controller
     {
         $data['page']='daftar_laporan';
         $data['idproposal']=$this->dokumen_model->getProposal();
+        $data['idlaporan']=$this->dokumen_model->getLaporan();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_laporan',$data);
         $this->load->view('templates/footer'); 
@@ -478,6 +479,14 @@ class Document extends CI_Controller
 
         redirect('document/Pengaturan');
     }
+
+    public function generateKuesioner($id)
+    {
+        $insert= $this->dokumen_model->genKuesioner($id);
+        redirect('document/addKuesioner');
+    }
+
+    
 
 
 
