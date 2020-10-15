@@ -20,6 +20,12 @@ class Admin extends CI_Controller
         }
     }
 
+    public function cekPhp()
+    {
+        phpinfo();
+        
+    }
+
     public function informasi()
     {
         $data['page']='informasi';
@@ -274,7 +280,66 @@ class Admin extends CI_Controller
         redirect('admin/mutu');
     }
 
+    public function exportDasbordKegiatan()
+    { 
+        //membuat objek
+        $objPHPExcel = new PHPExcel();
+        $data = $this->db->query("
+            SELECT siswa.*, concat(kelas.kelas,' ', kelas.jurusan,' ',kelas.sub) as kelas
+            FROM siswa
+            LEFT JOIN peserta_kelas ON peserta_kelas.id_siswa=siswa.id_siswa
+            LEFT JOIN kelas ON peserta_kelas.id_kelas = kelas.id_kelas
+            GROUP BY siswa.id_siswa");
+         // Nama Field Baris Pertama
+        $fields = $data->list_fields();
+        
+        $col = 0;
+        foreach ($fields as $field)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $col++;
+        }
+ 
+        // Mengambil Data
+        $row = 2;
+        foreach($data->result() as $data)
+        {
+            $col = 0;
+            foreach ($fields as $field)
+            {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $col++;
+            }
+ 
+            $row++;
+        }
+        $objPHPExcel->setActiveSheetIndex(0);
 
+        //Set Title
+        $objPHPExcel->getActiveSheet()->setTitle('Data Kegiatan Siswa');
+
+
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+       
+        //Save ke .xlsx, kalau ingin .xls, ubah 'Excel2007' menjadi 'Excel5'
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+        //Header
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        //Nama File
+        // header('Content-Disposition: attachment;filename="Survei_Guru"'.$id.'".xlsx"');
+        header('Content-Disposition: attachment;filename="Data_dasbordKegiatan.xlsx"');
+
+        //Download
+        $objWriter->save("php://output");
+    }
 
     // Ricky
 
