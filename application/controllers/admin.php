@@ -14,17 +14,14 @@ class Admin extends CI_Controller
         $this->load->model('pengaturan_model');
         $this->load->model('mutu_model');
         $this->load->model('presensi_model');
+        $this->load->model('dasbord_model');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
         }
     }
 
-    public function cekPhp()
-    {
-        phpinfo();
-        
-    }
+    
 
     public function informasi()
     {
@@ -114,12 +111,31 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function laporan_waka()
+    public function laporan_waka($tahun1,$tahun2)
     {
         $data['page']='dashboard';
-        $data['kelas']=$this->kelas_model->get();
+        $tahun_akademik= $tahun1.' / '.$tahun2;
+        $data['nama_kegiatan']=$this->dasbord_model->getdasbordKeuangan();
+        $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik);
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/kegiatan_laporan');
+        $this->load->view('templates/footer');
+    }
+
+    public function info_kegiatan()
+    {
+        $data['page']='dashboard';
+        $data['info_keuangan']=$this->dasbord_model->getdasbordRataKeuangan();
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/info_Kegiatan',$data);
+        $this->load->view('templates/footer');
+    }
+    public function info_Detailkegiatan()
+    {
+        // $data['page']='dashboard';
+        $data['info_keuangan']=$this->dasbord_model->getdasbordRataKeuangan();
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/detail_kegiatanTahun',$data);
         $this->load->view('templates/footer');
     }
 
