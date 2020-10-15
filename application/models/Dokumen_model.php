@@ -376,25 +376,24 @@ class Dokumen_model extends CI_Model
         $this->db->trans_complete();
     }
     
-    public function getPertanyaan()
+    public function getPertanyaan($id)
     {
         // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
         $this->db->trans_start();
         $this->db->select('pertanyaan_kuesioner.id_pertanyaan, pertanyaan_kuesioner.pertanyaan, kategori_kuesioner.nama_kategori');
         $this->db->from('kategori_kuesioner');
+        $this->db->from('kuesioner_kegiatan');
         $this->db->where('pertanyaan_kuesioner.id_kategori = kategori_kuesioner.id_kategori');
+        $this->db->where('kategori_kuesioner.id_kategori = kuesioner_kegiatan.id_kategori');
+        $this->db->where(['kuesioner_kegiatan.id_kuesioner'=>$id]);
         return $this->db->get('pertanyaan_kuesioner')->result_array();
         $this->db->trans_complete();
     }
 
     public function getJawaban()
     {
-        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
         $this->db->trans_start();
-        $this->db->select('jawaban_kuesioner.id_jawaban, jawaban_kuesioner.jawaban, jawaban_kuesioner.skor_jawaban, kategori_kuesioner.nama_kategori');
-        $this->db->from('kategori_kuesioner');
-        $this->db->where('kategori_kuesioner.id_kategori = jawaban_kuesioner.id_kategori');
-        // $this->db->where(['user.role'=>$this->session->userdata('role')]);
+        $this->db->select('jawaban_kuesioner.id_jawaban, jawaban_kuesioner.jawaban, jawaban_kuesioner.skor_jawaban');
         return $this->db->get('jawaban_kuesioner')->result_array();
         $this->db->trans_complete();
     }
@@ -464,23 +463,6 @@ class Dokumen_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function addJawaban($jawaban)
-    {
-        $this->db->trans_start();
-        $result = array();
-            foreach($jawaban AS $key => $val){
-                 $result[] = array(
-                  'id_kategori'  	=> $_POST['id_kategori'],
-                  'skor_jawaban'  	=> $_POST['skor_jawaban'][$key],
-                  'jawaban'  	=> $_POST['jawaban'][$key]
-                 );
-            }      
-        //MULTIPLE INSERT TO DETAIL TABLE
-        $this->db->insert_batch('jawaban_kuesioner', $result);
-        $this->db->trans_complete();
-        return $this->db->affected_rows();
-    }
-
     public function deleteKuesioner($id)
     {
         $this->db->delete('kuesioner_kegiatan',['id_kuesioner'=>$id]);
@@ -499,11 +481,21 @@ class Dokumen_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function deleteJawaban($id)
-    {
-        $this->db->delete('jawaban_kuesioner',['id_pertanyaan'=>$id]);
-        return $this->db->affected_rows();
-    }
+    // public function getTest()
+    // {
+    //     // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+    //     $this->db->trans_start();
+    //     $this->db->select('trans_kuesioner.id_kuesioner, (SUM(jawaban_kuesioner.skor_jawaban) / (MAX(jawaban_kuesioner.skor_jawaban) * COUNT(pertanyaan_kuesioner.id_pertanyaan)) * 100) AS Nilai ');
+    //     $this->db->from('jawaban_kuesioner');
+    //     $this->db->from('trans_kuesioner');
+    //     $this->db->from('pertanyaan_kuesioner');
+    //     $this->db->from('kategori_kuesioner');
+    //     $this->db->where('trans_kuesioner_opsi.id_jawaban=jawaban_kuesioner.id_jawaban');
+    //     $this->db->where('trans_kuesioner_opsi.id_tkuesioner = trans_kuesioner.id_tkuesioner');
+    //     $this->db->where('pertanyaan_kuesioner.id_kategori = kategori_kuesioner.id_kategori');
+    //     return $this->db->get('trans_kuesioner_opsi')->result_array();
+    //     $this->db->trans_complete();
+    // }
 
     // End Kuesioner
 

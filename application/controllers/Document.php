@@ -336,7 +336,7 @@ class Document extends CI_Controller
         $data['page']='detail_kuesioner';
         $data['kuesioner']=$this->dokumen_model->getKuesioner();
         $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
-        $data['pertanyaan']=$this->dokumen_model->getPertanyaan();
+        $data['pertanyaan']=$this->dokumen_model->getPertanyaan($id);
         $data['kategori']=$this->dokumen_model->getKategori();
         $data['jawaban']=$this->dokumen_model->getJawaban();
         $this->load->view('templates/header',$data);
@@ -373,9 +373,9 @@ class Document extends CI_Controller
         $data['page']='form_kuesioner';
         $data['kuesioner']=$this->dokumen_model->getKuesioner();
         $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
-        $data['pertanyaan']=$this->dokumen_model->getPertanyaan();
+        $data['pertanyaan']=$this->dokumen_model->getPertanyaan($id);
         $data['kategori']=$this->dokumen_model->getKategori();
-        $data['jawaban']=$this->dokumen_model->getJawaban();
+        $data['jawaban']=$this->dokumen_model->getJawaban($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/form_kuesioner',$data);
         $this->load->view('templates/footer');
@@ -441,21 +441,6 @@ class Document extends CI_Controller
         redirect('document/Pengaturan');
     }
 
-    public function do_addJawaban()
-    {
-        $jawaban = $_POST['jawaban'];
-        // echo json_encode ($pertanyaan);
-        $insert= $this->dokumen_model->addJawaban($jawaban);
-        if($insert > 0)
-        {
-            $this->session->set_flashdata('success', 'Jawaban berhasil ditambah');
-        }else
-        {
-            $this->session->set_flashdata('success', 'Jawaban gagal ditambah');
-        }
-        redirect('document/Pengaturan');
-    }
-
     public function deleteKuesioner($id)
     {
         $delete=$this->dokumen_model->deleteKuesioner($id);
@@ -489,18 +474,6 @@ class Document extends CI_Controller
             $this->session->set_flashdata('success', 'Pertanyaan Dihapus'); 
         }else{
             $this->session->set_flashdata('error', 'Pertanyaan Gagal Dihapus'); 
-        }
-
-        redirect('document/Pengaturan');
-    }
-
-    public function deleteJawaban($id)
-    {
-        $delete=$this->dokumen_model->deleteJawaban($id);
-        if($delete > 0){
-            $this->session->set_flashdata('success', 'Jawaban Dihapus'); 
-        }else{
-            $this->session->set_flashdata('error', 'Jawaban Gagal Dihapus'); 
         }
 
         redirect('document/Pengaturan');

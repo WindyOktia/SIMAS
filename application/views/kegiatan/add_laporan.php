@@ -24,7 +24,7 @@
                 CKEDITOR.replace( 'lb_laporan',{height:250} );
             </script>
        </div>
-        
+
         <div class="form-group">
             <label for="">Tujuan</label>
             <textarea name="tujuan_laporan" class="form-control" id="" cols="30" rows="10" ></textarea>

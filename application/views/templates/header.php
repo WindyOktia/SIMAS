@@ -197,6 +197,19 @@
 						<?php }?>
 
 						<?php 
+							$rl=array('5','8');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>
+								<li class="nav-item nav-item-submenu <?php if($page=='pengaturan_kuesioner'||$page=='add_kuesioner'){echo 'nav-item-expanded nav-item-open';};?>">
+									<a href="#" class="nav-link <?php if($page=='pengaturan_kuesioner'||$page=='add_kuesioner'){echo 'active';};?>"><i class="fa fa-gear"></i> <span>Kelola Kuesioner</span></a>
+									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+										<li class="nav-item"><a href="<?= base_url('document/pengaturan')?>" class="nav-link <?php if($page=='pengaturan_kuesioner'){echo 'active';};?>">Pengaturan Kuesioner</a></li>
+										<li class="nav-item"><a href="<?= base_url('document/addKuesioner')?>" class="nav-link <?php if($page=='add_kuesioner'){echo 'active';};?>">Tambah Kuesioner</a></li>
+									</ul>
+								</li>
+						<?php }?>
+
+						<?php 
 							$rl=array('2','4','7');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>
