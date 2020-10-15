@@ -34,7 +34,7 @@
 					<td><?= $psr['nama_ibu']?></td>
 					<td><?= $psr['nama_panggilan_ibu']?></td>
 					<td>
-						<a href="" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
+						<a href="<?= base_url('admin/hapusPeserta')?>/<?=$psr['id_peserta_kelas']?>/<?=$id?>" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
 						<a href="" class="btn btn-sm btn-secondary">Pindah Kelas <i class="ml-1	fa fa-long-arrow-right"></i></a>
 					</td>
 				</tr>

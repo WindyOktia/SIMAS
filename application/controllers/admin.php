@@ -374,6 +374,17 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('success', 'Data Peserta Kelas Ditambahkan');
         redirect('admin/daftarPeserta/'.$id_kelas);
     }
+
+    public function hapusPeserta($id, $backid)
+    {
+        $hapus = $this->kelas_model->hapusPeserta($id);
+        if($hapus >0){
+            $this->session->set_flashdata('success', 'Data Peserta Kelas Dihapus');
+        }else{
+            $this->session->set_flashdata('error', 'Data Peserta Kelas Gagal Dihapus');
+        }
+        redirect('admin/daftarPeserta/'.$backid);
+    }
     // end of kelas
 
     // Mata pelajaran

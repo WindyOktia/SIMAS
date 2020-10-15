@@ -45,11 +45,17 @@ class Kelas_model extends CI_Model
 
     public function daftarPeserta($id)
     {
-        $this->db->select('siswa.*');
+        $this->db->select('siswa.*, peserta_kelas.id_peserta_kelas');
         $this->db->from('siswa');
         $this->db->join('peserta_kelas', 'peserta_kelas.id_siswa = siswa.id_siswa');
         $this->db->where('id_kelas',$id);
         return $this->db->get()->result_array();
+    }
+
+    public function hapusPeserta($id)
+    {
+        $this->db->delete('peserta_kelas',['id_peserta_kelas'=>$id]); 
+        return $this->db->affected_rows();
     }
 
     public function getNamaKelas($id)
