@@ -58,6 +58,14 @@ class Kelas_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function pindahPeserta()
+    {
+        $this->db->set('id_kelas',$_POST['id_kelas']);
+        $this->db->where('id_siswa',$_POST['id_siswa']);
+        $this->db->update('peserta_kelas');
+        return $this->db->affected_rows();
+    }
+
     public function getNamaKelas($id)
     {
         $query =$this->db->get_where('kelas', ['id_kelas'=>$id]);

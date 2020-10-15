@@ -33,15 +33,34 @@ class Siswa extends CI_Controller{
             $nipd= $_GET['nipd'];
             $ibu= $_GET['ibu'];
             $data['dataSiswa']= $this->siswa_model->getSiswaID($nipd,$ibu);
+            $dataSiswa= $this->siswa_model->getSiswaID($nipd,$ibu);
+
+            // save session
+            if(count($dataSiswa)>0){
+                foreach($dataSiswa as $idSiswa)
+                {
+                    $newdata = array(
+                        'id_siswa'  => $idSiswa['id_siswa'],
+                        'nama_siswa'  => $idSiswa['nama_siswa'],
+                        'logged_in' => TRUE
+                    );
+     
+                    $this->session->set_userdata($newdata);
+                }
+            }
         }
         $data['siswa']=$this->siswa_model->daftarSiswa();
         $this->load->view('siswa/validasi',$data);
     }
 
-    public function survei($id)
+    public function survei()
     {
+        if($this->session->userdata('id_siswa')==''){
+            redirect('siswa/validasi');
+        }
+        
         $data['pertanyaan']= $this->survei_model->getPertanyaan();
-        $kelasID = $this->survei_model->getKelasID($id);
+        $kelasID = $this->survei_model->getKelasID();
 
         foreach($kelasID as $kls){
             $data['kelasId']=$kls['id_kelas'];
@@ -57,7 +76,49 @@ class Siswa extends CI_Controller{
         }
         $data['akademik']=$this->pengaturan_model->getAkademik();
 
+        if(isset($_GET['kode']))
+        {
+            $data['kuesionerkegiatan']= $this->survei_model->getSurveikegiatan();
+        }
+
         $this->load->view('siswa/survei',$data);
+    }
+
+    public function addFormkuesioner($id)
+    {
+        $data['page']='form_kuesioner';
+        $data['kuesioner']=$this->dokumen_model->getKuesioner();
+        $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
+        $data['pertanyaan']=$this->dokumen_model->getPertanyaan($id);
+        $data['kategori']=$this->dokumen_model->getKategori();
+        $data['jawaban']=$this->dokumen_model->getJawaban($id);
+        $this->load->view('templates/header_kuesioner',$data);
+        $this->load->view('kegiatan/form_kuesioner',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function do_addFormkuesioner()
+    {
+        // $nipd = $this->session->userdata('nipd');
+        $kuesioner = $_POST['id_kuesioner'];
+        $pertanyaan = $_POST['pertanyaan'];
+        $opsi = $_POST['opsi'];
+        $saran = $_POST['saran'];
+        $insert= $this->survei_model->addFormkuesioner($kuesioner,$pertanyaan,$opsi,$saran);
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Kuesioner berhasil diisi');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Kuesioner gagal diisi');
+        }
+        redirect('siswa/survei');
+    }
+
+    public function logoutSurvei()
+    {
+        $this->session->sess_destroy();
+        redirect('siswa/validasi');
     }
 
     public function nama_siswa()

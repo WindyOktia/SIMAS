@@ -1,4 +1,4 @@
-<form id="signupForm" class="ml-2" action="<?=base_url('document/do_addFormkuesioner')?>" method="post" novalidate="novalidate">
+<form id="signupForm" class="ml-2" action="<?=base_url('Siswa/do_addFormkuesioner')?>" method="post" novalidate="novalidate">
 <div class="card mb-3 border-info">
     <div class="card-header-tab card-header">
         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">

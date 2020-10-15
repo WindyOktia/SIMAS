@@ -442,6 +442,7 @@ class Admin extends CI_Controller
         $data['page']="kelas";
         $data['id']= $id;
         $data['peserta']=$this->kelas_model->daftarPeserta($id);
+        $data['kelas']=$this->kelas_model->get();
         $this->load->view('templates/header',$data);
         $this->load->view('kelas/daftarPeserta',$data);
         $this->load->view('templates/footer');
@@ -463,6 +464,19 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('success', 'Data Peserta Kelas Dihapus');
         }else{
             $this->session->set_flashdata('error', 'Data Peserta Kelas Gagal Dihapus');
+        }
+        redirect('admin/daftarPeserta/'.$backid);
+    }
+
+    public function pindahPeserta()
+    {
+        $backid= $_POST['backid'];
+
+        $pindah = $this->kelas_model->pindahPeserta();
+        if($pindah >0){
+            $this->session->set_flashdata('success', 'Data Peserta Kelas Berhasil Dipindah');
+        }else{
+            $this->session->set_flashdata('error', 'Data Peserta Kelas Gagal Dipindah');
         }
         redirect('admin/daftarPeserta/'.$backid);
     }

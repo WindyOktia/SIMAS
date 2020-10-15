@@ -1,9 +1,5 @@
-<div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
-    <?php if ($this->session->flashdata('flash')) : ?>
-    <?php endif; ?>
-
-<legend>Tambah Kelas</legend>
-<form action="<?= base_url('admin/addKelas')?>" method="post">
+<!-- <legend>Tambah Kelas</legend> -->
+<!-- <form action="<?= base_url('admin/addKelas')?>" method="post">
     <div class="row">
         <div class="col mx-auto my-auto">
 			<select class="form-control" id="exampleFormControlSelect1" name="kelas" >
@@ -28,8 +24,8 @@
 			<button type="submit" class="btn btn-primary btn-sm">Tambah Kelas</button>
         </div>
     </div>
-</form>
-
+</form> -->
+<h4>Tambah Kelas</h4>
 <div class="card mt-3">
     <div class="card-body"> 
     <h5><i class="fa fa-navicon mr-2 text-warning"></i> Daftar Kelas</h5>
