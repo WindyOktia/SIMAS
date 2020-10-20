@@ -96,19 +96,28 @@
                 </form>
                 <?php if(isset($_GET['kode'])){?>
                 <div class="table-responsive">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Nama Kegiatan</td>
-                                <td>bb</td>
-                            </tr>
-                            <tr>
-                                <td>info lain</td>
-                                <td>bb</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                <button class="btn btn-primary btn-sm float-right">Isi Survei Kegiatan</button>
+                <table style="width: 100%;" id="example"
+                    class="table table-hover table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Kegiatan</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Tanggal Selesai</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php $i = 1; foreach ($kuesionerkegiatan as $kuesioner) : ?>
+                <tr>
+                <td class="align-middle"><?= $i++ ?></td>
+                    <td class="align-middle"><?= $kuesioner['nama_kegiatan']; ?></td>
+                    <td class="align-middle"><?= $kuesioner['tgl_mulai']; ?></td>
+                    <td class="align-middle"><?= $kuesioner['tgl_selesai']; ?></td>
+                    <td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="<?= base_url('siswa/addFormkuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Isi Kuesioner</a></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
                 </div>
                 <?php } ?>
             </div>

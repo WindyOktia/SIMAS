@@ -66,7 +66,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/laporan_waka')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
+                <a href="<?=base_url('admin/info_kegiatan')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
             </div>
         </div>
     </div>

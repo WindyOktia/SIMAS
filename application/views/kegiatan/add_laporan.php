@@ -12,7 +12,15 @@
             <label for="">Nama Kegiatan</label>
             <select name="id_proposal" id="" class="form-control">
                 <?php foreach($idproposal as $idprop):?>
-                <option value="<?=$idprop['id_proposal']?>"><?=$idprop['nama_kegiatan']?> - <?=$idprop['tahun_akademik']?> - <?=$idprop['semester']?></option>
+                    <?php foreach ($idlaporan as $idlap):?>
+					    <?php
+                            if($idproposal['id_proposal']!=$idlaporan['id_proposal'] ){
+                                echo '<option value="'.$idprop['id_proposal'].'">'.$idprop['nama_kegiatan'].' - '.$idprop['tahun_akademik'].' - '.$idprop['semester'].'</option>';
+                            } else {
+                                echo '<option value="" class="disabled"></option>';
+                            }
+                        ?>
+				    <?php endforeach;?>
                 <?php endforeach?>
             </select>
         </div>
