@@ -377,7 +377,18 @@ class Dokumen_model extends CI_Model
         $this->db->trans_complete();
     }
     
-    public function getPertanyaan($id)
+    public function getPertanyaan()
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('pertanyaan_kuesioner.id_pertanyaan, pertanyaan_kuesioner.pertanyaan, kategori_kuesioner.nama_kategori');
+        $this->db->from('kategori_kuesioner');
+        $this->db->where('pertanyaan_kuesioner.id_kategori = kategori_kuesioner.id_kategori');
+        return $this->db->get('pertanyaan_kuesioner')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getIDPertanyaan($id)
     {
         // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
         $this->db->trans_start();
@@ -492,6 +503,35 @@ class Dokumen_model extends CI_Model
         ];
         $this->db->insert('kode_kuesioner', $data);
         return true;
+    }
+
+    public function getPenugasan()
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('penugasan.id_tugas, proposal.nama_kegiatan, guru.nama_guru, guru.nip');
+        $this->db->from('guru');
+        $this->db->from('proposal');
+        $this->db->where('penugasan.id_guru = guru.id_guru');
+        $this->db->where('proposal.id_proposal = penugasan.id_proposal');
+        return $this->db->get('penugasan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function addPenugasan()
+    {
+        $data=[
+            'id_proposal'=>$_POST['id_proposal'],
+            'id_guru'=>$_POST['id_guru']
+        ];
+        $this->db->insert('penugasan',$data);
+        return $this->db->affected_rows();
+    }
+
+    public function deletePenugasan($id)
+    {
+        $this->db->delete('penugasan',['id_tugas'=>$id]);
+        return $this->db->affected_rows();
     }
 
 
