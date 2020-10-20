@@ -89,7 +89,7 @@ class Siswa extends CI_Controller{
         $data['page']='form_kuesioner';
         $data['kuesioner']=$this->dokumen_model->getKuesioner();
         $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
-        $data['pertanyaan']=$this->dokumen_model->getPertanyaan($id);
+        $data['pertanyaan']=$this->dokumen_model->getIDPertanyaan($id);
         $data['kategori']=$this->dokumen_model->getKategori();
         $data['jawaban']=$this->dokumen_model->getJawaban($id);
         $this->load->view('templates/header_kuesioner',$data);

@@ -82,6 +82,11 @@
 					</a>
 				</li>
 				<li class="nav-item dropdown dropdown-user">
+					<a href="<?=base_url('presensi/mengajar')?>" target="_blank" class="navbar-nav-link d-flex align-items-center">
+						<span>Presensi Mengajar</span>
+					</a>
+				</li>
+				<li class="nav-item dropdown dropdown-user">
 					<a href="<?=base_url('siswa/validasi')?>" target="_blank" class="navbar-nav-link d-flex align-items-center">
 						<span>E - survei</span>
 					</a>

@@ -87,4 +87,11 @@ class Presensi extends CI_Controller
     {
         echo json_encode($this->presensi_model->getNama()).' pada jam <b>'. date('H:i:s').'</b>';
     }
+
+    public function mengajar()
+    {
+        $this->load->view('templates/header_presensi');
+        $this->load->view('presensi/mengajar');
+        $this->load->view('templates/footer');
+    }
 }

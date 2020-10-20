@@ -337,7 +337,7 @@ class Document extends CI_Controller
         $data['page']='detail_kuesioner';
         $data['kuesioner']=$this->dokumen_model->getKuesioner();
         $data['kuesionerID']=$this->dokumen_model->getKuesionerID($id);
-        $data['pertanyaan']=$this->dokumen_model->getPertanyaan($id);
+        $data['pertanyaan']=$this->dokumen_model->getIDPertanyaan($id);
         $data['kategori']=$this->dokumen_model->getKategori();
         $data['jawaban']=$this->dokumen_model->getJawaban();
         $this->load->view('templates/header',$data);
@@ -454,10 +454,46 @@ class Document extends CI_Controller
         $insert= $this->dokumen_model->genKuesioner($id);
         redirect('document/addKuesioner');
     }
-
+    //
     
+    // Penugasan
 
+    public function penugasan()
+    {
+        $data['page']='form_penugasan';
+        $data['dokumenproposal']=$this->dokumen_model->getProposal();
+        $data['penugasan']=$this->dokumen_model->getPenugasan();
+        $data['guru']=$this->guru_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('kegiatan/form_penugasan',$data);
+        $this->load->view('templates/footer');
+    }
 
+    public function do_addpenugasan()
+    {
+        $insert= $this->dokumen_model->addPenugasan();
+        if($insert > 0)
+        {
+            $this->session->set_flashdata('success', 'Penugasan berhasil ditambah');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Penugasan gagal ditambah');
+        }
+        redirect('document/penugasan');
+    }
+
+    public function deletePenugasan($id)
+    {
+        $delete=$this->dokumen_model->deletePenugasan($id);
+
+        if($delete > 0){
+            $this->session->set_flashdata('success', 'Penugasan Dihapus'); 
+        }else{
+            $this->session->set_flashdata('error', 'Penugasan Gagal Dihapus'); 
+        }
+
+        redirect('document/penugasan');
+    }
 
     // 
     
