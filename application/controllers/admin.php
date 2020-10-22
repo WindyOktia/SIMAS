@@ -117,8 +117,9 @@ class Admin extends CI_Controller
         $tahun_akademik= $tahun1.' / '.$tahun2;
         $data['nama_kegiatan']=$this->dasbord_model->getdasbordKeuangan();
         $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik);
+        $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik);
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/kegiatan_laporan');
+        $this->load->view('dashboard/kegiatan_laporan',$data);
         $this->load->view('templates/footer');
     }
 

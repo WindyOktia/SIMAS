@@ -198,19 +198,19 @@
                 <li>
                     <div class="row h6">
                         <div class="col-md-12">Rata-Rata Anggaran</div>
-                        <div class="col-md-12"><?=$rt_uang['rata_anggaran'];?></div>
+                        <div class="col-md-12">Rp. <?=$rt_uang['rata_anggaran'];?></div>
                     </div>
                 </li>
                 <li>
                     <div class="row h6">
                         <div class="col-md-12">Rata-Rata Pendapatan Biaya </div>
-                        <div class="col-md-12 "><?=$rt_uang['rata_pendapatan'];?></div>
+                        <div class="col-md-12 ">Rp. <?=$rt_uang['rata_pendapatan'];?></div>
                     </div>
                 </li>
                 <li>
                     <div class="row h6">
                         <div class="col-md-12">Rata-Rata Pengeluaran Biaya </div>
-                        <div class="col-md-12"><?=$rt_uang['rata_pengeluaran'];?></div>
+                        <div class="col-md-12">Rp. <?=$rt_uang['rata_pengeluaran'];?></div>
                     </div>
                 </li>
             </ol>
@@ -230,7 +230,6 @@
     </div>
 
 </div>
-
 
 <script>
 var dash1 = document.getElementById('dashSiswa').getContext('2d');
@@ -460,63 +459,21 @@ var chart = document.getElementById('dashPendanaan').getContext('2d');
 var chartBiaya = new Chart(chart, {
 	type: 'bar',
 	data: {
-		labels: ['Basket', 'Futsal','Renang','Bulutangkis','Catur'],
-		datasets: [{
-			label: 'Anggaran',
-			data: [12, 19, 10, 17, 2],
-			backgroundColor: [
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(255, 99, 132, 0.2)',
-			],
-            borderWidth: 2 ,
-            fill: true
-        },
-        {
-            label: 'Pengeluaran Biaya',
-			data: [5, 12, 16, 19, 22],
-			backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-			],
-            borderWidth: 2 ,
-            fill: true
-            
-        },
-        {
-            label: 'Pendapatan Biaya',
-			data: [6, 10, 15, 20, 25],
-			backgroundColor: [
-                '#EE4B6A',
-                '#EE4B6A',
-                '#EE4B6A',
-                '#EE4B6A',
-                '#EE4B6A',
-                
-                
-			],
-            borderWidth: 2 ,
-            fill: true
-            
-        }
-    ]
-}
-});
 
-var chart = document.getElementById('dashPendanaan').getContext('2d');
-var chartBiaya = new Chart(chart, {
-	type: 'bar',
-	data: {
-		labels: ['Basket', 'Futsal','Renang','Bulutangkis','Catur'],
+		labels: [
+            <?php foreach ($infoKegiatan as $nm_kegiatan):?>
+            '<?=$nm_kegiatan['nama_kegiatan']?>',
+            <?php endforeach ?>
+            ],
 		datasets: [{
 			label: 'Anggaran',
-			data: [12, 19, 10, 17, 2],
+			data: [
+                //foreach
+                <?php foreach ($infoKegiatan as $anggaran):?>
+                '<?=$anggaran['rata_anggaran']?>',
+                <?php endforeach ?>
+                //end foreach
+                ],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(255, 99, 132, 0.2)',
@@ -528,8 +485,12 @@ var chartBiaya = new Chart(chart, {
             fill: true
         },
         {
-            label: 'Pengeluaran Biaya',
-			data: [5, 12, 16, 19, 22],
+            label: 'Pendapatan Biaya',
+			data: [
+                <?php foreach ($infoKegiatan as $pendapatan):?>
+            '<?=$pendapatan['rata_pendapatan']?>',
+            <?php endforeach ?>
+            ],
 			backgroundColor: [
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -543,22 +504,33 @@ var chartBiaya = new Chart(chart, {
             
         },
         {
-            label: 'Pendapatan Biaya',
-			data: [6, 10, 15, 20, 25],
+            label: 'Pengeluaran Biaya',
+			data: [
+                <?php foreach ($infoKegiatan as $pengeluaran):?>
+            '<?=$pengeluaran['rata_pengeluaran']?>',
+            <?php endforeach ?>
+            ],
 			backgroundColor: [
                 '#EE4B6A',
                 '#EE4B6A',
                 '#EE4B6A',
                 '#EE4B6A',
                 '#EE4B6A',
-                
-                
 			],
             borderWidth: 2 ,
             fill: true
             
         }
     ]
-}
+},
+options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
 });
 </script>

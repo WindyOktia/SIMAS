@@ -1,23 +1,34 @@
-<div class="card card-body">
-    <h3>Dashboard</h3>
-    <div class="row form-group">
-    <div class="col-md-2">
+<h3><i class="fa fa-info-circle mr-1"></i>Dashbord Mutu Sekolah</h3>
+<div class="card card-body border-info mt-2">
+    <form action="" id="filterRentang" method="get">
+        <div class="form-group my-auto">
+            <!-- <label for="">Filter Tahun Akademik</label> -->
+            <div class="form-check form-check-switchery">
+                <label class="form-check-label">
+                    <input type="checkbox" name="rentang" id="useRentang" class="form-check-input-switchery" data-fouc 
+                    <?php if(isset($_GET['rentang'])&&$_GET['rentang']=='on'){echo 'checked';};?>
+                    >
+                    Rentang Tahun
+                </label>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-2">
                     <select name="dari" id="" class="form-control">
-                        <option value="semua">Tahun Akademik</option>
+                        <option value="semua">semua tahun</option>
                         <option value="2018/2019">2018/2019</option>
                         <option value="2019/2020">2019/2020</option>
                     </select>
                 </div>
-
+                <?php if(isset($_GET['rentang'])&&$_GET['rentang']=='on'){?>
                 <span class=" my-auto"> sampai </span>
                 <div class="col-md-2">
                     <select name="sampai" id="" class="form-control">
-                        <option value="semua">Tahun Akademik</option>
+                        <option value="semua">semua tahun</option>
                         <option value="2018/2019">2018/2019</option>
                         <option value="2019/2020">2019/2020</option>
                     </select>
                 </div>
-
+                <?php };?>
                 <div class="col-md-2">
                     <select name="semester" id="" class="form-control">
                         <option value="semua" >semua semester</option>
@@ -28,7 +39,13 @@
                 <div class="col-md-2 ml-5">
                     <button type="submit" class="btn btn-success btn-block ">Filter Data</button>
                 </div>
-    </div>
+                <div class="col-md-2 ml-3">
+                   <a href="<?=base_url('admin/info')?>" class="btn btn-danger btn-block">Hapus Filter</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
     <div class="row">
         <div class="col-md-6">
