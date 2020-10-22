@@ -335,6 +335,20 @@ class Dokumen_model extends CI_Model
         return $this->db->get('laporan')->result_array();
         $this->db->trans_complete();
     }
+
+    public function getProposalLaporan()
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('proposal.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, user.nama');
+        $this->db->from('user');
+        $this->db->from('laporan');
+        $this->db->where('proposal.id_user = user.id_user');
+        $this->db->where('proposal.id_proposal != laporan.id_proposal');
+        $this->db->where(['user.role'=>$this->session->userdata('role')]);
+        return $this->db->get('proposal')->result_array();
+        $this->db->trans_complete();
+    }
     // End Laporan
 
     // Kuesioner

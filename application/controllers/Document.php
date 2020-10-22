@@ -259,8 +259,7 @@ class Document extends CI_Controller
     public function addLaporan()
     {
         $data['page']='daftar_laporan';
-        $data['idproposal']=$this->dokumen_model->getProposal();
-        $data['idlaporan']=$this->dokumen_model->getLaporan();
+        $data['idproposal']=$this->dokumen_model->getProposalLaporan();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_laporan',$data);
         $this->load->view('templates/footer'); 
