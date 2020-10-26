@@ -40,4 +40,15 @@ class dasbord_model extends CI_Model
         WHERE proposal.id_proposal = laporan.id_proposal AND proposal.tahun_akademik = "'.$tahun_akademik.'"
         GROUP BY proposal.tahun_akademik, proposal.semester, proposal.nama_kegiatan ASC')->result_array();
     }
+
+    public function getKegiatan($tahun_akademik)
+    {
+        return $this->db->query('SELECT trans_kuesioner.id_kuesioner, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, 
+        FLOOR((SUM(jawaban_kuesioner.skor_jawaban) / (COUNT(trans_kuesioner_opsi.id_pertanyaan) * (SELECT MAX(jawaban_kuesioner.skor_jawaban) FROM jawaban_kuesioner)) * 100 )) 
+        AS Nilai FROM trans_kuesioner_opsi, jawaban_kuesioner, pertanyaan_kuesioner, trans_kuesioner, kategori_kuesioner, proposal, kuesioner_kegiatan 
+        WHERE trans_kuesioner_opsi.id_jawaban=jawaban_kuesioner.id_jawaban AND trans_kuesioner_opsi.id_pertanyaan=pertanyaan_kuesioner.id_pertanyaan 
+        AND trans_kuesioner_opsi.id_tkuesioner = trans_kuesioner.id_tkuesioner AND proposal.id_proposal = kuesioner_kegiatan.id_proposal 
+        AND kuesioner_kegiatan.id_kuesioner = trans_kuesioner.id_kuesioner AND proposal.tahun_akademik = "'.$tahun_akademik.'"
+        GROUP BY trans_kuesioner.id_kuesioner ASC')->result_array();
+    }
 }

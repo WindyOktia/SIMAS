@@ -89,8 +89,10 @@ class Admin extends CI_Controller
     public function info()
     {
         $data['page']='dashboard';
+        $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
+        $data['tahun_akademik']=$this->mutu_model->gettahunAkademik();
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/infoMutu');
+        $this->load->view('dashboard/infoMutu',$data);
         $this->load->view('templates/footer');
     }
 
@@ -118,6 +120,7 @@ class Admin extends CI_Controller
         $data['nama_kegiatan']=$this->dasbord_model->getdasbordKeuangan();
         $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik);
         $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik);
+        $data['kegiatan']=$this->dasbord_model->getKegiatan($tahun_akademik);
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/kegiatan_laporan',$data);
         $this->load->view('templates/footer');

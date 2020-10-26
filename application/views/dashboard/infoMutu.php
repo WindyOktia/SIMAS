@@ -15,8 +15,15 @@
                 <div class="col-md-2">
                     <select name="dari" id="" class="form-control">
                         <option value="semua">semua tahun</option>
-                        <option value="2018/2019">2018/2019</option>
-                        <option value="2019/2020">2019/2020</option>
+                        <?php foreach ($tahun_akademik as $th_1): ?>
+                        <option value="<?=$th_1['tahun_akademik']?>"
+                            <?php if (isset($_GET['dari']) && $_GET['dari'] == $th_1['tahun_akademik'])
+                            {
+                                echo 'selected';
+                            }
+                            ?>
+                        ><?=$th_1['tahun_akademik']?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <?php if(isset($_GET['rentang'])&&$_GET['rentang']=='on'){?>
@@ -24,16 +31,35 @@
                 <div class="col-md-2">
                     <select name="sampai" id="" class="form-control">
                         <option value="semua">semua tahun</option>
-                        <option value="2018/2019">2018/2019</option>
-                        <option value="2019/2020">2019/2020</option>
+                        <?php foreach ($tahun_akademik as $th_2): ?>
+                        <option value="<?=$th_2['tahun_akademik']?>"
+                        <?php if (isset($_GET['sampai']) && $_GET['sampai'] == $th_2['tahun_akademik'])
+                            {
+                                echo 'selected';
+                            }
+                            ?>
+                        ><?=$th_2['tahun_akademik']?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <?php };?>
                 <div class="col-md-2">
                     <select name="semester" id="" class="form-control">
                         <option value="semua" >semua semester</option>
-                        <option value="Genap" >Genap</option>
-                        <option value="Ganjil" >Ganjil</option>
+                        <option value="Genap" 
+                        <?php if (isset($_GET['semester']) && $_GET['semester'] == 'Genap')
+                            {
+                                echo 'selected';
+                            }
+                            ?>
+                        >Genap</option>
+                        <option value="Ganjil" 
+                        <?php if (isset($_GET['semester']) && $_GET['semester'] == 'Ganjil')
+                            {
+                                echo 'selected';
+                            }
+                            ?>
+                        >Ganjil</option>
                     </select>
                 </div>
                 <div class="col-md-2 ml-5">
@@ -79,8 +105,16 @@
                         2 Tahun Terakhir
                         <div class="mb-3"></div>
                         <h5><b>Kriteria</b></h5>
-                        Baik : <br>
-                        Kurang Baik : 
+                        <?php foreach ($nilai_kegiatan as $nilai): ?>
+                            <?php 
+                                $baik=$nilai['Baik'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
+                                $cukup=$nilai['Cukup'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
+                                $kurang=$nilai['Kurang'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
+                            ?>
+                        Baik    : <?= $baik; ?> %<br>
+                        Cukup   : <?= $cukup; ?> %<br>
+                        Kurang  : <?= $kurang; ?> %
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <a href="<?=base_url('admin/info_kegiatan')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
@@ -121,10 +155,16 @@ var dash1 = document.getElementById('dashSiswa').getContext('2d');
 var dashSiswa = new Chart(dash1, {
 	type: 'pie',
 	data: {
-		labels: ['Good Boy', 'Bad Boy'],
+		labels: [
+            'Baik', 'Cukup', 'Kurang'
+            ],
 		datasets: [{
 			label: '# of Votes',
-			data: [12, 19],
+			data: [
+               <?= $baik; ?>,
+               <?= $cukup; ?>,
+               <?= $kurang; ?>
+            ],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(54, 162, 235, 0.2)'
