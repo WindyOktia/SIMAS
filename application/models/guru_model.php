@@ -154,25 +154,56 @@ class Guru_model extends CI_Model
             'id_guru'=>$_POST['id_guru'],
             'jenis_ijin'=>$_POST['jenis'],
             'perihal_ijin'=>$_POST['perihal'],
-            'tanggal_pengajuan'=>date('Y-m_d'),
+            'tanggal_pengajuan'=>date('Y-m-d H-i-s'),
             'tanggal_mulai'=>$_POST['tgl_mulai'],
             'tanggal_selesai'=>$_POST['tgl_selesai'],
             'deskripsi'=>$_POST['deskripsi']
         ];
 
         $this->db->insert('ijin',$data);
+        return $this->db->insert_id();
+        // return $this->db->affected_rows();
+    }
+
+    public function addStatus($id,$stat,$catatan)
+    {
+        $data=[
+            'id_ijin'=>$id,
+            'status'=> $stat,
+            'catatan'=>$catatan,
+            'tanggal'=>date('Y-m-d H-i-s')
+        ];
+
+        $this->db->insert('status_ijin',$data);
         return $this->db->affected_rows();
     }
 
     public function getIjin()
     {
-        return $this->db->get('ijin')->result_array();
+        return $this->db->query('SELECT ijin.*,guru.nama_guru FROM ijin, guru WHERE ijin.id_guru=guru.id_guru ORDER BY ijin.tanggal_pengajuan DESC')->result_array();
+    }
+
+    public function getIjinID($id)
+    {
+        return $this->db->query('SELECT ijin.*,guru.nama_guru FROM ijin, guru WHERE ijin.id_guru=guru.id_guru AND guru.id_guru="'.$id.'" ORDER BY ijin.tanggal_pengajuan DESC')->result_array();
     }
 
     public function hapusIjin($id)
     {
         $this->db->delete('ijin',['id_ijin'=>$id]);
         return $this->db->affected_rows();
+    }
+
+    public function getIdGuru()
+    {
+        return $this->db->get_where('guru',['nip'=>$this->session->userdata('username')])->result_array();
+    }
+
+    
+
+    public function getStatusIjin()
+    {
+        return $this->db->query('Select status_ijin.id_status_ijin, status_ijin.id_ijin, status_ijin.tanggal, status_ijin.status, status_ijin.catatan From status_ijin GROUP BY status_ijin.id_ijin DESC')->result_array();
     }
 
 }

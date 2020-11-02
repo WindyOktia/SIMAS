@@ -15,22 +15,24 @@
             <label for="">Jenis Ijin</label>
             <select name="jenis" id="" class="form-control" required>
                 <option value="" selected disabled>- pilih -</option>
-                <option value="Sakit">Sakit</option>
-                <option value="Ijin">Ijin</option>
-                <option value="Tugas">Tugas</option>
-                <option value="Lainnya">Lain-lain</option>
+                <option value="1">Sakit</option>
+                <option value="2">Ijin</option>
+                <option value="3">Tugas</option>
+                <option value="00">Lain-lain</option>
             </select>
         </div>
         <div class="form-group col-md-12" >
             <label for="">Perihal Ijin</label>
-            <input type="hidden" name="id_guru" value="<?= $this->session->userdata('id_user')?>" class="form-control" required>
+            <?php foreach($getIdGuru as $id):?>
+            <input type="hidden" name="id_guru" value="<?=$id['id_guru']?>" class="form-control" required>
+            <?php endforeach?>
             <input type="text" name="perihal" class="form-control" required>
         </div>
         <div class="form-group col-md-12">
             <label for="">Tanggal ijin</label>
             <div class="row">
                 <div class="col-md-3">
-                    <input type="date" name="tgl_mulai" class="form-control" required>
+                    <input type="date" name="tgl_mulai" value="<?= date('Y-m-d')?>" class="form-control" required>
                 </div>
                 <span class="my-auto">sampai</span>
                 <div class="col-md-3">
@@ -61,8 +63,10 @@
             <tr>
                 <th>No</th>
                 <th>Perihal</th>
+                <th>Tanggal Pengajuan</th>
                 <th>Tanggal Mulai</th>
-                <th>Status</th>
+                <th>Durasi</th>
+                <th>Status Terakhir</th>
                 <th style="width:30%">Detail</th>
             </tr>
         </thead>
@@ -70,28 +74,57 @@
         <?php $i=1; foreach($ijin as $dafIjin):?>
             <tr>
                 <td><?=$i++?></td>
-                <td><?=$dafIjin['perihal_ijin']?></td>
-                <td><?=$dafIjin['tanggal_pengajuan']?></td>
-                
                 <td>
                     <?php
-                        if($dafIjin['status']=='0'){
+                        $string =  $dafIjin['perihal_ijin'];
+                        $string = character_limiter($string, 25);
+                        echo $string;
+                    ?>
+                </td>
+                <td><?=$dafIjin['tanggal_pengajuan']?></td>
+                <td><?=$dafIjin['tanggal_mulai']?></td>
+                <td>
+                    <?php
+                        $date1 = strtotime($dafIjin['tanggal_mulai']);
+                        $date2 = strtotime($dafIjin['tanggal_selesai']);
+                        $datediff = $date2 - $date1;
+                            
+                        echo (round($datediff / (60 * 60 * 24)))+1;
+                    ?>
+                </td>
+                
+                <td>
+                    <?php foreach($statusIjin as $stat):?>
+                        <?php if($stat['id_ijin']==$dafIjin['id_ijin']){?>
+                     <?php
+                        if($stat['status']=='0'){
                             echo '<div class="badge badge-warning">Belum terverifikasi</div>';
                         }
-                        if($dafIjin['status']=='1'){
+                        if($stat['status']=='2'){
                             echo '<div class="badge badge-danger">Ditolak</div>';
                         }
-                        if($dafIjin['status']=='2'){
+                        if($stat['status']=='1'){
                             echo '<div class="badge badge-success">Disetujui</div>';
                         }
                     ?>
+                    <?php }?>
+                    <?php endforeach?>
+
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalDetail">
-                    <i class="fa fa-eye"></i>
-                    </button>
+                    
                     <a href="" class="ml-2 btn btn-sm btn-success"><i class="fa fa-download"></i></a>
-                    <a href="<?=base_url('guru/hapusIjin')?>/<?=$dafIjin['id_ijin']?>" class="btn btn-danger btn-sm ml-2 tombol-hapus"><i class="fa fa-window-close"></i></a>
+                    <?php foreach($statusIjin as $stat2):?>
+                        <?php if($stat2['id_ijin']==$dafIjin['id_ijin']){?>
+                     <?php if($stat2['status']=='0'){?>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalDetail">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <a href="<?=base_url('guru/hapusIjin')?>/<?=$dafIjin['id_ijin']?>" class="btn btn-danger btn-sm ml-2 tombol-hapus"><i class="fa fa-window-close"></i></a>
+                     <?php } ?>
+                    <?php }?>
+                    <?php endforeach?>
+                    
                 </td>
             </tr>
         <?php endforeach?>

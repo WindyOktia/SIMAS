@@ -401,6 +401,18 @@
 									</a>
 								</li>
 						<?php }?>
+								
+						<?php 
+							$rl=array('4');
+							$role=$this->session->userdata('role');
+							if(in_array($role,$rl)){ ?>		
+								<li class="nav-item">
+									<a href="<?= base_url('admin/ijinGuru')?>" class="nav-link <?php if($page=='ijin'){echo 'active';};?>">
+										<i class="fa fa-plus-circle"></i>
+										<span>Ijin Guru</span>
+									</a>
+								</li>
+						<?php }?>
 
 						<?php 
 							$rl=array('3','4');

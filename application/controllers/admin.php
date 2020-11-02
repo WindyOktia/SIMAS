@@ -15,6 +15,7 @@ class Admin extends CI_Controller
         $this->load->model('mutu_model');
         $this->load->model('presensi_model');
         $this->load->model('dasbord_model');
+        $this->load->helper('text');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -626,6 +627,32 @@ class Admin extends CI_Controller
         redirect('admin/jadwalMengajar/'.$backid);
     }
     // end of guru
+
+    // verifikasi ijin guru
+    public function ijinGuru()
+    {
+        $data['page']='ijin';
+        $data['ijin']=$this->guru_model->getIjin();
+        $data['statIjin']=$this->guru_model->getStatusIjin();
+        $this->load->view('templates/header',$data);
+        $this->load->view('guru/verifikasiIjin',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addStatIjin()
+    {
+        $id = $_POST['id_ijin'];
+        $stat = $_POST['status'];
+        $catatan = $_POST['catatan'];
+        $update=$this->guru_model->addStatus($id,$stat,$catatan);
+        if($update > 0){
+            $this->session->set_flashdata('success', 'Status Berhasil Diubah');
+        }else{
+            $this->session->set_flashdata('danger', 'Status Gagal Diubah');
+        }
+        redirect('admin/ijinGuru');
+    }
+    // end of verifikasi ijin guru
 
     // presensi
     public function daftarPresensi()
