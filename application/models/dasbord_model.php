@@ -11,7 +11,7 @@ class dasbord_model extends CI_Model
 
     public function getdasbordRataKeuangan()
     {
-        $this->db->select('proposal.tahun_akademik, Floor(AVG(proposal.tot_anggaran)) AS rata_anggaran, 
+        $this->db->select('proposal.tahun_akademik, proposal.semester, Floor(AVG(proposal.tot_anggaran)) AS rata_anggaran, 
         Floor(AVG(laporan.biaya_pendapatan)) AS rata_pendapatan, 
         Floor(AVG(laporan.biaya_pengeluaran)) AS rata_pengeluaran, COUNT(proposal.id_proposal) AS terlaksana');
         $this->db->from('laporan');

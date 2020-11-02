@@ -5,6 +5,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Tahun Akademik</th>
+                    <th scope="col">Semester</th>
                     <th scope="col">Rata - Rata Anggaran</th>
                     <th scope="col">Rata - Rata Pendapatan</th>
                     <th scope="col">Rata - Rata Pengeluaran</th>
@@ -20,6 +21,7 @@
             <tr>
             <td><?=$i++?></td>
 				<td><b><?= $info['tahun_akademik']?></b></td>
+				<td><b><?= $info['semester']?></b></td>
 				<td><?= $info['rata_anggaran']?></td>
 				<td><?= $info['rata_pendapatan']?></td>
 				<td><?= $info['rata_pengeluaran']?></td>
