@@ -84,6 +84,59 @@ class Mutu_model extends CI_Model
         SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
         FROM v_nilai')->result_array();
     }
+    
+    public function getnilaiBeetwen0($dari)
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai where tahun_akademik 
+        BETWEEN "'.$dari.'" AND (SELECT Max(tahun_akademik)FROM v_nilai)')->result_array();
+    }
+    public function getnilaiBeetwen1($dari,$sampai)
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai where tahun_akademik BETWEEN "'.$dari.'" AND "'.$sampai.'"')->result_array();
+    }
+
+    public function getnilaiBeetwen2($dari,$sampai,$semester)
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai where semester="'.$semester.'" AND tahun_akademik 
+        BETWEEN "'.$dari.'" AND "'.$sampai.'"')->result_array();
+    }
+    
+    public function getnilaiBeetwen3($sampai,$semester)
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai where semester="'.$semester.'" AND tahun_akademik 
+        BETWEEN (SELECT MIN(tahun_akademik)FROM v_nilai) AND "'.$sampai.'"')->result_array();
+    }
+
+    public function getnilaiBeetwen4($semester)
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai where semester="'.$semester.'"')->result_array();
+    }
+
+    public function getnilaiBeetwen5($dari,$semester)
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai where semester="'.$semester.'" AND tahun_akademik 
+        BETWEEN "'.$dari.'" AND (SELECT MIN(tahun_akademik)FROM v_nilai)')->result_array();
+    }
+    
+    public function getnilaiBeetwen6($sampai)
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai where tahun_akademik 
+        BETWEEN (SELECT MIN(tahun_akademik)FROM v_nilai) AND "'.$sampai.'"')->result_array();
+    }
 
     public function gettahunAkademik()
     {

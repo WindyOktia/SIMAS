@@ -127,7 +127,38 @@ class Admin extends CI_Controller
             $sampai = $_GET['sampai'];
             $semester = $_GET['semester'];
 
-            $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatanModel2();
+            if($dari=='semua' && $sampai=='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
+
+            }else if($dari!='semua' && $sampai=='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen0($dari);
+                
+            }else if($dari!='semua' && $sampai!='semua' && $semester=='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen1($dari,$sampai);
+                
+            }else if($dari!='semua' && $sampai!='semua' && $semester!='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen2($dari,$sampai,$semester);
+                
+            }else if($dari=='semua' && $sampai!='semua' && $semester!='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen3($sampai,$semester);
+
+            }else if($dari=='semua' && $sampai=='semua' && $semester!='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen4($semester);
+                
+            }else if($dari!='semua' && $sampai=='semua' && $semester!='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen5($dari,$semester);
+                
+            }else if($dari=='semua' && $sampai!='semua' && $semester=='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen6($sampai);
+            }
         }
 
         $this->load->view('templates/header',$data);
