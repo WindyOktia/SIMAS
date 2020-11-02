@@ -102,9 +102,23 @@ class Admin extends CI_Controller
             $dari = $_GET['dari'];
             $semester = $_GET['semester'];
 
-          
-            echo 'model satu';
-            $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatanModel1();
+            if($dari=='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
+
+            }else if($dari!='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getmodel1NonSemester($dari);
+                
+            }else if($dari =='semua' && $semester !='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getmodel1Semester($semester);
+
+            }else if($dari !='semua' && $semester !='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getmodel1Semua($dari,$semester);
+
+            }
         }
 
         if(isset($_GET['key1']) && isset($_GET['key2']))
@@ -113,8 +127,6 @@ class Admin extends CI_Controller
             $sampai = $_GET['sampai'];
             $semester = $_GET['semester'];
 
-          
-            echo 'model dua';
             $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatanModel2();
         }
 

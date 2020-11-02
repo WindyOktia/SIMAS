@@ -35,7 +35,7 @@
                     
                 <input type="hidden" name="key2" value="true">
 
-                
+
                     <select name="sampai" id="" class="form-control">
                         <option value="semua">semua tahun</option>
                         <?php foreach ($tahun_akademik as $th_2): ?>
@@ -118,6 +118,10 @@
                                     $baik = 0;
                                     $cukup=0;
                                     $kurang=0;
+                                }else if($nilai['Baik']==0 && $nilai['Cukup']==0 && $nilai['Kurang']==0){
+                                    $baik = 0;
+                                    $cukup=0;
+                                    $kurang=0;
                                 }else{
                                     $baik=$nilai['Baik'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
                                     $cukup=$nilai['Cukup'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
@@ -128,6 +132,9 @@
                         Cukup   : <?= $cukup; ?> %<br>
                         Kurang  : <?= $kurang; ?> %
                         <?php endforeach ?>
+                                <br>
+                                <br>
+                        <?= json_encode($nilai_kegiatan);?>
                     </div>
                 </div>
                 <a href="<?=base_url('admin/info_kegiatan')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
