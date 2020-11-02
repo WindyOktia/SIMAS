@@ -92,7 +92,7 @@
                         <h5><b>Tahun Ajaran</b></h5>
                         2 Tahun Terakhir
                         <div class="mb-3"></div>
-                        <h5><b>Kriteria</b></h5>
+                        <h5><b>Persentase</b></h5>
                         Baik : <br>
                         Kurang Baik : 
                     </div>
@@ -111,7 +111,7 @@
                         <h5><b>Tahun Ajaran</b></h5>
                         2 Tahun Terakhir
                         <div class="mb-3"></div>
-                        <h5><b>Kriteria</b></h5>
+                        <h5><b>Persentase</b></h5>
                         <?php foreach ($nilai_kegiatan as $nilai): ?>
                             <?php 
                                 if($nilai['Baik']==null||$nilai['Cukup']==null||$nilai['Kurang']==null){
