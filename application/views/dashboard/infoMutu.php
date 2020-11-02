@@ -107,9 +107,15 @@
                         <h5><b>Kriteria</b></h5>
                         <?php foreach ($nilai_kegiatan as $nilai): ?>
                             <?php 
-                                $baik=$nilai['Baik'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
-                                $cukup=$nilai['Cukup'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
-                                $kurang=$nilai['Kurang'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
+                                if($nilai['Baik']==null||$nilai['Cukup']==null||$nilai['Kurang']==null){
+                                    $baik = 0;
+                                    $cukup=0;
+                                    $kurang=0;
+                                }else{
+                                    $baik=$nilai['Baik'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
+                                    $cukup=$nilai['Cukup'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
+                                    $kurang=$nilai['Kurang'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
+                                }
                             ?>
                         Baik    : <?= $baik; ?> %<br>
                         Cukup   : <?= $cukup; ?> %<br>
