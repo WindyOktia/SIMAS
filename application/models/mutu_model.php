@@ -53,6 +53,22 @@ class Mutu_model extends CI_Model
         FROM v_nilai')->result_array();
     }
 
+    public function getnilaiKegiatanModel1()
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, 
+        SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai')->result_array();
+    }
+
+    public function getnilaiKegiatanModel2()
+    {
+        return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
+        SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, 
+        SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
+        FROM v_nilai')->result_array();
+    }
+
     public function gettahunAkademik()
     {
         return $this->db->query("SELECT DISTINCT(tahun_akademik) as tahun_akademik FROM proposal")->result_array();

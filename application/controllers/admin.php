@@ -90,8 +90,34 @@ class Admin extends CI_Controller
     public function info()
     {
         $data['page']='dashboard';
-        $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
         $data['tahun_akademik']=$this->mutu_model->gettahunAkademik();
+
+        if(!isset($_GET['key1']) && !isset($_GET['key2']))
+        {
+            $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
+        }
+
+        if(isset($_GET['key1']) && !isset($_GET['key2']))
+        {
+            $dari = $_GET['dari'];
+            $semester = $_GET['semester'];
+
+          
+            echo 'model satu';
+            $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatanModel1();
+        }
+
+        if(isset($_GET['key1']) && isset($_GET['key2']))
+        {
+            $dari = $_GET['dari'];
+            $sampai = $_GET['sampai'];
+            $semester = $_GET['semester'];
+
+          
+            echo 'model dua';
+            $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatanModel2();
+        }
+
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/infoMutu',$data);
         $this->load->view('templates/footer');

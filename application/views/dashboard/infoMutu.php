@@ -13,6 +13,9 @@
             </div>
             <div class="row mt-3">
                 <div class="col-md-2">
+
+                <input type="hidden" name="key1" value="true">
+
                     <select name="dari" id="" class="form-control">
                         <option value="semua">semua tahun</option>
                         <?php foreach ($tahun_akademik as $th_1): ?>
@@ -29,6 +32,10 @@
                 <?php if(isset($_GET['rentang'])&&$_GET['rentang']=='on'){?>
                 <span class=" my-auto"> sampai </span>
                 <div class="col-md-2">
+                    
+                <input type="hidden" name="key2" value="true">
+
+                
                     <select name="sampai" id="" class="form-control">
                         <option value="semua">semua tahun</option>
                         <?php foreach ($tahun_akademik as $th_2): ?>
