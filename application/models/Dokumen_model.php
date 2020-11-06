@@ -355,11 +355,12 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
         $this->db->trans_start();
-        $this->db->select('kuesioner_kegiatan.id_kuesioner, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, kategori_kuesioner.nama_kategori, kuesioner_kegiatan.deskripsi, kuesioner_kegiatan.tgl_mulai, kuesioner_kegiatan.tgl_selesai');
+        $this->db->select('kuesioner_kegiatan.id_kuesioner, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, kategori_kuesioner.nama_kategori, kuesioner_kegiatan.deskripsi, kuesioner_kegiatan.tgl_mulai, kuesioner_kegiatan.tgl_selesai, kode_kuesioner.link_kuesioner');
         $this->db->from('kategori_kuesioner');
         $this->db->from('proposal');
         $this->db->where('kuesioner_kegiatan.id_kategori = kategori_kuesioner.id_kategori');
         $this->db->where('kuesioner_kegiatan.id_proposal = proposal.id_proposal');
+        $this->db->join('kode_kuesioner', 'kode_kuesioner.id_kuesioner = kuesioner_kegiatan.id_kuesioner', 'left');
         return $this->db->get('kuesioner_kegiatan')->result_array();
         $this->db->trans_complete();
     }
