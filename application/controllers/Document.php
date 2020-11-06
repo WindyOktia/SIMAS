@@ -224,6 +224,7 @@ class Document extends CI_Controller
     {
         $data['page']='daftar_laporan';
         $data['dokumenlaporan']=$this->dokumen_model->getLaporan();
+        $data['check']=$this->dokumen_model->getLaporanCheck();
         $data['verifikasiWaka']=$this->dokumen_model->getVerifikasiLaporanWaka();
         $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiLaporanPJ();
         $data['verifikasiKepsek']=$this->dokumen_model->getVerifikasiLaporanKepsek();
@@ -259,7 +260,7 @@ class Document extends CI_Controller
     public function addLaporan()
     {
         $data['page']='daftar_laporan';
-        $data['idproposal']=$this->dokumen_model->getProposalLaporan();
+        $data['check']=$this->dokumen_model->getLaporanCheck();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_laporan',$data);
         $this->load->view('templates/footer'); 
@@ -361,7 +362,7 @@ class Document extends CI_Controller
     {
         $data['page']='add_kuesioner';
         $data['kuesioner']=$this->dokumen_model->getKuesioner();
-        $data['proposal']=$this->dokumen_model->getProposal();
+        $data['check']=$this->dokumen_model->getKuesionerCheck();
         $data['kategori']=$this->dokumen_model->getKategori();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_kuesioner',$data);
