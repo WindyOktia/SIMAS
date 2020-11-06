@@ -9,6 +9,7 @@ class Guru extends CI_Controller{
         $this->load->model('guru_model');
         $this->load->model('pengaturan_model');
         $this->load->model('survei_model');
+        $this->load->helper('text');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -42,7 +43,12 @@ class Guru extends CI_Controller{
     public function ijin()
     {
         $data['page']='ijin';
-        $data['ijin']=$this->guru_model->getIjin();
+        $data['getIdGuru']=$this->guru_model->getIdGuru();
+        foreach($this->guru_model->getIdGuru() as $getId){
+            $id = $getId['id_guru'];
+            $data['statusIjin']=$this->guru_model->getStatusIjin();
+            $data['ijin']=$this->guru_model->getIjinID($id);
+        }
         $this->load->view('templates/header',$data);
         $this->load->view('guru/ijin',$data);
         $this->load->view('templates/footer');
@@ -51,9 +57,14 @@ class Guru extends CI_Controller{
     public function addIjin()
     {
         $insert=$this->guru_model->addIjin();
+        
         if($insert == 0){
             $this->session->set_flashdata('error', 'Ijin gagal ditambahkan');
         }else{
+            $id= $insert;
+            $stat='0';
+            $catatan ='';
+            $this->guru_model->addStatus($id,$stat,$catatan);
             $this->session->set_flashdata('success', 'Ijin berhasil ditambahkan');
         }
         redirect('guru/ijin');

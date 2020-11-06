@@ -29,49 +29,58 @@ class Guru_model extends CI_Model
         return true;
     }
 
-    public function editGuru()
+    public function editGuru($id_guru,$nip, $rfid, $nama, $alamat, $password, $status)
     {
-        $rfid=$this->input->post('rfid', true);
-        $nip=$this->input->post('nip', true);
-        $query = $this->db->get_where('guru', ['rfid' => $rfid]);
-        if ($query->num_rows() == 0) {
-            $query2 = $this->db->get_where('guru', ['nip' => $nip]);
-            if ($query2->num_rows() == 0) {
-                $this->db->trans_start();
-                    if(!empty($this->input->post('rfid'))){
-                        $this->db->set('rfid', $this->input->post('rfid'));
-                    };
-                    if(!empty($this->input->post('nip'))){
-                        $this->db->set('nip', $this->input->post('nip'));
-                    };
-                    if(!empty($this->input->post('nama'))){
-                        $this->db->set('nama_guru', $this->input->post('nama'));
-                    };
-                    if(!empty($this->input->post('alamat'))){
-                        $this->db->set('alamat', $this->input->post('alamat'));
-                    };
-                    $this->db->where('id_guru', $this->input->post('id'));
-                    $this->db->update('guru');
-                $this->db->trans_complete();
-
-                $this->db->trans_start();
-                    if(!empty($this->input->post('nip'))){
-                        $this->db->set('username', $this->input->post('nip'));
-                    };
-                    if(!empty($this->input->post('nama'))){
-                        $this->db->set('nama', $this->input->post('nama'));
-                    };
-                    if(!empty($this->input->post('pass'))){
-                        $this->db->set('password', md5($this->input->post('pass')));
-                    };
-                    $this->db->where('username', $this->input->post('nip_lama'));
-                    $this->db->update('user');
-                $this->db->trans_complete();
-                return true;
-            }
-            return false;
+        if($nip != '')
+        {
+            $this->db->set('nip',$nip);
         }
-        return false;
+
+        if($rfid !='')
+        {
+            $this->db->set('rfid',$rfid);
+        }
+
+        if($nama !='')
+        {
+            $this->db->set('nama_guru',$nama);
+        }
+
+        if($alamat !='')
+        {
+            $this->db->set('alamat',$alamat);
+        }
+
+        if($status !='')
+        {
+            $this->db->set('status_guru',$status);
+        }
+
+        $this->db->where('id_guru', $id_guru);
+        $this->db->update('guru');
+        return $this->db->affected_rows();
+    }
+
+    public function updateUser($niplama,$nip, $password, $nama)
+    {
+        if($nip !='')
+        {
+            $this->db->set('username',$nip);
+        }
+
+        if($password !='')
+        {
+            $this->db->set('password',md5($password));
+        }
+
+        if($nama !='')
+        {
+            $this->db->set('nama',$nama);
+        }
+
+        $this->db->where('username', $niplama);
+        $this->db->update('user');
+        return $this->db->affected_rows();
     }
 
     public function deleteGuru($id)
@@ -98,6 +107,11 @@ class Guru_model extends CI_Model
         $this->db->join('mapel', 'jadwal_guru.id_mapel = mapel.id_mapel');
         $this->db->where('id_guru',$id);
         return $this->db->get()->result_array();
+    }
+
+    public function getJadwalAll()
+    {
+        return $this->db->query('SELECT DISTINCT(guru.id_guru) as id_guru, count(jadwal_guru.id_jadwal_guru) as beban_mengajar, COUNT(DISTINCT(jadwal_guru.id_mapel)) as jml_mapel FROM `jadwal_guru` RIGHT JOIN guru ON jadwal_guru.id_guru=guru.id_guru GROUP BY id_guru')->result_array();     
     }
 
     public function addJadwal($tahun_akademik, $semester,$guru, $hari, $kelas, $mulai, $selesai)
@@ -154,25 +168,56 @@ class Guru_model extends CI_Model
             'id_guru'=>$_POST['id_guru'],
             'jenis_ijin'=>$_POST['jenis'],
             'perihal_ijin'=>$_POST['perihal'],
-            'tanggal_pengajuan'=>date('Y-m_d'),
+            'tanggal_pengajuan'=>date('Y-m-d H-i-s'),
             'tanggal_mulai'=>$_POST['tgl_mulai'],
             'tanggal_selesai'=>$_POST['tgl_selesai'],
             'deskripsi'=>$_POST['deskripsi']
         ];
 
         $this->db->insert('ijin',$data);
+        return $this->db->insert_id();
+        // return $this->db->affected_rows();
+    }
+
+    public function addStatus($id,$stat,$catatan)
+    {
+        $data=[
+            'id_ijin'=>$id,
+            'status'=> $stat,
+            'catatan'=>$catatan,
+            'tanggal'=>date('Y-m-d H-i-s')
+        ];
+
+        $this->db->insert('status_ijin',$data);
         return $this->db->affected_rows();
     }
 
     public function getIjin()
     {
-        return $this->db->get('ijin')->result_array();
+        return $this->db->query('SELECT ijin.*,guru.nama_guru FROM ijin, guru WHERE ijin.id_guru=guru.id_guru ORDER BY ijin.tanggal_pengajuan DESC')->result_array();
+    }
+
+    public function getIjinID($id)
+    {
+        return $this->db->query('SELECT ijin.*,guru.nama_guru FROM ijin, guru WHERE ijin.id_guru=guru.id_guru AND guru.id_guru="'.$id.'" ORDER BY ijin.tanggal_pengajuan DESC')->result_array();
     }
 
     public function hapusIjin($id)
     {
         $this->db->delete('ijin',['id_ijin'=>$id]);
         return $this->db->affected_rows();
+    }
+
+    public function getIdGuru()
+    {
+        return $this->db->get_where('guru',['nip'=>$this->session->userdata('username')])->result_array();
+    }
+
+    
+
+    public function getStatusIjin()
+    {
+        return $this->db->query('Select status_ijin.id_status_ijin, status_ijin.id_ijin, status_ijin.tanggal, status_ijin.status, status_ijin.catatan From status_ijin GROUP BY status_ijin.id_ijin DESC')->result_array();
     }
 
 }

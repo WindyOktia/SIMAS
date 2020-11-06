@@ -15,6 +15,7 @@ class Admin extends CI_Controller
         $this->load->model('mutu_model');
         $this->load->model('presensi_model');
         $this->load->model('dasbord_model');
+        $this->load->helper('text');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
             redirect('');
@@ -89,8 +90,79 @@ class Admin extends CI_Controller
     public function info()
     {
         $data['page']='dashboard';
+        $data['tahun_akademik']=$this->mutu_model->gettahunAkademik();
+
+        if(!isset($_GET['key1']) && !isset($_GET['key2']))
+        {
+            $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
+        }
+
+        if(isset($_GET['key1']) && !isset($_GET['key2']))
+        {
+            $dari = $_GET['dari'];
+            $semester = $_GET['semester'];
+
+            if($dari=='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
+
+            }else if($dari!='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getmodel1NonSemester($dari);
+                
+            }else if($dari =='semua' && $semester !='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getmodel1Semester($semester);
+
+            }else if($dari !='semua' && $semester !='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getmodel1Semua($dari,$semester);
+
+            }
+        }
+
+        if(isset($_GET['key1']) && isset($_GET['key2']))
+        {
+            $dari = $_GET['dari'];
+            $sampai = $_GET['sampai'];
+            $semester = $_GET['semester'];
+
+            if($dari=='semua' && $sampai=='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiKegiatan();
+
+            }else if($dari!='semua' && $sampai=='semua' && $semester=='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen0($dari);
+                
+            }else if($dari!='semua' && $sampai!='semua' && $semester=='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen1($dari,$sampai);
+                
+            }else if($dari!='semua' && $sampai!='semua' && $semester!='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen2($dari,$sampai,$semester);
+                
+            }else if($dari=='semua' && $sampai!='semua' && $semester!='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen3($sampai,$semester);
+
+            }else if($dari=='semua' && $sampai=='semua' && $semester!='semua'){
+
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen4($semester);
+                
+            }else if($dari!='semua' && $sampai=='semua' && $semester!='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen5($dari,$semester);
+                
+            }else if($dari=='semua' && $sampai!='semua' && $semester=='semua'){
+                
+                $data['nilai_kegiatan']=$this->mutu_model->getnilaiBeetwen6($sampai);
+            }
+        }
+
         $this->load->view('templates/header',$data);
-        $this->load->view('dashboard/infoMutu');
+        $this->load->view('dashboard/infoMutu',$data);
         $this->load->view('templates/footer');
     }
 
@@ -118,6 +190,8 @@ class Admin extends CI_Controller
         $data['nama_kegiatan']=$this->dasbord_model->getdasbordKeuangan();
         $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik);
         $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik);
+        $data['kegiatan']=$this->dasbord_model->getKegiatan($tahun_akademik);
+        $data['jumlah']=$this->dasbord_model->getjumlahPeserta($tahun_akademik);
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/kegiatan_laporan',$data);
         $this->load->view('templates/footer');
@@ -550,24 +624,34 @@ class Admin extends CI_Controller
 
     public function editGuru()
     {
-        $tahun_akademik = $_POST['th_akademik1'].' / '. $_POST['th_akademik2'];
-     
-        $update=$this->mutu_model->editMutu($tahun_akademik);
-        if($update > 0)
+        $id_guru = $_POST['id'];
+        $nip = $_POST['nip'];
+        $niplama = $_POST['niplama'];
+        $rfid = $_POST['rfid'];
+        $nama = $_POST['nama'];
+        $alamat = $_POST['alamat'];
+        $password = $_POST['pass'];
+        $status = $_POST['status'];
+
+        $editGuru=$this->guru_model->editGuru($id_guru,$nip, $rfid, $nama, $alamat, $password, $status);
+
+        $updateUser=$this->guru_model->updateUser($niplama, $nip, $password, $nama);
+
+        if($editGuru > 0 && $updateUser > 0 )
         {
-            $this->session->set_flashdata('success', 'Proposal berhasil diubah');
+            $this->session->set_flashdata('success', 'Data Guru Berhasil Diubah');
         }else
         {
-            $this->session->set_flashdata('success', 'Proposal gagal diubah');
+            $this->session->set_flashdata('error', 'Data Guru Gagal Diubah');
         }
-        redirect('document/detailProposal/'.$_POST['back_id']);
+        redirect('admin/daftarGuru');
     }
 
     public function daftarGuru()
     {
         $data['page']='daftarGuru';
         $data['guru']=$this->guru_model->get();
-        $data['detail']=$this->guru_model->get();
+        $data['jadwal']=$this->guru_model->getJadwalAll();
         $this->load->view('templates/header',$data);
         $this->load->view('guru/daftarGuru',$data);
         $this->load->view('templates/footer');
@@ -623,6 +707,32 @@ class Admin extends CI_Controller
         redirect('admin/jadwalMengajar/'.$backid);
     }
     // end of guru
+
+    // verifikasi ijin guru
+    public function ijinGuru()
+    {
+        $data['page']='ijin';
+        $data['ijin']=$this->guru_model->getIjin();
+        $data['statIjin']=$this->guru_model->getStatusIjin();
+        $this->load->view('templates/header',$data);
+        $this->load->view('guru/verifikasiIjin',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function addStatIjin()
+    {
+        $id = $_POST['id_ijin'];
+        $stat = $_POST['status'];
+        $catatan = $_POST['catatan'];
+        $update=$this->guru_model->addStatus($id,$stat,$catatan);
+        if($update > 0){
+            $this->session->set_flashdata('success', 'Status Berhasil Diubah');
+        }else{
+            $this->session->set_flashdata('danger', 'Status Gagal Diubah');
+        }
+        redirect('admin/ijinGuru');
+    }
+    // end of verifikasi ijin guru
 
     // presensi
     public function daftarPresensi()
