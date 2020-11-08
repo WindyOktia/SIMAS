@@ -665,6 +665,7 @@ class Admin extends CI_Controller
         $data['kelas']=$this->kelas_model->get();
         $data['mapel']=$this->mapel_model->getMapel();
         $data['tahun_akademik']=$this->pengaturan_model->getAkademik();
+        $data['id_guru']= $id;
         $this->load->view('templates/header',$data);
         $this->load->view('guru/jadwalMengajar',$data);
         $this->load->view('templates/footer');
@@ -692,6 +693,18 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('success', 'Jadwal Guru Berhasil Disimpan');
         }
         redirect('admin/jadwalMengajar/'.$guru.'');
+    }
+
+    public function validasiJadwal()
+    {
+        $setAkademik=$this->pengaturan_model->getAkademik();
+
+        foreach($setAkademik as $set){
+            echo json_encode($this->guru_model->validasiJadwal($set['tahun_akademik'], $set['semester']));
+        }
+
+        // echo json_encode($_POST['id_guru']);
+
     }
 
     public function deleteJadwal($id,$backid)

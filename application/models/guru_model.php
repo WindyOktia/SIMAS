@@ -116,23 +116,37 @@ class Guru_model extends CI_Model
 
     public function addJadwal($tahun_akademik, $semester,$guru, $hari, $kelas, $mulai, $selesai)
     {
-        $this->db->trans_start();
-			$result = array();
-			    foreach($hari AS $key => $val){
-				     $result[] = array(
-				      'tahun_akademik'  	=> $_POST['tahun_akademik'],
-				      'semester'  	=> $_POST['semester'],
-				      'hari'  	=> $_POST['hari'][$key],
-				      'id_kelas'  	=> $_POST['kelas'][$key],
-				      'id_mapel'  	=> $_POST['mapel'][$key],
-				      'jam_mulai'  	=> $_POST['mulai'][$key],
-				      'jam_selesai'  	=> $_POST['selesai'][$key],
-				      'id_guru'  	=> $_POST['guru']
-				     );
-			    }      
-			//MULTIPLE INSERT TO DETAIL TABLE
-			$this->db->insert_batch('jadwal_guru', $result);
-        $this->db->trans_complete();
+        // $this->db->trans_start();
+		// 	$result = array();
+		// 	    foreach($hari AS $key => $val){
+		// 		     $result[] = array(
+		// 		      'tahun_akademik'  	=> $_POST['tahun_akademik'],
+		// 		      'semester'  	=> $_POST['semester'],
+		// 		      'hari'  	=> $_POST['hari'][$key],
+		// 		      'id_kelas'  	=> $_POST['kelas'][$key],
+		// 		      'id_mapel'  	=> $_POST['mapel'][$key],
+		// 		      'jam_mulai'  	=> $_POST['mulai'][$key],
+		// 		      'jam_selesai'  	=> $_POST['selesai'][$key],
+		// 		      'id_guru'  	=> $_POST['guru']
+		// 		     );
+		// 	    }      
+		// 	//MULTIPLE INSERT TO DETAIL TABLE
+		// 	$this->db->insert_batch('jadwal_guru', $result);
+        // $this->db->trans_complete();
+        // return true;
+
+        $data=[
+            'tahun_akademik'  	=> $_POST['tahun_akademik'],
+            'semester'  	=> $_POST['semester'],
+            'hari'  	=> $_POST['hari'],
+            'id_kelas'  	=> $_POST['kelas'],
+            'id_mapel'  	=> $_POST['mapel'],
+            'jam_mulai'  	=> $_POST['mulai'],
+            'jam_selesai'  	=> $_POST['selesai'],
+            'id_guru'  	=> $_POST['guru']
+        ];
+
+        $this->db->insert('jadwal_guru',$data);
         return true;
     }
 
@@ -218,6 +232,13 @@ class Guru_model extends CI_Model
     public function getStatusIjin()
     {
         return $this->db->query('Select status_ijin.id_status_ijin, status_ijin.id_ijin, status_ijin.tanggal, status_ijin.status, status_ijin.catatan From status_ijin GROUP BY status_ijin.id_ijin DESC')->result_array();
+    }
+
+    public function validasiJadwal($tahun_akademik, $semester)
+    {
+        
+        return $this->db->query('SELECT jadwal_guru.*, mapel.nama_mapel, kelas.kelas, kelas.jurusan, kelas.sub FROM jadwal_guru,mapel, kelas WHERE jadwal_guru.id_mapel=mapel.id_mapel AND jadwal_guru.id_kelas=kelas.id_kelas AND tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" AND id_guru = "'.$_POST['id_guru'].'" AND Hari = "'.$_POST['hari'].'" AND jadwal_guru.id_kelas="'.$_POST['kelas'].'" and jadwal_guru.id_mapel = "'.$_POST['mapel'].'" AND "'.$_POST['jam_mulai'].'" BETWEEN jam_mulai AND jam_selesai OR "'.$_POST['jam_selesai'].'" BETWEEN jam_mulai AND jam_selesai')->result_array();
+       
     }
 
 }

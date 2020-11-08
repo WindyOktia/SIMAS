@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="form-group col-md">
                 <label for="">Pilih Hari</label>
-                    <select class="form-control" name="hari[]" required>
+                    <select class="form-control" onchange="cekData()" id="hari" name="hari" required>
                         <option selected disabled value="">- pilih -</option>
                         <option value="Senin">Senin</option>
                         <option value="Selasa">Selasa</option>
@@ -29,7 +29,7 @@
                 </div> 
                 <div class="form-group col-md">
                 <label for="">Pilih Kelas</label>
-                    <select id="selectKelasA" class="form-control" name="kelas[]" required>
+                    <select id="selectKelas" class="form-control" onchange="cekData()" name="kelas" required>
                     <option selected disabled value="">- pilih -</option>
                         <?php foreach($kelas as $kelas):?>
                             <option value="<?= $kelas['id_kelas']?>"><?= $kelas['kelas']?> <?= $kelas['jurusan']?> <?= $kelas['sub']?></option>
@@ -38,7 +38,7 @@
                 </div> 
                 <div class="form-group col-md">
                 <label for="">Pilih Mata Pelajaran</label>
-                    <select id="selectKelasA" class="form-control" name="mapel[]" required>
+                    <select id="selectMapel" class="form-control" onchange="cekData()" name="mapel" required>
                     <option selected disabled value="">- pilih -</option>
                         <?php foreach($mapel as $mapel):?>
                             <option value="<?= $mapel['id_mapel']?>"><?= $mapel['nama_mapel']?></option>
@@ -47,19 +47,22 @@
                 </div> 
                 <div class="form-group col-md">
                 <label for="">Jam Mulai</label>
-                    <input type="time" class="form-control" placeholder="Jam Mulai" name="mulai[]" required>
+                    <input type="time" class="form-control" id="jam_mulai" onchange="cekData()" placeholder="Jam Mulai" name="mulai" required>
                 </div> 
                 <div class="form-group col-md">
                 <label for="">Jam Selesai</label>
-                    <input type="time" class="form-control" placeholder="Jam Selesai" name="selesai[]" required>
+                    <input type="time" class="form-control" id="jam_selesai" onchange="cekData()" placeholder="Jam Selesai" name="selesai" required>
                 </div> 
-                <div class="form-group col-md">
+                <!-- <div class="form-group col-md">
                 <label for="">Aksi</label>
                 <a href="" class="tbhJadwal btn btn-success form-control">Add More</a>
-                </div> 
+                </div>  -->
+            </div>
+            <div id="jadwalResult">
+                
             </div>
         </div>
-        <button class="btn btn-primary btn-sm float-right" type="submit">Submit</button>
+        <button class="btn btn-primary btn-sm float-right" id="submitBtn" type="submit">Submit</button>
         </form>
     </div>
 </div>
@@ -101,3 +104,56 @@
 		</table>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    function cekData(){
+        var hari = $('#hari').val();
+        var kelas = $('#selectKelas').val();
+        var mapel = $('#selectMapel').val();
+        var jam_mulai = $('#jam_mulai').val();
+        var jam_selesai = $('#jam_selesai').val();
+
+        var diffTime=( new Date("1970-1-1 "+  jam_selesai ) - new Date("1970-1-1 "+ jam_mulai ))/1000/60;
+
+        console.log(diffTime);
+
+       
+
+        $.ajax({
+            type: 'post',
+            url: '<?= base_url('admin/validasiJadwal')?>',
+            data: {hari:hari, kelas:kelas, mapel:mapel, jam_mulai:jam_mulai, jam_selesai:jam_selesai,id_guru:<?=$id_guru?>},
+            success: function (data) {
+                var dt = JSON.parse(data);
+                console.log(dt);
+                if(dt!=''){
+                    $('#jadwalResult').html(`
+                        <div class="card card-body border-warning">
+                            <h6><b>Informasi Kesalahan</b></h6>
+                        <p> Jam <b>`+jam_mulai+` - `+jam_selesai+`</b> bersamaan dengan mata pelajaran <b>`+dt[0].nama_mapel+`</b> pada kelas <b>`+dt[0].kelas+' '+dt[0].jurusan+' '+dt[0].sub+`</b></p>
+                        </div>
+                    `);
+                    $('#submitBtn').prop('disabled',true);
+                }else
+                {
+                    $('#jadwalResult').html(``);
+                    if(diffTime<15){
+                        $('#jadwalResult').html('<span class="text-warning"><i>Minimal durasi mengajar adalah 15 menit</i></span>');
+                        $('#submitBtn').prop('disabled',true);
+                    }
+
+                    if(diffTime >=15){
+                        $('#jadwalResult').html('');
+                        $('#submitBtn').prop('disabled',false);
+                    }
+                }
+            }
+        });
+
+        
+        // console.log(hari + kelas + mapel + jam_mulai + jam_selesai);
+    }
+
+   
+</script>
