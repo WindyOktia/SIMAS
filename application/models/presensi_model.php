@@ -107,7 +107,7 @@ class Presensi_model extends CI_Model
             'id_jadwal_guru'=>$_POST['id_jadwal'],
             'tanggal'=>date('Y-m-d'),
             'jam_mulai'=>date('H:i:s'),
-            'metode'=>'rfid'
+            'metode'=>'1'
         ];
 
         $this->db->insert('presensi_mengajar',$data);
