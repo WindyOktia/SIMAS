@@ -93,5 +93,93 @@ class Presensi extends CI_Controller
         $this->load->view('templates/header_presensi');
         $this->load->view('presensi/mengajar');
         $this->load->view('templates/footer');
+    } 
+
+    public function cekJamMengajar()
+    {
+        $id = $_POST['id'];
+        $day = date('l');
+        $hari = '';
+
+        if($day=='Sunday'){
+            $hari = 'Minggu';
+        }
+
+        if($day=='Monday'){
+            $hari = 'Senin';
+        }
+
+        if($day=='Tuesday'){
+            $hari = 'Selasa';
+        }
+
+        if($day=='Wednesday'){
+            $hari = 'Rabu';
+        }
+
+        if($day=='Thursday'){
+            $hari = 'Kamis';
+        }
+
+        if($day=='Friday'){
+            $hari = 'Jumat';
+        }
+
+        if($day=='Saturday'){
+            $hari = 'Sabtu';
+        }
+
+        $jam = date('H:i:s');
+
+        echo json_encode($this->presensi_model->cekJamMengajar($id,$hari,$jam));
+    }
+
+    public function presensiMengajar()
+    {
+        echo json_encode($this->presensi_model->cekPresensiMengajar());
+    }
+
+    public function insertMengajar()
+    {
+        $insert = $this->presensi_model->insertMengajar();
+        if($insert >=1){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+
+    public function updateMengajar()
+    {
+        $cekPresensi = $this->presensi_model->cekPresensiMengajar();
+
+        foreach($cekPresensi as $cek){
+            $jamMulai = strtotime($cek['jam_mulai']);
+        }
+
+
+        $current_time= strtotime(date('H:i:s'));
+        $interval = abs($current_time-$jamMulai);
+        $diff_time = round($interval / 60);
+
+        if($diff_time >=1 ) // selisih waktu
+        {
+            $update = $this->presensi_model->updateJamSelesai();
+            if($update>=1){
+                echo 'success';
+            }else{
+                echo 'fail';
+            }
+        }else
+        {
+            echo '<_15';
+        }
+    }
+
+    public function getNotifMengajar()
+    {
+        $id_jadwal= $_POST['id_jadwal'];
+        
+        echo json_encode($this->presensi_model->getNotifMengajar($id_jadwal));
     }
 }
