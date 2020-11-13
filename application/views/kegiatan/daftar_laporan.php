@@ -28,7 +28,6 @@
 				<td>
 				<?php foreach ($verifikasiPJ as $PJ):?>
 					<?php
-
 					if($lap['id_laporan']==$PJ['id_laporan'] ){
 						if($PJ['status']=='Ditolak'){
 							echo '<span class="badge badge-danger">'.$PJ['status'].'</span>';

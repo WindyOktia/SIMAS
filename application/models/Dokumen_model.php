@@ -365,9 +365,9 @@ class Dokumen_model extends CI_Model
     public function getKuesionerCheck()
     {
         $this->db->trans_start();
-        return $this->db->query('SELECT proposal.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester
-        FROM kuesioner_kegiatan, proposal
-        WHERE proposal.id_proposal NOT IN (SELECT kuesioner_kegiatan.id_proposal FROM kuesioner_kegiatan)
+        return $this->db->query('SELECT laporan.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester
+        FROM kuesioner_kegiatan, proposal, laporan
+        WHERE laporan.id_proposal = proposal.id_proposal AND proposal.id_proposal NOT IN (SELECT kuesioner_kegiatan.id_proposal FROM kuesioner_kegiatan)
         GROUP BY proposal.id_proposal')->result_array();
         $this->db->trans_complete();
         // return $this->db->get_where('laporan_view',['role'=>$this->session->userdata('role')])->result_array();

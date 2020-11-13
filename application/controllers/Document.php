@@ -261,6 +261,8 @@ class Document extends CI_Controller
     {
         $data['page']='daftar_laporan';
         $data['check']=$this->dokumen_model->getLaporanCheck();
+        $data['laporan']=$this->dokumen_model->getLaporan();
+        $data['proposal']=$this->dokumen_model->getProposal();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_laporan',$data);
         $this->load->view('templates/footer'); 
