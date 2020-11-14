@@ -7,7 +7,7 @@
                     <th scope="col">Tahun Akademik</th>
                     <th scope="col">Semester</th>
                     <th scope="col">Rata - Rata Anggaran</th>
-                    <th scope="col">Rata - Rata Pendapatan</th>
+                    <th scope="col">Rata - Rata Dana Masuk</th>
                     <th scope="col">Rata - Rata Pengeluaran</th>
                     <th scope="col">Kegiatan Terlaksana</th>
                 <th scope="col">Aksi</th>

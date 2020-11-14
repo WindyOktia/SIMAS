@@ -19,9 +19,18 @@
                     <option value="">TIM SEKOLAH</option>
                 </select>
             </div>
+            
             <div class="col-md-3">
                 <button class="btn  btn-info">Cari</button>
             </div>
+            <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Lihat Laporan Keuangan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Lihat Nilai Survei</a>
+                    </li>
+                </ul>
         </div>
     </div> <br>
 
@@ -149,7 +158,7 @@
                 </li>
                 <li>
                     <div class="row h6">
-                        <div class="col-md-12">Rata-Rata Pendapatan Biaya </div>
+                        <div class="col-md-12">Rata-Rata Dana Masuk  </div>
                         <div class="col-md-12 ">Rp. <?=$rt_uang['rata_pendapatan'];?></div>
                     </div>
                 </li>
@@ -226,6 +235,25 @@ var dashSiswa = new Chart(dash1, {
             borderWidth: 2 ,
             fill: true
         },
+        {
+            label: 'Bulutangkis',
+			data: [
+                //foreach
+                <?php foreach($kegiatan as $nilai3):?>
+                '<?=$nilai2['Nilai']?>',
+                <?php endforeach?>
+                //end foreach
+            ],
+			backgroundColor: [
+				'#EE4B6A',
+                '#EE4B6A',
+                '#EE4B6A',
+                '#EE4B6A',
+                '#EE4B6A',
+			],
+            borderWidth: 2 ,
+            fill: true
+        }
     ]
 },
 options: {

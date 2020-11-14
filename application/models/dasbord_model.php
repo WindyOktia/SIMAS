@@ -8,18 +8,81 @@ class dasbord_model extends CI_Model
         $this->db->where('proposal.id_proposal = laporan.id_proposal');
         return $this->db->get('proposal')->result_array();
     }
+    
+    public function getdefault_anggaran()
+    {
+        return $this->db->get('v_rata2_anggaran')->result_array();
+    }
+    
+    public function getanggaran_th1($dari)
+    {
+        return $this->db->query('SELECT * FROM v_rata2_anggaran WHERE tahun_akademik="'.$dari.'"')->result_array();
+    }
 
-    public function getdasbordRataKeuangan()
+    public function getanggaran_semester($semester)
+    {
+        return $this->db->query('SELECT * FROM v_rata2_anggaran WHERE semester="'.$semester.'"')->result_array();
+    }
+
+    public function getanggaran_th1_semester($dari,$semester)
+    {
+        return $this->db->query('SELECT * FROM v_rata2_anggaran WHERE tahun_akademik="'.$dari.'" AND semester="'.$semester.'"')->result_array();
+    }
+
+    public function getanggaran_between1($dari)
+    {
+        return $this->db->query('SELECT * FROM v_rata2_anggaran WHERE tahun_akademik 
+        BETWEEN "'.$dari.'" AND (SELECT Max(tahun_akademik)FROM v_rata2_anggaran)')->result_array();
+    }
+
+    public function getanggaran_between2($dari,$sampai)
+    {
+        return $this->db->query('SELECT * FROM  v_rata2_anggaran where tahun_akademik
+         BETWEEN "'.$dari.'" AND "'.$sampai.'"')->result_array();
+    }
+
+    public function getanggaran_between3($semester,$dari,$sampai)
+    {
+        return $this->db->query('SELECT * FROM  v_rata2_anggaran where semester="'.$semester.'" AND tahun_akademik 
+        BETWEEN "'.$dari.'" AND "'.$sampai.'"')->result_array();
+    }
+
+    public function getanggaran_between4($semester,$sampai)
+    {
+        return $this->db->query('SELECT * FROM  v_rata2_anggaran where semester="'.$semester.'" AND tahun_akademik 
+        BETWEEN (SELECT MIN(tahun_akademik)FROM v_rata2_anggaran) AND "'.$sampai.'"')->result_array();
+    }
+
+    public function getanggaran_between5($semester)
+    {
+        return $this->db->query('SELECT * FROM  v_rata2_anggaran where semester="'.$semester.'"')->result_array();
+    }
+    
+    public function getanggaran_between6($dari,$semester)
+    {
+        return $this->db->query('SELECT * FROM  v_rata2_anggaran where semester="'.$semester.'" AND tahun_akademik 
+        BETWEEN "'.$dari.'" AND (SELECT MAX(tahun_akademik)FROM v_rata2_anggaran)')->result_array();
+    }
+    
+    public function getanggaran_between7($sampai)
+    {
+        return $this->db->query('SELECT * FROM  v_rata2_anggaran where tahun_akademik 
+        BETWEEN (SELECT MIN(tahun_akademik)FROM v_rata2_anggaran) AND "'.$sampai.'"')->result_array();
+    }
+
+    public function getdasbordRataKeuangan($tahun_akademik, $semester)
     {
         $this->db->select('proposal.tahun_akademik, proposal.semester, Floor(AVG(proposal.tot_anggaran)) AS rata_anggaran, 
         Floor(AVG(laporan.biaya_pendapatan)) AS rata_pendapatan, 
-        Floor(AVG(laporan.biaya_pengeluaran)) AS rata_pengeluaran, COUNT(proposal.id_proposal) AS terlaksana');
+        Floor(AVG(laporan.biaya_pengeluaran)) AS rata_pengeluaran, COUNT(laporan.id_proposal) AS terlaksana');
         $this->db->from('laporan');
         $this->db->where('proposal.id_proposal = laporan.id_proposal');
-        // $this->db->where(['proposal.tahun_akademik' => $tahun_akademik]);
+        $this->db->where(['proposal.tahun_akademik' => $tahun_akademik]);
+        $this->db->where(['proposal.semester' => $semester]);
         $this->db->group_by('proposal.tahun_akademik');
         return $this->db->get('proposal')->result_array();
     }
+    
     public function getdasbordRataKeuanganfilter($tahun_akademik)
     {
         $this->db->select('proposal.tahun_akademik, Floor(AVG(proposal.tot_anggaran)) AS rata_anggaran, 

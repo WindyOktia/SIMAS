@@ -22,12 +22,6 @@
                         <div class="col-md-6">: 80</div>
                     </div>
                 </li>
-                <li>
-                    <div class="row h6">
-                        <div class="col-md-6">Kepuasan Pelanggan </div>
-                        <div class="col-md-6">: 75</div>
-                    </div>
-                </li>
                 </div>
             </div>
                 <div class="row">
@@ -94,16 +88,6 @@ var dashBobot = new Chart(dash1, {
             fill:false,
             borderWidth: 2
         },
-        {
-            label: 'Kepuasan Pelanggan',
-            data: [90, 95, 95, 90],
-            borderColor: [
-                '#CC4BC2'
-               
-            ],
-            fill:false,
-            borderWidth: 2
-        }
         ]
     },
     options: {

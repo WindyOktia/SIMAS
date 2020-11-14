@@ -127,7 +127,7 @@ class Mutu_model extends CI_Model
         return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 
         SUM(CASE When Nilai>= 60 AND Nilai < 85 Then 1 Else 0 End ) as Cukup, SUM(CASE When Nilai< 60 Then 1 Else 0 End ) as Kurang 
         FROM v_nilai where semester="'.$semester.'" AND tahun_akademik 
-        BETWEEN "'.$dari.'" AND (SELECT MIN(tahun_akademik)FROM v_nilai)')->result_array();
+        BETWEEN "'.$dari.'" AND (SELECT MAX(tahun_akademik)FROM v_nilai)')->result_array();
     }
     
     public function getnilaiBeetwen6($sampai)
