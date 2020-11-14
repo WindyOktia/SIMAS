@@ -183,15 +183,16 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function laporan_waka($tahun1,$tahun2)
+    public function laporan_waka()
     {
         $data['page']='dashboard';
-        $tahun_akademik= $tahun1.' / '.$tahun2;
+        $tahun_akademik= $_GET['key1'];
+        $semester= $_GET['semester'];
         $data['nama_kegiatan']=$this->dasbord_model->getdasbordKeuangan();
-        $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik);
-        $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik);
-        $data['kegiatan']=$this->dasbord_model->getKegiatan($tahun_akademik);
-        $data['jumlah']=$this->dasbord_model->getjumlahPeserta($tahun_akademik);
+        $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik,$semester);
+        $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik,$semester);
+        $data['kegiatan']=$this->dasbord_model->getKegiatan($tahun_akademik,$semester);
+        $data['jumlah']=$this->dasbord_model->getjumlahPeserta($tahun_akademik,$semester);
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/kegiatan_laporan',$data);
         $this->load->view('templates/footer');

@@ -26,7 +26,7 @@
 				<td><?= $info['rata_pendapatan']?></td>
 				<td><?= $info['rata_pengeluaran']?></td>
 				<td><?= $info['terlaksana']?></td>
-               <td><a href="<?= base_url('admin/laporan_waka')?>/<?= $expAkad[0]?>/<?= $expAkad[1]?>" class="btn btn-primary btn-sm">Lihat Dasbord</a></td>
+               <td><a href="<?= base_url('admin/laporan_waka')?>?key1=<?=$info['tahun_akademik']?>&semester=<?= $info['semester']?>" class="btn btn-primary btn-sm">Lihat Dasbord</a></td>
             </tr>
         <?php endforeach?>
         </tbody>
