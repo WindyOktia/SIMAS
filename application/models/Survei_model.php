@@ -36,7 +36,8 @@ class Survei_model extends CI_Model
                 $data = [
                     'tahun_akademik'=>$_POST['tahun_akademik'],
                     'semester'=>$_POST['semester'],
-                    'tanggal_mulai'=>date('Y-m-d H:i:s')
+                    'tanggal_mulai'=>$_POST['tgl_mulai'],
+                    'tanggal_selesai'=>$_POST['tgl_selesai']
                 ];
         
                 $this->db->insert('survei_guru', $data);

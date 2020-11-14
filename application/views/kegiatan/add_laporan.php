@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="">Nama Kegiatan</label>
             <select name="id_proposal" id="" class="form-control">
-                <?php foreach($idproposal as $idprop):?>
+                <?php foreach($check as $idprop):?>
                     <option value="<?= $idprop['id_proposal']; ?>"><?= $idprop['nama_kegiatan']; ?> - <?= $idprop['tahun_akademik']; ?> - <?= $idprop['semester']; ?></option>
                 <?php endforeach?>
             </select>

@@ -34,9 +34,9 @@
         <h2><b>Informasi</b></h2>
         <ul>
             <li><h4>Jika kartu presensi hilang / rusak silahkan akses halaman guru untuk melakukan presensi secara manual</h4></li>
-            <li><h4>Presensi manual hanya boleh dilakukan maksimum 5x dalam satu semester</h4></li>
             <li><h4>Segera hubungi waka kurikulum apabila kartu presensi hilang / rusak</h4></li>
             <li><h4>Cek kembali status kehadiran anda melalui halaman guru, info login silahkan menghubungi waka kurikulum</h4></li>
+            <li><h4>Apabila jam mengajar < 15 menit, lakukan presensi jam selesai pada halaman guru</h4></li>
         </ul>
                 
     </div>
@@ -46,7 +46,164 @@
 </div>
 
 <script type="text/javascript">
-    function closeWin() {
-        window.close()
-    }
+
+		// presensi harian
+		// 1. cek register rfid di tabel guru
+		// 2. cek libur di tabel libur
+		// 3. cek ada data presensi / belum di tabel presensi
+		// 4. jika belum ada, data dismpan sebagai jam masuk, data pertama yang akan disimpan
+		// 5. jika sudah ada, user menunggu min 15 menit untuk dapat presensi lagi
+		// 6. setelah 15 menit data disimpan sebagai keluar, data terakhir yang disimpan
+		
+		// cek registrasi kartu
+		$(function () {
+			$('#presensiMengajar').on('submit', function (e) {
+			// var id= $('.rfid').val();
+			e.preventDefault();
+			$.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/getRFID')?>',
+				data: $('#presensiMengajar').serialize(),
+				success: function (result) {
+					id= JSON.parse(result);
+					if(id == 'fail')
+					{
+						console.log('fail')
+						toastr.error('Kartu Tidak Terdaftar');
+						$("#presensiMengajar")[0].reset();
+						$('.rfid').focus();
+					}else{
+						console.log('success');
+						getLibur(id);
+					}
+				}
+			});
+			});
+		});
+		// end of cek registrasi kartu
+
+		// cek hari libur
+		function getLibur(id){
+			$.ajax({
+            url: '<?= base_url('presensi/getLibur')?>'
+            }).done(function(res) {
+				var obs = JSON.parse(res);
+				if(obs !=''){
+					toastr.success(obs[0].keterangan);
+					$("#presensiMengajar")[0].reset();
+					$('.rfid').focus();
+				}else{
+					// cekPresensi(id);
+                    cekJamMengajar(id);
+				}
+            });
+		}
+
+        function cekJamMengajar(id){
+            $.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/cekJamMengajar')?>',
+				data: {id:id},
+				success: function (data) {
+                    var dt = JSON.parse(data);
+                    if(dt==''){
+                        toastr.error('Tidak ada jam mengajar pada saat ini');
+						$("#presensiMengajar")[0].reset();
+                    }else{
+                        id_jadwal = dt[0].id_jadwal_guru;
+                        cekPresensi(id,id_jadwal,dt);
+                        $("#presensiMengajar")[0].reset();
+                    }
+				}
+			});
+        }
+		// end of cek hari libur
+
+		// // cek presensi
+		function cekPresensi(id,id_jadwal,dt){
+			$.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/presensiMengajar')?>',
+				data: {id_jadwal:id_jadwal},
+				success: function (data) {
+					var dat = JSON.parse(data);
+                    if(dat==''){
+                        insertJamMasuk(id,id_jadwal,dt);
+                    }else{
+                        updatePresensi(id,id_jadwal,dt);
+                    }
+				}
+			});
+		}
+
+        function insertJamMasuk(id,id_jadwal,dt){
+            $.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/insertMengajar')?>',
+				data: {id_jadwal:id_jadwal},
+				success: function (status) {
+					if(status=='success'){
+                        // console.log(dt);
+                        getNotifJamMulai(id_jadwal);
+                    }else{
+                        toastr.error('Presensi Gagal, silahkan coba lagi');
+                    }
+				}
+			});
+        }
+
+        function updatePresensi(id, id_jadwal,dt){
+            $.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/updateMengajar')?>',
+				data: {id_jadwal:id_jadwal},
+				success: function (data) {
+					if(data=='<_15'){
+                        toastr.error('Tunggu hingga 15 menit untuk presensi selesai mengajar');
+                    }
+                    if(data=='fail'){
+                        toastr.error('Presensi Gagal, silahkan coba lagi');
+                    }
+                    if(data=='success'){
+                        getNotifJamSelesai(id_jadwal);
+                    }
+				}
+			});
+        } 
+
+        function getNotifJamMulai(id_jadwal){
+            $.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/getNotifMengajar')?>',
+				data: {id_jadwal:id_jadwal},
+				success: function (data) {
+                    var notif = JSON.parse(data);
+                    var time = '<?=date('H:i:s');?>';
+					toastr.success('Presensi Mulai Mengajar <b>'+notif[0].nama_guru+ '</b> - <b>[ ' +notif[0].nama_mapel+' ]</b> pada jam ' + time);
+				}
+			});
+        } 
+
+        function getNotifJamSelesai(id_jadwal){
+            $.ajax({
+				type: 'post',
+				url: '<?= base_url('presensi/getNotifMengajar')?>',
+				data: {id_jadwal:id_jadwal},
+				success: function (data) {
+                    var notif = JSON.parse(data);
+                    var time = '<?=date('H:i:s');?>';
+					toastr.success('Presensi Selesai Mengajar <b>'+notif[0].nama_guru+ '</b> - <b>[ ' +notif[0].nama_mapel+' ]</b> pada jam ' + time);
+				}
+			});
+        }                                                     
+
+	
+
+		function setAct(){
+			$('#rfid').focus();
+		}
+
+        function closeWin() {
+            window.close()
+        }
 </script>

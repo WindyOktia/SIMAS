@@ -114,7 +114,13 @@
                     <td class="align-middle"><?= $kuesioner['nama_kegiatan']; ?></td>
                     <td class="align-middle"><?= $kuesioner['tgl_mulai']; ?></td>
                     <td class="align-middle"><?= $kuesioner['tgl_selesai']; ?></td>
-                    <td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="<?= base_url('siswa/addFormkuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Isi Kuesioner</a></td>
+                    <?php
+						if($kuesioner['tgl_selesai'] < date("Y-m-d")){
+                            echo '<td class="align-middle"><span class="align-middle badge badge-danger">Masa Aktif Kuesioner Habis</span></td>';
+						} else {
+							echo '<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="">Isi Kuesioner</a></td>';
+						}
+					?>
                 </tr>
                 <?php endforeach; ?>
             </table>

@@ -703,24 +703,34 @@ class Admin extends CI_Controller
 
     public function editGuru()
     {
-        $tahun_akademik = $_POST['th_akademik1'].' / '. $_POST['th_akademik2'];
-     
-        $update=$this->mutu_model->editMutu($tahun_akademik);
-        if($update > 0)
+        $id_guru = $_POST['id'];
+        $nip = $_POST['nip'];
+        $niplama = $_POST['niplama'];
+        $rfid = $_POST['rfid'];
+        $nama = $_POST['nama'];
+        $alamat = $_POST['alamat'];
+        $password = $_POST['pass'];
+        $status = $_POST['status'];
+
+        $editGuru=$this->guru_model->editGuru($id_guru,$nip, $rfid, $nama, $alamat, $password, $status);
+
+        $updateUser=$this->guru_model->updateUser($niplama, $nip, $password, $nama);
+
+        if($editGuru > 0 && $updateUser > 0 )
         {
-            $this->session->set_flashdata('success', 'Proposal berhasil diubah');
+            $this->session->set_flashdata('success', 'Data Guru Berhasil Diubah');
         }else
         {
-            $this->session->set_flashdata('success', 'Proposal gagal diubah');
+            $this->session->set_flashdata('error', 'Data Guru Gagal Diubah');
         }
-        redirect('document/detailProposal/'.$_POST['back_id']);
+        redirect('admin/daftarGuru');
     }
 
     public function daftarGuru()
     {
         $data['page']='daftarGuru';
         $data['guru']=$this->guru_model->get();
-        $data['detail']=$this->guru_model->get();
+        $data['jadwal']=$this->guru_model->getJadwalAll();
         $this->load->view('templates/header',$data);
         $this->load->view('guru/daftarGuru',$data);
         $this->load->view('templates/footer');
@@ -734,6 +744,7 @@ class Admin extends CI_Controller
         $data['kelas']=$this->kelas_model->get();
         $data['mapel']=$this->mapel_model->getMapel();
         $data['tahun_akademik']=$this->pengaturan_model->getAkademik();
+        $data['id_guru']= $id;
         $this->load->view('templates/header',$data);
         $this->load->view('guru/jadwalMengajar',$data);
         $this->load->view('templates/footer');
@@ -761,6 +772,18 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('success', 'Jadwal Guru Berhasil Disimpan');
         }
         redirect('admin/jadwalMengajar/'.$guru.'');
+    }
+
+    public function validasiJadwal()
+    {
+        $setAkademik=$this->pengaturan_model->getAkademik();
+
+        foreach($setAkademik as $set){
+            echo json_encode($this->guru_model->validasiJadwal($set['tahun_akademik'], $set['semester']));
+        }
+
+        // echo json_encode($_POST['id_guru']);
+
     }
 
     public function deleteJadwal($id,$backid)

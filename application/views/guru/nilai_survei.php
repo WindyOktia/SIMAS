@@ -1,7 +1,19 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#exampleModal">
+<?php $hitungSurvei=0; foreach($surveiID as $key):?>
+    <?php foreach($akademik as $keyAkad):?>
+        <?php if($key['tahun_akademik']==$keyAkad['tahun_akademik']){?>
+            <?php if($key['semester']==$keyAkad['semester']){?>
+                <?php $hitungSurvei++?>
+            <?php } ;?>
+        <?php } ;?>
+    <?php endforeach?>
+<?php endforeach?>
+
+<button type="button" class="btn btn-primary btn-sm mb-3 " <?php if($hitungSurvei>=1){echo 'disabled';};?> data-toggle="modal" data-target="#exampleModal">
 <i class="fa fa-bars mr-2"></i>Kelola Pertanyaan Survei Guru
 </button>
+
+<a href="" class="btn btn-secondary btn-sm mb-3 ml-2"><i class="fa fa-history mr-2"></i>Lihat Riwayat Survei</a>
 
 
 
@@ -43,6 +55,22 @@
             </select>
         </div>
         
+        <b>Durasi Kuesioner</b>
+        
+        <div class="row mt-1">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Tanggal Mulai </label>
+                    <input type="date" name="tgl_mulai" class="form-control" value="<?=date('Y-m-d')?>" required>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Tanggal Selesai </label>
+                    <input type="date" name="tgl_selesai" class="form-control" value="" required>
+                </div>
+            </div>
+        </div>
         <button type="submit" class="btn btn-success btn-success float-right"><i class="fa fa-paper-plane-o mr-2"></i> Generate e-survei</button>
     </form>
 </div>
@@ -55,6 +83,7 @@
         <?php foreach($surveiID as $delsur):?>
             <?php if($delsur['tahun_akademik']==$akad['tahun_akademik']){?>
                 <?php if($delsur['semester']==$akad['semester']){?>
+
                     <div class="col">
                         <a href="<?=base_url('survei/deleteSurveiGuru')?>/<?=$delsur['id_survei_guru']?>" class="btn btn-sm btn-danger float-right mb-2 tombol-hapus">Batalkan Survei</a>
                     </div>
@@ -67,6 +96,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Guru</th>
+                <th>Detail</th>
             </tr>
         </thead>
         <tbody>
@@ -76,6 +106,11 @@
                         <tr>
                             <td><?=$i++?></td>
                             <td><?=$surv['nama_guru']?></td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalNilai">
+                                    Lihat Nilai
+                                </button>
+                            </td>
                         </tr>
                     <?php } ;?>
                 <?php } ;?>
@@ -104,7 +139,7 @@
             <form action="<?=base_url('survei/addPertanyaan')?>" method="post">
                 <div class="form-group">
                     <label for="">Input Pertanyaan</label>
-                    <input type="text" name="pertanyaan" class="form-control border-info" autocomplete="off">
+                    <input type="text" name="pertanyaan" class="form-control border-info" autocomplete="off" required>
                 </div>
                 Note: Setiap pertanyaan akan memiliki 4 opsi jawaban ( <b>Sangat Baik, Baik, Cukup, Kurang</b> )
                 <h6 class="mt-3"><i class="fa fa-history mr-2"></i>Daftar Pertanyaan</h6>
@@ -137,6 +172,28 @@
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="modalNilai" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail Nilai</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
