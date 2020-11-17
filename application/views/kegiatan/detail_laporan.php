@@ -24,6 +24,18 @@
             </li>
             <li>
             <div class="row">
+                <div class="col-md-3">Tanggal Pelaksanaan</div>
+                <div class="col-md-9">: <?= $dok['tgl_pelaksanaan']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
+                <div class="col-md-3">Tanggal Selesai Acara</div>
+                <div class="col-md-9">: <?= $dok['tgl_selesai_acara']?></div>
+            </div>
+            </li>
+            <li>
+            <div class="row">
                 <div class="col-md-3">Tempat</div>
                 <div class="col-md-9">: <?= $dok['tempat']?></div>
             </div>

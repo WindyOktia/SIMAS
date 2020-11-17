@@ -6,7 +6,7 @@
                         <div class="form-group">
                             <label for="username">Nama Kegiatan</label>
                                 <select name="id_proposal" class="multiselect-dropdown form-control" required>
-                                    <?php if(isset($check)){foreach ($check as $prop) : ?>
+                                    <?php if(isset($proposal)){foreach ($proposal as $prop) : ?>
                                         <option value="<?= $prop['id_proposal']; ?>"><?= $prop['nama_kegiatan']; ?> - <?= $prop['tahun_akademik'];?> - <?= $prop['semester'];?></option>
                                     <?php endforeach; }?> 
                                 </select>

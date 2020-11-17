@@ -69,6 +69,11 @@
        </div>
 
        <div class="form-group">
+            <label for="">Tanggal Selesai Acara</label>
+            <input name="tgl_selesai_acara" type="date" class="form-control" required>
+       </div>
+
+       <div class="form-group">
             <label for="">Tempat</label>
             <input name="tempat" type="text" class="form-control" required>
        </div>
@@ -86,11 +91,6 @@
         <div class="form-group">
             <label for="">Rencana Anggaran</label>
             <input type="hidden" name="judul[]" placeholder="" value="Rincian Anggaran" class="form-control-file">
-            <input type="file" name="arsip[]" class="form-control-file">
-        </div>
-        <div class="form-group">
-            <label for="">Sumber Dana</label>
-            <input type="hidden" name="judul[]" placeholder="" value="Sumber Dana" class="form-control-file">
             <input type="file" name="arsip[]" class="form-control-file">
         </div>
 
