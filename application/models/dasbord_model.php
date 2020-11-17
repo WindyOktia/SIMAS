@@ -1,5 +1,5 @@
 <?php
-class dasbord_model extends CI_Model
+class Dasbord_model extends CI_Model
 {
     public function getdasbordKeuangan()
     {

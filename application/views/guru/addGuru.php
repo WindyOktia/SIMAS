@@ -26,6 +26,16 @@
                 </div>
             </div>
             <div class="form-group row">
+				<label for="" class="col-form-label col-lg-2">Status Guru</label>
+                <div class="col-lg-10">
+                    <select name="status" id="" class="form-control">
+                        <option value="1" >PNS</option>
+                        <option value="2" >Guru Tidak Tetap</option>
+                        <option value="3" >Guru Tetap Yayasan</option>
+                    </select>
+                </div>
+			</div>
+            <div class="form-group row">
                 <label class="col-form-label col-lg-2">Alamat</label>
                 <div class="col-lg-10">
                     <textarea type="text" autocomplete="off" class="form-control" rows="4" placeholder="Alamat Lengkap" name="alamat" required ></textarea>

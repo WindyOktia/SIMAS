@@ -717,7 +717,7 @@ class Admin extends CI_Controller
 
         $updateUser=$this->guru_model->updateUser($niplama, $nip, $password, $nama);
 
-        if($editGuru > 0 && $updateUser > 0 )
+        if($editGuru > 0 || $updateUser > 0 )
         {
             $this->session->set_flashdata('success', 'Data Guru Berhasil Diubah');
         }else

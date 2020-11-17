@@ -9,6 +9,7 @@ class Guru_model extends CI_Model
                 'rfid' => $_POST['rfid'],
                 'nip' => $_POST['nip'],
                 'nama_guru' => $_POST['nama'],
+                'status_guru' => $_POST['status'],
                 'alamat' => $_POST['alamat']
             ];
 
