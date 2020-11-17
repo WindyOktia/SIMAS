@@ -137,22 +137,20 @@
                         <?= json_encode($nilai_kegiatan);?>
                     </div>
                 </div>
-                <a href="<?=base_url('admin/info_kegiatan')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
+                <?php if(!isset($_GET['key1'])&& !isset($_GET['key2'])){?>
+                <a href="<?=base_url('admin/info_kegiatan')?>" class="btn btn-sm btn-info float-right mt-3">Default</a>
+                <?php }?>
+                <?php if(isset($_GET['key1'])&& !isset($_GET['key2'])){?>
+                <a href="<?=base_url('admin/info_kegiatan')?>?key1=<?=$_GET['dari']?>&semester=<?=$_GET['semester']?>" class="btn btn-sm btn-info float-right mt-3">Tanpa rentang</a>
+                <?php }?>
+                <?php if(isset($_GET['key1'])&& isset($_GET['key2'])){?>
+                <a href="<?=base_url('admin/info_kegiatan')?>?key1=<?=$_GET['dari']?>&key2=<?=$_GET['sampai']?>&semester=<?=$_GET['semester']?>" class="btn btn-sm btn-info float-right mt-3">dengan rentang</a>
+                <?php }?>
             </div>
         </div>
     </div>
 </div>
 
-        <!-- <div class="col-md-12">
-            <div class="card card-body border-info">
-                <h6>Grafik Minat Kegiatan Siswa</h6>
-                <div class="row">
-                    <div class="col-md-12">
-                    <canvas id="dashKetertarikan" height="100"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
 <script>
 var dash = document.getElementById('dashGuru').getContext('2d');
@@ -193,21 +191,4 @@ var dashSiswa = new Chart(dash1, {
 		}]
 	}
 });
-// var dash1 = document.getElementById('dashKetertarikan').getContext('2d');
-// var dashKetertarikan = new Chart(dash1, {
-// 	type: 'horizontalBar',
-// 	data: {
-// 		labels: ['Basket', 'Futsal','Renang','Bulu Tangkis','Catur'],
-// 		datasets: [{
-// 			label: 'Basket',
-// 			data: [12, 19, 10, 5, 11],
-// 			backgroundColor: [
-// 				'rgba(255, 99, 132, 0.2)',
-// 				'rgba(54, 162, 235, 0.2)'
-// 			],
-// 			borderWidth: 2
-// 		}],
-// 	},
-    
-// });
 </script>

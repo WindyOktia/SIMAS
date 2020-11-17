@@ -183,28 +183,108 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function laporan_waka($tahun1,$tahun2)
+    public function laporan_waka()
     {
         $data['page']='dashboard';
-        $tahun_akademik= $tahun1.' / '.$tahun2;
+        $tahun_akademik= $_GET['key1'];
+        $semester= $_GET['semester'];
         $data['nama_kegiatan']=$this->dasbord_model->getdasbordKeuangan();
-        $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik);
-        $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik);
-        $data['kegiatan']=$this->dasbord_model->getKegiatan($tahun_akademik);
-        $data['jumlah']=$this->dasbord_model->getjumlahPeserta($tahun_akademik);
+        $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik,$semester);
+        $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik,$semester);
+        $data['kegiatan']=$this->dasbord_model->getKegiatan($tahun_akademik,$semester);
+        $data['jumlah']=$this->dasbord_model->getjumlahPeserta($tahun_akademik,$semester);
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/kegiatan_laporan',$data);
         $this->load->view('templates/footer');
     }
-
+    
     public function info_kegiatan()
     {
+        if(!isset($_GET['key1']) && !isset($_GET['key2']))
+        {
+           $data['info_keuangan']=$this->dasbord_model->getdefault_anggaran();
+        }
+
+        if(isset($_GET['key1']) && !isset($_GET['key2']))
+        {
+            $dari = $_GET['key1'];
+            $semester = $_GET['semester'];
+
+            if($dari=='semua' && $semester=='semua'){
+
+                $data['info_keuangan']=$this->dasbord_model->getdefault_anggaran();
+                //echo deffault;
+
+            }else if($dari!='semua' && $semester=='semua'){
+
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_th1($dari);
+                //echo 'tahun dipilih,semester semua';
+                
+            }else if($dari =='semua' && $semester !='semua'){
+                
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_semester($semester);
+                //echo 'tahun semua, semester dipilih';
+
+            }else if($dari !='semua' && $semester !='semua'){
+
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_th1_semester($dari,$semester);
+                //echo 'tahun dipilih, semester dipilih';
+
+            }
+        }
+
+        if(isset($_GET['key1']) && isset($_GET['key2']))
+        {
+            $dari = $_GET['key1'];
+            $sampai = $_GET['key2'];
+            $semester = $_GET['semester'];
+
+            if($dari=='semua' && $sampai=='semua' && $semester=='semua'){
+
+                $data['info_keuangan']=$this->dasbord_model->getdefault_anggaran();
+                // echo 'default';
+                
+            }else if($dari!='semua' && $sampai=='semua' && $semester=='semua'){
+                
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_between1($dari);
+                //    echo 'th1 dipilih, th2 semua, semester semua';
+                
+            }else if($dari!='semua' && $sampai!='semua' && $semester=='semua'){
+                
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_between2($dari,$sampai);
+                // echo 'th1 dipilih, th2 dipilih, semester semua';
+                
+            }else if($dari!='semua' && $sampai!='semua' && $semester!='semua'){
+                
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_between3($semester,$dari,$sampai);
+                // echo ' th1 dipilih, th2 dipilih, semester dipilih';
+
+            }else if($dari=='semua' && $sampai!='semua' && $semester!='semua'){
+                
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_between4($semester,$sampai);
+                // echo 'th1 semua, th2 dipilih, semester dipilih';
+
+            }else if($dari=='semua' && $sampai=='semua' && $semester!='semua'){
+
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_between5($semester);
+                // echo 'th1 semua, th2 semua, semester dipilih';
+
+            }else if($dari!='semua' && $sampai=='semua' && $semester!='semua'){
+                
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_between6($dari,$semester);
+                //    echo 'th1 dipilih, th2 semua, semester dipilih';
+                
+            }else if($dari=='semua' && $sampai!='semua' && $semester=='semua'){
+                
+                $data['info_keuangan']=$this->dasbord_model->getanggaran_between7($sampai);
+                // echo 'th1 semua, th2 dipilih, semester semua';
+            }
+        }
         $data['page']='dashboard';
-        $data['info_keuangan']=$this->dasbord_model->getdasbordRataKeuangan();
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/info_Kegiatan',$data);
         $this->load->view('templates/footer');
-    }
+     }
     public function info_Detailkegiatan()
     {
         // $data['page']='dashboard';
