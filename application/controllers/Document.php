@@ -243,6 +243,9 @@ class Document extends CI_Controller
         $data['dokumenlaporan']=$this->dokumen_model->getLaporanID($id);
         $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
         $data['joinlaporan']=$this->dokumen_model->joinLaporanID($id);
+        $data['pj']=$this->dokumen_model->getRevisiLaporanPJ($id);
+        $data['waka']=$this->dokumen_model->getRevisiLaporanWaka($id);
+        $data['kepsek']=$this->dokumen_model->getRevisiLaporanKepsek($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_laporan',$data);
         $this->load->view('templates/footer');

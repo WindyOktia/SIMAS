@@ -259,6 +259,45 @@ class Dokumen_model extends CI_Model
         $this->db->trans_complete();
     }
 
+    public function getRevisiLaporanPJ($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, verifikasi_laporan.Catatan');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('laporan.id_laporan = verifikasi_laporan.id_laporan');
+        $this->db->where('verifikasi_laporan.id_user = 20');
+        $this->db->where(['verifikasi_laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getRevisiLaporanWaka($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, verifikasi_laporan.Catatan');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('laporan.id_laporan = verifikasi_laporan.id_laporan');
+        $this->db->where('verifikasi_laporan.id_user = 14');
+        $this->db->where(['verifikasi_laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getRevisiLaporanKepsek($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, verifikasi_laporan.Catatan');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('laporan.id_laporan = verifikasi_laporan.id_laporan');
+        $this->db->where('verifikasi_laporan.id_user = 15');
+        $this->db->where(['verifikasi_laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
     public function getLaporanID($id)
     {
         return $this->db->get_where('laporan',['id_laporan'=> $id])->result_array();
