@@ -194,6 +194,14 @@ class Guru_model extends CI_Model
         // return $this->db->affected_rows();
     }
 
+    public function getLink($id)
+    {
+        $this->db->select('link_file');
+        $this->db->from('trans_doc');
+        $this->db->where('code_id','ijinGuru_'.$id);
+        return $this->db->get()->result_array();
+    }
+
     public function addStatus($id,$stat,$catatan)
     {
         $data=[
@@ -238,7 +246,7 @@ class Guru_model extends CI_Model
     public function validasiJadwal($tahun_akademik, $semester)
     {
         
-        return $this->db->query('SELECT jadwal_guru.*, mapel.nama_mapel, kelas.kelas, kelas.jurusan, kelas.sub FROM jadwal_guru,mapel, kelas WHERE jadwal_guru.id_mapel=mapel.id_mapel AND jadwal_guru.id_kelas=kelas.id_kelas AND tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" AND id_guru = "'.$_POST['id_guru'].'" AND Hari = "'.$_POST['hari'].'" AND jadwal_guru.id_kelas="'.$_POST['kelas'].'" and jadwal_guru.id_mapel = "'.$_POST['mapel'].'" AND "'.$_POST['jam_mulai'].'" BETWEEN jam_mulai AND jam_selesai OR "'.$_POST['jam_selesai'].'" BETWEEN jam_mulai AND jam_selesai')->result_array();
+        return $this->db->query('SELECT jadwal_guru.*, mapel.nama_mapel, kelas.kelas, kelas.jurusan, kelas.sub FROM jadwal_guru,mapel, kelas WHERE jadwal_guru.id_mapel=mapel.id_mapel AND jadwal_guru.id_kelas=kelas.id_kelas AND tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" AND id_guru = "'.$_POST['id_guru'].'" AND Hari = "'.$_POST['hari'].'" AND jadwal_guru.id_kelas="'.$_POST['kelas'].'" and jadwal_guru.id_mapel = "'.$_POST['mapel'].'" AND "'.$_POST['jam_mulai'].'" BETWEEN jam_mulai AND jam_selesai ')->result_array();
        
     }
 

@@ -69,6 +69,7 @@
     <div class="col md-12">
         <div class="card card-body border-primary">
 
+<?php if(count($jamhadir)>0){?>
 <?php
     $times = array();
     
@@ -119,6 +120,7 @@
     //echo "Average time is " . str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . "\n";
    
 ?>
+
             <h6>Kehadiran Harian  
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalHarian">
@@ -139,6 +141,11 @@
             </div>
         </div>
     </div>
+<?php }else{?>
+    <div class="card card-body border-danger">
+    Belum Ada Presensi Harian    Tercatat
+    </div>
+<?php } ?>
 
     <div class="col-md-12">
         <div class="card card-body border-primary">

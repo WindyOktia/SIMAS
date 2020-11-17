@@ -143,6 +143,11 @@
                     <td><b>Durasi</b></td>
                     <td>: xx hari</td>
                 </tr>
+
+                <tr>
+                    <td><b>Lampiran Dokumen</b></td>
+                    <td>:  <a href="<?=base_url('guru/findFile')?>/<?= $editIjin['id_ijin']?>" > Unduh File</a></td>
+                </tr>
             </tbody>
         </table>
             

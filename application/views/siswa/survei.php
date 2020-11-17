@@ -47,27 +47,52 @@
                 <?php foreach($namaKelas as $nm):?>
                     <p>Daftar guru mengajar di kelas <?=$nm['kelas']?> <?=$nm['jurusan']?> <?=$nm['sub']?></p>
                 <?php endforeach?>
-        
+       
                 <div class="table-responsive mt-3">
                     <table class="table">
                         <thead>
                             <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama Guru</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($daftarGuru as $daf):?>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><?= $daf['nama_guru']?></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                    Isi Survei
-                                    </button>
-                                </td>
-                            </tr>
+                        <?php $n=1; foreach($daftarGuru as $daf):?>
+                            <?php 
+
+                                $arrId = array();
+
+                                foreach($transGuru as $tGuru){
+                                    $arrId[] += $tGuru['id_guru'];
+                                }
+                                
+                                if (in_array($daf['id_guru'], $arrId))
+                                {?>
+
+
+                                    <tr>
+                                        <th scope="row"><?=$n++?></th>
+                                        <td><?= $daf['nama_guru']?></td>
+                                        <td id="stat<?=$daf['id_guru']?>"><span class="badge badge-danger">Belum Terisi</span></td>
+                                        <td>
+                                            <button type="button" id="btn<?=$daf['id_guru']?>" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal<?=$daf['id_guru']?>">
+                                            Isi Survei
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                               <?php } else {?>
+                                   
+                                   <div class="card card-body border-warning">
+                                   <h6><b>Informasi</b></h6>
+                                    <ul>
+                                        <li>Tidak ada data guru untuk di survei</li>
+                                    </ul>
+                                   </div>
+                                <?php } ?>
+                            
                         <?php endforeach?>
                         </tbody>
                     </table>
@@ -78,6 +103,8 @@
                     <?php }?>
                 </div>
             </div>
+
+            <!-- daniel -->
             <div class="card card-body mt-3 mb-5">
                 <h5>Survei Kegiatan</h5>
                 <form action="" method="get">
@@ -126,11 +153,14 @@
             </table>
                 </div>
                 <?php } ?>
+
+                <!-- daniel -->
             </div>
         </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php foreach($daftarGuru as $formSurvei):?>
+    <div class="modal fade bd-example-modal-lg" id="exampleModal<?=$formSurvei['id_guru']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -140,26 +170,37 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
+                <form onsubmit="return confirm('Data yang dikirim tidak dapat diubah lagi. Yakin untuk kirim data?');" action="<?= base_url('siswa/insertSurveiGuru')?>" method="post">
+                <?php 
+                    $arrIdSurvei = array();
+                    foreach($transGuru as $subForm){
+                        $arrIdSurvei[] += $subForm['id_survei_guru'];
+                    }
+                ?>
+                <input type="hidden" name="id_survei_guru" class="form-control" value="<?=$arrIdSurvei[0]?>">
+                <input type="hidden" name="id_siswa" class="form-control" value="<?= $this->session->userdata('id_siswa');?>">
+                <input type="hidden" name="id_guru" class="form-control" value="<?= $formSurvei['id_guru']?>">
+
                 <?php $i = 1; foreach ($pertanyaan as $soal) { ?>
                 <label for="soal"><?= $i ?>. <?= $soal['pertanyaan']; ?></label>
+                <input type="hidden" name="pertanyaan[]" value="<?= $soal['id_soal_survei_guru']; ?>"> 
                 <div class="position-relative form-group ml-3">
                     <div class="form-row ml-3">
                         <div class="custom-radio custom-control col-md-3">
-                            <input type="radio" id="exampleCustomRadio1<?=$i?>" name="opsi[<?=$i?>]" value="4" class="custom-control-input" required>
-                            <label class="custom-control-label ml-3" for="exampleCustomRadio1<?=$i?>">Sangat Baik</label>
+                            <input type="radio" id="exampleCustomRadio1<?=$i?><?=$formSurvei['id_guru']?>" name="opsi[<?=$i?>]" value="4" class="custom-control-input" required>
+                            <label class="custom-control-label ml-3" for="exampleCustomRadio1<?=$i?><?=$formSurvei['id_guru']?>">Sangat Baik</label>
                         </div>
                         <div class="custom-radio custom-control col-md-3">
-                            <input type="radio" id="exampleCustomRadio2<?=$i?>" name="opsi[<?=$i?>]" value="3" class="custom-control-input" required>
-                            <label class="custom-control-label ml-3" for="exampleCustomRadio2<?=$i?>">Baik</label>
+                            <input type="radio" id="exampleCustomRadio2<?=$i?><?=$formSurvei['id_guru']?>" name="opsi[<?=$i?>]" value="3" class="custom-control-input" required>
+                            <label class="custom-control-label ml-3" for="exampleCustomRadio2<?=$i?><?=$formSurvei['id_guru']?>">Baik</label>
                         </div>
                         <div class="custom-radio custom-control col-md-3">
-                            <input type="radio" id="exampleCustomRadio3<?=$i?>" name="opsi[<?=$i?>]" value="2" class="custom-control-input" required>
-                            <label class="custom-control-label ml-3" for="exampleCustomRadio3<?=$i?>">Cukup</label>
+                            <input type="radio" id="exampleCustomRadio3<?=$i?><?=$formSurvei['id_guru']?>" name="opsi[<?=$i?>]" value="2" class="custom-control-input" required>
+                            <label class="custom-control-label ml-3" for="exampleCustomRadio3<?=$i?><?=$formSurvei['id_guru']?>">Cukup</label>
                         </div>
                         <div class="custom-radio custom-control col-md-3">
-                            <input type="radio" id="exampleCustomRadio4<?=$i?>" name="opsi[<?=$i?>]" value="1" class="custom-control-input" required>
-                            <label class="custom-control-label ml-3" for="exampleCustomRadio4<?=$i?>">Kurang</label>
+                            <input type="radio" id="exampleCustomRadio4<?=$i?><?=$formSurvei['id_guru']?>" name="opsi[<?=$i?>]" value="1" class="custom-control-input" required>
+                            <label class="custom-control-label ml-3" for="exampleCustomRadio4<?=$i?><?=$formSurvei['id_guru']?>">Kurang</label>
                         </div>
                     </div>
                 </div>
@@ -167,22 +208,33 @@
 
                     <div class="form-group mt-5">
                         <label for="">Masukan Untuk Guru</label>
-                        <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                        <textarea name="masukan" id="" cols="30" rows="5" class="form-control"></textarea>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Kirim Jawaban</button>
+                <button type="submit" class="btn btn-primary">Kirim Jawaban</button>
             </div>
+                </form>
             </div>
         </div>
     </div>
+<?php endforeach?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        <?php foreach($getActorSurvei as $act):?>
+        <?php if($act['id_siswa']==$this->session->userdata('id_siswa')){?>
+            $('#stat<?=$act['id_guru']?>').html('<span class="badge badge-success">Sudah Terisi</span>');
+            $('#btn<?=$act['id_guru']?>').prop('disabled',true);
+
+        <?php } ?>
+        <?php endforeach?>
+
+    </script>              
   </body>
 </html>
