@@ -27,7 +27,8 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
         $this->db->trans_start();
-        $this->db->select('proposal.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, user.nama');
+        $this->db->select('proposal.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik,
+         proposal.semester, user.nama');
         $this->db->from('user');
         $this->db->where('proposal.id_user = user.id_user');
         $this->db->where(['user.role'=>$this->session->userdata('role')]);

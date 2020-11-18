@@ -1,28 +1,44 @@
+<style>
+    .content-wrapper{
+        background-color:#ebebeb
+    }
+</style>
+
+<!-- <?=json_encode($minatSiswa)?> -->
+
 <h3>Detail Laporan Kegiatan Tahun <b><?=$_GET['key1']?></b> - Semester <b><?=$_GET['semester']?></b></h3>
 <div class="row mt-3">
     <div class="col-md-3">
-        <div class="card card-body bg-success-300">
+    <?php foreach ($kgiatn_berjalan as $kg_berjalan):?>
+        <div class="card card-body bg-info-300">
             <h6>Jumlah Kegiatan Berjalan</h6>
-            <h4 class="text-center"><b>5</b></h4>
+            <h4 class="text-center"><b><?=$kg_berjalan['jmlh_survei_terlaksana'];?></b></h4>
         </div>
+        <?php endforeach?>
     </div>
     <div class="col-md-3">
-        <div class="card card-body bg-success-300">
+    <?php foreach ($jmlh_laporan as $jmlh):?>
+        <div class="card card-body bg-info-300">
             <h6>Jumlah Laporan Masuk</h6>
-            <h4 class="text-center"><b>3</b></h4>
+            <h4 class="text-center"><b><?=$jmlh['jmlh_laporan'];?></b></h4>
         </div>
+        <?php endforeach?>
     </div>
     <div class="col-md-3">
-        <div class="card card-body bg-success-300">
+    <?php foreach ($survei as $jm_survei):?>
+        <div class="card card-body bg-info-300">
             <h6>Jumlah Survei Terlaksana</h6>
-            <h4 class="text-center"><b>4</b></h4>
+            <h4 class="text-center"><b><?=$jm_survei['jmlh_survei_terlaksana'];?></b></h4>
         </div>
+        <?php endforeach?>
     </div>
     <div class="col-md-3">
-        <div class="card card-body bg-success-300">
+    <?php foreach ($jumlah as $jmlh_kg):?>
+        <div class="card card-body bg-info-300">
             <h6>Siswa Terlibat</h6>
-            <h4 class="text-center">~ <b>15</b></h4>
+            <h4 class="text-center">~ <b><?=$jmlh_kg['jumlah_peserta'];?></b></h4>
         </div>
+        <?php endforeach?>
     </div>
 </div>
 <ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
@@ -42,36 +58,41 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-body">
-                    Laporan Umum
+                    <h6 class="text text-indigo-600">Laporan Umum</h6>
                     <canvas id="kegiatan"></canvas>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card card-body">
-                    Alokasi Biaya
-                    <canvas id="alokasiBiaya"></canvas>
+                    <h6 class="text-orange-600">Alokasi Dana Masuk</h6>
+                    <canvas id="alokasiBiaya" height="293"></canvas>
                 </div>
             </div>
         </div>
-    <div class="col-md-4">
-        <div class="card card-body">
-            <h6><b>Nama Kegiatan 1</b></h6>
-            <canvas id="anu"></canvas>
+        <div class="row">
+                <?php $i=1; foreach ($kegiatan as $nm_kegiatan):?>
+
+                    <div class="col-md-4">
+                            <div class="card card-body">
+                                <h6><?=$nm_kegiatan['nama_kegiatan'];?></h6>
+                                <canvas id="kegiatan<?=$nm_kegiatan['id_proposal'];?>" ></canvas>
+                            </div>
+                    </div>
+                <?php endforeach ?>
         </div>
-    </div>
   </div>
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
     <div class="row">
         <div class="col-md-6">
             <div class="card card-body">
-                Keterlibatan Siswa
-                <canvas id="keterlibatan"></canvas>
+            <h6>Keterlibatan Siswa</h6>
+                <canvas id="siswa"></canvas>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card card-body">
                 Minat Siswa
-                <canvas id="minat"></canvas>
+                <canvas id="minatSiswa"></canvas>
             </div>
         </div>
     </div>
@@ -79,15 +100,25 @@
   <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
 </div>
 
+
+
 <script>
-var ctx = document.getElementById('kegiatan');
-var myChart = new Chart(ctx, {
+var kegiatan = document.getElementById('kegiatan');
+var ctkegiatan = new Chart(kegiatan, {
     type: 'bar',
     data: {
-        labels: ['Anggaran', 'Dana Masuk', 'Dana Terpakai'],
+        labels: [
+            'Dana Anggaran', 'Dana Masuk', 'Dana Terpakai'
+        ],
         datasets: [{
             label: 'Laporan Umum',
-            data: [12, 19, 3],
+            data: [
+                //foreach
+                <?php foreach ($rataKeuangan as $rt_uang):?>
+                '<?=$rt_uang['rata_anggaran']?>', '<?=$rt_uang['rata_pendapatan']?>', '<?=$rt_uang['rata_pengeluaran']?>'
+                <?php endforeach ?>
+                //endforeach
+            ],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -108,17 +139,27 @@ var myChart = new Chart(ctx, {
                     beginAtZero: true
                 }
             }]
+        },
+        legend: {
+        display: false
+    },
+    tooltips: {
+        callbacks: {
+        label: function(tooltipItem) {
+            return tooltipItem.yLabel;
+        }
         }
     }
+    }
 });
-var anu = document.getElementById('anu');
-var myChartanu = new Chart(anu, {
+<?php foreach($kegiatan as $grf):?>
+var anu<?=$grf['id_proposal']?> = document.getElementById('kegiatan<?=$grf['id_proposal']?>');
+var myChartanu<?=$grf['id_proposal']?> = new Chart(anu<?=$grf['id_proposal']?>, {
     type: 'bar',
     data: {
-        labels: ['Anggaran', 'Dana Masuk', 'Dana Terpakai'],
+        labels: ['Dana Anggaran', 'Dana Masuk', 'Dana Terpakai'],
         datasets: [{
-            label: 'Laporan Umum',
-            data: [12, 19, 3],
+            data: [<?=$grf['rata_anggaran']?>,<?=$grf['rata_pendapatan']?>,<?=$grf['rata_pengeluaran']?>],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -139,61 +180,38 @@ var myChartanu = new Chart(anu, {
                     beginAtZero: true
                 }
             }]
+        },
+        legend: {
+        display: false
+        },
+        tooltips: {
+            callbacks: {
+            label: function(tooltipItem) {
+                    return tooltipItem.yLabel;
+            }
+            }
         }
     }
 });
+<?php endforeach?>
+
+
+
 var alokasiBiaya = document.getElementById('alokasiBiaya');
 var alokasi = new Chart(alokasiBiaya, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
-        labels: ['Basket', 'Futsal', 'Catur'],
+        labels: [
+            <?php foreach ($alokasiBiaya as $aloBiaya):?>
+            '<?=$aloBiaya['nama_kegiatan']?>',
+            <?php endforeach ?> 
+        ],
         datasets: [{
-            label: 'Laporan Umum',
-            data: [12, 19, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
+            data: [
+                <?php foreach ($alokasiBiaya as $danaMasuk):?>
+            <?= $danaMasuk['rata_pendapatan']?>,
+            <?php endforeach ?> 
             ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-            ],
-            borderWidth: 1
-        }]
-    }
-});
-var keterlibatan = document.getElementById('keterlibatan');
-var Terlibat = new Chart(keterlibatan, {
-    type: 'pie',
-    data: {
-        labels: ['Basket', 'Futsal', 'Catur'],
-        datasets: [{
-            label: 'Laporan Umum',
-            data: [12, 19, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-            ],
-            borderWidth: 1
-        }]
-    }
-});
-var minat = document.getElementById('minat');
-var minatsiswa = new Chart(minat, {
-    type: 'bar',
-    data: {
-        labels: ['Futsal', 'Basket', 'Catur'],
-        datasets: [{
-            label: 'Laporan Umum',
-            data: [12, 19, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -208,13 +226,103 @@ var minatsiswa = new Chart(minat, {
         }]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
+        tooltips: {
+  callbacks: {
+    label: function(tooltipItem, data) {
+      //get the concerned dataset
+      var dataset = data.datasets[tooltipItem.datasetIndex];
+      //calculate the total of this data set
+      var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+        return previousValue + currentValue;
+      });
+      //get the current items value
+      var currentValue = dataset.data[tooltipItem.index];
+      //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+      var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+
+      return percentage + "%";
     }
+  }
+} 
+    } 
+});
+var siswa = document.getElementById('siswa');
+var Siswa = new Chart(siswa, {
+    type: 'pie',
+    data: {
+        labels: [
+            <?php foreach ($keterlibatan as $terlibat):?>
+            '<?=$terlibat['nama_kegiatan']?>',
+            <?php endforeach ?> 
+        ],
+        datasets: [{
+            data: [
+                <?php foreach ($keterlibatan as $tot_libat):?>
+            '<?=$tot_libat['jumlah_peserta']?>',
+            <?php endforeach ?> 
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    }
+});
+
+var minatSiswa = document.getElementById('minatSiswa');
+var minatsiswa = new Chart(minatSiswa, {
+    type: 'doughnut',
+    data: {
+        labels: [
+            <?php foreach ($siswa as $minat_siswa):?>
+            '<?=$minat_siswa['nama_kegiatan']?>',
+            <?php endforeach ?> 
+        ],
+        datasets: [{
+            data: [
+                <?php foreach ($siswa as $nilai_kegiatan):?>
+            '<?=$nilai_kegiatan['Nilai']?>',
+            <?php endforeach ?> 
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        tooltips: {
+  callbacks: {
+    label: function(tooltipItem, data) {
+      //get the concerned dataset
+      var dataset = data.datasets[tooltipItem.datasetIndex];
+      //calculate the total of this data set
+      var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+        return previousValue + currentValue;
+      });
+      //get the current items value
+      var currentValue = dataset.data[tooltipItem.index];
+      //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+      var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+
+      return percentage + "%";
+    }
+  }
+} 
+    } 
 });
 </script>

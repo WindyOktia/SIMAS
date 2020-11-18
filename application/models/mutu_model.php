@@ -140,6 +140,6 @@ class Mutu_model extends CI_Model
 
     public function gettahunAkademik()
     {
-        return $this->db->query("SELECT DISTINCT(tahun_akademik) as tahun_akademik FROM proposal")->result_array();
+        return $this->db->query("SELECT DISTINCT(tahun_akademik) as tahun_akademik FROM proposal ORDER BY tahun_akademik ASC")->result_array();
     }
 }

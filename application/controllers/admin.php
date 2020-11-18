@@ -188,11 +188,17 @@ class Admin extends CI_Controller
         $data['page']='dashboard';
         $tahun_akademik= $_GET['key1'];
         $semester= $_GET['semester'];
+        $data['jmlh_laporan']=$this->dasbord_model->getlaporan_masuk($tahun_akademik, $semester);
         $data['nama_kegiatan']=$this->dasbord_model->getdasbordKeuangan();
+        $data['survei']=$this->dasbord_model->getjmlh_survei($tahun_akademik, $semester);
+        $data['kgiatn_berjalan']=$this->dasbord_model->getkegiatan_berjalan($tahun_akademik, $semester);
         $data['rataKeuangan']=$this->dasbord_model->getdasbordRataKeuanganfilter($tahun_akademik,$semester);
+        $data['alokasiBiaya']=$this->dasbord_model->getdasbordalokasiBiaya($tahun_akademik,$semester);
         $data['infoKegiatan']=$this->dasbord_model->getInfokegiatan($tahun_akademik,$semester);
         $data['kegiatan']=$this->dasbord_model->getKegiatan($tahun_akademik,$semester);
         $data['jumlah']=$this->dasbord_model->getjumlahPeserta($tahun_akademik,$semester);
+        $data['keterlibatan']=$this->dasbord_model->getjumlahKeterlibatan($tahun_akademik, $semester);
+        $data['siswa']=$this->dasbord_model->getminatSiswa($tahun_akademik, $semester);
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/kegiatan_laporan',$data);
         $this->load->view('templates/footer');
