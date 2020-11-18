@@ -723,7 +723,7 @@ class Admin extends CI_Controller
 
         $updateUser=$this->guru_model->updateUser($niplama, $nip, $password, $nama);
 
-        if($editGuru > 0 && $updateUser > 0 )
+        if($editGuru > 0 || $updateUser > 0 )
         {
             $this->session->set_flashdata('success', 'Data Guru Berhasil Diubah');
         }else
@@ -862,6 +862,8 @@ class Admin extends CI_Controller
         {
             $data['jamkerja']=$this->presensi_model->getDefaultJamKerja($id);
         }
+
+        $data['dataGuru']=$this->guru_model->getDataGuru($id);
         $this->load->view('templates/header',$data);
         $this->load->view('guru/detailPresensi',$data);
         $this->load->view('templates/footer');

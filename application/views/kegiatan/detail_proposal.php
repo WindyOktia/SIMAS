@@ -6,6 +6,9 @@
 <button type="button" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#modalTambah">
   Tambah Dokumen
 </button>
+<button type="button" class="btn btn-danger mb-3 btn-sm" data-toggle="modal" data-target="#ModalRevisi">
+  Lihat Revisi
+</button>
 <?php foreach ($dokumenproposal as $dok):?>
 
 <div class="card card-body border-success">
@@ -27,6 +30,12 @@
             <div class="row">
                 <div class="col-md-3">Tanggal Pelaksanaan</div>
                 <div class="col-md-9">: <?= $dok['tgl_pelaksanaan']?></div>
+            </div>
+        </li>
+        <li>
+            <div class="row">
+                <div class="col-md-3">Tanggal Selesai Acara</div>
+                <div class="col-md-9">: <?= $dok['tgl_selesai_acara']?></div>
             </div>
         </li>
         <li>
@@ -101,6 +110,56 @@
   </div>
 </div>
 <?php endforeach?>
+
+
+<!-- Revisi button -->
+<div class="modal fade" id="ModalRevisi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Revisi Proposal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" enctype="multipart/form-data" method="post">
+            <?php foreach($pj as $pj):?>
+            <div class="form-group">
+                <label for="">Revisi dari penanggungjawab</label>
+                <textarea disabled name="pj" type:="disabled" class="form-control" id="" cols="30" rows="10" ><?=$pj['Catatan']?></textarea>
+                <script>
+                    CKEDITOR.replace( 'pj',{height:100} );
+                </script>
+            </div>
+            <?php endforeach?>
+            <?php foreach($waka as $waka):?>
+            <div class="form-group">
+                <label for="">Revisi dari waka kesiswaan</label>
+                <textarea disabled name="waka" class="form-control" id="" cols="30" rows="10" ><?=$waka['Catatan']?></textarea>
+                <script>
+                    CKEDITOR.replace( 'waka',{height:100} );
+                </script>
+            </div>
+            <?php endforeach?>
+            <?php foreach($kepsek as $kepsek):?>
+            <div class="form-group">
+                <label for="">Revisi dari kepala sekolah</label>
+                <textarea disabled name="kepsek" class="form-control" id="" cols="30" rows="10" ><?=$kepsek['Catatan']?></textarea>
+                <script>
+                    CKEDITOR.replace( 'kepsek',{height:100} );
+                </script>
+            </div>
+            <?php endforeach?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Edit -->
 
 

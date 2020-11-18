@@ -27,7 +27,7 @@ class Document extends CI_Controller
 		$config['max_size']             = 15000;
 		$config['encrypt_name'] 		= true;
 		$this->load->library('upload',$config);
-		$judul = $this->input->post('judul');
+        $judul = $this->input->post('judul');
         $jumlah_berkas = count($_FILES['arsip']['name']);
         
 		for($i = 0; $i < $jumlah_berkas;$i++)
@@ -41,12 +41,11 @@ class Document extends CI_Controller
 				$_FILES['file']['size'] = $_FILES['arsip']['size'][$i];
 	   
 				if($this->upload->do_upload('file')){
-					
 					$uploadData = $this->upload->data();
 					$data['code_id'] = $code.'_'.$id;
 					$data['nama_doc'] = $judul[$i];
 					$data['link_file'] = $uploadData['file_name'];
-					$data['type_file'] = $uploadData['file_ext'];
+                    $data['type_file'] = $uploadData['file_ext'];
                     $this->db->insert('trans_doc',$data);
                     $this->session->set_flashdata('success', 'Dokumen berhasil ditambahkan');
 				}else{
@@ -86,7 +85,7 @@ class Document extends CI_Controller
 		$config['max_size']             = 5000;
 		$config['encrypt_name'] 		= true;
 		$this->load->library('upload',$config);
-		$judul = $this->input->post('judul');
+        $judul = $this->input->post('judul');
         $jumlah_berkas = count($_FILES['arsip']['name']);
         
 		for($i = 0; $i < $jumlah_berkas;$i++)
@@ -105,7 +104,7 @@ class Document extends CI_Controller
 					$data['code_id'] = $code_id;
 					$data['nama_doc'] = $judul[$i];
 					$data['link_file'] = $uploadData['file_name'];
-					$data['type_file'] = $uploadData['file_ext'];
+                    $data['type_file'] = $uploadData['file_ext'];
                     $this->db->insert('trans_doc',$data);
                     $this->session->set_flashdata('success', 'Dokumen berhasil ditambahkan');
 				}else{
@@ -136,6 +135,9 @@ class Document extends CI_Controller
         $data['id']= $id;
         $data['dokumenproposal']=$this->dokumen_model->getProposalID($id);
         $data['arsip']=$this->dokumen_model->getArsipProposalID($id);
+        $data['pj']=$this->dokumen_model->getRevisiProposalPJ($id);
+        $data['waka']=$this->dokumen_model->getRevisiProposalWaka($id);
+        $data['kepsek']=$this->dokumen_model->getRevisiProposalKepsek($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_proposal',$data);
         $this->load->view('templates/footer');
@@ -225,6 +227,7 @@ class Document extends CI_Controller
         $data['page']='daftar_laporan';
         $data['dokumenlaporan']=$this->dokumen_model->getLaporan();
         $data['check']=$this->dokumen_model->getLaporanCheck();
+        $data['proposal']=$this->dokumen_model->getProposal();
         $data['verifikasiWaka']=$this->dokumen_model->getVerifikasiLaporanWaka();
         $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiLaporanPJ();
         $data['verifikasiKepsek']=$this->dokumen_model->getVerifikasiLaporanKepsek();
@@ -240,6 +243,9 @@ class Document extends CI_Controller
         $data['dokumenlaporan']=$this->dokumen_model->getLaporanID($id);
         $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
         $data['joinlaporan']=$this->dokumen_model->joinLaporanID($id);
+        $data['pj']=$this->dokumen_model->getRevisiLaporanPJ($id);
+        $data['waka']=$this->dokumen_model->getRevisiLaporanWaka($id);
+        $data['kepsek']=$this->dokumen_model->getRevisiLaporanKepsek($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_laporan',$data);
         $this->load->view('templates/footer');
@@ -366,6 +372,7 @@ class Document extends CI_Controller
         $data['kuesioner']=$this->dokumen_model->getKuesioner();
         $data['check']=$this->dokumen_model->getKuesionerCheck();
         $data['kategori']=$this->dokumen_model->getKategori();
+        $data['proposal']=$this->dokumen_model->getProposal();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_kuesioner',$data);
         $this->load->view('templates/footer');

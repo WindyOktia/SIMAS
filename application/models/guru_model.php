@@ -9,6 +9,7 @@ class Guru_model extends CI_Model
                 'rfid' => $_POST['rfid'],
                 'nip' => $_POST['nip'],
                 'nama_guru' => $_POST['nama'],
+                'status_guru' => $_POST['status'],
                 'alamat' => $_POST['alamat']
             ];
 
@@ -193,6 +194,14 @@ class Guru_model extends CI_Model
         // return $this->db->affected_rows();
     }
 
+    public function getLink($id)
+    {
+        $this->db->select('link_file');
+        $this->db->from('trans_doc');
+        $this->db->where('code_id','ijinGuru_'.$id);
+        return $this->db->get()->result_array();
+    }
+
     public function addStatus($id,$stat,$catatan)
     {
         $data=[
@@ -227,17 +236,45 @@ class Guru_model extends CI_Model
         return $this->db->get_where('guru',['nip'=>$this->session->userdata('username')])->result_array();
     }
 
-    
+    public function manualHarian()
+    {
+        $data=[
+            'tanggal'=>date('Y-m-d'),
+            'id_guru'=>$_POST['id_guru'],
+            'jam_masuk'=>date('H:i:s'),
+            'metode'=>'manual',
+            'keterangan'=>$_POST['alasan']
+        ];
+
+        $this->db->insert('presensi_harian',$data);
+        return $this->db->affected_rows();
+    }
+
+    public function getPresensiHarian($id)
+    {
+        return $this->db->get_where('presensi_harian',['id_guru'=>$id])->result_array();
+    }
 
     public function getStatusIjin()
     {
         return $this->db->query('Select status_ijin.id_status_ijin, status_ijin.id_ijin, status_ijin.tanggal, status_ijin.status, status_ijin.catatan From status_ijin GROUP BY status_ijin.id_ijin DESC')->result_array();
     }
 
+    public function getDataMengajar($hari, $id)
+    {
+        $this->db->query('select jadwal_guru.*,mapel.nama_mapel from jadwal_guru, mapel where jadwal_guru.id_mapel=mapel.id_mapel AND hari="'.$hari.'" AND id_guru="'.$id.'" AND "'.date('H:i:s').'" BETWEEN jam_mulai AND jam_selesai')->result_array();
+    }
+
+    public function getDataGuru($id)
+    {
+        return $this->db->get_where('guru',['id_guru'=>$id])->result_array();
+    }
+
+    
     public function validasiJadwal($tahun_akademik, $semester)
     {
         
-        return $this->db->query('SELECT jadwal_guru.*, mapel.nama_mapel, kelas.kelas, kelas.jurusan, kelas.sub FROM jadwal_guru,mapel, kelas WHERE jadwal_guru.id_mapel=mapel.id_mapel AND jadwal_guru.id_kelas=kelas.id_kelas AND tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" AND id_guru = "'.$_POST['id_guru'].'" AND Hari = "'.$_POST['hari'].'" AND jadwal_guru.id_kelas="'.$_POST['kelas'].'" and jadwal_guru.id_mapel = "'.$_POST['mapel'].'" AND "'.$_POST['jam_mulai'].'" BETWEEN jam_mulai AND jam_selesai OR "'.$_POST['jam_selesai'].'" BETWEEN jam_mulai AND jam_selesai')->result_array();
+        return $this->db->query('SELECT jadwal_guru.*, mapel.nama_mapel, kelas.kelas, kelas.jurusan, kelas.sub FROM jadwal_guru,mapel, kelas WHERE jadwal_guru.id_mapel=mapel.id_mapel AND jadwal_guru.id_kelas=kelas.id_kelas AND tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" AND id_guru = "'.$_POST['id_guru'].'" AND Hari = "'.$_POST['hari'].'" AND jadwal_guru.id_kelas="'.$_POST['kelas'].'" and jadwal_guru.id_mapel = "'.$_POST['mapel'].'" AND "'.$_POST['jam_mulai'].'" BETWEEN jam_mulai AND jam_selesai ')->result_array();
        
     }
 

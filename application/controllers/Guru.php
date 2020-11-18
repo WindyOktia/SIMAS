@@ -27,6 +27,12 @@ class Guru extends CI_Controller{
     public function presensi_harian()
     {
         $data['page']='presensi_harian';
+        $data['id_guru']= $this->guru_model->getIdGuru();
+
+        foreach($this->guru_model->getIdGuru() as $select){
+            $data['dataPresensi']= $this->guru_model->getPresensiHarian($select['id_guru']);
+        }
+
         $this->load->view('templates/header',$data);
         $this->load->view('guru/presensi_harian');
         $this->load->view('templates/footer');
@@ -35,6 +41,41 @@ class Guru extends CI_Controller{
     public function presensi_mengajar()
     {
         $data['page']='presensi_mengajar';
+        $day = date('l');
+        $hari = '';
+
+        if($day=='Sunday'){
+            $hari = 'Minggu';
+        }
+
+        if($day=='Monday'){
+            $hari = 'Senin';
+        }
+
+        if($day=='Tuesday'){
+            $hari = 'Selasa';
+        }
+
+        if($day=='Wednesday'){
+            $hari = 'Rabu';
+        }
+
+        if($day=='Thursday'){
+            $hari = 'Kamis';
+        }
+
+        if($day=='Friday'){
+            $hari = 'Jumat';
+        }
+
+        if($day=='Saturday'){
+            $hari = 'Sabtu';
+        }
+        
+        $data['id_guru']= $this->guru_model->getIdGuru();
+        foreach($this->guru_model->getIdGuru() as $idGuru){
+            $data['dataMengajar']=$this->guru_model->getDataMengajar($hari, $idGuru['id_guru']);
+        }
         $this->load->view('templates/header',$data);
         $this->load->view('guru/presensi_mengajar');
         $this->load->view('templates/footer');
@@ -60,14 +101,66 @@ class Guru extends CI_Controller{
         
         if($insert == 0){
             $this->session->set_flashdata('error', 'Ijin gagal ditambahkan');
+            redirect('guru/ijin');
         }else{
-            $id= $insert;
             $stat='0';
             $catatan ='';
+
+            $id= $insert;
+            $code="ijinGuru";
+
             $this->guru_model->addStatus($id,$stat,$catatan);
-            $this->session->set_flashdata('success', 'Ijin berhasil ditambahkan');
+            $this->generalUpload($code,$insert);
+            // $this->session->set_flashdata('success', 'Ijin berhasil ditambahkan');
         }
-        redirect('guru/ijin');
+    }
+
+    public function manualHarian()
+    {
+        $insert = $this->guru_model->manualHarian();
+        if($insert == 0){
+            $this->session->set_flashdata('error', 'Presensi gagal disimpan');
+        }else{
+            $this->session->set_flashdata('success', 'Presensi berhasil disimpan');
+        }
+        redirect('guru/presensi_harian');
+
+    }
+
+    public function manualMengajar()
+    {
+        $day = date('l');
+        $hari = '';
+
+        if($day=='Sunday'){
+            $hari = 'Minggu';
+        }
+
+        if($day=='Monday'){
+            $hari = 'Senin';
+        }
+
+        if($day=='Tuesday'){
+            $hari = 'Selasa';
+        }
+
+        if($day=='Wednesday'){
+            $hari = 'Rabu';
+        }
+
+        if($day=='Thursday'){
+            $hari = 'Kamis';
+        }
+
+        if($day=='Friday'){
+            $hari = 'Jumat';
+        }
+
+        if($day=='Saturday'){
+            $hari = 'Sabtu';
+        }
+
+        
     }
 
     public function hapusIjin($id)
@@ -113,5 +206,59 @@ class Guru extends CI_Controller{
     {
         $cek=$this->guru_model->getRFID();
         echo $cek->num_rows();
+    }
+
+    public function generalUpload($code, $insert)
+    {
+        echo $code;
+        echo $insert;
+        $config['upload_path']          = './document/';
+		$config['allowed_types']        = '*';
+		$config['max_size']             = 15000;
+		$config['encrypt_name'] 		= true;
+		$this->load->library('upload',$config);
+        $judul = $this->input->post('judul');
+        $jumlah_berkas = count($_FILES['arsip']['name']);
+        
+		for($i = 0; $i < $jumlah_berkas;$i++)
+		{
+            if(!empty($_FILES['arsip']['name'][$i])){
+ 
+				$_FILES['file']['name'] = $_FILES['arsip']['name'][$i];
+				$_FILES['file']['type'] = $_FILES['arsip']['type'][$i];
+				$_FILES['file']['tmp_name'] = $_FILES['arsip']['tmp_name'][$i];
+				$_FILES['file']['error'] = $_FILES['arsip']['error'][$i];
+				$_FILES['file']['size'] = $_FILES['arsip']['size'][$i];
+	   
+				if($this->upload->do_upload('file')){
+					$uploadData = $this->upload->data();
+					$data['code_id'] = $code.'_'.$insert;
+					$data['nama_doc'] = $judul[$i];
+					$data['link_file'] = $uploadData['file_name'];
+                    $data['type_file'] = $uploadData['file_ext'];
+                    $this->db->insert('trans_doc',$data);
+                    $this->session->set_flashdata('success', 'Dokumen berhasil ditambahkan');
+				}else{
+                    $this->session->set_flashdata('error', 'Dokumen gagal ditambah');
+                }
+			}
+        }
+        
+        redirect('guru/ijin');
+    }
+
+    public function findFile($id)
+    {
+        $file = $this->guru_model->getLink($id);
+        foreach($file as $link){
+            // echo $link['link_file'];
+            $this->downloadDocument($link['link_file']);
+        }
+    }
+
+    public function downloadDocument($file)
+    {
+        $this->load->helper('download');
+        force_download(FCPATH.'/document/'.$file, null);
     }
 }

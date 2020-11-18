@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="">Nama Kegiatan</label>
             <select name="id_proposal" id="" class="form-control">
-                <?php foreach($check as $idprop):?>
+                <?php foreach($proposal as $idprop):?>
                     <option value="<?= $idprop['id_proposal']; ?>"><?= $idprop['nama_kegiatan']; ?> - <?= $idprop['tahun_akademik']; ?> - <?= $idprop['semester']; ?></option>
                 <?php endforeach?>
             </select>
@@ -80,20 +80,29 @@
                 CKEDITOR.replace( 'saran',{height:250} );
             </script>
         </div>
-
             <div class="form-group">
             <label for="">Peserta</label>
             <input type="hidden" name="judul[]" placeholder="" value="Peserta" class="form-control-file" >
             <input type="file" name="arsip[]" class="form-control-file" required>
         </div>
         <div class="form-group">
-            <label for="">Pembiayaan</label>
+            <label for="">Rincian Biaya</label>
             <input type="hidden" name="judul[]" placeholder="" value="Rincian Biaya" class="form-control-file">
             <input type="file" name="arsip[]" class="form-control-file">
         </div>
         <div class="form-group">
-            <label for="">Sumber Dana</label>
-            <input type="hidden" name="judul[]" placeholder="" value="Sumber Dana Laporan" class="form-control-file">
+            <label for="">Sumber Dana Sekolah</label>
+            <input type="hidden" name="judul[]" placeholder="" value="Sumber Dana Sekolah" class="form-control-file">
+            <input type="file" name="arsip[]" class="form-control-file">
+        </div>
+        <div class="form-group">
+            <label for="">Sumber Dana Swasta</label>
+            <input type="hidden" name="judul[]" placeholder="" value="Sumber Dana Swasta" class="form-control-file">
+            <input type="file" name="arsip[]" class="form-control-file">
+        </div>
+        <div class="form-group">
+            <label for="">Sumber Dana Pemerintah</label>
+            <input type="hidden" name="judul[]" placeholder="" value="Sumber Dana Pemerintah" class="form-control-file">
             <input type="file" name="arsip[]" class="form-control-file">
         </div>
         <div class="form-group">
@@ -120,3 +129,5 @@
         <button type="submit" class="btn btn-success float-right">Simpan Laporan</button>
     </form>
 </div>
+
+

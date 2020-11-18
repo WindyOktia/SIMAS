@@ -14,6 +14,7 @@ class Dokumen_model extends CI_Model
             'tujuan_kegiatan'=>$_POST['tujuan_kegiatan'],
             'harapan_kegiatan'=>$_POST['harapan_kegiatan'],
             'tgl_pelaksanaan'=>$_POST['tgl_pelaksanaan'],
+            'tgl_selesai_acara'=>$_POST['tgl_selesai_acara'],
             'tempat'=>$_POST['tempat'],
             'tot_anggaran'=>$_POST['tot_anggaran'],
             'tgl_pengajuan'=>$_POST['tgl_pengajuan']
@@ -39,6 +40,45 @@ class Dokumen_model extends CI_Model
     public function getProposalID($id)
     {
         return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
+    }
+
+    public function getRevisiProposalPJ($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('proposal.id_proposal, verifikasi_proposal.Catatan');
+        $this->db->from('verifikasi_proposal');
+        $this->db->where('proposal.id_proposal = verifikasi_proposal.id_proposal');
+        $this->db->where('verifikasi_proposal.id_user = 20');
+        $this->db->where(['verifikasi_proposal.id_proposal'=>$id]);
+        return $this->db->get('proposal')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getRevisiProposalWaka($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('proposal.id_proposal, verifikasi_proposal.Catatan');
+        $this->db->from('verifikasi_proposal');
+        $this->db->where('proposal.id_proposal = verifikasi_proposal.id_proposal');
+        $this->db->where('verifikasi_proposal.id_user = 14');
+        $this->db->where(['verifikasi_proposal.id_proposal'=>$id]);
+        return $this->db->get('proposal')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getRevisiProposalKepsek($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('proposal.id_proposal, verifikasi_proposal.Catatan');
+        $this->db->from('verifikasi_proposal');
+        $this->db->where('proposal.id_proposal = verifikasi_proposal.id_proposal');
+        $this->db->where('verifikasi_proposal.id_user = 15');
+        $this->db->where(['verifikasi_proposal.id_proposal'=>$id]);
+        return $this->db->get('proposal')->result_array();
+        $this->db->trans_complete();
     }
 
     public function getArsipProposalID($id)
@@ -210,12 +250,51 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get_where('laporan_view',['id_laporan'=> $id])->result_array();
         $this->db->trans_start();
-        $this->db->select('laporan.id_laporan, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, proposal.tempat, proposal.tot_anggaran, laporan.biaya_pendapatan,laporan.biaya_pengeluaran, laporan.tgl_pengajuan_lp, laporan.lb_laporan, laporan.tujuan_laporan,laporan.lp_jln_kegiatan, laporan.hasil_kegiatan, laporan.kendala_kegiatan, laporan.solusi_kegiatan, laporan.kesimpulan, laporan.saran, user.nama');
+        $this->db->select('laporan.id_laporan, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.tgl_pelaksanaan, proposal.tgl_selesai_acara, proposal.semester, proposal.tempat, proposal.tot_anggaran, laporan.biaya_pendapatan,laporan.biaya_pengeluaran, laporan.tgl_pengajuan_lp, laporan.lb_laporan, laporan.tujuan_laporan,laporan.lp_jln_kegiatan, laporan.hasil_kegiatan, laporan.kendala_kegiatan, laporan.solusi_kegiatan, laporan.kesimpulan, laporan.saran, user.nama');
         $this->db->from('proposal');
         $this->db->from('user');
         $this->db->where('proposal.id_proposal = laporan.id_proposal');
         $this->db->where('user.id_user = laporan.id_user');
         $this->db->where(['laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getRevisiLaporanPJ($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, verifikasi_laporan.Catatan');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('laporan.id_laporan = verifikasi_laporan.id_laporan');
+        $this->db->where('verifikasi_laporan.id_user = 20');
+        $this->db->where(['verifikasi_laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getRevisiLaporanWaka($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, verifikasi_laporan.Catatan');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('laporan.id_laporan = verifikasi_laporan.id_laporan');
+        $this->db->where('verifikasi_laporan.id_user = 14');
+        $this->db->where(['verifikasi_laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getRevisiLaporanKepsek($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, verifikasi_laporan.Catatan');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('laporan.id_laporan = verifikasi_laporan.id_laporan');
+        $this->db->where('verifikasi_laporan.id_user = 15');
+        $this->db->where(['verifikasi_laporan.id_laporan'=>$id]);
         return $this->db->get('laporan')->result_array();
         $this->db->trans_complete();
     }

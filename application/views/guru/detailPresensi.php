@@ -3,9 +3,10 @@
 <!-- <h5><b>Filter Data Presensi</b></h5> -->
 
 <div class="mt-3">
-<h6> <i class="	fa fa-user mr-2"></i> Rekapitulasi Presensi <b>Handoko</b> ( 777 ) </h6>
+<?php foreach($dataGuru as $dt):?>
+<h6> <i class="	fa fa-user mr-2"></i> Rekapitulasi Presensi <b><?=$dt['nama_guru']?></b> ( <?=$dt['nip']?> ) </h6>
+<?php endforeach?>
 </div>
-
 <div class="card card-body border-warning mt-2">
     <form action="" id="filterRentang" method="get">
         <div class="form-group my-auto">
@@ -69,6 +70,7 @@
     <div class="col md-12">
         <div class="card card-body border-primary">
 
+<?php if(count($jamhadir)>0){?>
 <?php
     $times = array();
     
@@ -119,6 +121,7 @@
     //echo "Average time is " . str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . "\n";
    
 ?>
+
             <h6>Kehadiran Harian  
                 <span class="float-right">
                     <a type="button"data-toggle="modal" data-target="#modalHarian">
@@ -139,6 +142,11 @@
             </div>
         </div>
     </div>
+<?php }else{?>
+    <div class="card card-body border-danger">
+    Presensi belum memenuhi standar perhitungan
+    </div>
+<?php } ?>
 
     <div class="col-md-12">
         <div class="card card-body border-primary">
