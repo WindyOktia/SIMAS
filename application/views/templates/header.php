@@ -327,7 +327,8 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('15');
+							$rl=array('33');
+							// $rl=array('15');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>		
 								<li class="nav-item">
@@ -351,7 +352,8 @@
 						<?php }?>
 
 						<?php 
-							$rl=array('15');
+							// $rl=array('15');
+							$rl=array('33');
 							$role=$this->session->userdata('role');
 							if(in_array($role,$rl)){ ?>		
 								<li class="nav-item">

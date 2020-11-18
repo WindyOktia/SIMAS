@@ -27,6 +27,12 @@ class Guru extends CI_Controller{
     public function presensi_harian()
     {
         $data['page']='presensi_harian';
+        $data['id_guru']= $this->guru_model->getIdGuru();
+
+        foreach($this->guru_model->getIdGuru() as $select){
+            $data['dataPresensi']= $this->guru_model->getPresensiHarian($select['id_guru']);
+        }
+
         $this->load->view('templates/header',$data);
         $this->load->view('guru/presensi_harian');
         $this->load->view('templates/footer');
@@ -35,6 +41,41 @@ class Guru extends CI_Controller{
     public function presensi_mengajar()
     {
         $data['page']='presensi_mengajar';
+        $day = date('l');
+        $hari = '';
+
+        if($day=='Sunday'){
+            $hari = 'Minggu';
+        }
+
+        if($day=='Monday'){
+            $hari = 'Senin';
+        }
+
+        if($day=='Tuesday'){
+            $hari = 'Selasa';
+        }
+
+        if($day=='Wednesday'){
+            $hari = 'Rabu';
+        }
+
+        if($day=='Thursday'){
+            $hari = 'Kamis';
+        }
+
+        if($day=='Friday'){
+            $hari = 'Jumat';
+        }
+
+        if($day=='Saturday'){
+            $hari = 'Sabtu';
+        }
+        
+        $data['id_guru']= $this->guru_model->getIdGuru();
+        foreach($this->guru_model->getIdGuru() as $idGuru){
+            $data['dataMengajar']=$this->guru_model->getDataMengajar($hari, $idGuru['id_guru']);
+        }
         $this->load->view('templates/header',$data);
         $this->load->view('guru/presensi_mengajar');
         $this->load->view('templates/footer');
@@ -72,6 +113,54 @@ class Guru extends CI_Controller{
             $this->generalUpload($code,$insert);
             // $this->session->set_flashdata('success', 'Ijin berhasil ditambahkan');
         }
+    }
+
+    public function manualHarian()
+    {
+        $insert = $this->guru_model->manualHarian();
+        if($insert == 0){
+            $this->session->set_flashdata('error', 'Presensi gagal disimpan');
+        }else{
+            $this->session->set_flashdata('success', 'Presensi berhasil disimpan');
+        }
+        redirect('guru/presensi_harian');
+
+    }
+
+    public function manualMengajar()
+    {
+        $day = date('l');
+        $hari = '';
+
+        if($day=='Sunday'){
+            $hari = 'Minggu';
+        }
+
+        if($day=='Monday'){
+            $hari = 'Senin';
+        }
+
+        if($day=='Tuesday'){
+            $hari = 'Selasa';
+        }
+
+        if($day=='Wednesday'){
+            $hari = 'Rabu';
+        }
+
+        if($day=='Thursday'){
+            $hari = 'Kamis';
+        }
+
+        if($day=='Friday'){
+            $hari = 'Jumat';
+        }
+
+        if($day=='Saturday'){
+            $hari = 'Sabtu';
+        }
+
+        
     }
 
     public function hapusIjin($id)

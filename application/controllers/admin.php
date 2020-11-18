@@ -856,6 +856,8 @@ class Admin extends CI_Controller
         {
             $data['jamkerja']=$this->presensi_model->getDefaultJamKerja($id);
         }
+
+        $data['dataGuru']=$this->guru_model->getDataGuru($id);
         $this->load->view('templates/header',$data);
         $this->load->view('guru/detailPresensi',$data);
         $this->load->view('templates/footer');
