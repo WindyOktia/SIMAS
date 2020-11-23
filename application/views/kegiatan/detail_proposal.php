@@ -9,6 +9,9 @@
 <button type="button" class="btn btn-danger mb-3 btn-sm" data-toggle="modal" data-target="#ModalRevisi">
   Lihat Revisi
 </button>
+<button type="button" class="btn btn-warning mb-3 btn-sm float-right" data-toggle="modal" data-target="#HistoriRevisi">
+  Rekam Jejak Revisi
+</button>
 <?php foreach ($dokumenproposal as $dok):?>
 
 <div class="card card-body border-success">
@@ -160,6 +163,33 @@
   </div>
 </div>
 
+<!-- Histori Revisi button -->
+<div class="modal fade" id="HistoriRevisi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rekam Jejak Revisi Proposal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" enctype="multipart/form-data" method="post">
+            <?php foreach($histori as $his):?>
+            <div class="form-group">
+                <label for="">Tanggal Revisi dan catatan</label>
+                <textarea disabled name="histori" class="form-control" id="" cols="30" rows="10" ><?=$his['tgl_verifikasi_proposal']?> - <?=strip_tags($his['catatan']);?></textarea>
+            </div>
+            <?php endforeach?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Edit -->
 
 
@@ -256,7 +286,7 @@ $tahun2 = $split[1];
         <div class="form-group">
             <label for="">Tanggal Pengajuan Proposal</label>
             <input name="tgl_pengajuan"  value="<?=$docprop['tgl_pengajuan']?>" type="date" class="form-control" required>
-       </div>
+        </div>
 
        <div class="form-group">
             <input name="status_pj"  value="" type="hidden" class="form-control" required>

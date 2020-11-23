@@ -42,6 +42,18 @@ class Dokumen_model extends CI_Model
         return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
     }
 
+    public function getHistoriRevisiProposal($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('proposal.id_proposal, history_revisi_proposal.catatan, history_revisi_proposal.tgl_verifikasi_proposal');
+        $this->db->from('history_revisi_proposal');
+        $this->db->where('proposal.id_proposal = history_revisi_proposal.id_proposal');
+        $this->db->where(['history_revisi_proposal.id_proposal'=>$id]);
+        return $this->db->get('proposal')->result_array();
+        $this->db->trans_complete();
+    }
+
     public function getRevisiProposalPJ($id)
     {
         // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
@@ -129,6 +141,15 @@ class Dokumen_model extends CI_Model
             $this->db->where('id_user',$this->session->userdata('id_user'));
             $this->db->update('verifikasi_proposal');
             $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_proposal'=>$_POST['id_proposal'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_proposal'=>$_POST['tgl_verifikasi']
+            ];
+            $this->db->insert('history_revisi_proposal', $data);
+            $this->db->trans_complete();
         } else {
             $this->db->trans_start();
             $data = [
@@ -139,6 +160,15 @@ class Dokumen_model extends CI_Model
             'tgl_verifikasi'=>$_POST['tgl_verifikasi']
             ];
             $this->db->insert('verifikasi_proposal', $data);
+            $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_proposal'=>$_POST['id_proposal'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_proposal'=>$_POST['tgl_verifikasi']
+            ];
+            $this->db->insert('history_revisi_proposal', $data);
             $this->db->trans_complete();
         }
         return true;
@@ -272,6 +302,18 @@ class Dokumen_model extends CI_Model
         $this->db->trans_complete();
     }
 
+    public function getHistoriRevisiLaporan($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, history_revisi_laporan.catatan, history_revisi_laporan.tgl_verifikasi_laporan');
+        $this->db->from('history_revisi_laporan');
+        $this->db->where('laporan.id_laporan = history_revisi_laporan.id_laporan');
+        $this->db->where(['history_revisi_laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
     public function getRevisiLaporanPJ($id)
     {
         // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
@@ -364,6 +406,15 @@ class Dokumen_model extends CI_Model
             $this->db->where('id_user',$this->session->userdata('id_user'));
             $this->db->update('verifikasi_laporan');
             $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_laporan'=>$_POST['id_laporan'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_laporan'=>$_POST['tgl_verifikasi_lp']
+            ];
+            $this->db->insert('history_revisi_laporan', $data);
+            $this->db->trans_complete();
         } else {
             $this->db->trans_start();
             $data = [
@@ -374,6 +425,15 @@ class Dokumen_model extends CI_Model
             'tgl_verifikasi_lp'=>$_POST['tgl_verifikasi_lp']
             ];
             $this->db->insert('verifikasi_laporan', $data);
+            $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_laporan'=>$_POST['id_laporan'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_laporan'=>$_POST['tgl_verifikasi_lp']
+            ];
+            $this->db->insert('history_revisi_laporan', $data);
             $this->db->trans_complete();
         }
         return true;

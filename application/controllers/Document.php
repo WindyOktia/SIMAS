@@ -138,6 +138,7 @@ class Document extends CI_Controller
         $data['pj']=$this->dokumen_model->getRevisiProposalPJ($id);
         $data['waka']=$this->dokumen_model->getRevisiProposalWaka($id);
         $data['kepsek']=$this->dokumen_model->getRevisiProposalKepsek($id);
+        $data['histori']=$this->dokumen_model->getHistoriRevisiProposal($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_proposal',$data);
         $this->load->view('templates/footer');
@@ -247,6 +248,7 @@ class Document extends CI_Controller
         $data['pj']=$this->dokumen_model->getRevisiLaporanPJ($id);
         $data['waka']=$this->dokumen_model->getRevisiLaporanWaka($id);
         $data['kepsek']=$this->dokumen_model->getRevisiLaporanKepsek($id);
+        $data['histori']=$this->dokumen_model->getHistoriRevisiLaporan($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_laporan',$data);
         $this->load->view('templates/footer');

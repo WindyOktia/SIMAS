@@ -158,7 +158,7 @@
         <div class="form-group">
             <input name="id_laporan" value="<?= $add['id_laporan']?>" type="hidden" class="form-control" required>
             <input name="id_user" type="hidden" class="form-control" required>
-            <input name="catatan" value="-" type="hidden" class="form-control" required>
+            <input name="catatan" value="Ditolak" type="hidden" class="form-control" required>
             <input name="status" value="Ditolak" type="hidden" class="form-control" required>
             <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
        </div>
@@ -194,7 +194,7 @@
         <div class="form-group">
             <input name="id_laporan" value="<?= $add['id_laporan']?>" type="hidden" class="form-control" required>
             <input name="id_user" type="hidden" class="form-control" required>
-            <input name="catatan" value="-" type="hidden" class="form-control" required>
+            <input name="catatan" value="Disetujui" type="hidden" class="form-control" required>
             <input name="status" value="Disetujui" type="hidden" class="form-control" required>
             <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
        </div>
