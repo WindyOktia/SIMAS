@@ -195,6 +195,7 @@ class Document extends CI_Controller
         $data['id']= $id;
         $data['dokumenproposal']=$this->dokumen_model->getProposalID($id);
         $data['arsip']=$this->dokumen_model->getArsipProposalID($id);
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiProposalPJ();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_verifikasi_proposal',$data);
         $this->load->view('templates/footer');
@@ -303,6 +304,7 @@ class Document extends CI_Controller
         $data['id']= $id;
         $data['dokumenlaporan']=$this->dokumen_model->joinLaporanID($id);
         $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiLaporanPJ();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_verifikasi_laporan',$data);
         $this->load->view('templates/footer');
