@@ -73,7 +73,6 @@ var dashBobot = new Chart(dash1, {
             data: [90, 90, 85, 95],
             borderColor: [
                 'rgba(255, 99, 132, 1)'
-               
             ],
             fill:false,
             borderWidth: 2
@@ -83,7 +82,6 @@ var dashBobot = new Chart(dash1, {
             data: [80, 90, 90, 85],
             borderColor: [
                 '#20A39E'
-               
             ],
             fill:false,
             borderWidth: 2

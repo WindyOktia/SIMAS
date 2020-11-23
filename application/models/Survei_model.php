@@ -61,6 +61,43 @@ class Survei_model extends CI_Model
         }
     }
 
+    public function addFormkuesionerGuru($id_survei_guru, $id_siswa, $id_guru, $pertanyaan, $opsi, $masukan)
+    {
+        $this->db->trans_start();
+			//INSERT TO PACKAGE
+			$data = [
+                "id_siswa" => $id_siswa,
+                "tanggal_isi" => date('Y-m-d H:i:s'),
+                "id_survei_guru" => $id_survei_guru,
+                "id_guru"=>$id_guru,
+                "masukan"=>$masukan
+
+            ];
+    
+            $this->db->insert('jawaban_survei_guru', $data);
+			//GET ID PACKAGE
+			$package_id = $this->db->insert_id();
+            $result = array();
+            $j=0;
+			    foreach($opsi AS $key => $val){
+				     $result[] = array(
+				      'id_jawaban_survei_guru'=> $package_id,
+				      'id_soal'  	=> $pertanyaan[$j++],
+				      'opsi'  	=> $opsi[$key]
+				     );
+			    }      
+			//MULTIPLE INSERT TO DETAIL TABLE
+            $this->db->insert_batch('trans_jawaban_survei_guru', $result);
+
+        $this->db->trans_complete();
+        return true;
+    }
+
+    public function getActorSurvei()
+    {
+        return $this->db->get('jawaban_survei_guru')->result_array();
+    }
+
     public function getSurveiGuru()
     {
         return $this->db->query('SELECT guru.nama_guru, survei_guru.tahun_akademik, survei_guru.semester from guru, survei_guru, trans_survei_guru where trans_survei_guru.id_survei_guru=survei_guru.id_survei_guru AND guru.id_guru=trans_survei_guru.id_guru')->result_array();
@@ -90,6 +127,12 @@ class Survei_model extends CI_Model
     public function getDaftarGuru($tahunAkademik, $semester, $id)
     {
         return $this->db->query('SELECT DISTINCT(guru.nama_guru), guru.id_guru FROM jadwal_guru, guru WHERE  jadwal_guru.id_guru=guru.id_guru AND jadwal_guru.id_kelas='.$id.'')->result_array();
+    }
+    
+    public function getTransGuru($tahunAkademik, $semester)
+    {
+        return $this->db->query('SELECT survei_guru.*, trans_survei_guru.id_guru FROM `survei_guru`, trans_survei_guru 
+        WHERE survei_guru.id_survei_guru=trans_survei_guru.id_survei_guru AND survei_guru.tahun_akademik="'.$tahunAkademik.'" AND survei_guru.semester="'.$semester.'"')->result_array();
     }
 
     public function getSurveikegiatan()

@@ -28,8 +28,8 @@
             <li>Apabila kartu RFID hilang / rusak segera hubungi waka kurikulum.</li>
         </ul>
     </h6>
-
-    <form action="" class="mt-3">
+  
+    <form action="<?=base_url('guru/manualHarian')?>" method="POST" class="mt-3">
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group ">
@@ -44,6 +44,9 @@
             <div class="col-md-9">
                 <div class="form-group">
                     <label for="">Alasan Input Presensi Manual</label>
+                    <?php foreach($id_guru as $id):?>
+                    <input type="hidden" name="id_guru" value="<?=$id['id_guru']?>">
+                    <?php endforeach?>
                     <textarea name="alasan" id="" cols="30" rows="4" class="form-control border-info"></textarea>
                 </div>
                 <button class="btn btn-success float-right" type="submit">Simpan Presensi</button>
@@ -63,17 +66,21 @@
                 <th>Tanggal</th>
                 <th>Jam Datang</th>
                 <th>Jam Pulang</th>
+                <th>Metode</th>
                 <th style="width:30%">Alasan</th>
             </tr>
         </thead>
         <tbody>
+        <?php $i=1 ;foreach($dataPresensi as $dtP):?>
             <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
+                <td><?=$i++?></td>
+                <td><?=$dtP['tanggal']?></td>
+                <td><?=$dtP['jam_masuk']?></td>
+                <td><?=$dtP['jam_pulang']?></td>
+                <td><?=$dtP['metode']?></td>
+                <td><?=$dtP['keterangan']?></td>
             </tr>
+        <?php endforeach?>
         </tbody>
     </table>
 </div>

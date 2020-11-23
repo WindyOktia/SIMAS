@@ -97,7 +97,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/detailRecordPresensi')?>" class="btn btn-sm btn-info float-right mt-3">lihat detail</a>
+                <a href="<?=base_url('admin/detailRecordPresensi')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
             </div>
         </div>
         <div class="col-md-6">
@@ -128,23 +128,22 @@
                                     $kurang=$nilai['Kurang'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
                                 }
                             ?>
-                        Baik    : <?= $baik; ?> %<br>
-                        Cukup   : <?= $cukup; ?> %<br>
-                        Kurang  : <?= $kurang; ?> %
+                        Baik    : <?= number_format($baik,2); ?> %<br>
+                        Cukup   : <?= number_format($cukup,2); ?> %<br>
+                        Kurang  : <?= number_format($kurang,2); ?> %
                         <?php endforeach ?>
                                 <br>
                                 <br>
-                        <?= json_encode($nilai_kegiatan);?>
                     </div>
                 </div>
                 <?php if(!isset($_GET['key1'])&& !isset($_GET['key2'])){?>
-                <a href="<?=base_url('admin/info_kegiatan')?>" class="btn btn-sm btn-info float-right mt-3">Default</a>
+                <a href="<?=base_url('admin/info_kegiatan')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
                 <?php }?>
                 <?php if(isset($_GET['key1'])&& !isset($_GET['key2'])){?>
-                <a href="<?=base_url('admin/info_kegiatan')?>?key1=<?=$_GET['dari']?>&semester=<?=$_GET['semester']?>" class="btn btn-sm btn-info float-right mt-3">Tanpa rentang</a>
+                <a href="<?=base_url('admin/info_kegiatan')?>?key1=<?=$_GET['dari']?>&semester=<?=$_GET['semester']?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
                 <?php }?>
                 <?php if(isset($_GET['key1'])&& isset($_GET['key2'])){?>
-                <a href="<?=base_url('admin/info_kegiatan')?>?key1=<?=$_GET['dari']?>&key2=<?=$_GET['sampai']?>&semester=<?=$_GET['semester']?>" class="btn btn-sm btn-info float-right mt-3">dengan rentang</a>
+                <a href="<?=base_url('admin/info_kegiatan')?>?key1=<?=$_GET['dari']?>&key2=<?=$_GET['sampai']?>&semester=<?=$_GET['semester']?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
                 <?php }?>
             </div>
         </div>

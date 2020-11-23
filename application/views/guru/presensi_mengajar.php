@@ -28,7 +28,7 @@
             <li>Apabila kartu RFID hilang / rusak segera hubungi waka kurikulum.</li>
         </ul>
     </h6>
-
+<?= json_encode($dataMengajar)?>
     <form action="" class="mt-3">
         <div class="row">
             <div class="col-md-4">
@@ -40,12 +40,16 @@
                     <label for="">Waktu Server</label>
                     <h6 class="ml-3"><b class="text-danger"><div id="txt"></div></b></h6>
                 </div>
+                <?php if($dataMengajar!=null){?>
                 <div class="form-group ">
                     <label for="">Jadwal Mengajar Saat Ini</label>
                     <h6 class="ml-3"><b class="text-danger">
                         Bahasa Indonesia - XI IPS 1 | 08.30 - 11.00
                     </b></h6>
                 </div>
+                <?php }else{?>
+                    Tidak ada jadwal mengajar
+                <?php } ?>
             </div>
             <div class="col-md-8">
                 <div class="form-group">

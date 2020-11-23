@@ -72,8 +72,10 @@ class Siswa extends CI_Controller{
                 $tahunAkademik= $akd['tahun_akademik'];
                 $semester= $akd['semester'];
                 $data['daftarGuru']= $this->survei_model->getDaftarGuru($tahunAkademik,$semester, $kls['id_kelas']);
+                $data['transGuru']= $this->survei_model->getTransGuru($tahunAkademik,$semester, $kls['id_kelas']);
             }
         }
+        $data['getActorSurvei']=$this->survei_model->getActorSurvei();
         $data['akademik']=$this->pengaturan_model->getAkademik();
 
         if(isset($_GET['kode']))
@@ -82,6 +84,26 @@ class Siswa extends CI_Controller{
         }
 
         $this->load->view('siswa/survei',$data);
+    }
+
+    public function insertSurveiGuru()
+    {
+        $id_survei_guru = $_POST['id_survei_guru'];
+        $id_siswa = $_POST['id_siswa'];
+        $id_guru = $_POST['id_guru'];
+        $pertanyaan = $_POST['pertanyaan'];
+        $opsi = $_POST['opsi'];
+        $masukan = $_POST['masukan'];
+
+        $insert= $this->survei_model->addFormkuesionerGuru($id_survei_guru, $id_siswa, $id_guru, $pertanyaan, $opsi, $masukan);
+        if($insert == true)
+        {
+            $this->session->set_flashdata('success', 'Kuesioner berhasil diisi');
+        }else
+        {
+            $this->session->set_flashdata('success', 'Kuesioner gagal diisi');
+        }
+        redirect('siswa/survei');
     }
 
     public function addFormkuesioner($id)
