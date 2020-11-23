@@ -87,6 +87,14 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function notifikasi()
+    {
+        $data['page']='notif';
+        $this->load->view('templates/header',$data);
+        $this->load->view('dashboard/notifikasi');
+        $this->load->view('templates/footer');
+    }
+
     public function info()
     {
         $data['page']='dashboard';
@@ -169,6 +177,7 @@ class Admin extends CI_Controller
     public function detailRecordPresensi()
     {
         $data['page']='dashboard';
+        $data['guru']=$this->guru_model->get();
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/detail');
         $this->load->view('templates/footer');
@@ -199,6 +208,7 @@ class Admin extends CI_Controller
         $data['jumlah']=$this->dasbord_model->getjumlahPeserta($tahun_akademik,$semester);
         $data['keterlibatan']=$this->dasbord_model->getjumlahKeterlibatan($tahun_akademik, $semester);
         $data['siswa']=$this->dasbord_model->getminatSiswa($tahun_akademik, $semester);
+        $data['keterlibatan']=$this->dasbord_model->getterlibatSiswa($tahun_akademik, $semester);
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/kegiatan_laporan',$data);
         $this->load->view('templates/footer');

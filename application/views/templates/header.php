@@ -98,7 +98,7 @@
 			<ul class="navbar-nav">
 			
 				<li class="nav-item dropdown dropdown-user">
-					<a href="<?=base_url('presensi')?>" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+					<a href="<?=base_url('admin/notifikasi')?>" class="navbar-nav-link d-flex align-items-center">
 					<i class="fa fa-bell" style="font-size:24px"></i>
 					</a>
 				</li>

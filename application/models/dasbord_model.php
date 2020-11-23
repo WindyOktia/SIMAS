@@ -34,6 +34,11 @@ class Dasbord_model extends CI_Model
         return $this->db->query('SELECT * FROM v_minat_siswa WHERE tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'"')->result_array();
     }
 
+    public function getterlibatSiswa($tahun_akademik, $semester)
+    {
+        return $this->db->query('SELECT * FROM v_keterlibatan_siswa WHERE tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'"')->result_array();
+    }
+
     public function getanggaran_th1($dari)
     {
         return $this->db->query('SELECT * FROM v_ratarata_anggaran WHERE tahun_akademik="'.$dari.'"')->result_array();

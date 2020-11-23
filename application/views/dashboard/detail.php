@@ -13,12 +13,12 @@
             </div>
             <div class="col-md-3">
                 <select name="" id="" class="form-control">
-                    <option value="">- Anu -</option>
+                    <option value="">- Pilih Kondisi -</option>
                     <option value="">Lebih Dari</option>
                     <option value="">Kurang Dari</option>
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-1">
                 <input type="number" class="form-control" placeholder="">
             </div>
             <div class="col-md-3">
@@ -63,50 +63,33 @@
             </div>
         </div>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-            <th scope="col">No</th>
-            <th scope="col">Nama Guru</th>
-            <th scope="col">Hadir</th>
-            <th scope="col">Izin</th>
-            <th scope="col">Tugas</th>
-            <th scope="col">Tidak Hadir</th>
-            <th scope="col">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Joko</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-                <td>5</td>
-                <td><a href="<?= base_url('admin/detailPresensi/48')?>" class="btn btn-primary btn-sm">Track Record</a></td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Anu</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-                <td><span class="badge badge-danger">30</span></td>
-                <td><a href="<?= base_url('admin/detailPresensi/49')?>" class="btn btn-primary btn-sm">Track Record</a></td>
-            </tr>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Itu</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-                <td>9</td>
-                <td><a href="<?= base_url('admin/detailPresensi/50')?>" class="btn btn-primary btn-sm">Track Record</a></td>
-            </tr>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card">
+    <div class="card-body">
+        <legend>Daftar Guru</legend>
+        <table class="table datatable-show-all">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Nama Guru</th>
+					<th>NIP</th>
+					<th style="width:30%">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $i=1;foreach($guru as $guru):?>
+				<tr>
+					<td><?= $i++?></td>
+					<td><b><?= $guru['nama_guru']?></b></td>
+					<td><?= $guru['nip']?></td>
+					<td>
+						<a href="<?= base_url('admin/detailPresensi')?>/<?=$guru['id_guru']?>"class="btn btn-success btn-sm mb-1">Detail Presensi</a>
+					</td>
+				</tr>
+				<?php endforeach;?>
+			</tbody>
+		</table>
+    </div>
+</div>
 </div>
 
 <script>

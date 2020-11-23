@@ -128,9 +128,9 @@
                                     $kurang=$nilai['Kurang'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
                                 }
                             ?>
-                        Baik    : <?= $baik; ?> %<br>
-                        Cukup   : <?= $cukup; ?> %<br>
-                        Kurang  : <?= $kurang; ?> %
+                        Baik    : <?= number_format($baik,2); ?> %<br>
+                        Cukup   : <?= number_format($cukup,2); ?> %<br>
+                        Kurang  : <?= number_format($kurang,2); ?> %
                         <?php endforeach ?>
                                 <br>
                                 <br>
