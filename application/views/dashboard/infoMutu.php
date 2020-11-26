@@ -178,9 +178,9 @@ var dashSiswa = new Chart(dash1, {
 		datasets: [{
 			label: '# of Votes',
 			data: [
-               <?= $baik; ?>,
-               <?= $cukup; ?>,
-               <?= $kurang; ?>
+               <?= number_format($baik,2) ; ?>,
+               <?= number_format($cukup,2) ; ?>,
+               <?= number_format($kurang,2) ; ?>
             ],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',

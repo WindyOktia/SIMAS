@@ -71,20 +71,20 @@
         </div>
         <div class="row">
         <div class="col-md-4">
-                <div class="card card-body">
-                    <h6 class="text-orange-600">Alokasi Dana Anggaran</h6>
+                <div class="card card-body border-danger-800">
+                    <h6 class="text-danger-800">Alokasi Dana Anggaran</h6>
                     <canvas id="alokasiAnggaran" height="293"></canvas>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-body">
-                    <h6 class="text-orange-600">Alokasi Dana Masuk</h6>
+                <div class="card card-body border-primary-800">
+                    <h6 class="text-primary-600">Alokasi Dana Masuk</h6>
                     <canvas id="alokasiBiaya" height="293"></canvas>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-body">
-                    <h6 class="text-orange-600">Alokasi Dana Terpakai</h6>
+                <div class="card card-body border-warning-800">
+                    <h6 class="text-warning-600">Alokasi Dana Terpakai</h6>
                     <canvas id="alokasiTerpakai" height="293"></canvas>
                 </div>
             </div>
