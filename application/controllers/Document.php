@@ -138,6 +138,7 @@ class Document extends CI_Controller
         $data['pj']=$this->dokumen_model->getRevisiProposalPJ($id);
         $data['waka']=$this->dokumen_model->getRevisiProposalWaka($id);
         $data['kepsek']=$this->dokumen_model->getRevisiProposalKepsek($id);
+        $data['histori']=$this->dokumen_model->getHistoriRevisiProposal($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_proposal',$data);
         $this->load->view('templates/footer');
@@ -195,6 +196,7 @@ class Document extends CI_Controller
         $data['id']= $id;
         $data['dokumenproposal']=$this->dokumen_model->getProposalID($id);
         $data['arsip']=$this->dokumen_model->getArsipProposalID($id);
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiProposalPJ();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_verifikasi_proposal',$data);
         $this->load->view('templates/footer');
@@ -246,6 +248,7 @@ class Document extends CI_Controller
         $data['pj']=$this->dokumen_model->getRevisiLaporanPJ($id);
         $data['waka']=$this->dokumen_model->getRevisiLaporanWaka($id);
         $data['kepsek']=$this->dokumen_model->getRevisiLaporanKepsek($id);
+        $data['histori']=$this->dokumen_model->getHistoriRevisiLaporan($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/detail_laporan',$data);
         $this->load->view('templates/footer');
@@ -303,6 +306,7 @@ class Document extends CI_Controller
         $data['id']= $id;
         $data['dokumenlaporan']=$this->dokumen_model->joinLaporanID($id);
         $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
+        $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiLaporanPJ();
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_verifikasi_laporan',$data);
         $this->load->view('templates/footer');

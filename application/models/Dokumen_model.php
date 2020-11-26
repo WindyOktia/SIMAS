@@ -42,6 +42,18 @@ class Dokumen_model extends CI_Model
         return $this->db->get_where('proposal',['id_proposal'=> $id])->result_array();
     }
 
+    public function getHistoriRevisiProposal($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('proposal.id_proposal, history_revisi_proposal.catatan, history_revisi_proposal.tgl_verifikasi_proposal');
+        $this->db->from('history_revisi_proposal');
+        $this->db->where('proposal.id_proposal = history_revisi_proposal.id_proposal');
+        $this->db->where(['history_revisi_proposal.id_proposal'=>$id]);
+        return $this->db->get('proposal')->result_array();
+        $this->db->trans_complete();
+    }
+
     public function getRevisiProposalPJ($id)
     {
         // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
@@ -129,6 +141,15 @@ class Dokumen_model extends CI_Model
             $this->db->where('id_user',$this->session->userdata('id_user'));
             $this->db->update('verifikasi_proposal');
             $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_proposal'=>$_POST['id_proposal'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_proposal'=>$_POST['tgl_verifikasi']
+            ];
+            $this->db->insert('history_revisi_proposal', $data);
+            $this->db->trans_complete();
         } else {
             $this->db->trans_start();
             $data = [
@@ -139,6 +160,15 @@ class Dokumen_model extends CI_Model
             'tgl_verifikasi'=>$_POST['tgl_verifikasi']
             ];
             $this->db->insert('verifikasi_proposal', $data);
+            $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_proposal'=>$_POST['id_proposal'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_proposal'=>$_POST['tgl_verifikasi']
+            ];
+            $this->db->insert('history_revisi_proposal', $data);
             $this->db->trans_complete();
         }
         return true;
@@ -164,7 +194,7 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get('laporan_view')->result_array();
         $this->db->trans_start();
-        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.status');
+        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.id_user, user.role, verifikasi_proposal.status');
         $this->db->from('user');
         $this->db->from('verifikasi_proposal');
         $this->db->where('verifikasi_proposal.id_proposal = proposal.id_proposal AND user.id_user = verifikasi_proposal.id_user AND user.role=2');
@@ -176,7 +206,19 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get('laporan_view')->result_array();
         $this->db->trans_start();
-        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.status');
+        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.id_user, user.role, verifikasi_proposal.status');
+        $this->db->from('user');
+        $this->db->from('verifikasi_proposal');
+        $this->db->where('verifikasi_proposal.id_proposal = proposal.id_proposal AND user.id_user = verifikasi_proposal.id_user AND user.role=7');
+        return $this->db->get('proposal')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getCheckVerifikasiProposalPJ()
+    {
+        // return $this->db->get('laporan_view')->result_array();
+        $this->db->trans_start();
+        $this->db->select('verifikasi_proposal.status');
         $this->db->from('user');
         $this->db->from('verifikasi_proposal');
         $this->db->where('verifikasi_proposal.id_proposal = proposal.id_proposal AND user.id_user = verifikasi_proposal.id_user AND user.role=7');
@@ -188,7 +230,7 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get('laporan_view')->result_array();
         $this->db->trans_start();
-        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.status');
+        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.id_user, user.role, verifikasi_proposal.status');
         $this->db->from('user');
         $this->db->from('verifikasi_proposal');
         $this->db->where('verifikasi_proposal.id_proposal = proposal.id_proposal AND user.id_user = verifikasi_proposal.id_user AND user.role=4');
@@ -256,6 +298,18 @@ class Dokumen_model extends CI_Model
         $this->db->where('proposal.id_proposal = laporan.id_proposal');
         $this->db->where('user.id_user = laporan.id_user');
         $this->db->where(['laporan.id_laporan'=>$id]);
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getHistoriRevisiLaporan($id)
+    {
+        // return $this->db->get_where('proposal_view',['role'=>$this->session->userdata('role')] )->result_array();
+        $this->db->trans_start();
+        $this->db->select('laporan.id_laporan, history_revisi_laporan.catatan, history_revisi_laporan.tgl_verifikasi_laporan');
+        $this->db->from('history_revisi_laporan');
+        $this->db->where('laporan.id_laporan = history_revisi_laporan.id_laporan');
+        $this->db->where(['history_revisi_laporan.id_laporan'=>$id]);
         return $this->db->get('laporan')->result_array();
         $this->db->trans_complete();
     }
@@ -352,6 +406,15 @@ class Dokumen_model extends CI_Model
             $this->db->where('id_user',$this->session->userdata('id_user'));
             $this->db->update('verifikasi_laporan');
             $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_laporan'=>$_POST['id_laporan'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_laporan'=>$_POST['tgl_verifikasi_lp']
+            ];
+            $this->db->insert('history_revisi_laporan', $data);
+            $this->db->trans_complete();
         } else {
             $this->db->trans_start();
             $data = [
@@ -362,6 +425,15 @@ class Dokumen_model extends CI_Model
             'tgl_verifikasi_lp'=>$_POST['tgl_verifikasi_lp']
             ];
             $this->db->insert('verifikasi_laporan', $data);
+            $this->db->trans_complete();
+
+            $this->db->trans_start();
+            $data = [
+            'id_laporan'=>$_POST['id_laporan'],
+            'catatan'=>$_POST['catatan'],
+            'tgl_verifikasi_laporan'=>$_POST['tgl_verifikasi_lp']
+            ];
+            $this->db->insert('history_revisi_laporan', $data);
             $this->db->trans_complete();
         }
         return true;
@@ -395,7 +467,7 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get('laporan_view')->result_array();
         $this->db->trans_start();
-        $this->db->select('verifikasi_laporan.id_laporan, verifikasi_laporan.status');
+        $this->db->select('verifikasi_laporan.id_laporan, verifikasi_laporan.id_user, user.role, verifikasi_laporan.status');
         $this->db->from('user');
         $this->db->from('verifikasi_laporan');
         $this->db->where('verifikasi_laporan.id_laporan = laporan.id_laporan AND user.id_user = verifikasi_laporan.id_user AND user.role=2');
@@ -407,7 +479,19 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get('laporan_view')->result_array();
         $this->db->trans_start();
-        $this->db->select('verifikasi_laporan.id_laporan, verifikasi_laporan.status');
+        $this->db->select('verifikasi_laporan.id_laporan, verifikasi_laporan.id_user, user.role, verifikasi_laporan.status');
+        $this->db->from('user');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('verifikasi_laporan.id_laporan = laporan.id_laporan AND user.id_user = verifikasi_laporan.id_user AND user.role=7');
+        return $this->db->get('laporan')->result_array();
+        $this->db->trans_complete();
+    }
+
+    public function getCheckVerifikasiLaporanPJ()
+    {
+        // return $this->db->get('laporan_view')->result_array();
+        $this->db->trans_start();
+        $this->db->select('verifikasi_laporan.status');
         $this->db->from('user');
         $this->db->from('verifikasi_laporan');
         $this->db->where('verifikasi_laporan.id_laporan = laporan.id_laporan AND user.id_user = verifikasi_laporan.id_user AND user.role=7');
@@ -419,7 +503,7 @@ class Dokumen_model extends CI_Model
     {
         // return $this->db->get('laporan_view')->result_array();
         $this->db->trans_start();
-        $this->db->select('verifikasi_laporan.id_laporan, verifikasi_laporan.status');
+        $this->db->select('verifikasi_laporan.id_laporan, verifikasi_laporan.id_user, user.role, verifikasi_laporan.status');
         $this->db->from('user');
         $this->db->from('verifikasi_laporan');
         $this->db->where('verifikasi_laporan.id_laporan = laporan.id_laporan AND user.id_user = verifikasi_laporan.id_user AND user.role=4');
@@ -445,9 +529,9 @@ class Dokumen_model extends CI_Model
     public function getKuesionerCheck()
     {
         $this->db->trans_start();
-        return $this->db->query('SELECT laporan.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester
-        FROM kuesioner_kegiatan, proposal, laporan
-        WHERE laporan.id_proposal = proposal.id_proposal AND proposal.id_proposal NOT IN (SELECT kuesioner_kegiatan.id_proposal FROM kuesioner_kegiatan)
+        return $this->db->query('SELECT proposal.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester
+        FROM kuesioner_kegiatan, proposal
+        WHERE proposal.id_proposal NOT IN (SELECT kuesioner_kegiatan.id_proposal FROM kuesioner_kegiatan)
         GROUP BY proposal.id_proposal')->result_array();
         $this->db->trans_complete();
         // return $this->db->get_where('laporan_view',['role'=>$this->session->userdata('role')])->result_array();
