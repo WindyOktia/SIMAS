@@ -66,6 +66,39 @@
 <?php } else { ?>
     <h6> <i class="	fa fa-clock-o mr-2"></i>Rekam jejak nilai dalam 2 tahun terakhir </h6>
 <?php } ;?>
+
+<div class="row">
+    <div class="col">
+        <div class="card card-body border-success">
+            <h5 class="text-center">Jumlah Kehadiran</h5>
+            <h3 class="text-center"><b>56 </b> hari</h3>
+            <a href="" class="btn btn-sm btn-info btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card card-body border-success">
+            <h5 class="text-center">Keterlambatan</h5>
+            <h3 class="text-center"><b>1 </b> x</h3>
+            <a href="" class="btn btn-sm btn-info btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card card-body border-success">
+            <h5 class="text-center">Kelebihan Jam</h5>
+            <h3 class="text-center"><b>0 </b> x</h3>
+            <a href="" class="btn btn-sm btn-info btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card card-body border-danger">
+            <h5 class="text-center">Tidak Hadir</h5>
+            <h3 class="text-center"><b>8 </b> x</h3>
+            <a href="" class="btn btn-sm btn-danger btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+        </div>
+    </div>
+    
+</div>
+
 <div class="row">
     <div class="col md-12">
         <div class="card card-body border-primary">
@@ -122,20 +155,21 @@
    
 ?>
 
-            <h6>Kehadiran Harian  
+            <h5><b>Kehadiran Harian  </b>
                 <span class="float-right">
-                    <a type="button"data-toggle="modal" data-target="#modalHarian">
-                        <i class="fa fa-info-circle"></i>
-                    </a>
+                    <!-- <a type="button"data-toggle="modal" data-target="#modalHarian">
+                        <i class="fa fa-info-circle"></i> Unduh data
+                    </a> -->
+                    <a href="" class="btn btn-success btn-sm">Unduh data presensi harian</a>
                 </span>
-            </h6>
+            </h5>
             <div class="row">
                 <div class="col">
                     <label for=""> Rata-rata jam masuk guru</label>
                     <h2 class=""><b> <?= $jamHadirs?></b></h2>
                    
                 </div>
-                <div class="col">
+                <div class="col border-left">
                     <label for="">Rata-rata jam kerja</label>
                     <h2 class=""><b><?= $jamKerja?></b></h2>
                 </div>
@@ -150,11 +184,12 @@
 
     <div class="col-md-12">
         <div class="card card-body border-primary">
-            <h6>Resume Mengajar
+            <h6><b>Resume Mengajar</b>
                 <span class="float-right">
-                    <a type="button"data-toggle="modal" data-target="#modalMengajar">
+                    <!-- <a type="button"data-toggle="modal" data-target="#modalMengajar">
                         <i class="fa fa-info-circle"></i>
-                    </a>
+                    </a> -->
+                    <a href="" class="btn btn-success btn-sm">Unduh data presensi harian</a>
                 </span>
             </h6>
             <div class="row">
@@ -162,7 +197,7 @@
                     <label for="">Beban mengajar</label>
                     <h2 class=""><b>3 Mata pelajaran</b></h2>
                 </div>
-                <div class="col">
+                <div class="col border-left">
                     <label for="">Rata-rata durasi mengajar</label>
                     <h2 class=""><b>2 jam</b></h2>
                 </div>
@@ -171,64 +206,27 @@
         </div>
     </div>
     <div class="col-md-12">
-        <div class="card card-body border-success">
-            <h6>Rata-Rata Nilai Survei Guru
+        <div class="card card-body border-primary">
+            <h5><b>Rata-Rata Nilai Survei Guru</b>
                 <span class="float-right">
-                    <a type="button"data-toggle="modal" data-target="#modalSurvei">
+                    <!-- <a type="button"data-toggle="modal" data-target="#modalSurvei">
                         <i class="fa fa-info-circle"></i>
                     </a>
                     <a type="button"data-toggle="modal" data-target="#modalRekap">
                         <i class="fa fa-plus-circle"></i>
-                    </a>
+                    </a> -->
+                    <a href="" class="btn btn-success btn-sm">Unduh laporan nilai survei</a>
                 </span>
-            </h6>
-            <h2 class="text-center"><b>70</b></h2>
+            </h5>
+            <h2 class="text-center"><b>80</b></h2>
         </div>
     </div>
 </div>
 
-<div class="card card-body">
-    <div class="row">
-        <div class="col-md-4">
-            <h6> <i class="fa fa-info-circle mr-2 mt-3"></i>Detail Informasi</h6>
-            <ol>
-                <li>
-                    <div class="row h6">
-                        <div class="col-md-6">Kehadiran Harian </div>
-                        <div class="col-md-6">: 12</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="row h6">
-                        <div class="col-md-6">Ijin </div>
-                        <div class="col-md-6">: 12</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="row h6">
-                        <div class="col-md-6">Tugas </div>
-                        <div class="col-md-6">: 12</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="row h6">
-                        <div class="col-md-6">Kehadiran Mengajar</div>
-                        <div class="col-md-6">: 12</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="row h6">
-                        <div class="col-md-6">Total Jam Mengajar</div>
-                        <div class="col-md-6">: 200 jam</div>
-                    </div>
-                </li>
-            </ol>
-        </div>
-        <div class="col-md-8">
-           <h5><b> </b></h5>
-           <canvas id="chartTrack"  height="120"></canvas>
-        </div>
-    </div>
+<h6> <i class="	fa fa-clock-o mr-2"></i>Grafik perubahan nilai dalam 2 tahun terakhir </h6>
+
+<div class="card card-body ">
+<canvas id="chartTrack"  height="350"></canvas>
 </div>
 
 
@@ -385,10 +383,20 @@ var chartTrack = document.getElementById('chartTrack').getContext('2d');
 var chartTrack_graph = new Chart(chartTrack, {
     type: 'line',
     data: {
-        labels: ['2019 - Ganjil', '2019- Genap', '2020- Ganjil', '2020- Genap'],
+        labels: ['2018 / 2019 - Ganjil', '2018 / 2019 - Genap', '2019 / 2020 - Ganjil', '2019 / 2020 - Genap'],
         datasets: [{
+            label: 'Kepuasan Siswa',
+            data: [86, 88, 86, 89],
+            borderColor: [
+                '#3A3042'
+               
+            ],
+            fill:false,
+            borderWidth: 2
+        },
+        {
             label: 'Kehadiran Harian',
-            data: [90, 90, 85, 95],
+            data: [90, 90, 88, 95],
             borderColor: [
                 'rgba(255, 99, 132, 1)'
                
@@ -398,19 +406,9 @@ var chartTrack_graph = new Chart(chartTrack, {
         },
         {
             label: 'Kehadiran Mengajar',
-            data: [80, 90, 90, 85],
+            data: [86, 90, 92, 85],
             borderColor: [
                 '#20A39E'
-               
-            ],
-            fill:false,
-            borderWidth: 2
-        },
-        {
-            label: 'Nilai Survei',
-            data: [90, 95, 95, 90],
-            borderColor: [
-                '#CC4BC2'
                
             ],
             fill:false,

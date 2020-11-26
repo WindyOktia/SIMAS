@@ -388,6 +388,7 @@
 									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 										<li class="nav-item"><a href="<?= base_url('admin/guru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
 										<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
+										<li class="nav-item"><a href="<?= base_url('admin/rekapPresensi')?>" class="nav-link <?php if($page=='rekapPresensi'){echo 'active';};?>">Rekap Presensi Guru</a></li>
 									</ul>
 								</li>
 						<?php }?>
