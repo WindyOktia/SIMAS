@@ -142,11 +142,12 @@
                     <td class="align-middle"><?= $kuesioner['tgl_mulai']; ?></td>
                     <td class="align-middle"><?= $kuesioner['tgl_selesai']; ?></td>
                     <?php
-						if($kuesioner['tgl_selesai'] < date("Y-m-d")){
-                            echo '<td class="align-middle"><span class="align-middle badge badge-danger">Masa Aktif Kuesioner Habis</span></td>';
-						} else {
-							echo '<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="">Isi Kuesioner</a></td>';
-						}
+						if($kuesioner['tgl_selesai'] < date("Y-m-d")){?>
+                            <!-- // echo '<td class="align-middle"><span class="align-middle badge badge-danger">Masa Aktif Kuesioner Habis</span></td>'; -->
+							<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="<?=base_url('siswa/addFormkuesioner/') ?><?= $kuesioner['id_kuesioner']; ?>">Isi Kuesioner</a></td>
+						<?php } else {?>
+							<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="">Isi Kuesioner</a></td>
+						<?php }
 					?>
                 </tr>
                 <?php endforeach; ?>

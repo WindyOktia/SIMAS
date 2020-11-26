@@ -128,9 +128,9 @@
                                     $kurang=$nilai['Kurang'] / ($nilai['Baik'] + $nilai['Cukup'] + $nilai['Kurang']) * 100;
                                 }
                             ?>
-                        Baik    : <?= $baik; ?> %<br>
-                        Cukup   : <?= $cukup; ?> %<br>
-                        Kurang  : <?= $kurang; ?> %
+                        Baik    : <?= number_format($baik,2); ?> %<br>
+                        Cukup   : <?= number_format($cukup,2); ?> %<br>
+                        Kurang  : <?= number_format($kurang,2); ?> %
                         <?php endforeach ?>
                                 <br>
                                 <br>
@@ -178,9 +178,9 @@ var dashSiswa = new Chart(dash1, {
 		datasets: [{
 			label: '# of Votes',
 			data: [
-               <?= $baik; ?>,
-               <?= $cukup; ?>,
-               <?= $kurang; ?>
+               <?= number_format($baik,2) ; ?>,
+               <?= number_format($cukup,2) ; ?>,
+               <?= number_format($kurang,2) ; ?>
             ],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',

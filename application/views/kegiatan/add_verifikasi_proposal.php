@@ -7,13 +7,26 @@
 							<button type="button" class="btn btn-danger mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Ditolak">
                 Ditolak
               </button>
+              <button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Revisi">
+                Revisi
+              </button>
+              <button type="button" class="btn btn-success mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Setuju">
+                Setuju
+              </button>
 <?php }?>
-<button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Revisi">
-  Revisi
-</button>
-<button type="button" class="btn btn-success mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Setuju">
-  Setuju
-</button>
+<?php 
+              $prn=array('2','4');
+							$peran=$this->session->userdata('role');
+              foreach ($verifikasiPJ as $PJ):
+							if($PJ['status']=='Disetujui' && in_array($peran,$prn)){ ?>
+							<button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Revisi">
+                Revisi
+              </button>
+              <button type="button" class="btn btn-success mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Setuju">
+                Setuju
+              </button>
+<?php } endforeach?>
+
 <?php foreach ($dokumenproposal as $dok):?>
 
 <div class="card card-body border-success">
@@ -131,7 +144,7 @@
             <input name="id_proposal" value="<?= $add['id_proposal']?>" type="hidden" class="form-control" required>
             <input name="id_user" type="hidden" value="<?=$this->session->userdata('id_user')?>" class="form-control" required>
             <input name="status" value="Ditolak" type="hidden" class="form-control" required>
-            <input name="catatan" value="-" type="hidden" class="form-control" required>
+            <input name="catatan" value="Ditolak" type="hidden" class="form-control" required>
             <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
        </div>
        <div class="form-group">
@@ -167,7 +180,7 @@
             <input name="id_proposal" value="<?= $add['id_proposal']?>" type="hidden" class="form-control" required>
             <input name="id_user" type="hidden" class="form-control" required>
             <input name="status" value="Disetujui" type="hidden" class="form-control" required>
-            <input name="catatan" value="-" type="hidden" class="form-control" required>
+            <input name="catatan" value="Disetujui" type="hidden" class="form-control" required>
             <input name="role" value="<?=$this->session->userdata('role');?>"type="hidden" class="form-control" required>
        </div>
        <div class="form-group">

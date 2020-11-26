@@ -8,6 +8,9 @@
 <button type="button" class="btn btn-danger mb-3 btn-sm" data-toggle="modal" data-target="#ModalRevisi">
   Lihat Revisi
 </button>
+<button type="button" class="btn btn-warning mb-3 btn-sm float-right" data-toggle="modal" data-target="#HistoriRevisi">
+  Rekam Jejak Revisi
+</button>
 <?php foreach ($joinlaporan as $dok):?>
 
 <div class="card card-body border-success">
@@ -173,6 +176,33 @@
                 <script>
                     CKEDITOR.replace( 'kepsek',{height:100} );
                 </script>
+            </div>
+            <?php endforeach?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Histori Revisi button -->
+<div class="modal fade" id="HistoriRevisi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rekam Jejak Revisi Proposal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" enctype="multipart/form-data" method="post">
+            <?php foreach($histori as $his):?>
+            <div class="form-group">
+                <label for="">Tanggal Revisi dan catatan</label>
+                <textarea disabled name="histori" class="form-control" id="" cols="30" rows="10" ><?=$his['tgl_verifikasi_laporan']?> - <?=strip_tags($his['catatan']);?></textarea>
             </div>
             <?php endforeach?>
       </div>
