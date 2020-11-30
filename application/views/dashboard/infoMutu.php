@@ -97,7 +97,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/detailRecordPresensi')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
+                <a href="<?=base_url('admin/daftarPresensi')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
             </div>
         </div>
         <div class="col-md-6">
