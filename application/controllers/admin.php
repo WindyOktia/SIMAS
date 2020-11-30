@@ -815,6 +815,15 @@ class Admin extends CI_Controller
 
         redirect('admin/jadwalMengajar/'.$backid);
     }
+
+    public function rekapPresensi()
+    {
+        $data['page']='rekapPresensi';
+        $data['listGuru']=$this->guru_model->get();
+        $this->load->view('templates/header',$data);
+        $this->load->view('guru/rekapPresensi',$data);
+        $this->load->view('templates/footer');
+    }
     // end of guru
 
     // verifikasi ijin guru

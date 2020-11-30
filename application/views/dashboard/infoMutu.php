@@ -97,7 +97,7 @@
                         Kurang Baik : 
                     </div>
                 </div>
-                <a href="<?=base_url('admin/detailRecordPresensi')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
+                <a href="<?=base_url('admin/daftarPresensi')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>
             </div>
         </div>
         <div class="col-md-6">
@@ -178,9 +178,9 @@ var dashSiswa = new Chart(dash1, {
 		datasets: [{
 			label: '# of Votes',
 			data: [
-               <?= $baik; ?>,
-               <?= $cukup; ?>,
-               <?= $kurang; ?>
+               <?= number_format($baik,2) ; ?>,
+               <?= number_format($cukup,2) ; ?>,
+               <?= number_format($kurang,2) ; ?>
             ],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
