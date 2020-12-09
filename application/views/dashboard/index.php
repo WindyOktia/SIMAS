@@ -98,5 +98,4 @@ var dashBobot = new Chart(dash1, {
         }
     }
 });
-
 </script>
