@@ -181,6 +181,8 @@ class Guru_model extends CI_Model
     {
         $data=[
             'id_guru'=>$_POST['id_guru'],
+            'tahun_akademik'=>$_POST['tahun_akademik'],
+            'semester'=>$_POST['semester'],
             'jenis_ijin'=>$_POST['jenis'],
             'perihal_ijin'=>$_POST['perihal'],
             'tanggal_pengajuan'=>date('Y-m-d H-i-s'),
@@ -274,8 +276,234 @@ class Guru_model extends CI_Model
     public function validasiJadwal($tahun_akademik, $semester)
     {
         
-        return $this->db->query('SELECT jadwal_guru.*, mapel.nama_mapel, kelas.kelas, kelas.jurusan, kelas.sub FROM jadwal_guru,mapel, kelas WHERE jadwal_guru.id_mapel=mapel.id_mapel AND jadwal_guru.id_kelas=kelas.id_kelas AND tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" AND id_guru = "'.$_POST['id_guru'].'" AND Hari = "'.$_POST['hari'].'" AND jadwal_guru.id_kelas="'.$_POST['kelas'].'" and jadwal_guru.id_mapel = "'.$_POST['mapel'].'" AND "'.$_POST['jam_mulai'].'" BETWEEN jam_mulai AND jam_selesai ')->result_array();
-       
+        return $this->db->query('SELECT jadwal_guru.*, mapel.nama_mapel, kelas.kelas, kelas.jurusan, kelas.sub FROM jadwal_guru,mapel, kelas WHERE jadwal_guru.id_mapel=mapel.id_mapel AND jadwal_guru.id_kelas=kelas.id_kelas AND tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" AND id_guru = "'.$_POST['id_guru'].'" AND Hari = "'.$_POST['hari'].'" AND (("'.$_POST['jam_mulai'].'" BETWEEN jam_mulai AND jam_selesai ) or ("'.$_POST['jam_selesai'].'" BETWEEN jam_mulai AND jam_selesai ))')->result_array();
+        
     }
+    // start filter
+    public function getFilterTahun()
+    {
+        return $this->db->query('SELECT DISTINCT(tahun_akademik), semester FROM `presensi_harian` GROUP BY tahun_akademik, semester')->result_array();
+    }
+    
+    public function getDefaultTotalKehadiran()
+    {
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_presensi FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru')->result_array();
+    }
+    
+    public function getDefatultKeterlambatan()
+    {
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_terlambat FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_masuk >= "07:15"')->result_array();
+    }
+    
+    public function getDefaultLebih()
+    {
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_lebih FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_pulang >= "15:30"')->result_array();
+    }
+    
+    public function getDefaultDataTerlambat()
+    {
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_masuk >= "07:15"')->result_array();
+    }
+
+    public function getDefaultDataLewat()
+    {
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_pulang >= "15:30"')->result_array();
+    }
+    
+    public function getDefaultNilaiSurvei()
+    {
+        return $this->db->query('SELECT * FROM `v_n_survei`')->result_array();
+    }
+    
+    public function getDefaultCountIjin()
+    {
+        return $this->db->query('SELECT count(ijin.id_ijin) as jml_ijin FROM ijin, status_ijin WHERE ijin.id_ijin=status_ijin.id_ijin AND status_ijin.status=1')->result_array();
+    }
+
+    public function getDefaultIjin()
+    {
+        return $this->db->query('SELECT ijin.*, guru.nama_guru, guru.status_guru FROM ijin, status_ijin,guru WHERE ijin.id_ijin=status_ijin.id_ijin AND ijin.id_guru=guru.id_guru AND status_ijin.status=1
+        ')->result_array();
+    }
+    
+
+
+
+
+    public function getDefaultTotalKehadiran_f1($th2)
+    {
+        $exp = explode(' - ', $th2);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_presensi FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND ( tahun_akademik BETWEEN (SELECT MIN(tahun_akademik) FROM presensi_harian) AND "'.$exp[0].'") AND (semester BETWEEN(SELECT min(semester) FROM presensi_harian) AND "'.$exp[1].'")')->result_array();
+    }
+    
+    public function getDefatultKeterlambatan_f1($th2)
+    {
+        $exp = explode(' - ', $th2);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_terlambat FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_masuk >= "07:15" AND ( tahun_akademik BETWEEN (SELECT MIN(tahun_akademik) FROM presensi_harian) AND "'.$exp[0].'") AND (semester BETWEEN(SELECT min(semester) FROM presensi_harian) AND "'.$exp[1].'")')->result_array();
+    }
+    
+    public function getDefaultLebih_f1($th2)
+    {
+        $exp = explode(' - ', $th2);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_lebih FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_pulang >= "15:30" AND ( tahun_akademik BETWEEN (SELECT MIN(tahun_akademik) FROM presensi_harian) AND "'.$exp[0].'") AND (semester BETWEEN(SELECT min(semester) FROM presensi_harian) AND "'.$exp[1].'")')->result_array();
+    }
+    
+    public function getDefaultDataTerlambat_f1($th2)
+    {
+        $exp = explode(' - ', $th2);
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_masuk >= "07:15" AND ( tahun_akademik BETWEEN (SELECT MIN(tahun_akademik) FROM presensi_harian) AND "'.$exp[0].'") AND (semester BETWEEN(SELECT min(semester) FROM presensi_harian) AND "'.$exp[1].'")')->result_array();
+    }
+
+    public function getDefaultDataLewat_f1($th2)
+    {
+        $exp = explode(' - ', $th2);
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_pulang >= "15:30" AND ( tahun_akademik BETWEEN (SELECT MIN(tahun_akademik) FROM presensi_harian) AND "'.$exp[0].'") AND (semester BETWEEN(SELECT min(semester) FROM presensi_harian) AND "'.$exp[1].'")')->result_array();
+    }
+    
+    public function getDefaultNilaiSurvei_f1($th2)
+    {
+        $exp = explode(' - ', $th2);
+        return $this->db->query('SELECT v_n_survei.*, survei_guru.tahun_akademik, survei_guru.semester FROM v_n_survei, survei_guru WHERE survei_guru.id_survei_guru=v_n_survei.id_survei_guru AND ( tahun_akademik BETWEEN (SELECT MIN(tahun_akademik) FROM presensi_harian) AND "'.$exp[0].'") AND (semester BETWEEN(SELECT min(semester) FROM presensi_harian) AND "'.$exp[1].'")')->result_array();
+    }
+
+
+
+
+    public function getDefaultTotalKehadiran_f2($th1)
+    {
+        $exp = explode(' - ', $th1);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_presensi FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND (SELECT MAX(tahun_akademik) FROM presensi_harian)) AND (semester BETWEEN "'.$exp[1].'" AND (SELECT max(semester) FROM presensi_harian))')->result_array();
+    }
+    
+    public function getDefatultKeterlambatan_f2($th1)
+    {
+        $exp = explode(' - ', $th1);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_terlambat FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_masuk >= "07:15" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND (SELECT MAX(tahun_akademik) FROM presensi_harian)) AND (semester BETWEEN "'.$exp[1].'" AND (SELECT max(semester) FROM presensi_harian))')->result_array();
+    }
+    
+    public function getDefaultLebih_f2($th1)
+    {
+        $exp = explode(' - ', $th1);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_lebih FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_pulang >= "15:30" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND (SELECT MAX(tahun_akademik) FROM presensi_harian)) AND (semester BETWEEN "'.$exp[1].'" AND (SELECT max(semester) FROM presensi_harian))')->result_array();
+    }
+    
+    public function getDefaultDataTerlambat_f2($th1)
+    {
+        $exp = explode(' - ', $th1);
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_masuk >= "07:15" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND (SELECT MAX(tahun_akademik) FROM presensi_harian)) AND (semester BETWEEN "'.$exp[1].'" AND (SELECT max(semester) FROM presensi_harian))')->result_array();
+    }
+
+    public function getDefaultDataLewat_f2($th1)
+    {
+        $exp = explode(' - ', $th1);
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_pulang >= "15:30" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND (SELECT MAX(tahun_akademik) FROM presensi_harian)) AND (semester BETWEEN "'.$exp[1].'" AND (SELECT max(semester) FROM presensi_harian))')->result_array();
+    }
+    
+    public function getDefaultNilaiSurvei_f2($th1)
+    {
+        $exp = explode(' - ', $th1);
+        return $this->db->query('SELECT v_n_survei.*, survei_guru.tahun_akademik, survei_guru.semester FROM v_n_survei, survei_guru WHERE survei_guru.id_survei_guru=v_n_survei.id_survei_guru AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND (SELECT MAX(tahun_akademik) FROM presensi_harian)) AND (semester BETWEEN "'.$exp[1].'" AND (SELECT max(semester) FROM presensi_harian))')->result_array();
+    }
+
+
+
+
+    public function getDefaultTotalKehadiran_f3($th1,$th2)
+    {
+        $exp = explode(' - ', $th1);
+        $exp2 = explode(' - ', $th2);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_presensi FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND "'.$exp2[0].'") AND (semester BETWEEN "'.$exp[1].'" AND "'.$exp2[1].'")')->result_array();
+    }
+    
+    public function getDefatultKeterlambatan_f3($th1,$th2)
+    {
+        $exp = explode(' - ', $th1);
+        $exp2 = explode(' - ', $th2);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_terlambat FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_masuk >= "07:15" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND "'.$exp2[0].'") AND (semester BETWEEN "'.$exp[1].'" AND "'.$exp2[1].'")')->result_array();
+    }
+    
+    public function getDefaultLebih_f3($th1,$th2)
+    {
+        $exp = explode(' - ', $th1);
+        $exp2 = explode(' - ', $th2);
+        return $this->db->query('SELECT (COUNT(presensi_harian.id_presensi_harian)/COUNT(DISTINCT(presensi_harian.id_guru))) AS rata_rata_lebih FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru AND presensi_harian.jam_pulang >= "15:30" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND "'.$exp2[0].'") AND (semester BETWEEN "'.$exp[1].'" AND "'.$exp2[1].'")')->result_array();
+    }
+    
+    public function getDefaultDataTerlambat_f3($th1,$th2)
+    {
+        $exp = explode(' - ', $th1);
+        $exp2 = explode(' - ', $th2);
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_masuk >= "07:15" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND "'.$exp2[0].'") AND (semester BETWEEN "'.$exp[1].'" AND "'.$exp2[1].'")')->result_array();
+    }
+
+    public function getDefaultDataLewat_f3($th1,$th2)
+    {
+        $exp = explode(' - ', $th1);
+        $exp2 = explode(' - ', $th2);
+        return $this->db->query('SELECT presensi_harian.*, guru.nama_guru, guru.status_guru FROM presensi_harian, guru WHERE presensi_harian.id_guru=guru.id_guru and jam_pulang >= "15:30" AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND "'.$exp2[0].'") AND (semester BETWEEN "'.$exp[1].'" AND "'.$exp2[1].'")')->result_array();
+    }
+    
+    public function getDefaultNilaiSurvei_f3($th1,$th2)
+    {
+        $exp = explode(' - ', $th1);
+        $exp2 = explode(' - ', $th2);
+        return $this->db->query('SELECT v_n_survei.*, survei_guru.tahun_akademik, survei_guru.semester FROM v_n_survei, survei_guru WHERE survei_guru.id_survei_guru=v_n_survei.id_survei_guru AND ( tahun_akademik BETWEEN "'.$exp[0].'" AND "'.$exp2[0].'") AND (semester BETWEEN "'.$exp[1].'" AND "'.$exp2[1].'")')->result_array();
+    }
+
+    public function getDataNIP($stat)
+    {
+        // return $this->db->get_where('guru',['status_guru'=>$stat])->result_array();
+        $this->db->select('max(nip) as nip_max');
+        $this->db->where('status_guru',$stat);
+        if($stat==1){
+            $this->db->like('nip','PNS-');
+        }
+        if($stat==2){
+            $this->db->like('nip','GTT-');
+        }
+        if($stat==3){
+            $this->db->like('nip','GTY-');
+        }
+        return $this->db->get('guru')->result_array();
+    }
+
+    public function generateNIP($stat)
+    {
+        $NIP = $this->getDataNIP($stat);
+        foreach($NIP as $np)
+        {
+            if($np['nip_max']==null)
+            {
+                if($stat==1){
+                    return 'PNS-'.date('ym').'01';
+                }
+                if($stat==2){
+                    return 'GTT-'.date('ym').'01';
+                }
+                if($stat==3){
+                    return 'GTY-'.date('ym').'01';
+                }
+            }
+            else{
+                if($stat==1){
+                    $exp = explode('PNS-2012',$np['nip_max']);
+                    $plusID = $exp[1]+1;
+                    return 'PNS-20120'.$plusID;
+                }
+                if($stat==2){
+                    $exp = explode('GTT-2012',$np['nip_max']);
+                    $plusID = $exp[1]+1;
+                    return 'GTT-20120'.$plusID;
+                }
+                if($stat==3){
+                    $exp = explode('GTY-2012',$np['nip_max']);
+                    $plusID = $exp[1]+1;
+                    return 'GTY-20120'.$plusID;
+                }   
+            }
+        }
+    }
+
+
 
 }

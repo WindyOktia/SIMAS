@@ -40,6 +40,7 @@
                     <label for="">Waktu Server</label>
                     <h6 class="ml-3"><b class="text-danger"><div id="txt"></div></b></h6>
                 </div>
+                
                 <?php if($dataMengajar!=null){?>
                 <div class="form-group ">
                     <label for="">Jadwal Mengajar Saat Ini</label>

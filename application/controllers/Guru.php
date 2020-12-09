@@ -9,6 +9,7 @@ class Guru extends CI_Controller{
         $this->load->model('guru_model');
         $this->load->model('pengaturan_model');
         $this->load->model('survei_model');
+        // $this->load->model('mutu_model');
         $this->load->helper('text');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
@@ -85,6 +86,7 @@ class Guru extends CI_Controller{
     {
         $data['page']='ijin';
         $data['getIdGuru']=$this->guru_model->getIdGuru();
+        $data['tahun_akademik']=$this->pengaturan_model->getAkademik();
         foreach($this->guru_model->getIdGuru() as $getId){
             $id = $getId['id_guru'];
             $data['statusIjin']=$this->guru_model->getStatusIjin();
@@ -206,6 +208,13 @@ class Guru extends CI_Controller{
     {
         $cek=$this->guru_model->getRFID();
         echo $cek->num_rows();
+    }
+
+    public function generateNIP()
+    {
+        $stat= $_POST['status'];
+        $data = $this->guru_model->generateNIP($stat);
+        echo json_encode($data);
     }
 
     public function generalUpload($code, $insert)

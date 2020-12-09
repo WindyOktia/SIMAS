@@ -93,7 +93,7 @@
 				</li>
 			</ul>
 
-			<span class="badge bg-success ml-md-3 mr-md-auto">Admin Panel | <?=$this->session->userdata('nama')?></span>
+			<span class="badge bg-success ml-md-3 mr-md-auto">Selamat Datang | <?=$this->session->userdata('nama')?></span>
 
 			<ul class="navbar-nav">
 			
@@ -105,11 +105,11 @@
 				
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<span>System <i class="ml-2 fa fa-angle-down"></i></span>
+						<span><?=$this->session->userdata('nama')?> <i class="ml-2 fa fa-angle-down"></i></span>
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="<?= base_url()?>" target="_blank" class="dropdown-item"><i class="fa fa-grav"></i> Your Page</a>
+						<a href="<?= base_url()?>" target="_blank" class="dropdown-item"><i class="fa fa-grav"></i> Halaman Awal</a>
 						<a href="<?= base_url('login/logout')?>/<?=$this->session->userdata('username')?>" class="dropdown-item"><i class="fa fa-external-link"></i> Logout</a>
 					</div>
 				</li>
@@ -351,18 +351,7 @@
 								</li>
 						<?php }?>
 
-						<?php 
-							// $rl=array('15');
-							$rl=array('33');
-							$role=$this->session->userdata('role');
-							if(in_array($role,$rl)){ ?>		
-								<li class="nav-item">
-									<a href="<?= base_url('guru/cek_presensi')?>" class="nav-link <?php if($page=='cek_presensi'){echo 'active';};?>">
-										<i class="fa fa-plus-circle"></i>
-										<span>Rekap Presensi</span>
-									</a>
-								</li>
-						<?php }?>
+						
 
 						
 						<?php 
@@ -388,7 +377,7 @@
 									<ul class="nav nav-group-sub" data-submenu-title="Layouts">
 										<li class="nav-item"><a href="<?= base_url('admin/guru')?>" class="nav-link <?php if($page=='addGuru'){echo 'active';};?>">Tambah Guru</a></li>
 										<li class="nav-item"><a href="<?= base_url('admin/daftarGuru')?>" class="nav-link <?php if($page=='daftarGuru'){echo 'active';};?>">Daftar Guru</a></li>
-										<li class="nav-item"><a href="<?= base_url('admin/rekapPresensi')?>" class="nav-link <?php if($page=='rekapPresensi'){echo 'active';};?>">Rekap Presensi Guru</a></li>
+										<!-- <li class="nav-item"><a href="<?= base_url('admin/rekapPresensi')?>" class="nav-link <?php if($page=='rekapPresensi'){echo 'active';};?>">Rekap Presensi Guru</a></li> -->
 									</ul>
 								</li>
 						<?php }?>

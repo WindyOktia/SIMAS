@@ -6,16 +6,40 @@
         <form action="<?= base_url('admin/addGuru')?>" method="post" enctype="multipart/form-data">
         <fieldset class="mb-3">
             <div class="form-group row">
-                <label class="col-form-label col-lg-2">RFID Register</label>
+                <label class="col-form-label col-lg-2">RFID Register </label>
                 <div class="col-lg-10">
                     <input type="number" autocomplete="off" id="rfid" class="form-control border-warning" placeholder="Tempelkan RFID" name="rfid" required autofocus>
                     <div id="RFIDav"></div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-form-label col-lg-2">NIP <span class="text-danger">*</span></label>
+				<label for="" class="col-form-label col-lg-2">Status Guru</label>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3">    
+                            <select name="status" id="stats" class="form-control">
+                                <option value="1" >PNS</option>
+                                <option value="2" >Guru Tidak Tetap</option>
+                                <option value="3" >Guru Tetap Yayasan</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+			</div>
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2">NIP / ID Guru </label>
                 <div class="col-lg-10">
-                    <input type="number" autocomplete="off" id="nip" class="form-control" placeholder="NIP" name="nip" required autofocus disabled>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" autocomplete="off" id="nip" class="form-control" placeholder="NIP" name="nip" required autofocus disabled>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button"  onclick="generateID()" class="btn btn-info">Generate ID</button>
+                        </div>
+                        <div class="col-md-7 my-auto">
+                            <p class="my-auto"><b>|</b> Pilih status guru kemudian klik <b>Generate ID</b> apabila guru belum memiliki <b>NIP</b></p>
+                        </div>
+                    </div>
                     <div id="userav"></div>
                 </div>
             </div>
@@ -25,16 +49,32 @@
                     <input type="text" autocomplete="off" class="form-control" placeholder="Nama Guru" name="nama" required >
                 </div>
             </div>
+
             <div class="form-group row">
-				<label for="" class="col-form-label col-lg-2">Status Guru</label>
-                <div class="col-lg-10">
-                    <select name="status" id="" class="form-control">
-                        <option value="1" >PNS</option>
-                        <option value="2" >Guru Tidak Tetap</option>
-                        <option value="3" >Guru Tetap Yayasan</option>
-                    </select>
+				<label for="" class="col-form-label col-lg-2">Jenis Kelamin</label>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3">    
+                            <select name="" id="" class="form-control">
+                                <option value="1" >Pria</option>
+                                <option value="2" >Wanita</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 			</div>
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2">Tanggal Lahir</label>
+                <div class="col-lg-10">
+                <div class="row">
+                <div class="col-md-3">
+                
+                    <input type="date" autocomplete="off" class="form-control" placeholder="Nama Guru" name="" required >
+                </div>
+                </div>
+                </div>
+            </div>
+           
             <div class="form-group row">
                 <label class="col-form-label col-lg-2">Alamat</label>
                 <div class="col-lg-10">
@@ -42,13 +82,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-form-label col-lg-2">Password Baru <span class="text-danger">*</span></label>
+                <label class="col-form-label col-lg-2">Password Baru </label>
                 <div class="col-lg-10">
                     <input type="password" autocomplete="off" id="pass" class="form-control" placeholder="Password Baru" required disabled>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-form-label col-lg-2">Ulangi Password <span class="text-danger">*</span></label>
+                <label class="col-form-label col-lg-2">Ulangi Password </label>
                 <div class="col-lg-10">
                     <input type="password" autocomplete="off" id="repass" class="form-control" placeholder="Ulangi Password" name="pass" required disabled>
                     <div id="resultPass">
@@ -67,6 +107,28 @@
 </div>
 
 <script>
+// generateID
+
+    function generateID()
+    {
+        var status = $('#stats').val();
+        $.ajax({
+            type:"post",
+            url:"<?= base_url('guru/generateNIP')?>",
+            data:{status:status},
+                success:function(data){
+                var enc = JSON.parse(data);
+                $('#nip').val();
+                $('#nip').val(enc);
+                $('#simpanEdit').attr('disabled', false);
+                $('#pass').prop('disabled',false);
+                $('#repass').prop('disabled',false);
+                console.log(data);
+            }
+        });
+    }
+
+//endGenerateID
 // cek rfid
 $("#rfid").change(function(){
     $("#RFIDav").html("<span class='text-warning'><i><small>Memeriksa..</small></i></span>");

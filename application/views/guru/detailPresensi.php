@@ -1,47 +1,47 @@
 <a href="<?=base_url('admin/daftarPresensi')?>" class="btn btn-sm btn-secondary"><i class="mr-2 fa fa-arrow-circle-left"></i> Kembali</a>
-<a href="<?=base_url('admin/rekapKehadiran')?>/<?=$id?>" class="btn btn-primary float-right btn-sm">Lihat Data Kehadiran <i class="ml-2 fa fa-arrow-circle-right"></i> </a>
+<!-- <a href="<?=base_url('admin/rekapKehadiran')?>/<?=$id?>" class="btn btn-primary float-right btn-sm">Lihat Data Kehadiran <i class="ml-2 fa fa-arrow-circle-right"></i> </a> -->
 <!-- <h5><b>Filter Data Presensi</b></h5> -->
 
 <div class="mt-3">
 <?php foreach($dataGuru as $dt):?>
-<h6> <i class="	fa fa-user mr-2"></i> Rekapitulasi Presensi <b><?=$dt['nama_guru']?></b> ( <?=$dt['nip']?> ) </h6>
+<h6> <i class="	fa fa-user mr-2"></i><b><?=$dt['nama_guru']?></b> ( <?=$dt['nip']?> ) : Rekapitulasi Presensi  </h6>
 <?php endforeach?>
 </div>
 <div class="card card-body border-warning mt-2">
     <form action="" id="filterRentang" method="get">
         <div class="form-group my-auto">
-            <!-- <label for="">Filter Tahun Akademik</label> -->
-            <div class="form-check form-check-switchery">
+            <label for=""><b>Filter Tahun Akademik</b></label>
+            <!-- <div class="form-check form-check-switchery">
                 <label class="form-check-label">
                     <input type="checkbox" name="rentang" id="useRentang" class="form-check-input-switchery" data-fouc 
                     <?php if(isset($_GET['rentang'])&&$_GET['rentang']=='on'){echo 'checked';};?>
                     >
                     Rentang Tahun
                 </label>
-            </div>
-            <div class="row mt-3">
+            </div> -->
+            <div class="row">
                 <div class="col-md-2">
                     <select name="dari" id="" class="form-control">
                         <option value="semua">semua tahun</option>
-                        <option value="2018/2019">2018/2019</option>
-                        <option value="2019/2020">2019/2020</option>
+                        <?php foreach($getFilterTahun as $th1):?>
+                        <option value="<?= $th1['tahun_akademik']?> - <?= $th1['semester']?>" 
+                            
+                            <?php if(isset($_GET['dari']) && $_GET['dari']==$th1['tahun_akademik'].' - '.$th1['semester']){echo 'selected';};?>>
+                            
+                            <?= $th1['tahun_akademik']?> - <?= $th1['semester']?></option>
+                        <?php endforeach?>
                     </select>
                 </div>
-                <?php if(isset($_GET['rentang'])&&$_GET['rentang']=='on'){?>
+                
                 <span class=" my-auto"> sampai </span>
                 <div class="col-md-2">
                     <select name="sampai" id="" class="form-control">
                         <option value="semua">semua tahun</option>
-                        <option value="2018/2019">2018/2019</option>
-                        <option value="2019/2020">2019/2020</option>
-                    </select>
-                </div>
-                <?php };?>
-                <div class="col-md-2">
-                    <select name="semester" id="" class="form-control">
-                        <option value="semua" >semua semester</option>
-                        <option value="Genap" >Genap</option>
-                        <option value="Ganjil" >Ganjil</option>
+                        <?php foreach($getFilterTahun as $th2):?>
+                        <option value="<?= $th2['tahun_akademik']?> - <?= $th2['semester']?>" 
+                            <?php if(isset($_GET['sampai'])&& $_GET['sampai']==$th2['tahun_akademik'].' - '.$th2['semester']){echo 'selected';};?>>
+                            <?= $th2['tahun_akademik']?> - <?= $th2['semester']?></option>
+                        <?php endforeach?>
                     </select>
                 </div>
                 <div class="col-md-2 ml-5">
@@ -62,12 +62,11 @@
         sampai <b><?=$_GET['sampai']?></b> 
     <?php } ; ?>
     
-    | semester <?=$_GET['semester']?> </h6>
 <?php } else { ?>
     <h6> <i class="	fa fa-clock-o mr-2"></i>Rekam jejak nilai dalam 2 tahun terakhir </h6>
 <?php } ;?>
 
-<div class="row">
+<div class="row mt-3">
     <div class="col">
         <div class="card card-body border-success">
             <h5 class="text-center">Jumlah Kehadiran</h5>
@@ -94,6 +93,13 @@
             <h5 class="text-center">Tidak Hadir</h5>
             <h3 class="text-center"><b>8 </b> x</h3>
             <a href="" class="btn btn-sm btn-danger btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card card-body border-success">
+            <h5 class="text-center">Nilai Survei</h5>
+            <h3 class="text-center"><b>8 </b> x</h3>
+            <a href="" class="btn btn-sm btn-success btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
         </div>
     </div>
     
@@ -189,7 +195,7 @@
                     <!-- <a type="button"data-toggle="modal" data-target="#modalMengajar">
                         <i class="fa fa-info-circle"></i>
                     </a> -->
-                    <a href="" class="btn btn-success btn-sm">Unduh data presensi harian</a>
+                    <a href="" class="btn btn-success btn-sm">Unduh data presensi mengajar</a>
                 </span>
             </h6>
             <div class="row">

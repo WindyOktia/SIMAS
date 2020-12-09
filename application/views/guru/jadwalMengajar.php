@@ -53,10 +53,6 @@
                 <label for="">Jam Selesai</label>
                     <input type="time" class="form-control" id="jam_selesai" onchange="cekData()" placeholder="Jam Selesai" name="selesai" required>
                 </div> 
-                <!-- <div class="form-group col-md">
-                <label for="">Aksi</label>
-                <a href="" class="tbhJadwal btn btn-success form-control">Add More</a>
-                </div>  -->
             </div>
             <div id="jadwalResult">
                 
@@ -116,8 +112,16 @@
 
         var diffTime=( new Date("1970-1-1 "+  jam_selesai ) - new Date("1970-1-1 "+ jam_mulai ))/1000/60;
 
-        console.log(diffTime);
+        // console.log(diffTime);
+        // if(diffTime<15){
+        //     $('#jadwalResult').html('<span class="text-warning"><i>Minimal durasi mengajar adalah 15 menit</i></span>');
+        //     $('#submitBtn').prop('disabled',true);
+        // }
 
+        // if(diffTime >=15){
+        //     $('#jadwalResult').html('');
+        //     $('#submitBtn').prop('disabled',false);
+        // }
        
 
         $.ajax({
