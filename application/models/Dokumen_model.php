@@ -130,7 +130,7 @@ class Dokumen_model extends CI_Model
     public function addVerifikasiProposal()
     {
         $verifi=$this->db->get_where('verifikasi_proposal',['id_user'=> $this->session->userdata('id_user'),'id_proposal'=> $_POST['id_proposal']])->result_array();
-        // $laporan=$this->db->get_where('verifikasi_proposal',['id_proposal'=> $_POST['id_proposal']])->result_array();
+        
         if( $verifi){
             $this->db->trans_start();
             $this->db->set('id_user',$this->session->userdata('id_user'),);
@@ -176,7 +176,13 @@ class Dokumen_model extends CI_Model
 
     public function getVerifikasiProposalID($id)
     {
-        return $this->db->get_where('verifikasi_proposal',['id_proposal'=> $id])->result_array();
+        $this->db->trans_start();
+        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.id_user, verifikasi_proposal.status, verifikasi_proposal.catatan, verifikasi_proposal.tgl_verifikasi');
+        $this->db->where(['verifikasi_proposal.id_proposal'=>$id]);
+        $this->db->group_by([$id]);
+        return $this->db->get('verifikasi_proposal')->result_array();
+        $this->db->trans_complete();
+        // return $this->db->get_where('verifikasi_proposal',['id_proposal'=> $id])->result_array();
     }
 
     public function getProposalVerifikasi()

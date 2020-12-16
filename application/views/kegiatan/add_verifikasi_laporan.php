@@ -139,8 +139,6 @@
     </div>
   </div>
 </div>
-
-
 <?php endforeach?>
 
 <?php foreach($dokumenlaporan as $add):?>
@@ -175,8 +173,6 @@
     </div>
   </div>
 </div>
-
-
 <?php endforeach?>
 
 <?php foreach($dokumenlaporan as $add):?>
@@ -211,6 +207,4 @@
     </div>
   </div>
 </div>
-
-
 <?php endforeach?>
