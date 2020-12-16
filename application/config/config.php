@@ -23,7 +23,7 @@ date_default_timezone_set('Asia/Bangkok');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/SIMAS/';
+$config['base_url'] = 'http://192.168.1.9/SIMAS/';
 
 /*
 |--------------------------------------------------------------------------
