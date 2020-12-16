@@ -92,6 +92,7 @@ class Mutu_model extends CI_Model
         FROM v_nilai where tahun_akademik 
         BETWEEN "'.$dari.'" AND (SELECT Max(tahun_akademik)FROM v_nilai)')->result_array();
     }
+    
     public function getnilaiBeetwen1($dari,$sampai)
     {
         return $this->db->query('SELECT SUM(CASE When Nilai>= 85 Then 1 Else 0 End ) as Baik, 

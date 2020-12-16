@@ -11,6 +11,10 @@
     
     <h6 class="mt-3"><i class="	fa fa-pencil-square mr-2"></i>Detail Pengajuan Ijin</h6>
     <form action="<?=base_url('guru/addIjin')?>" enctype="multipart/form-data" method="post">
+            <?php foreach($tahun_akademik as $th):?>
+                <input type="hidden" name="tahun_akademik" value="<?= $th['tahun_akademik']?>">
+                <input type="hidden" name="semester" value="<?= $th['semester']?>">
+            <?php endforeach?>
         <div class="form-group col-md-3">
             <label for="">Jenis Ijin</label>
             <select name="jenis" id="" class="form-control" required>
@@ -134,6 +138,7 @@
 </div>
 
 
+
 <?php foreach($ijin as $detail):?>
 <div class="modal fade bd-example-modal-lg" id="modalDetail<?=$detail['id_ijin']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -146,6 +151,8 @@
       </div>
       <div class="modal-body">
         <form action="" method="post">
+           
+
             <div class="form-group col-md-3">
                 <label for="">Jenis Ijin</label>
                 <select name="jenis" id="" class="form-control" required>

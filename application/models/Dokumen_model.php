@@ -211,13 +211,26 @@ class Dokumen_model extends CI_Model
     public function getVerifikasiProposalPJ()
     {
         // return $this->db->get('laporan_view')->result_array();
-        $this->db->trans_start();
+        // $this->db->trans_start();
         $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.id_user, user.role, verifikasi_proposal.status');
         $this->db->from('user');
         $this->db->from('verifikasi_proposal');
         $this->db->where('verifikasi_proposal.id_proposal = proposal.id_proposal AND user.id_user = verifikasi_proposal.id_user AND user.role=7');
         return $this->db->get('proposal')->result_array();
-        $this->db->trans_complete();
+        // $this->db->trans_complete();
+    }
+
+    public function getVerifikasiProposalbutton()
+    {
+        // return $this->db->get('laporan_view')->result_array();
+        // $this->db->trans_start();
+        $this->db->select('verifikasi_proposal.id_proposal, verifikasi_proposal.id_user, user.role, verifikasi_proposal.status');
+        $this->db->from('user');
+        $this->db->from('verifikasi_proposal');
+        $this->db->where('verifikasi_proposal.id_proposal = proposal.id_proposal AND user.id_user = verifikasi_proposal.id_user AND user.role=7');
+        $this->db->LIMIT(1);
+        return $this->db->get('proposal')->result_array();
+        // $this->db->trans_complete();
     }
 
     public function getCheckVerifikasiProposalPJ()
@@ -448,6 +461,19 @@ class Dokumen_model extends CI_Model
     public function getVerifikasiLaporanID($id)
     {
         return $this->db->get_where('verifikasi_laporan',['id_laporan'=> $id])->result_array();
+    }
+
+    public function getVerifikasiLaporanButtonPJ()
+    {
+        // return $this->db->get('laporan_view')->result_array();
+        // $this->db->trans_start();
+        $this->db->select('verifikasi_laporan.id_laporan, verifikasi_laporan.id_user, user.role, verifikasi_laporan.status');
+        $this->db->from('user');
+        $this->db->from('verifikasi_laporan');
+        $this->db->where('verifikasi_laporan.id_laporan = laporan.id_laporan AND user.id_user = verifikasi_laporan.id_user AND user.role=7');
+        $this->db->LIMIT(1);
+        return $this->db->get('laporan')->result_array();
+        // $this->db->trans_complete();
     }
 
     public function getLaporanVerifikasi()

@@ -15,6 +15,8 @@ class Admin extends CI_Controller
         $this->load->model('mutu_model');
         $this->load->model('presensi_model');
         $this->load->model('dasbord_model');
+        
+        $this->load->library("excel");
         $this->load->helper('text');
         if($this->login_model->is_role()== ""){
             $this->session->set_flashdata('error', 'Anda tidak memiliki akses');
@@ -857,6 +859,70 @@ class Admin extends CI_Controller
     {
         $data['page']='presensi';
         $data['guru']=$this->guru_model->get();
+        $data['getFilterTahun']=$this->guru_model->getFilterTahun();
+        if(!isset($_GET['dari'])&& !isset($_GET['sampai'])){
+            $data['getDefaultTotalKehadiran']=$this->guru_model->getDefaultTotalKehadiran();
+            $data['getDefatultKeterlambatan']=$this->guru_model->getDefatultKeterlambatan();
+            $data['getDefaultLebih']=$this->guru_model->getDefaultLebih();
+            $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat();
+            $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat();
+            $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei();
+            $data['getDefaultCountIjin']=$this->guru_model->getDefaultCountIjin();
+            $data['getDefaultIjin']=$this->guru_model->getDefaultIjin();
+        }
+
+        if(isset($_GET['dari'])&& isset($_GET['sampai'])){
+
+            if($_GET['dari']=='semua' && $_GET['sampai']=='semua'){
+                $data['getDefaultTotalKehadiran']=$this->guru_model->getDefaultTotalKehadiran();
+                $data['getDefatultKeterlambatan']=$this->guru_model->getDefatultKeterlambatan();
+                $data['getDefaultLebih']=$this->guru_model->getDefaultLebih();
+                $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat();
+                $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat();
+                $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei();
+            }
+
+            if($_GET['dari']=='semua' && $_GET['sampai']!='semua'){
+                //select min ke filter th2
+
+                $th2 = $_GET['sampai'];
+
+                $data['getDefaultTotalKehadiran']=$this->guru_model->getDefaultTotalKehadiran_f1($th2);
+                $data['getDefatultKeterlambatan']=$this->guru_model->getDefatultKeterlambatan_f1($th2);
+                $data['getDefaultLebih']=$this->guru_model->getDefaultLebih_f1($th2);
+                $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat_f1($th2);
+                $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat_f1($th2);
+                $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei_f1($th2);
+            }
+
+            if($_GET['dari']!='semua' && $_GET['sampai']=='semua'){
+                //select filter th1 ke max 
+                $th1 = $_GET['dari'];
+
+                $data['getDefaultTotalKehadiran']=$this->guru_model->getDefaultTotalKehadiran_f2($th1);
+                $data['getDefatultKeterlambatan']=$this->guru_model->getDefatultKeterlambatan_f2($th1);
+                $data['getDefaultLebih']=$this->guru_model->getDefaultLebih_f2($th1);
+                $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat_f2($th1);
+                $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat_f2($th1);
+                $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei_f2($th1);
+                
+            }
+
+            if($_GET['dari']!='semua' && $_GET['sampai']!='semua'){
+                //select filter th1 ke th2
+
+                $th1 = $_GET['dari'];
+                $th2 = $_GET['sampai'];
+
+                $data['getDefaultTotalKehadiran']=$this->guru_model->getDefaultTotalKehadiran_f3($th1,$th2);
+                $data['getDefatultKeterlambatan']=$this->guru_model->getDefatultKeterlambatan_f3($th1,$th2);
+                $data['getDefaultLebih']=$this->guru_model->getDefaultLebih_f3($th1,$th2);
+                $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat_f3($th1,$th2);
+                $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat_f3($th1,$th2);
+                $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei_f3($th1,$th2);
+            }
+        }
+
         $this->load->view('templates/header',$data);
         $this->load->view('guru/daftarPresensi',$data);
         $this->load->view('templates/footer');
@@ -866,6 +932,7 @@ class Admin extends CI_Controller
     {
         $data['page']='presensi';
         $data['id'] = $id;
+        $data['getFilterTahun']=$this->guru_model->getFilterTahun();
         //$data['jamhadir']=$this->presensi_model->getJamhadirGuru($id);
         if(isset($_GET['dari']))
         {
@@ -895,6 +962,155 @@ class Admin extends CI_Controller
         $this->load->view('templates/header',$data);
         $this->load->view('guru/rekapKehadiran',$data);
         $this->load->view('templates/footer');
+    }
+
+    public function unduhSemuaPresensi()
+    {
+        $objPHPExcel = new PHPExcel();
+        $data = $this->db->query("
+        SELECT `tahun_akademik`, `semester`,guru.nama_guru,guru.nip,
+        if(guru.status_guru=1,'PNS',IF(guru.status_guru=2,'GTT','GTY')) AS status_guru
+        ,`tanggal`, `hari`, `jam_masuk`, `jam_pulang`, `metode`, `keterangan` FROM `presensi_harian`, guru WHERE presensi_harian.id_guru= guru.id_guru
+        ORDER BY tahun_akademik DESC, semester ");
+         // Nama Field Baris Pertama
+        $fields = $data->list_fields();
+        
+        $col = 0;
+        foreach ($fields as $field)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $col++;
+        }
+ 
+        // Mengambil Data
+        $row = 2;
+        foreach($data->result() as $data)
+        {
+            $col = 0;
+            foreach ($fields as $field)
+            {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $col++;
+            }
+ 
+            $row++;
+        }
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Set Title
+        $objPHPExcel->getActiveSheet()->setTitle('Presensi Harian Guru');
+
+
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+       
+        //Save ke .xlsx, kalau ingin .xls, ubah 'Excel2007' menjadi 'Excel5'
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+        //Header
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        //Nama File
+        // header('Content-Disposition: attachment;filename="Survei_Guru"'.$id.'".xlsx"');
+        header('Content-Disposition: attachment;filename="Data_Presensi_Harian_Guru.xlsx"');
+
+        //Download
+        $objWriter->save("php://output");
+    }
+
+    public function unduhNilaiSurvei()
+    {
+        $objPHPExcel = new PHPExcel();
+        $data = $this->db->query("
+        select `jawaban_survei_guru`.`id_survei_guru` AS `id_survei_guru`,`jawaban_survei_guru`.`id_guru` AS `id_guru`, 
+        count(distinct `jawaban_survei_guru`.`id_siswa`) AS `responden`, 
+        (count(distinct `jawaban_survei_guru`.`id_siswa`)*(SELECT count(soal_survei_guru.id_soal_survei_guru) FROM soal_survei_guru)*4) as nilai_max, sum(trans_jawaban_survei_guru.opsi) as nilai_diperoleh, 
+        sum(case when `trans_jawaban_survei_guru`.`opsi` = '4' then 1 else 0 end) AS `sangat_baik`, 
+        sum(case when `trans_jawaban_survei_guru`.`opsi` = '3' then 1 else 0 end) AS `baik`, 
+        sum(case when `trans_jawaban_survei_guru`.`opsi` = '2' then 1 else 0 end) AS `cukup`, 
+        sum(case when `trans_jawaban_survei_guru`.`opsi` = '1' then 1 else 0 end) AS `buruk` 
+        from (`jawaban_survei_guru` left join `trans_jawaban_survei_guru` on(`jawaban_survei_guru`.`id_jawaban_survei_guru` = `trans_jawaban_survei_guru`.`id_jawaban_survei_guru`)) group by `jawaban_survei_guru`.`id_survei_guru`,`jawaban_survei_guru`.`id_guru`");
+         // Nama Field Baris Pertama
+        $fields = $data->list_fields();
+        
+        $col = 0;
+        foreach ($fields as $field)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $col++;
+        }
+ 
+        // Mengambil Data
+        $row = 2;
+        foreach($data->result() as $data)
+        {
+            $col = 0;
+            foreach ($fields as $field)
+            {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $col++;
+            }
+ 
+            $row++;
+        }
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Set Title
+        $objPHPExcel->getActiveSheet()->setTitle('Nilai Survei Guru');
+        $objPHPExcel->createSheet();
+
+        // Add some data to the second sheet, resembling some different data types
+        $objPHPExcel->setActiveSheetIndex(1);
+        $data2 = $this->db->query('SELECT * FROM `jawaban_survei_guru`');
+        $fields2 = $data2->list_fields();
+        $col2 = 0;
+        foreach ($fields2 as $field2)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col2, 1, $field2);
+            $col2++;
+        }
+        $row = 2;
+        foreach($data2->result() as $data2)
+        {
+            $col = 0;
+            foreach ($fields2 as $field2)
+            {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data2->$field2);
+                $col++;
+            }
+ 
+            $row++;
+        }
+
+        // Rename 2nd sheet
+        $objPHPExcel->getActiveSheet()->setTitle('Masukan Untuk Guru');
+
+
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+       
+        //Save ke .xlsx, kalau ingin .xls, ubah 'Excel2007' menjadi 'Excel5'
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+        //Header
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        //Nama File
+        // header('Content-Disposition: attachment;filename="Survei_Guru"'.$id.'".xlsx"');
+        header('Content-Disposition: attachment;filename="Data Nilai Survei Guru.xlsx"');
+
+        //Download
+        $objWriter->save("php://output");
     }
     // end of presensi
 
