@@ -53,9 +53,9 @@
             <td><?=$i++?></td>
 				<td><b><?= $info['tahun_akademik']?></b></td>
 				<td><b><?= $info['semester']?></b></td>
-				<td><?= number_format($info['rata_anggaran'],2)?></td>
-				<td><?= number_format($info['rata_pendapatan'],2)?></td>
-				<td><?= number_format($info['rata_pengeluaran'],2)?></td>
+				<td>Rp. <?= number_format($info['rata_anggaran'],2)?></td>
+				<td>Rp. <?= number_format($info['rata_pendapatan'],2)?></td>
+				<td>Rp. <?= number_format($info['rata_pengeluaran'],2)?></td>
 				<td><?= $info['terlaksana']?></td>
                <td><a href="<?= base_url('admin/laporan_waka')?>?key1=<?=$info['tahun_akademik']?>&semester=<?= $info['semester']?>" class="btn btn-primary btn-sm">Lihat Dasbord</a></td>
             </tr>

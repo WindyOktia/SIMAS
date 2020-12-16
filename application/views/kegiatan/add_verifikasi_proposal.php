@@ -17,7 +17,7 @@
 <?php 
               $prn=array('2','4');
 							$peran=$this->session->userdata('role');
-              foreach ($verifikasiPJ as $PJ):
+              foreach ($verifikasibuttonPJ as $PJ):
 							if($PJ['status']=='Disetujui' && in_array($peran,$prn)){ ?>
 							<button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Revisi">
                 Revisi
