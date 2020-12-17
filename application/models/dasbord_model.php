@@ -8,7 +8,27 @@ class Dasbord_model extends CI_Model
         $this->db->where('proposal.id_proposal = laporan.id_proposal');
         return $this->db->get('proposal')->result_array();
     }
+
+    public function getnotifikasi_Sekolah()
+    {
+        return $this->db->query('SELECT * FROM `v_notifikasi` WHERE Nilai <75')->result_array();
+    }
+
+    public function getgrafik_Mutusekolah()
+    {
+        return $this->db->get('v_grafik_mutu_kegiatan')->result_array();
+    }//grafik mutu kegiatan
+
+    public function getrekam_Jejak()
+    {
+        return $this->db->get('v_rekam_jejak2thn')->result_array();
+    }//default 2 tahun grafik rekam jejak kegiatan
     
+    public function getFilterRekamJejakKegiatan($tahun_akademik)
+    {
+        return $this->db->query('select `proposal`.`tahun_akademik` AS `tahun_akademik`,`proposal`.`semester` AS `semester`,sum(`proposal`.`tot_anggaran`) AS `Anggaran_masuk`,sum(`laporan`.`biaya_pendapatan`) AS `Dana_masuk`,sum(`laporan`.`biaya_pengeluaran`) AS `Dana_pengeluaran` from (`proposal` join `laporan`) where `proposal`.`id_proposal` = `laporan`.`id_proposal` AND (proposal.tahun_akademik BETWEEN (SELECT MIN(tahun_akademik) from proposal) AND "'.$tahun_akademik.'") GROUP BY proposal.tahun_akademik DESC, proposal.semester LIMIT 4')->result_array();
+    }
+
     public function getdefault_anggaran()
     {
         return $this->db->get('v_ratarata_anggaran')->result_array();

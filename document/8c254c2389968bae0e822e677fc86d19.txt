@@ -1,0 +1,8 @@
+Tambahan Grafik
+Grafik Jam kerja guru 
+Grafik Ketertarikan siswa dalam memilih kegiatan
+Grafik Laporan waka kurikulum
+
+
+ketika filter tahun kegiatan di dashbord utama di pilih maka
+default filter di dasbord detail mengikuti.

@@ -136,9 +136,9 @@
                     <?php
 						if($kuesioner['tgl_selesai'] < date("Y-m-d")){?>
                             <!-- // echo '<td class="align-middle"><span class="align-middle badge badge-danger">Masa Aktif Kuesioner Habis</span></td>'; -->
-							<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="<?=base_url('siswa/addFormkuesioner/') ?><?= $kuesioner['id_kuesioner']; ?>">Isi Kuesioner</a></td>
+							<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="">Tutup</a></td>
 						<?php } else {?>
-							<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="">Isi Kuesioner</a></td>
+							<td class="align-middle"><a class="btn btn-info btn-sm" role="button" href="<?= base_url('Siswa/addFormkuesioner')?>/<?= $kuesioner['id_kuesioner']?>">Isi Kuesioner</a></td>
 						<?php }
 					?>
                 </tr>

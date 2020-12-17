@@ -195,12 +195,14 @@ var chartEfek = new Chart(chartefek, {
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
+                'rgba(255, 206, 86, 0.2)',
+                '#F58F29',
 			],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+                'rgba(255, 206, 86, 1)',
+                '#F58F29',
             ],
             borderWidth: 2 ,
             fill: true
@@ -250,16 +252,18 @@ var myChartanu<?=$grf['id_proposal']?> = new Chart(anu<?=$grf['id_proposal']?>, 
         datasets: [{
             data: [<?=$grf['rata_anggaran']?>,<?=$grf['rata_pendapatan']?>,<?=$grf['rata_pengeluaran']?>],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
+				'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-            ],
+                'rgba(255, 206, 86, 0.2)',
+                '#F58F29',
+			],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+                'rgba(255, 206, 86, 1)',
+                '#F58F29',
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
@@ -302,16 +306,18 @@ var alokasi = new Chart(alokasiBiaya, {
             <?php endforeach ?> 
             ],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                '#58A4B0',
-                'rgba(161, 212, 247, 0.2)',
-            ],
+				'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                '#F58F29',
+			],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
+                'rgba(255, 206, 86, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+                '#F58F29',
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
@@ -351,16 +357,18 @@ var alokasi2 = new Chart(alokasiAnggaran, {
             <?php endforeach ?> 
             ],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                '#58A4B0',
-                'rgba(161, 212, 247, 0.2)',
-            ],
+				'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                '#F58F29',
+			],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
+                'rgba(255, 206, 86, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+                '#F58F29',
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
@@ -400,16 +408,18 @@ var alokasi3 = new Chart(alokasiTerpakai, {
             <?php endforeach ?> 
             ],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                '#58A4B0',
-                'rgba(161, 212, 247, 0.2)',
-            ],
+				'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                '#F58F29',
+			],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
+                'rgba(255, 206, 86, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+                '#F58F29',
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
@@ -459,7 +469,7 @@ var minatsiswa = new Chart(minatSiswa, {
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)'
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
@@ -509,7 +519,7 @@ var Siswa = new Chart(siswa, {
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)'
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {

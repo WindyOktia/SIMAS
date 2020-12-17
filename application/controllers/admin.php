@@ -82,8 +82,19 @@ class Admin extends CI_Controller
 
     public function index()
     {
+        $rl=array('5','8');
+        $role=$this->session->userdata('role');
+        if(in_array($role,$rl)){
+            redirect('document/proposal');
+            }
+        $rl2=array('2','7');
+        $role2=$this->session->userdata('role');
+        if(in_array($role2,$rl2)){
+            redirect('document/verifikasiProposal');
+            }
         $data['page']='dashboard';
         $data['laporanmutu']=$this->mutu_model->getMutu();
+        $data['mutuKegiatan']=$this->dasbord_model->getgrafik_Mutusekolah();
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/index',$data);
         $this->load->view('templates/footer');
@@ -92,6 +103,7 @@ class Admin extends CI_Controller
     public function notifikasi()
     {
         $data['page']='notif';
+        $data['notif']=$this->dasbord_model->getnotifikasi_Sekolah();
         $this->load->view('templates/header',$data);
         $this->load->view('dashboard/notifikasi');
         $this->load->view('templates/footer');
@@ -221,6 +233,7 @@ class Admin extends CI_Controller
         if(!isset($_GET['key1']) && !isset($_GET['key2']))
         {
            $data['info_keuangan']=$this->dasbord_model->getdefault_anggaran();
+           $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
         }
 
         if(isset($_GET['key1']) && !isset($_GET['key2']))
@@ -231,21 +244,25 @@ class Admin extends CI_Controller
             if($dari=='semua' && $semester=='semua'){
 
                 $data['info_keuangan']=$this->dasbord_model->getdefault_anggaran();
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 //echo deffault;
 
             }else if($dari!='semua' && $semester=='semua'){
 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_th1($dari);
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 //echo 'tahun dipilih,semester semua';
                 
             }else if($dari =='semua' && $semester !='semua'){
                 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_semester($semester);
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 //echo 'tahun semua, semester dipilih';
 
             }else if($dari !='semua' && $semester !='semua'){
 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_th1_semester($dari,$semester);
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 //echo 'tahun dipilih, semester dipilih';
 
             }
@@ -260,41 +277,49 @@ class Admin extends CI_Controller
             if($dari=='semua' && $sampai=='semua' && $semester=='semua'){
 
                 $data['info_keuangan']=$this->dasbord_model->getdefault_anggaran();
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 // echo 'default';
                 
             }else if($dari!='semua' && $sampai=='semua' && $semester=='semua'){
                 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_between1($dari);
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 //    echo 'th1 dipilih, th2 semua, semester semua';
                 
             }else if($dari!='semua' && $sampai!='semua' && $semester=='semua'){
                 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_between2($dari,$sampai);
+                $data['rekam_jejak']=$this->dasbord_model->getFilterRekamJejakKegiatan($sampai);
                 // echo 'th1 dipilih, th2 dipilih, semester semua';
                 
             }else if($dari!='semua' && $sampai!='semua' && $semester!='semua'){
                 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_between3($semester,$dari,$sampai);
+                $data['rekam_jejak']=$this->dasbord_model->getFilterRekamJejakKegiatan($sampai);
                 // echo ' th1 dipilih, th2 dipilih, semester dipilih';
 
             }else if($dari=='semua' && $sampai!='semua' && $semester!='semua'){
                 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_between4($semester,$sampai);
+                $data['rekam_jejak']=$this->dasbord_model->getFilterRekamJejakKegiatan($sampai);
                 // echo 'th1 semua, th2 dipilih, semester dipilih';
 
             }else if($dari=='semua' && $sampai=='semua' && $semester!='semua'){
 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_between5($semester);
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 // echo 'th1 semua, th2 semua, semester dipilih';
 
             }else if($dari!='semua' && $sampai=='semua' && $semester!='semua'){
                 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_between6($dari,$semester);
+                $data['rekam_jejak']=$this->dasbord_model->getrekam_Jejak();
                 //    echo 'th1 dipilih, th2 semua, semester dipilih';
                 
             }else if($dari=='semua' && $sampai!='semua' && $semester=='semua'){
                 
                 $data['info_keuangan']=$this->dasbord_model->getanggaran_between7($sampai);
+                $data['rekam_jejak']=$this->dasbord_model->getFilterRekamJejakKegiatan($sampai);
                 // echo 'th1 semua, th2 dipilih, semester semua';
             }
         }
@@ -357,6 +382,64 @@ class Admin extends CI_Controller
 
     // Lampiran Mutu
     
+    public function unduhSemuaKegiatan()
+    {
+        $objPHPExcel = new PHPExcel();
+        $data = $this->db->query("
+        select `proposal`.`nama_kegiatan` AS `Nama_Kegiatan`,`proposal`.`tahun_akademik` AS `tahun_akademik`,`proposal`.`semester` AS `semester`,
+        floor(avg(`proposal`.`tot_anggaran`)) AS `rata_anggaran`,floor(avg(`laporan`.`biaya_pendapatan`)) AS `rata_pendapatan`,
+        floor(avg(`laporan`.`biaya_pengeluaran`)) AS `rata_pengeluaran`,count(`proposal`.`id_proposal`) AS `terlaksana` 
+        from (`proposal` join `laporan`) where `proposal`.`id_proposal` = `laporan`.`id_proposal` group by `proposal`.`tahun_akademik`,`proposal`.`semester` ");
+         // Nama Field Baris Pertama
+        $fields = $data->list_fields();
+        
+        $col = 0;
+        foreach ($fields as $field)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $col++;
+        }
+ 
+        // Mengambil Data
+        $row = 2;
+        foreach($data->result() as $data)
+        {
+            $col = 0;
+            foreach ($fields as $field)
+            {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $col++;
+            }
+ 
+            $row++;
+        }
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Set Title
+        $objPHPExcel->getActiveSheet()->setTitle('Laporan Kegiatan');
+
+
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+       
+        //Save ke .xlsx, kalau ingin .xls, ubah 'Excel2007' menjadi 'Excel5'
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+        //Header
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        //Nama File
+        // header('Content-Disposition: attachment;filename="Survei_Guru"'.$id.'".xlsx"');
+        header('Content-Disposition: attachment;filename="Data_Laporan_Kegiatan.xlsx"');
+
+        //Download
+        $objWriter->save("php://output");
+    }
 
     public function do_addMutu()
     {

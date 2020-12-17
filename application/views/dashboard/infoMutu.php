@@ -93,8 +93,8 @@
                         2 Tahun Terakhir
                         <div class="mb-3"></div>
                         <h5><b>Persentase</b></h5>
-                        Baik : <br>
-                        Kurang Baik : 
+                        Baik : 80 % <br>
+                        Perlu Evaluasi : 20 %
                     </div>
                 </div>
                 <a href="<?=base_url('admin/daftarPresensi')?>" class="btn btn-sm btn-info float-right mt-3">Lihat Detail</a>

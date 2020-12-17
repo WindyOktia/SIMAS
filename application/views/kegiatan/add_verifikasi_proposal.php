@@ -17,7 +17,7 @@
 <?php 
               $prn=array('2','4');
 							$peran=$this->session->userdata('role');
-              foreach ($verifikasiPJ as $PJ):
+              foreach ($verifikasibuttonPJ as $PJ):
 							if($PJ['status']=='Disetujui' && in_array($peran,$prn)){ ?>
 							<button type="button" class="btn btn-primary mb-3 ml-1 float-right btn-sm" data-toggle="modal" data-target="#Revisi">
                 Revisi
@@ -82,7 +82,7 @@
         <div class="col-3"><?=$ars['nama_doc']?></div>
         <div class="col-2">
             <a href="<?=base_url('document/downloadDocument')?>/<?=$ars['link_file']?>"  class="btn btn-info btn-sm">download</a>
-            <a href="<?=base_url('document/deleteSingleDoc')?>/<?=$ars['id_trans_doc']?>/detailProposal/<?=$id?>" class="btn btn-danger btn-sm tombol-hapus"><i class="fa fa-remove">Hapus</i></a>
+            <a href="<?=base_url('document/deleteSingleDoc')?>/<?=$ars['id_trans_doc']?>/detailProposal/<?=$id?>" class="btn btn-danger btn-sm tombol-hapus"><i class="fa fa-remove"></i></a>
         </div>
     </div>
     <?php endforeach?>
