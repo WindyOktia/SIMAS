@@ -1,0 +1,12 @@
+select `v_test_pengajuan`.`pengajuan_id` AS `pengajuan_id`,`v_test_pengajuan`.`nip` AS `nip`,`pegawai`.`nama_pns` AS `nama_pns`,`v_test_pengajuan`.`tgl_pengajuan` AS `tgl_pengajuan`,`v_test_pengajuan`.`tgl_mulai` AS `tgl_mulai`,`v_test_pengajuan`.`tgl_selesai` AS `tgl_selesai`,`v_test_pengajuan`.`alasan_cuti` AS `alasan_cuti`,`v_test_pengajuan`.`durasi` AS `durasi`,`v_test_pengajuan`.`jcuti_nama` AS `jcuti_nama`,(CASE WHEN `v_test_pengajuan`.`status`="" THEN "Terverifikasi" ELSE `v_test_pengajuan`.`status` END)  AS `status`,`v_test_pengajuan`.`file` AS `file` from (`v_test_pengajuan` left join `pegawai` on(`v_test_pengajuan`.`nip` = `pegawai`.`nip`)) group by `v_test_pengajuan`.`pengajuan_id`
+
+select `pengajuan`.`pengajuan_id` AS `pengajuan_id`,`pengajuan`.`nip` AS `nip`,`pegawai`.`nama_pns` AS `nama`,`pengajuan`.`tgl_pengajuan` AS `tgl_pengajuan`,`pengajuan`.`tgl_mulai` AS `tgl_mulai`,`pengajuan`.`tgl_selesai` AS `tgl_selesai`,`pengajuan`.`alasan_cuti` AS `alasan_cuti`,`pengajuan`.`file` AS `file`,`pengajuan`.`durasi` AS `durasi`,`jenis_cuti`.`jcuti_nama` AS `jcuti_nama`,case when `pengajuan`.`pengajuan_id` = `penerimaan`.`pengajuan_id` then `penerimaan`.`status` else 'Belum dikonfirmasi' end AS `status` from ((`pengajuan` left join `penerimaan` on(`penerimaan`.`pengajuan_id` = `pengajuan`.`pengajuan_id`)) left join `jenis_cuti` on(`pengajuan`.`jenis_cuti_id` = `jenis_cuti`.`jenis_cuti_id`)) left join `pegawai` on(`pegawai`.`nip` = `pengajuan`.`nip`)  group by `pengajuan`.`pengajuan_id`
+
+
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: .5rem;
+
+    margin-left: 5px;
+    margin-right: 5px;

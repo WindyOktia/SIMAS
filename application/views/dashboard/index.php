@@ -1,3 +1,11 @@
+<?php
+    $nilai = array();
+    foreach ($mutuKegiatan as $mk){
+            $nilai[]+= $mk['Nilai'];
+    }
+    $nilai_kegiatan = array_sum($nilai)/count($mutuKegiatan);
+?>
+
 <div class="row">
         <div class="col-md-12">
             <div class="card card-body border-info">
@@ -19,14 +27,14 @@
                 <li>
                     <div class="row h6">
                         <div class="col-md-6">Kegiatan </div>
-                        <div class="col-md-6">: 80</div>
+                        <div class="col-md-6">: <?=($nilai_kegiatan)?></div>
                     </div>
                 </li>
                 </div>
             </div>
                 <div class="row">
                     <div class="col md-12">
-                    <a href="<?=base_url('admin/info')?>" class="btn btn-sm btn-success float-right mt-2">Lihat Detail</a>
+                    <a href="<?=base_url('admin/info')?>" class="btn btn-sm btn-primary float-right mt-2">Lihat Detail</a>
                     </div>
                 </div>
         </div>
@@ -67,7 +75,11 @@ var dash1 = document.getElementById('dashBobot').getContext('2d');
 var dashBobot = new Chart(dash1, {
 	type: 'line',
     data: {
-        labels: ['2019 - Ganjil', '2019- Genap', '2020- Ganjil', '2020- Genap'],
+        labels: [
+            <?php foreach ($mutuKegiatan as $mutu_tahun):?>
+            '<?=$mutu_tahun['tahun_akademik']?>-<?=$mutu_tahun['semester']?>',
+            <?php endforeach ?>
+        ],
         datasets: [{
             label: 'Kinerja Guru',
             data: [90, 90, 85, 95],
@@ -79,7 +91,11 @@ var dashBobot = new Chart(dash1, {
         },
         {
             label: 'Kegiatan Siswa',
-            data: [80, 90, 90, 85],
+            data: [
+                <?php foreach ($mutuKegiatan as $mutu_nilai):?>
+            '<?=$mutu_nilai['Nilai']?>',
+            <?php endforeach ?>
+            ],
             borderColor: [
                 '#20A39E'
             ],

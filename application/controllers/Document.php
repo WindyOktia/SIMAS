@@ -173,10 +173,10 @@ class Document extends CI_Controller
         $update=$this->dokumen_model->edit_data($tahun_akademik);
         if($update > 0)
         {
-            $this->session->set_flashdata('success', 'Proposal berhasil diubah');
+            $this->session->set_flashdata('success', 'Proposal gagal diubah');
         }else
         {
-            $this->session->set_flashdata('success', 'Proposal gagal diubah');
+            $this->session->set_flashdata('success', 'Proposal berhasil diubah');
         }
         redirect('document/detailProposal/'.$_POST['back_id']);
     }
@@ -197,7 +197,7 @@ class Document extends CI_Controller
         $data['dokumenproposal']=$this->dokumen_model->getProposalID($id);
         $data['arsip']=$this->dokumen_model->getArsipProposalID($id);
         $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiProposalPJ();
-        $data['verifikasibuttonPJ']=$this->dokumen_model->getVerifikasiProposalbutton();
+        $data['verifikasibuttonPJ']=$this->dokumen_model->getVerifikasiProposalbutton($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_verifikasi_proposal',$data);
         $this->load->view('templates/footer');
@@ -308,7 +308,7 @@ class Document extends CI_Controller
         $data['dokumenlaporan']=$this->dokumen_model->joinLaporanID($id);
         $data['arsip']=$this->dokumen_model->getArsipLaporanID($id);
         $data['verifikasiPJ']=$this->dokumen_model->getVerifikasiLaporanPJ();
-        $data['verifikasiButtonPJ']=$this->dokumen_model->getVerifikasiLaporanButtonPJ();
+        $data['verifikasiButtonPJ']=$this->dokumen_model->getVerifikasiLaporanButtonPJ($id);
         $this->load->view('templates/header',$data);
         $this->load->view('kegiatan/add_verifikasi_laporan',$data);
         $this->load->view('templates/footer');

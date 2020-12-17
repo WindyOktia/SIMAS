@@ -33,6 +33,7 @@ class Dokumen_model extends CI_Model
         $this->db->from('user');
         $this->db->where('proposal.id_user = user.id_user');
         $this->db->where(['user.role'=>$this->session->userdata('role')]);
+        $this->db->order_by('proposal.tahun_akademik', 'DESC');
         return $this->db->get('proposal')->result_array();
         $this->db->trans_complete();
     }
@@ -192,6 +193,7 @@ class Dokumen_model extends CI_Model
         $this->db->select('proposal.id_proposal, proposal.nama_kegiatan, proposal.tahun_akademik, proposal.semester, user.nama');
         $this->db->from('user');
         $this->db->where('proposal.id_user = user.id_user');
+        $this->db->order_by('proposal.tahun_akademik', 'DESC');
         return $this->db->get('proposal')->result_array();
         $this->db->trans_complete();
     }
@@ -220,7 +222,7 @@ class Dokumen_model extends CI_Model
         // $this->db->trans_complete();
     }
 
-    public function getVerifikasiProposalbutton()
+    public function getVerifikasiProposalbutton($id)
     {
         // return $this->db->get('laporan_view')->result_array();
         // $this->db->trans_start();
@@ -228,6 +230,7 @@ class Dokumen_model extends CI_Model
         $this->db->from('user');
         $this->db->from('verifikasi_proposal');
         $this->db->where('verifikasi_proposal.id_proposal = proposal.id_proposal AND user.id_user = verifikasi_proposal.id_user AND user.role=7');
+        $this->db->where(['verifikasi_proposal.id_proposal'=>$id]);
         $this->db->LIMIT(1);
         return $this->db->get('proposal')->result_array();
         // $this->db->trans_complete();
@@ -292,6 +295,7 @@ class Dokumen_model extends CI_Model
         $this->db->where('proposal.id_proposal = laporan.id_proposal');
         $this->db->where('user.id_user = laporan.id_user');
         $this->db->where(['user.role'=>$this->session->userdata('role')]);
+        $this->db->order_by('proposal.tahun_akademik', 'DESC');
         return $this->db->get('laporan')->result_array();
         $this->db->trans_complete();
     }
@@ -463,7 +467,7 @@ class Dokumen_model extends CI_Model
         return $this->db->get_where('verifikasi_laporan',['id_laporan'=> $id])->result_array();
     }
 
-    public function getVerifikasiLaporanButtonPJ()
+    public function getVerifikasiLaporanButtonPJ($id)
     {
         // return $this->db->get('laporan_view')->result_array();
         // $this->db->trans_start();
@@ -471,6 +475,7 @@ class Dokumen_model extends CI_Model
         $this->db->from('user');
         $this->db->from('verifikasi_laporan');
         $this->db->where('verifikasi_laporan.id_laporan = laporan.id_laporan AND user.id_user = verifikasi_laporan.id_user AND user.role=7');
+        $this->db->where(['verifikasi_laporan.id_laporan'=>$id]);
         $this->db->LIMIT(1);
         return $this->db->get('laporan')->result_array();
         // $this->db->trans_complete();
@@ -491,6 +496,7 @@ class Dokumen_model extends CI_Model
         $this->db->from('user');
         $this->db->where('proposal.id_proposal = laporan.id_proposal');
         $this->db->where('user.id_user = laporan.id_user');
+        $this->db->order_by('proposal.tahun_akademik', 'DESC');
         return $this->db->get('laporan')->result_array();
         $this->db->trans_complete();
     }
