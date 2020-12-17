@@ -749,7 +749,12 @@ class Admin extends CI_Controller
     {
         $data['page']='daftarGuru';
         $data['guru']=$this->guru_model->get();
-        $data['jadwal']=$this->guru_model->getJadwalAll();
+        $akad= $this->pengaturan_model->getAkademik();
+        foreach($akad as $akd){
+            $tahun_akademik = $akd['tahun_akademik'];
+            $semester = $akd['semester'];
+            $data['jadwal']=$this->guru_model->getJadwalAll($tahun_akademik, $semester);
+        }
         $this->load->view('templates/header',$data);
         $this->load->view('guru/daftarGuru',$data);
         $this->load->view('templates/footer');
@@ -759,10 +764,17 @@ class Admin extends CI_Controller
     {
         $data['page']='daftarGuru';
         $data['guru']=$this->guru_model->getId($id);
-        $data['jadwal']=$this->guru_model->getJadwal($id);
+        $data['tahun_akademik']=$this->pengaturan_model->getAkademik();
+       
+
+        $akad= $this->pengaturan_model->getAkademik();
+        foreach($akad as $akd){
+            $tahun_akademik = $akd['tahun_akademik'];
+            $semester = $akd['semester'];
+            $data['jadwal']=$this->guru_model->getJadwal($id, $tahun_akademik, $semester);
+        }
         $data['kelas']=$this->kelas_model->get();
         $data['mapel']=$this->mapel_model->getMapel();
-        $data['tahun_akademik']=$this->pengaturan_model->getAkademik();
         $data['id_guru']= $id;
         $this->load->view('templates/header',$data);
         $this->load->view('guru/jadwalMengajar',$data);
@@ -879,6 +891,7 @@ class Admin extends CI_Controller
                 $data['getDefaultLebih']=$this->guru_model->getDefaultLebih();
                 $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat();
                 $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat();
+                $data['getDefaultCountIjin']=$this->guru_model->getDefaultCountIjin();
                 $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei();
             }
 
@@ -893,6 +906,7 @@ class Admin extends CI_Controller
                 $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat_f1($th2);
                 $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat_f1($th2);
                 $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei_f1($th2);
+                $data['getDefaultCountIjin']=$this->guru_model->getDefaultCountIjin();
             }
 
             if($_GET['dari']!='semua' && $_GET['sampai']=='semua'){
@@ -905,6 +919,7 @@ class Admin extends CI_Controller
                 $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat_f2($th1);
                 $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat_f2($th1);
                 $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei_f2($th1);
+                $data['getDefaultCountIjin']=$this->guru_model->getDefaultCountIjin();
                 
             }
 
@@ -920,6 +935,7 @@ class Admin extends CI_Controller
                 $data['getDefaultDataTerlambat']=$this->guru_model->getDefaultDataTerlambat_f3($th1,$th2);
                 $data['getDefaultDataLewat']=$this->guru_model->getDefaultDataLewat_f3($th1,$th2);
                 $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei_f3($th1,$th2);
+                $data['getDefaultCountIjin']=$this->guru_model->getDefaultCountIjin();
             }
         }
 
@@ -933,22 +949,41 @@ class Admin extends CI_Controller
         $data['page']='presensi';
         $data['id'] = $id;
         $data['getFilterTahun']=$this->guru_model->getFilterTahun();
-        //$data['jamhadir']=$this->presensi_model->getJamhadirGuru($id);
-        if(isset($_GET['dari']))
-        {
-            $data['jamhadir']=$this->presensi_model->getJamhadirGuru($id);
-        }else
-        {
-            $data['jamhadir']=$this->presensi_model->getDefaultJamHadir($id);
-        }
-        if(isset($_GET['dari']))
-        {
-            $data['jamkerja']=$this->presensi_model->getJamkerjaGuru($id);
-        }else
-        {
-            $data['jamkerja']=$this->presensi_model->getDefaultJamKerja($id);
+
+        // default
+        if(!isset($_GET['dari'])&& !isset($_GET['sampai'])){
+            $data['presensi_harian']= $this->guru_model->getPresensiHarianDefault($id);
+            $data['presensi_mengajar']= $this->guru_model->getPresensiMengajarDefault($id);
+            $data['getCountSemesterAndMinggu']=$this->guru_model->getCountSemesterAndMinggu();
+            $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei();
+            $akad= $this->pengaturan_model->getAkademik();
+            foreach($akad as $akd){
+                $tahun_akademik = $akd['tahun_akademik'];
+                $semester = $akd['semester'];
+                $data['jadwal']=$this->guru_model->getJadwalByID($id, $tahun_akademik, $semester);
+            }
+            $data['getDefaultIjin']=$this->guru_model->getDefaultIjin();
         }
 
+        if(isset($_GET['dari'])&& isset($_GET['sampai'])){
+            
+            if($_GET['dari']=='semua' && $_GET['sampai']=='semua'){
+                $data['presensi_harian']= $this->guru_model->getPresensiHarianDefault($id);
+                $data['presensi_mengajar']= $this->guru_model->getPresensiMengajarDefault($id);
+                $data['getCountSemesterAndMinggu']=$this->guru_model->getCountSemesterAndMinggu();
+                $data['getDefaultNilaiSurvei']=$this->guru_model->getDefaultNilaiSurvei();
+                $akad= $this->pengaturan_model->getAkademik();
+                    foreach($akad as $akd){
+                        $tahun_akademik = $akd['tahun_akademik'];
+                        $semester = $akd['semester'];
+                        $data['jadwal']=$this->guru_model->getJadwalByID($id, $tahun_akademik, $semester);
+                    }
+                $data['getDefaultIjin']=$this->guru_model->getDefaultIjin();
+            }
+
+        }
+        //default
+  
         $data['dataGuru']=$this->guru_model->getDataGuru($id);
         $this->load->view('templates/header',$data);
         $this->load->view('guru/detailPresensi',$data);
@@ -971,6 +1006,65 @@ class Admin extends CI_Controller
         SELECT `tahun_akademik`, `semester`,guru.nama_guru,guru.nip,
         if(guru.status_guru=1,'PNS',IF(guru.status_guru=2,'GTT','GTY')) AS status_guru
         ,`tanggal`, `hari`, `jam_masuk`, `jam_pulang`, `metode`, `keterangan` FROM `presensi_harian`, guru WHERE presensi_harian.id_guru= guru.id_guru
+        ORDER BY tahun_akademik DESC, semester ");
+         // Nama Field Baris Pertama
+        $fields = $data->list_fields();
+        
+        $col = 0;
+        foreach ($fields as $field)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $col++;
+        }
+ 
+        // Mengambil Data
+        $row = 2;
+        foreach($data->result() as $data)
+        {
+            $col = 0;
+            foreach ($fields as $field)
+            {
+                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $col++;
+            }
+ 
+            $row++;
+        }
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Set Title
+        $objPHPExcel->getActiveSheet()->setTitle('Presensi Harian Guru');
+
+
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+       
+        //Save ke .xlsx, kalau ingin .xls, ubah 'Excel2007' menjadi 'Excel5'
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+        //Header
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        //Nama File
+        // header('Content-Disposition: attachment;filename="Survei_Guru"'.$id.'".xlsx"');
+        header('Content-Disposition: attachment;filename="Data_Presensi_Harian_Guru.xlsx"');
+
+        //Download
+        $objWriter->save("php://output");
+    }
+
+    public function unduhPresensiId($id)
+    {
+        $objPHPExcel = new PHPExcel();
+        $data = $this->db->query("
+        SELECT `tahun_akademik`, `semester`,guru.nama_guru,guru.nip,
+        if(guru.status_guru=1,'PNS',IF(guru.status_guru=2,'GTT','GTY')) AS status_guru
+        ,`tanggal`, `hari`, `jam_masuk`, `jam_pulang`, `metode`, `keterangan` FROM `presensi_harian`, guru WHERE presensi_harian.id_guru= guru.id_guru AND presensi_harian.id_guru=".$id."
         ORDER BY tahun_akademik DESC, semester ");
          // Nama Field Baris Pertama
         $fields = $data->list_fields();
@@ -1066,7 +1160,7 @@ class Admin extends CI_Controller
 
         // Add some data to the second sheet, resembling some different data types
         $objPHPExcel->setActiveSheetIndex(1);
-        $data2 = $this->db->query('SELECT * FROM `jawaban_survei_guru`');
+        $data2 = $this->db->query('SELECT * FROM `jawaban_survei_guru` where masukan!=""');
         $fields2 = $data2->list_fields();
         $col2 = 0;
         foreach ($fields2 as $field2)

@@ -137,8 +137,30 @@
 
 <h6> <i class="	fa fa-clock-o mr-2"></i>Grafik perubahan nilai dalam 2 tahun terakhir </h6>
 
+<ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Jam Kerja</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Jam Mengajar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Kepuasan Siswa</a>
+  </li>
+</ul>
+
 <div class="card card-body ">
-<canvas id="chartTrack"  height="350"></canvas>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <canvas id="chartTrackHarian"  height="80"></canvas>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <canvas id="chartTrackMengajar"  height="80"></canvas>
+        </div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <canvas id="chartTrackKepuasan"  height="80"></canvas>
+        </div>
+    </div>
 </div>
 
 
@@ -149,19 +171,39 @@
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>Nama Guru</th>
 					<th>NIP</th>
+					<th>Nama Guru</th>
+					<th>Status</th>
 					<th style="width:30%">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php $i=1;foreach($guru as $guru):?>
+				<?php $i=1;foreach($guru as $gr):?>
 				<tr>
 					<td><?= $i++?></td>
-					<td><b><?= $guru['nama_guru']?></b></td>
-					<td><?= $guru['nip']?></td>
+					<td><?= $gr['nip']?></td>
+					<td><b><?= $gr['nama_guru']?></b></td>
 					<td>
-						<a href="<?= base_url('admin/detailPresensi')?>/<?=$guru['id_guru']?>"class="btn btn-success btn-sm mb-1">Lihat Detail Laporan</a>
+                        <b>
+                            <?php 
+                                if($gr['status_guru']=='1')
+                                {
+                                    echo 'PNS';
+                                }
+                                if($gr['status_guru']=='2')
+                                {
+                                    echo 'Guru Tidak Tetap';
+                                }
+                                if($gr['status_guru']=='3')
+                                {
+                                    echo 'Guru Tetap Yayasan';
+                                }
+                            
+                            ?>
+                        </b>
+                    </td>
+					<td>
+						<a href="<?= base_url('admin/detailPresensi')?>/<?=$gr['id_guru']?>"class="btn btn-success btn-sm mb-1">Lihat Detail Laporan</a>
 					</td>
 				</tr>
 				<?php endforeach;?>
@@ -331,36 +373,72 @@
 
 
 <script>
-var chartTrack = document.getElementById('chartTrack').getContext('2d');
-var chartTrack_graph = new Chart(chartTrack, {
+var chartTrackHarian = document.getElementById('chartTrackHarian').getContext('2d');
+var chartTrackHarian_graph = new Chart(chartTrackHarian, {
     type: 'line',
     data: {
         labels: ['2018 / 2019 - Ganjil', '2018 / 2019 - Genap', '2019 / 2020 - Ganjil', '2019 / 2020 - Genap'],
         datasets: [{
-            label: 'Kepuasan Siswa',
-            data: [86, 88, 86, 89],
+            label: 'Jumlah Jam Kerja',
+            data: [88, 88, 86, 89],
             borderColor: [
-                '#3A3042'
+                '#004F2D'
                
             ],
             fill:false,
             borderWidth: 2
-        },
-        {
-            label: 'Kehadiran Harian',
-            data: [90, 90, 88, 95],
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
+});
+
+var chartTrackMengajar = document.getElementById('chartTrackMengajar').getContext('2d');
+var chartTrackMengajar_graph = new Chart(chartTrackMengajar, {
+    type: 'line',
+    data: {
+        labels: ['2018 / 2019 - Ganjil', '2018 / 2019 - Genap', '2019 / 2020 - Ganjil', '2019 / 2020 - Genap'],
+        datasets: [{
+            label: 'Jumlah Jam Mengajar',
+            data: [88, 88, 86, 89],
             borderColor: [
-                'rgba(255, 99, 132, 1)'
+                '#1B4079'
                
             ],
             fill:false,
             borderWidth: 2
-        },
-        {
-            label: 'Kehadiran Mengajar',
-            data: [86, 90, 92, 85],
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
+});
+
+var chartTrackKepuasan = document.getElementById('chartTrackKepuasan').getContext('2d');
+var chartTrackKepuasan_graph = new Chart(chartTrackKepuasan, {
+    type: 'line',
+    data: {
+        labels: ['2018 / 2019 - Ganjil', '2018 / 2019 - Genap', '2019 / 2020 - Ganjil', '2019 / 2020 - Genap'],
+        datasets: [{
+            label: 'Nilai Survei',
+            data: [88, 88, 86, 89],
             borderColor: [
-                '#20A39E'
+                '#EA9010'
                
             ],
             fill:false,

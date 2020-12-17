@@ -1,7 +1,52 @@
+<?php
+
+$totalselisih = array();
+
+foreach($jadwal as $slsh)
+{
+    $totalselisih[]= $slsh['selisih'];
+}
+
+
+function explode_time($time) { //explode time and convert into seconds
+    $time = explode(':', $time);
+    $time = $time[0] * 3600 + $time[1] * 60;
+    return $time;
+}
+
+function second_to_hhmm($time) { //convert seconds to hh:mm
+    $hour = floor($time / 3600);
+    $minute = strval(floor(($time % 3600) / 60));
+    if ($minute == 0) {
+        $minute = "00";
+    } else {
+        $minute = $minute;
+    }
+    $time = $hour . "," . $minute;
+    return $time;
+}
+
+$time = 0;
+foreach ($totalselisih as $time_val) {
+$time +=explode_time($time_val); // this fucntion will convert all hh:mm to seconds
+}
+
+// echo second_to_hhmm($time);
+
+?>
+
+
+
+
+
+
 <div class="card">
     <div class="card-body">
     <?php foreach($guru as $guru):?>
-        <legend>Nama Guru : <b><?= $guru['nama_guru']?></b></legend>
+        <legend>
+            <p>Nama Guru : <b><?= $guru['nama_guru']?></b> </p>
+            <p>Total Jam Mengajar : <b><?=second_to_hhmm($time)?> jam</b>  </p>
+        </legend>
         <form action="<?= base_url('admin/addJadwal')?>" method="post">
         <input type="hidden" value="<?= $guru['id_guru']?>" name="guru">
     <?php endforeach;?>
@@ -100,6 +145,9 @@
 		</table>
     </div>
 </div>
+
+
+
 
 
 <script type="text/javascript">

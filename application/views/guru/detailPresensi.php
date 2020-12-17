@@ -1,24 +1,55 @@
 <a href="<?=base_url('admin/daftarPresensi')?>" class="btn btn-sm btn-secondary"><i class="mr-2 fa fa-arrow-circle-left"></i> Kembali</a>
-<!-- <a href="<?=base_url('admin/rekapKehadiran')?>/<?=$id?>" class="btn btn-primary float-right btn-sm">Lihat Data Kehadiran <i class="ml-2 fa fa-arrow-circle-right"></i> </a> -->
-<!-- <h5><b>Filter Data Presensi</b></h5> -->
 
-<div class="mt-3">
+<!-- <?=json_encode($dataGuru);?> -->
+
+<div class="card card-body border-info mt-3">
+<h4><b><i class="	fa fa-user mr-2"></i>Detail Guru</b></h4>
 <?php foreach($dataGuru as $dt):?>
-<h6> <i class="	fa fa-user mr-2"></i><b><?=$dt['nama_guru']?></b> ( <?=$dt['nip']?> ) : Rekapitulasi Presensi  </h6>
+<ul>
+    <li>
+        <div class="row">
+            <div class="col-md-2">NIP</div>
+            <div class="col">: <?=$dt['nip']?></div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col-md-2">Nama Guru</div>
+            <div class="col">: <?=$dt['nama_guru']?></div>
+        </div>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col-md-2">Status Guru</div>
+            <?php
+                if($dt['status_guru']=='1'){
+                    $stat = 'PNS';
+                }
+                if($dt['status_guru']=='2'){
+                    $stat = 'Guru Tidak Tetap';
+                }
+                if($dt['status_guru']=='3'){
+                    $stat = 'Guru Tetap Yayasan';
+                }
+            ?>
+            <div class="col-md-2">: <b><?= $stat ?></b></div>
+        </div>
+    </li>
+</ul>
 <?php endforeach?>
+
+<h6>Informasi Umum</h6>
+<ul>
+    <li>Guru dengan status <b>Guru Tidak Tetap ( GTT )</b> tidak wajib hadir setiap hari</li>
+</ul>
 </div>
+
+<legend class="text-center"><h4>- Rekapitulasi Presensi dan Survei -</h4></legend>
+
 <div class="card card-body border-warning mt-2">
     <form action="" id="filterRentang" method="get">
         <div class="form-group my-auto">
             <label for=""><b>Filter Tahun Akademik</b></label>
-            <!-- <div class="form-check form-check-switchery">
-                <label class="form-check-label">
-                    <input type="checkbox" name="rentang" id="useRentang" class="form-check-input-switchery" data-fouc 
-                    <?php if(isset($_GET['rentang'])&&$_GET['rentang']=='on'){echo 'checked';};?>
-                    >
-                    Rentang Tahun
-                </label>
-            </div> -->
             <div class="row">
                 <div class="col-md-2">
                     <select name="dari" id="" class="form-control">
@@ -66,193 +97,344 @@
     <h6> <i class="	fa fa-clock-o mr-2"></i>Rekam jejak nilai dalam 2 tahun terakhir </h6>
 <?php } ;?>
 
+<?php if(count($presensi_harian)>0){ ?>
+
+
+<?php
+
+$ph = array();
+$countph = count($presensi_harian);
+$jam_masuk = array();
+$jam_pulang = array();
+
+foreach($presensi_harian as $prh){
+    $ph[]= $prh['selisih'];
+    $jam_masuk[] = $prh['jam_masuk'];
+    $jam_pulang[] = $prh['jam_pulang'];
+}
+
+// rata rata jam kerja
+function explode_time($time) { //explode time and convert into seconds
+    $time = explode(':', $time);
+    $time = $time[0] * 3600 + $time[1] * 60;
+    return $time;
+}
+
+function second_to_hhmm($time) { //convert seconds to hh:mm
+    $hour = floor($time / 3600);
+    $minute = strval(floor(($time % 3600) / 60));
+    if ($minute == 0) {
+        $minute = "00";
+    } else {
+        $minute = $minute;
+    }
+    $time = $hour . "," . $minute;
+    return $time;
+}
+
+$time = 0;
+foreach ($ph as $time_val) {
+$time +=explode_time($time_val); // this fucntion will convert all hh:mm to seconds
+}
+// end of rata rata jam kerja
+
+// jam masuk
+$menitMasuk = 0;
+foreach ($jam_masuk as $jm) {
+    list($hours, $minutes) = explode(':', $jm);
+    $menitMasuk += $hours * 60 + $minutes;
+}
+$average_menit_masuk = $menitMasuk  / count($jam_masuk);
+$av_jam_masuk = floor($average_menit_masuk / 60);
+$average_menit_masuk = $average_menit_masuk % 60;
+// end of jam masuk
+
+$menitPulang = 0;
+foreach ($jam_pulang as $jm) {
+    list($jam, $menit) = explode(':', $jm);
+    $menitPulang += $jam * 60 + $menit;
+}
+$average_menit_pulang = $menitPulang  / count($jam_pulang);
+$av_jam_pulang = floor($average_menit_pulang / 60);
+$average_menit_pulang = $average_menit_pulang % 60;
+// end of jam masuk
+
+?>
+<?php } ?>
+
+
+<?php
+
+    $arrPM= array();
+    
+    foreach($presensi_mengajar as $pres)
+    {
+        $arrPM[]= $pres['selisih'];
+    }
+
+    function explode_times($waktu) { //explode time and convert into seconds
+        $waktu = explode(':', $waktu);
+        $waktu = $waktu[0] * 3600 + $waktu[1] * 60;
+        return $waktu;
+    }
+    
+    function second_to_hhmms($waktu) { //convert seconds to hh:mm
+        $jam = floor($waktu / 3600);
+        $menit = strval(floor(($waktu % 3600) / 60));
+        if ($menit == 0) {
+            $menit = "00";
+        } else {
+            $menit = $menit;
+        }
+        $waktu = $jam . "," . $menit;
+        return $waktu;
+    }
+    
+    $waktu = 0;
+    foreach ($arrPM as $slsh) {
+    $waktu +=explode_times($slsh); // this fucntion will convert all hh:mm to seconds
+    }
+
+    foreach($getCountSemesterAndMinggu as $SnM)
+    {
+        $jml_semester = $SnM['jml_semester'];
+        $jml_minggu = $SnM['jml_minggu'];
+    }
+
+    $jml_jam_mingguan = second_to_hhmms($waktu/$jml_semester/$jml_minggu);
+
+?>
+
+<?php
+    $jml_terlambat = 0;
+    $jml_lebih = 0;
+    foreach($presensi_harian as $prsh)
+    {
+        if($prsh['jam_masuk']>='07:15:00'){
+            $jml_terlambat++;
+        }
+        if($prsh['jam_pulang']>='16:00:00'){
+            $jml_lebih++;
+        }
+    }
+
+    $jml_ijin = 0 ;
+    foreach($getDefaultIjin as $dfIjin)
+    {
+        if($dfIjin['id_guru']==$id){
+            $jml_ijin++;
+        }
+    }
+
+?>
+
+<?php if(count($presensi_harian)>0){?>
 <div class="row mt-3">
     <div class="col">
         <div class="card card-body border-success">
             <h5 class="text-center">Jumlah Kehadiran</h5>
-            <h3 class="text-center"><b>56 </b> hari</h3>
-            <a href="" class="btn btn-sm btn-info btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+            <h3 class="text-center"><b><?= count($presensi_harian);?> </b> hari</h3>
+            <a href="<?= base_url('admin/unduhPresensiId')?>/<?=$id?>" class="btn btn-sm btn-success btn-block">Unduh Presensi Guru <i class="fa fa-download ml-2"></i></a>
         </div>
     </div>
     <div class="col">
         <div class="card card-body border-success">
             <h5 class="text-center">Keterlambatan</h5>
-            <h3 class="text-center"><b>1 </b> x</h3>
-            <a href="" class="btn btn-sm btn-info btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+            <h3 class="text-center"><b><?= $jml_terlambat?> </b> x</h3>
+            <button type="button" class="btn btn-sm btn-info btn-block" data-toggle="modal" data-target="#modalTerlambat">
+                Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i>
+            </button>
         </div>
     </div>
     <div class="col">
         <div class="card card-body border-success">
             <h5 class="text-center">Kelebihan Jam</h5>
-            <h3 class="text-center"><b>0 </b> x</h3>
-            <a href="" class="btn btn-sm btn-info btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+            <h3 class="text-center"><b><?= $jml_lebih?> </b> x</h3>
+            <button type="button" class="btn btn-sm btn-info btn-block" data-toggle="modal" data-target="#modalLebih">
+                Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i>
+            </button>
         </div>
     </div>
     <div class="col">
         <div class="card card-body border-danger">
             <h5 class="text-center">Tidak Hadir</h5>
-            <h3 class="text-center"><b>8 </b> x</h3>
-            <a href="" class="btn btn-sm btn-danger btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+            <h3 class="text-center"><b> <?= $jml_ijin ?> </b> x</h3>
+            <button type="button" class="btn btn-sm btn-info btn-block" data-toggle="modal" data-target="#modalTidak">
+                Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i>
+            </button>
         </div>
     </div>
     <div class="col">
         <div class="card card-body border-success">
             <h5 class="text-center">Nilai Survei</h5>
-            <h3 class="text-center"><b>8 </b> x</h3>
-            <a href="" class="btn btn-sm btn-success btn-block">Lihat Detail <i class="fa fa-arrow-circle-right ml-2"></i></a>
+            <?php if(count($getDefaultNilaiSurvei)>0){?>
+            <?php 
+                $arrMax = array();
+                $arrPerolehan = array();
+                foreach($getDefaultNilaiSurvei as $dfNilai)
+                {
+                    if($dfNilai['id_guru']==$id){
+                        $arrMax[] += $dfNilai['nilai_max'];
+                        $arrPerolehan[] += $dfNilai['nilai_diperoleh'];
+                    }
+                }
+                
+                $nilai_max= array_sum($arrMax);
+                $nilai_diperoleh= array_sum($arrPerolehan);
+
+                $persentaseNilai = ($nilai_diperoleh/$nilai_max)*100;
+            
+            ?>
+                <h3 class="text-center"><b><?=number_format($persentaseNilai,2)?></b></h3>
+            <?php }else{?>
+                <h3 class="text-center"><b>0 </b></h3>
+            <?php }?> 
+
+            <a href="<?= base_url('admin/unduhNilaiSurvei')?>" class="btn btn-sm btn-success btn-block">Unduh Nilai Survei <i class="fa fa-download ml-2"></i></a>
         </div>
     </div>
-    
 </div>
+
+<?php } ?>
+
 
 <div class="row">
     <div class="col md-12">
         <div class="card card-body border-primary">
-
-<?php if(count($jamhadir)>0){?>
-<?php
-    $times = array();
-    
-    foreach($jamhadir as $rt)
-    {
-        $inputTime = $rt['rata_rata_jam_hadir_guru'];
-        $dates = strtotime($inputTime);
-        $times[] = date('h:i',$dates);
-    };
-
-    $total_minutes = 0;
-    foreach ($times as $time) {
-        list($hours, $minutes) = explode(':', $time);
-        $total_minutes += $hours * 60 + $minutes;
-    }
-
-    $average_minutes = $total_minutes / count($times);
-    $average_hours = floor($average_minutes / 60);
-    $average_minutes = $average_minutes % 60;
-
-    $jamHadirs = str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . " AM \n";
-    
-    //echo "Average time is " . str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . "\n";
-   
-?>
-<?php
-    $kerja = array();
-    
-    foreach($jamkerja as $kr)
-    {
-        $inputTimes = $kr['average_time'];
-        $conKerja = strtotime($inputTimes);
-        $kerja[] = date('h:i',$conKerja);
-    };
-
-    $tot_minutes = 0;
-    foreach ($kerja as $wktu) {
-        list($hourz, $minutez) = explode(':', $wktu);
-        $tot_minutes += $hourz * 60 + $minutez;
-    }
-
-    $av_mins = $tot_minutes / count($kerja);
-    $jamKerja = round($av_mins / 60, 2) . " jam\n"
-    //$av_hours = floor($av_mins / 60);
-    //$av_mins = $av_mins % 60;
-
-    
-    //echo "Average time is " . str_pad($average_hours, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_minutes, 2, 0, STR_PAD_LEFT) . "\n";
-   
-?>
-
             <h5><b>Kehadiran Harian  </b>
                 <span class="float-right">
-                    <!-- <a type="button"data-toggle="modal" data-target="#modalHarian">
-                        <i class="fa fa-info-circle"></i> Unduh data
-                    </a> -->
-                    <a href="" class="btn btn-success btn-sm">Unduh data presensi harian</a>
+                    <?php if(count($presensi_harian)>0){?>
+                    <a href="<?=base_url('admin/unduhPresensiId')?>/<?= $id ?>" class="btn btn-success btn-sm">Unduh data presensi harian</a>
+                    <?php } ?>
                 </span>
             </h5>
+            <?php if(count($presensi_harian)>0){?>
             <div class="row">
                 <div class="col">
                     <label for=""> Rata-rata jam masuk guru</label>
-                    <h2 class=""><b> <?= $jamHadirs?></b></h2>
-                   
+                    <h2 class=""><b> <?= str_pad($av_jam_masuk, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_menit_masuk, 2, 0, STR_PAD_LEFT)?> </b></h2>
+                </div>
+                <div class="col border-left">
+                    <label for=""> Rata-rata jam pulang guru</label>
+                    <h2 class=""><b><?= str_pad($av_jam_pulang, 2, 0, STR_PAD_LEFT) . ":" . str_pad($average_menit_pulang, 2, 0, STR_PAD_LEFT)?> </b></h2>
                 </div>
                 <div class="col border-left">
                     <label for="">Rata-rata jam kerja</label>
-                    <h2 class=""><b><?= $jamKerja?></b></h2>
+                    <h2 class=""><b><?= second_to_hhmm($time/$countph);?></b> jam</h2>
                 </div>
             </div>
+            <?php } else {?>
+                <div class="row">
+                    <div class="col">
+                       <div class="text-center">- Belum ada presensi harian - </div> 
+                    </div>
+                </div>
+            <?php } ?>
         </div>
     </div>
-<?php }else{?>
-    <div class="card card-body border-danger">
-    Presensi belum memenuhi standar perhitungan
-    </div>
-<?php } ?>
+
 
     <div class="col-md-12">
         <div class="card card-body border-primary">
             <h6><b>Resume Mengajar</b>
                 <span class="float-right">
-                    <!-- <a type="button"data-toggle="modal" data-target="#modalMengajar">
-                        <i class="fa fa-info-circle"></i>
-                    </a> -->
                     <a href="" class="btn btn-success btn-sm">Unduh data presensi mengajar</a>
                 </span>
             </h6>
             <div class="row">
                 <div class="col">
                     <label for="">Beban mengajar</label>
-                    <h2 class=""><b>3 Mata pelajaran</b></h2>
+                    <?php foreach($jadwal as $jds):?>
+                    <h2 class=""><b><?=$jds['jml_mapel']?> Mata pelajaran | <?=$jds['beban_mengajar']?> sesi</b></h2>
+                    <?php endforeach?>
                 </div>
                 <div class="col border-left">
-                    <label for="">Rata-rata durasi mengajar</label>
-                    <h2 class=""><b>2 jam</b></h2>
+                    <label for="">Rata-rata total jam mengajar per minggu</label>
+                    <h2 class=""><b><?= $jml_jam_mingguan ?></b></h2>
                 </div>
             </div>
-            <!-- <h2 class="text-center"><b>70</b></h2> -->
         </div>
     </div>
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
         <div class="card card-body border-primary">
             <h5><b>Rata-Rata Nilai Survei Guru</b>
                 <span class="float-right">
-                    <!-- <a type="button"data-toggle="modal" data-target="#modalSurvei">
-                        <i class="fa fa-info-circle"></i>
-                    </a>
-                    <a type="button"data-toggle="modal" data-target="#modalRekap">
-                        <i class="fa fa-plus-circle"></i>
-                    </a> -->
                     <a href="" class="btn btn-success btn-sm">Unduh laporan nilai survei</a>
                 </span>
             </h5>
             <h2 class="text-center"><b>80</b></h2>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <h6> <i class="	fa fa-clock-o mr-2"></i>Grafik perubahan nilai dalam 2 tahun terakhir </h6>
 
+<ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
+<?php if(count($presensi_harian)>0){ ?>
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Jam Kerja</a>
+  </li>
+  <?php } ?>
+  <li class="nav-item">
+    <a class="nav-link <?php if(count($presensi_harian)==0){echo 'active';};?>" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Jam Mengajar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Kepuasan Siswa</a>
+  </li>
+</ul>
+
 <div class="card card-body ">
-<canvas id="chartTrack"  height="350"></canvas>
+    <div class="tab-content" id="pills-tabContent">
+    <?php if(count($presensi_harian)>0){ ?>
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <canvas id="chartTrackHarian"  height="80"></canvas>
+        </div>
+    <?php }?>
+        <div class="tab-pane fade <?php if(count($presensi_harian)==0){echo 'show active';};?>" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <canvas id="chartTrackMengajar"  height="80"></canvas>
+        </div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <canvas id="chartTrackKepuasan"  height="80"></canvas>
+        </div>
+    </div>
 </div>
 
 
-
-
-
-<!-- modal -->
-
-<div class="modal fade" id="modalHarian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!-- modal keterlambatan -->
+<div class="modal fade bd-example-modal-lg" id="modalTerlambat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Kehadiran Harian</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Keterlambatan Guru</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <h5><b>Umum</b></h5>
-        <p>Nilai kehadiran harian diambil berdasarkan total hari terpenuhi dari target jumlah hari dalam satu semester</p>
+      <table class="table datatable-show-all">
+            <thead>
+                <tr>
+                <th scope="col">No</th>
+                <th scope="col">Tahun Akademik</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Jam Masuk</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i=1; foreach($presensi_harian as $preshar):?>
+                    <?php if($preshar['jam_masuk']>= '07:15:00'){?>
+                        <tr>
+                            <td><?= $i++?></td>
+                            <td><?= $preshar['tahun_akademik']?></td>
+                            <td><?= $preshar['semester']?></td>
+                            <td><?= $preshar['tanggal']?></td>
+                            <td><?= $preshar['jam_masuk']?></td>
+                        </tr>
+                    <?php }?>
+                <?php endforeach?>
+            </tbody>
+            </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -261,19 +443,43 @@
     </div>
   </div>
 </div>
+<!-- end of modal keterlambatan -->
 
-<div class="modal fade" id="modalMengajar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!-- modal kelebihan jam -->
+<div class="modal fade bd-example-modal-lg" id="modalLebih" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Kehadiran Mengajar</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Kelebihan Jam Guru</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <h5><b>Umum</b></h5>
-        <p>Nilai kehadiran harian mengajar diambil berdasarkan total jadwal mengajar terpenuhi dari target jumlah mengajar dalam satu semester</p>
+      <table class="table datatable-show-all">
+            <thead>
+                <tr>
+                <th scope="col">No</th>
+                <th scope="col">Tahun Akademik</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Jam Pulang</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i=1; foreach($presensi_harian as $preshar):?>
+                    <?php if($preshar['jam_pulang']>= '16:00:00'){?>
+                        <tr>
+                            <td><?= $i++?></td>
+                            <td><?= $preshar['tahun_akademik']?></td>
+                            <td><?= $preshar['semester']?></td>
+                            <td><?= $preshar['tanggal']?></td>
+                            <td><?= $preshar['jam_pulang']?></td>
+                        </tr>
+                    <?php }?>
+                <?php endforeach?>
+            </tbody>
+            </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -282,44 +488,41 @@
     </div>
   </div>
 </div>
+<!-- end of modal kelebihan jam -->
 
-<div class="modal fade" id="modalSurvei" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!-- modal tidakHadir -->
+<div class="modal fade bd-example-modal-lg" id="modalTidak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Survei</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Daftar ijin Guru</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <h5><b>Umum</b></h5>
-        <p>Nilai Survei diambil diambil dari proses pelaksanaan survei guru yang diisi oleh siswa. </p>
-        <p><span class="badge badge-danger">Data Belum Lengkap</span></p>
-        <table class="table">
-        <thead>
-            <tr>
-            <th scope="col">No</th>
-            <th scope="col">Tahun Akademik</th>
-            <th scope="col">Semester</th>
-            <th scope="col">Nilai</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>2019</td>
-                <td>Ganjil</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-        </tbody>
-    </table>
+      <table class="table datatable-show-all">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Tgl Ijin</th>
+                    <th scope="col">Keterangan</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php $i=1; foreach($getDefaultIjin as $dfIjin):?>
+            <?php if($dfIjin['id_guru']==$id){?>
+                <tr>
+                    <td><?=$i++?></td>
+                    <td><?= $dfIjin['tanggal_pengajuan']?></td>
+                    <td><?= $dfIjin['perihal_ijin']?></td>
+                    <td><a href="<?=base_url('guru/findFile')?>/<?= $dfIjin['id_ijin']?>" class="ml-2 "><i class="fa fa-download"></i> </a></td>
+                </tr>
+            <?php }?>
+            <?php endforeach?>
+            </tbody>
+            </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -328,93 +531,76 @@
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="modalRekap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informasi Nilai Survei</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <h5><b>Rekap Nilai Survei</b></h5>
-        <p>Cek nilai survei yang masih belum terisi. </p>
-        <div class="form-group my-auto">
-            <!-- <label for="">Filter Tahun Akademik</label> -->
-            <div class="row">
-                <div class="col-md-4">
-                <label for="">Tahun Akademik</label>
-                    <select name="dari" id="" class="form-control">
-                        <option value="2016/2017">2016/2017</option>
-                        <option value="2017/2018">2017/2018</option>
-                        <option value="2018/2019">2018/2019</option>
-                        <option value="2019/2020">2019/2020</option>
-                        <option value="2020/2021">2020/2021</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="form-group my-auto">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="">Semester</label>
-                    <select name="semester" id="" class="form-control" required>
-                        <option value="Ganjil">Ganjil</option>
-                        <option value="Genap">Genap</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="form-group my-auto">
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Nilai</label>
-                        <input name="lb_laporan" type="text" class="form-control" required>
-                </div>
-            </div><br>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Tambah</button>
-        </div>
-         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div>
-  </div>
-</div>
+<!-- end of modal kelebihan jam -->
 
 <script>
-var chartTrack = document.getElementById('chartTrack').getContext('2d');
-var chartTrack_graph = new Chart(chartTrack, {
+<?php if(count($presensi_harian)>0){ ?>
+var chartTrackHarian = document.getElementById('chartTrackHarian').getContext('2d');
+var chartTrackHarian_graph = new Chart(chartTrackHarian, {
     type: 'line',
     data: {
         labels: ['2018 / 2019 - Ganjil', '2018 / 2019 - Genap', '2019 / 2020 - Ganjil', '2019 / 2020 - Genap'],
         datasets: [{
-            label: 'Kepuasan Siswa',
-            data: [86, 88, 86, 89],
+            label: 'Jumlah Jam Kerja',
+            data: [88, 88, 86, 89],
             borderColor: [
-                '#3A3042'
+                '#004F2D'
                
             ],
             fill:false,
             borderWidth: 2
-        },
-        {
-            label: 'Kehadiran Harian',
-            data: [90, 90, 88, 95],
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
+});
+<?php }?>
+var chartTrackMengajar = document.getElementById('chartTrackMengajar').getContext('2d');
+var chartTrackMengajar_graph = new Chart(chartTrackMengajar, {
+    type: 'line',
+    data: {
+        labels: ['2018 / 2019 - Ganjil', '2018 / 2019 - Genap', '2019 / 2020 - Ganjil', '2019 / 2020 - Genap'],
+        datasets: [{
+            label: 'Jumlah Jam Mengajar',
+            data: [88, 88, 86, 89],
             borderColor: [
-                'rgba(255, 99, 132, 1)'
+                '#1B4079'
                
             ],
             fill:false,
             borderWidth: 2
-        },
-        {
-            label: 'Kehadiran Mengajar',
-            data: [86, 90, 92, 85],
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
+});
+
+var chartTrackKepuasan = document.getElementById('chartTrackKepuasan').getContext('2d');
+var chartTrackKepuasan_graph = new Chart(chartTrackKepuasan, {
+    type: 'line',
+    data: {
+        labels: ['2018 / 2019 - Ganjil', '2018 / 2019 - Genap', '2019 / 2020 - Ganjil', '2019 / 2020 - Genap'],
+        datasets: [{
+            label: 'Nilai Survei',
+            data: [88, 88, 86, 89],
             borderColor: [
-                '#20A39E'
+                '#EA9010'
                
             ],
             fill:false,

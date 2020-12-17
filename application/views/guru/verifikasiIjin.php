@@ -32,7 +32,14 @@
             <tr>
                 <td><?= $i++ ?></td>
                 <td><?= $dafIjin['nama_guru']?></td>
-                <td><?= $dafIjin['jenis_ijin']?></td>
+                <td>
+                    <?php
+                        if($dafIjin['jenis_ijin']=='1'){echo 'Sakit';}
+                        if($dafIjin['jenis_ijin']=='2'){echo 'ijin';}
+                        if($dafIjin['jenis_ijin']=='3'){echo 'Tugas';}
+                        if($dafIjin['jenis_ijin']=='00'){echo 'Lain - lain';}
+                    ?>
+                </td>
                 <td>
                     <?php
                          $string =  $dafIjin['perihal_ijin'];
@@ -117,7 +124,14 @@
 
                 <tr>
                     <td><b>Jenis Ijin</b></td>
-                    <td>: <?= $editIjin['jenis_ijin']?></td>
+                    <td>: 
+                        <?php
+                            if($editIjin['jenis_ijin']=='1'){echo 'Sakit';}
+                            if($editIjin['jenis_ijin']=='2'){echo 'ijin';}
+                            if($editIjin['jenis_ijin']=='3'){echo 'Tugas';}
+                            if($editIjin['jenis_ijin']=='00'){echo 'Lain - lain';}
+                        ?>
+                    </td>
                 </tr>
                 
                 <tr>

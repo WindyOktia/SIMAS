@@ -107,9 +107,11 @@
                             <td><?=$i++?></td>
                             <td><?=$surv['nama_guru']?></td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalNilai">
+                                <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalNilai">
                                     Lihat Nilai
-                                </button>
+                                </button> -->
+                                <a href="<?=base_url('admin/detailPresensi')?>/<?=$surv['id_guru']?>" class="btn btn-info">Laporan Nilai</a>
+                            
                             </td>
                         </tr>
                     <?php } ;?>

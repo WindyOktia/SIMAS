@@ -90,13 +90,14 @@ class Guru extends CI_Controller{
         foreach($this->guru_model->getIdGuru() as $getId){
             $id = $getId['id_guru'];
             $data['statusIjin']=$this->guru_model->getStatusIjin();
+            $data['catatan']=$this->guru_model->getCatatanIjin();
             $data['ijin']=$this->guru_model->getIjinID($id);
         }
         $this->load->view('templates/header',$data);
         $this->load->view('guru/ijin',$data);
         $this->load->view('templates/footer');
     }
-
+    
     public function addIjin()
     {
         $insert=$this->guru_model->addIjin();

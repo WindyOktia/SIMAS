@@ -100,7 +100,7 @@ class Survei_model extends CI_Model
 
     public function getSurveiGuru()
     {
-        return $this->db->query('SELECT guru.nama_guru, survei_guru.tahun_akademik, survei_guru.semester from guru, survei_guru, trans_survei_guru where trans_survei_guru.id_survei_guru=survei_guru.id_survei_guru AND guru.id_guru=trans_survei_guru.id_guru')->result_array();
+        return $this->db->query('SELECT guru.id_guru,guru.nama_guru, survei_guru.tahun_akademik, survei_guru.semester from guru, survei_guru, trans_survei_guru where trans_survei_guru.id_survei_guru=survei_guru.id_survei_guru AND guru.id_guru=trans_survei_guru.id_guru')->result_array();
     }
 
     public function getSurveiID()

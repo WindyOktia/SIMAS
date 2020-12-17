@@ -83,15 +83,7 @@
                                         </td>
                                     </tr>
 
-                               <?php } else {?>
-                                   
-                                   <div class="card card-body border-warning">
-                                   <h6><b>Informasi</b></h6>
-                                    <ul>
-                                        <li>Tidak ada data guru untuk di survei</li>
-                                    </ul>
-                                   </div>
-                                <?php } ?>
+                               <?php } ?>
                             
                         <?php endforeach?>
                         </tbody>

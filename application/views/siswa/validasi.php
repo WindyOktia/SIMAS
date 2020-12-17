@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group ">
                             <label for="">Nama Panggilan Ibu</label> <br>
-                            <input type="text" name="ibu" value="<?php if(isset($_GET['ibu'])){echo $_GET['ibu'];};?>" class="form-control col-12" required>
+                            <input type="password" name="ibu" value="<?php if(isset($_GET['ibu'])){echo $_GET['ibu'];};?>" class="form-control col-12" required>
                         </div>
                         <button type="submit" class="btn btn-warning float-right mt-3">Verifikasi Data</button>
                         <a href="<?=base_url('siswa/logoutSurvei')?>" class="btn btn-light float-right mt-3 mr-2">Reset</a>

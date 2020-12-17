@@ -138,10 +138,9 @@
 </div>
 
 
-
 <?php foreach($ijin as $detail):?>
-<div class="modal fade bd-example-modal-lg" id="modalDetail<?=$detail['id_ijin']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade " id="modalDetail<?=$detail['id_ijin']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Detail Pengajuan Ijin</h5>
@@ -154,46 +153,62 @@
            
 
             <div class="form-group col-md-3">
-                <label for="">Jenis Ijin</label>
-                <select name="jenis" id="" class="form-control" required>
-                    <option value="1" <?php if($detail['jenis_ijin']=='1'){echo 'selected';}?>>Sakit</option>
-                    <option value="2" <?php if($detail['jenis_ijin']=='2'){echo 'selected';}?>>Ijin</option>
-                    <option value="3" <?php if($detail['jenis_ijin']=='3'){echo 'selected';}?>>Tugas</option>
-                    <option value="00" <?php if($detail['jenis_ijin']=='00'){echo 'selected';}?>>Lain-lain</option> 
-                </select>
+                <label for="">Jenis Ijin</label><br>
+                <h5 class="ml-3">
+                    <?php
+                        if($detail['jenis_ijin']=='1'){echo 'Sakit';}
+                        if($detail['jenis_ijin']=='2'){echo 'ijin';}
+                        if($detail['jenis_ijin']=='3'){echo 'Tugas';}
+                        if($detail['jenis_ijin']=='00'){echo 'Lain - lain';}
+                    ?>
+                </h5>
             </div>
             <div class="form-group col-md-12" >
-                <label for="">Perihal Ijin</label>
-                <input type="hidden" name="id_guru" value="<?= $this->session->userdata('id_user')?>" class="form-control" required>
-                <input type="text" name="perihal" value="<?=$detail['perihal_ijin']?>" class="form-control" required>
+                <label for="">Perihal Ijin</label><br>
+                <h5 class="ml-3">
+                    <?=$detail['perihal_ijin']?>
+                </h5>
             </div>
             <div class="form-group col-md-12">
-                <label for="">Tanggal ijin</label>
-                <div class="row">
-                    <div class="col-md-3">
-                        <input type="date" value="<?=$detail['tanggal_mulai']?>" name="tgl_mulai" class="form-control" required>
-                    </div>
-                    <span class="my-auto">sampai</span>
-                    <div class="col-md-3">
-                        <input type="date" value="<?=$detail['tanggal_selesai']?>" name="tgl_selesai" class="form-control" required>
-                    </div>
-                </div>
+                <label for="">Tanggal ijin</label><br>
+                <h5 class="ml-3">
+                    <?=$detail['tanggal_mulai']?> - <?=$detail['tanggal_selesai']?>
+                </h5>
             </div>
             <div class="form-group col-md-12">
-                <label for="">Deskripsi Ijin</label>
-                <textarea name="editdeskripsi" id="" cols="30" rows="10" class="form-control" required><?=$detail['deskripsi']?></textarea>
-                <script>
-                    CKEDITOR.replace( 'editdeskripsi',{height:250} );
-                </script>
+                <label for="">Deskripsi Ijin</label><br>
+                <h5 class="ml-3">
+                    <?=$detail['deskripsi']?>
+                </h5>
             </div>
-            <div class="form-group col-md-12">
-                <label for="">Lampiran Dokumen</label>
-                <a href="<?=base_url('guru/findFile')?>/<?= $dafIjin['id_ijin']?>" class="ml-2 btn btn-sm btn-success"><i class="fa fa-download"></i> Unduh File</a>
-            </div>
-            <!-- <div class="form-group">
-                Riwayat Status Ijin
+            <?php
+
+                $catatan = '';
+
+                foreach($statusIjin as $catat)
+                {
+                    if($catat['id_ijin']==$detail['id_ijin'])
+                    {
+                        $catatan = $catat['catatan'];
+                    }else{
+                        $catatan = '-';
+                    }
+                }
                 
-            </div> -->
+            ?>
+            
+            <div class="form-group col-md-12">
+                <label for="">Lampiran Dokumen</label><br>
+                <a href="<?=base_url('guru/findFile')?>/<?= $detail['id_ijin']?>" class="ml-2 btn btn-sm btn-success"><i class="fa fa-download"></i> Unduh File</a>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="">Catatan Kepala Sekolah</label><br>
+                <h5 class="ml-3">
+                    <?=$catatan ?>
+                </h5>
+            </div>
+            
         </form>
       </div>
       <!-- <div class="modal-footer">

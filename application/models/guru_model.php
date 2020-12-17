@@ -100,19 +100,31 @@ class Guru_model extends CI_Model
         return $this->db->get_where('guru',['id_guru'=>$id])->result_array();
     }
 
-    public function getJadwal($id)
+    public function getJadwal($id, $tahun_akademik, $semester)
     {
-        $this->db->select('*');
+        $this->db->select('jadwal_guru.*, kelas.*, mapel.*, timediff(jam_selesai, jam_mulai) as selisih');
         $this->db->from('jadwal_guru');
         $this->db->join('kelas', 'jadwal_guru.id_kelas = kelas.id_kelas');
         $this->db->join('mapel', 'jadwal_guru.id_mapel = mapel.id_mapel');
         $this->db->where('id_guru',$id);
+        $this->db->where('tahun_akademik',$tahun_akademik);
+        $this->db->where('semester',$semester);
         return $this->db->get()->result_array();
     }
 
-    public function getJadwalAll()
+    public function getCountSemesterAndMinggu()
     {
-        return $this->db->query('SELECT DISTINCT(guru.id_guru) as id_guru, count(jadwal_guru.id_jadwal_guru) as beban_mengajar, COUNT(DISTINCT(jadwal_guru.id_mapel)) as jml_mapel FROM `jadwal_guru` RIGHT JOIN guru ON jadwal_guru.id_guru=guru.id_guru GROUP BY id_guru')->result_array();     
+        return $this->db->query('SELECT floor(COUNT(semester)/count(DISTINCT(id_jadwal_guru))) as jml_semester, floor(COUNT(id_jadwal_guru)/count(DISTINCT(id_jadwal_guru))) as jml_minggu FROM `v_presensi_mengajar_raw` WHERE 1')->result_array();
+    }
+
+    public function getJadwalAll($tahun_akademik, $semester)
+    {
+        return $this->db->query('SELECT DISTINCT(guru.id_guru) as id_guru, count(jadwal_guru.id_jadwal_guru) as beban_mengajar, COUNT(DISTINCT(jadwal_guru.id_mapel)) as jml_mapel FROM `jadwal_guru` RIGHT JOIN guru ON jadwal_guru.id_guru=guru.id_guru WHERE jadwal_guru.tahun_akademik="'.$tahun_akademik.'" AND semester="'.$semester.'" GROUP BY id_guru')->result_array();     
+    }
+
+    public function getJadwalByID($id,$tahun_akademik, $semester)
+    {
+        return $this->db->query('SELECT DISTINCT(guru.id_guru) as id_guru, count(jadwal_guru.id_jadwal_guru) as beban_mengajar, COUNT(DISTINCT(jadwal_guru.id_mapel)) as jml_mapel FROM `jadwal_guru` RIGHT JOIN guru ON jadwal_guru.id_guru=guru.id_guru WHERE jadwal_guru.tahun_akademik="'.$tahun_akademik.'" AND jadwal_guru.semester="'.$semester.'" AND jadwal_guru.id_guru="'.$id.'" GROUP BY id_guru')->result_array();     
     }
 
     public function addJadwal($tahun_akademik, $semester,$guru, $hari, $kelas, $mulai, $selesai)
@@ -261,6 +273,11 @@ class Guru_model extends CI_Model
     {
         return $this->db->query('Select status_ijin.id_status_ijin, status_ijin.id_ijin, status_ijin.tanggal, status_ijin.status, status_ijin.catatan From status_ijin GROUP BY status_ijin.id_ijin DESC')->result_array();
     }
+    
+    public function getCatatanIjin()
+    {
+        return $this->db->query('SELECT ijin.id_guru, status_ijin.tanggal, status_ijin.status, status_ijin.catatan FROM ijin LEFT JOIN status_ijin ON ijin.id_ijin=status_ijin.id_ijin GROUP BY status_ijin.id_ijin DESC')->result_array();
+    }
 
     public function getDataMengajar($hari, $id)
     {
@@ -325,9 +342,26 @@ class Guru_model extends CI_Model
         return $this->db->query('SELECT ijin.*, guru.nama_guru, guru.status_guru FROM ijin, status_ijin,guru WHERE ijin.id_ijin=status_ijin.id_ijin AND ijin.id_guru=guru.id_guru AND status_ijin.status=1
         ')->result_array();
     }
+
+    // detail guru
+    public function getPresensiHarianDefault($id)
+    {
+        $this->db->select('presensi_harian.*, timediff(jam_pulang, jam_masuk) as selisih');
+        $this->db->where('id_guru', $id);
+        return $this->db->get('presensi_harian')->result_array();
+        // return $this->db->get_where('presensi_harian',['id_guru'=>$id])->result_array();
+    }
+    
+    public function getPresensiMengajarDefault($id)
+    {
+        $this->db->select('v_presensi_mengajar_raw.*, timediff(jam_selesai, jam_mulai) as selisih');
+        $this->db->where('id_guru', $id);
+        return $this->db->get('v_presensi_mengajar_raw')->result_array();
+        // return $this->db->get_where('v_prese nsi_mengajar_raw',['id_guru'=> $id])->result_array();
+    }
     
 
-
+    // end of detail guru
 
 
     public function getDefaultTotalKehadiran_f1($th2)
